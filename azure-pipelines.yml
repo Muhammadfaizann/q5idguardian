@@ -12,6 +12,7 @@ jobs:
   variables:
     buildConfiguration: 'Release'
     outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+    APP_CENTER_SLUG: 'aflores-skypointcloud.com/Q5udguardian'
 
   steps:
   - task: NuGetToolInstaller@1
