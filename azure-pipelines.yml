@@ -1,0 +1,87 @@
+# Xamarin.Android and Xamarin.iOS
+# Build a Xamarin.Android and Xamarin.iOS app.
+# Add steps that test, sign, and distribute the app, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/ecosystems/xamarin
+
+jobs:
+
+- job: Android
+  pool:
+    vmImage: 'windows-2019'
+
+  variables:
+    buildConfiguration: 'Release'
+    outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+
+  steps:
+  - task: NuGetToolInstaller@1
+
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '**/*.sln'
+
+  - task: XamarinAndroid@1
+    inputs:
+      projectFile: '**/*droid*.csproj'
+      outputDirectory: '$(outputDirectory)'
+      configuration: '$(buildConfiguration)'
+      msbuildVersionOption: '16.0'
+
+  - task: AndroidSigning@3
+    inputs:
+      apksign: false
+      zipalign: false
+      apkFiles: '$(outputDirectory)/*.apk'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(outputDirectory)'
+
+#  - script: sudo npm install -g appcenter-cli
+#
+#  - script: appcenter login --token $(APPCENTER_TOKEN)
+
+  - task: AppCenterDistribute@3
+    inputs:
+      serverEndpoint: 'AppCenter'
+      appSlug: '$(APP_CENTER_SLUG)'
+      appFile: '$(outputDirectory)/com.companyname.q5udguardian.apk' # Relative path from the repo root to the APK or IPA file you want to publish
+      symbolsOption: 'Android'
+      destinationType: 'groups'
+      releaseNotesOption: 'input'
+      releaseNotesInput: 'Here is version 1.0.0' #Here are the release notes for this version.
+
+- job: iOS
+  pool:
+    vmImage: 'macOS-10.15'
+
+  steps:
+  # To manually select a Xamarin SDK version on the Hosted macOS agent, enable this script with the SDK version you want to target
+  # https://go.microsoft.com/fwlink/?linkid=871629
+  - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 5_4_1 
+    displayName: 'Select Xamarin SDK version'
+    enabled: false
+
+  - task: NuGetToolInstaller@1
+
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '**/*.sln'
+
+#  - task: InstallAppleCertificate@2
+#    inputs:
+#      certSecureFile: 'my-secure-file.p12' # replace my-secure-file.p12 with the name of your P12 file.
+#      certPwd: '$(P12password)'
+
+#  - task: InstallAppleProvisioningProfile@1
+#    inputs:
+#      provProfileSecureFile: 'my-provisioning-profile.mobileprovision'
+
+  - task: XamariniOS@2
+    inputs:
+      solutionFile: '**/*.sln'
+      configuration: 'Release'
+      buildForSimulator: true
+      packageApp: false
+      signingIdentity: '$(APPLE_CERTIFICATE_SIGNING_IDENTITY)'
+      signingProvisioningProfileID: '$(APPLE_PROV_PROFILE_UUID)'
