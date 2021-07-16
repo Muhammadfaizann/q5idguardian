@@ -4,11 +4,7 @@
              x:Class="q5id.guardian.Views.LovedOnesPage"
              xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
              Title="{Binding Title}">
-    
-    <ContentPage.BindingContext>
-        <vm:LovedOnesPageViewModel />
-    </ContentPage.BindingContext>
-    
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#f19ca4</Color>

@@ -4,11 +4,7 @@
              x:Class="q5id.guardian.Views.AlertsPage"
              xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
              Title="{Binding Title}">
-    
-    <ContentPage.BindingContext>
-        <vm:AlertsPageViewModel />
-    </ContentPage.BindingContext>
-    
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#f19ca4</Color>

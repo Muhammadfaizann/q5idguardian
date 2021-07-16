@@ -1,4 +1,5 @@
-﻿using q5id.guardian.Views;
+﻿using q5id.guardian.Models;
+using q5id.guardian.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,10 +16,9 @@ namespace q5id.guardian.ViewModels
             LoginCommand = new Command(OnLoginClicked);
         }
 
-        private async void OnLoginClicked(object obj)
+        private void OnLoginClicked(object obj)
         {
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
-            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+            NavigationService.SetRoot(typeof(HomeViewModel), null, NavigationType.ContentPageWithNavigation);
         }
     }
 }

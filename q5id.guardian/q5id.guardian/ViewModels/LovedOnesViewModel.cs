@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace q5id.guardian.ViewModels
 {
-    public class LovedOnesPageViewModel : BaseViewModel
+    public class LovedOnesViewModel : BaseViewModel
     {
-        public LovedOnesPageViewModel()
+        public LovedOnesViewModel()
         {
             Title = "Loved Ones";
             OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://q5id.com/product"));

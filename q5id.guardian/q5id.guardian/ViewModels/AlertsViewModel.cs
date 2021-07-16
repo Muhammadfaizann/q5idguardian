@@ -1,9 +1,9 @@
 ﻿
 namespace q5id.guardian.ViewModels
 {
-    public class AlertsPageViewModel : BaseViewModel
+    public class AlertsViewModel : BaseViewModel
     {
-        public AlertsPageViewModel()
+        public AlertsViewModel()
         {
             Title = "Alerts";
         }
