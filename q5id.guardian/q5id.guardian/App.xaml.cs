@@ -31,6 +31,7 @@ namespace q5id.guardian
             navigationService.Register<AlertsPage>();
             navigationService.Register<LoginPage>();
             navigationService.Register<LovedOnesPage>();
+            navigationService.Register<SettingPage>();
 
             Locator.CurrentMutable.Register(() =>
             {
@@ -53,6 +54,12 @@ namespace q5id.guardian
             Locator.CurrentMutable.Register(() =>
             {
                 var model = new LovedOnesViewModel();
+                return model;
+            });
+
+            Locator.CurrentMutable.Register(() =>
+            {
+                var model = new SettingViewModel();
                 return model;
             });
         }

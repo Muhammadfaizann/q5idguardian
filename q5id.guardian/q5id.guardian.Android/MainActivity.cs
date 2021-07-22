@@ -22,6 +22,7 @@ namespace q5id.guardian.Droid
             CachedImageRenderer.InitImageViewHandler();
 
             LoadApplication(new App());
+            Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 229, 59, 85));
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

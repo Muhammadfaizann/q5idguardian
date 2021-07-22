@@ -24,4 +24,14 @@
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Utils\" />
+    <None Remove="Controls\" />
+    <None Remove="Views\ContentViews\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\" />
+    <Folder Include="Controls\" />
+    <Folder Include="Views\ContentViews\" />
+  </ItemGroup>
 </Project>

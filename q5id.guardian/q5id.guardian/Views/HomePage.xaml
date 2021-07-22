@@ -1,23 +1,75 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="q5id.guardian.Views.HomePage"
              xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
-             Title="{Binding Title}">
+             xmlns:app="clr-namespace:q5id.guardian.Controls"
+             xmlns:ctv="clr-namespace:q5id.guardian.Views.ContentViews"
+             x:Class="q5id.guardian.Views.HomePage"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#f19ca4</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
+     <ContentPage.BindingContext>
+        <vm:HomeViewModel></vm:HomeViewModel>
+    </ContentPage.BindingContext>
 
-    <Grid Margin="12">
+    <Grid RowSpacing="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
-        <StackLayout Grid.Row="1" Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" Text="Alert" Command="{Binding OpenAlertCommand}"/>
-        </StackLayout>
+        <Grid Grid.Row="0" RowSpacing="0">
+            <Image Source="header_bg" HeightRequest="90" Aspect="Fill" />
+            <Grid HeightRequest="50" VerticalOptions="Start">
+                <Label FontSize="Medium" TextColor="White" FontAttributes="Bold" Text="guardian" VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Grid HorizontalOptions="Start" Margin="20,0,0,0">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenSettingCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Image Source="bars_icon" WidthRequest="32" HeightRequest="20" />
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" HorizontalOptions="Fill" VerticalOptions="Fill">
+            <ctv:HomeContentView x:Name="homeView" IsVisible="True"/>
+            <ctv:LovedOnesContentView x:Name="lovedView" IsVisible="False"/>
+            <ctv:AlertContentView x:Name="alertView" IsVisible="False"/>
+        </Grid>
+        <Grid Grid.Row="2" BackgroundColor="White">
+            <Grid Padding="0,8,0,6" VerticalOptions="Fill">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid x:Name="gridHome" Grid.Column="1" RowSpacing="0">
+                    <StackLayout Spacing="5" Orientation="Vertical" VerticalOptions="Center">
+                        <Image x:Name="imageHome" IsEnabled="False" HeightRequest="20" HorizontalOptions="Center" Aspect="AspectFit"/>
+                        <Label Grid.Row="1" x:Name="labelHome" IsEnabled="False" FontSize="Micro" FontAttributes="Bold" Text="HOME" HorizontalOptions="Center"/>
+                    </StackLayout>
+                </Grid>
+                <Grid x:Name="gridLove" Grid.Column="3" RowSpacing="0">
+                    <StackLayout Spacing="5" Orientation="Vertical" VerticalOptions="Center">
+                        <Image x:Name="imageLove" IsEnabled="False" HeightRequest="20" HorizontalOptions="Center" Aspect="AspectFit"/>
+                        <Label Grid.Row="1" x:Name="labelLove" IsEnabled="False" FontSize="Micro" FontAttributes="Bold" Text="LOVED ONES" HorizontalOptions="Center"/>
+                    </StackLayout>
+                </Grid>
+                <Grid x:Name="gridAlert" Grid.Column="5" RowSpacing="0">
+                    <StackLayout Spacing="5" Orientation="Vertical" VerticalOptions="Center">
+                        <Image x:Name="imageAlert" HeightRequest="20" WidthRequest="25" IsEnabled="False" HorizontalOptions="Center" Aspect="AspectFit"/>
+                        <Label Grid.Row="1" x:Name="labelAlert" IsEnabled="False" FontSize="Micro" FontAttributes="Bold" Text="ALERTS" HorizontalOptions="Center"/>
+                    </StackLayout>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
+
 
 </ContentPage>
