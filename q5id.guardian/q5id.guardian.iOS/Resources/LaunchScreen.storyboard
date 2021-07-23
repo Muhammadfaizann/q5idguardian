@@ -1,39 +1,67 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="X5k-f2-b5h">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="gAE-YM-kbH">
+        <scene sceneID="EHf-IW-A2E">
             <objects>
-                <viewController id="X5k-f2-b5h" sceneMemberID="viewController">
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Y8P-hJ-Z43"/>
-                        <viewControllerLayoutGuide type="bottom" id="9ZL-r4-8FZ"/>
+                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
+                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="yd7-JS-zBw">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" image="Icon-60.png" translatesAutoresizingMaskIntoConstraints="NO" id="23">
-                                <rect key="frame" x="270" y="270" width="60" height="60"/>
-                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J9V-3u-hVd" userLabel="RootView">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="CE3-it-djA" userLabel="splashLogo">
+                                        <rect key="frame" x="-87.5" y="50" width="589" height="402"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="402" id="C70-ZQ-Gh3"/>
+                                            <constraint firstAttribute="width" constant="589" id="Q2e-LF-tbW"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottom_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="0eA-zO-hlg" userLabel="bottomBg">
+                                        <rect key="frame" x="0.0" y="617" width="414" height="201"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="201" id="GTP-y7-efa"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.99215686274509807" green="0.25882352941176467" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="0eA-zO-hlg" firstAttribute="centerX" secondItem="J9V-3u-hVd" secondAttribute="centerX" id="Dfh-Jt-sro"/>
+                                    <constraint firstItem="0eA-zO-hlg" firstAttribute="width" secondItem="J9V-3u-hVd" secondAttribute="width" id="IRB-cb-xbu"/>
+                                    <constraint firstItem="CE3-it-djA" firstAttribute="top" secondItem="J9V-3u-hVd" secondAttribute="top" constant="50" id="Xg5-Ji-tcD"/>
+                                    <constraint firstItem="CE3-it-djA" firstAttribute="centerX" secondItem="J9V-3u-hVd" secondAttribute="centerX" id="clb-L2-NAW"/>
+                                    <constraint firstAttribute="bottom" secondItem="0eA-zO-hlg" secondAttribute="bottom" id="wp5-S3-4xl"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.85882352941176465" green="0.16862745098039217" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="23" firstAttribute="centerY" secondItem="yd7-JS-zBw" secondAttribute="centerY" priority="1" id="39"/>
-                            <constraint firstItem="23" firstAttribute="centerX" secondItem="yd7-JS-zBw" secondAttribute="centerX" priority="1" id="41"/>
+                            <constraint firstItem="J9V-3u-hVd" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="Ff6-co-WPv"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="J9V-3u-hVd" secondAttribute="bottom" id="MKA-BV-Fzi"/>
+                            <constraint firstItem="J9V-3u-hVd" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="Wqe-Zj-EtR"/>
+                            <constraint firstItem="J9V-3u-hVd" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="gcH-vg-kbX"/>
                         </constraints>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XAI-xm-WK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="349" y="339"/>
+            <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Icon-60.png" width="180" height="180"/>
+        <image name="bottom_bg.png" width="414" height="201"/>
+        <image name="splash_logo.png" width="589" height="402"/>
     </resources>
 </document>

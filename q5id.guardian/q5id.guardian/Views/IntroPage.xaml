@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="q5id.guardian.Views.IntroPage"
+    xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:IntroViewModel></vm:IntroViewModel>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid RowSpacing="0" BackgroundColor="White">
+            
+            <!---->
+            <Grid HorizontalOptions="Fill" VerticalOptions="Start">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="Fill" Source="intro_bg"/>
+                <StackLayout Orientation="Vertical">
+                    <BoxView x:Name="topBox"  HeightRequest="0"/>
+                    <Image Margin="0,40,0,0" WidthRequest="240" HeightRequest="120" Source="intro_icon"/>
+                    <Frame BackgroundColor="White" CornerRadius="10" Margin="20,40,20,100" HeightRequest="160" BorderColor="Transparent" HasShadow="True">
+                        <StackLayout Orientation="Vertical">
+                            <CarouselView ItemsSource="{Binding IntroPages}"
+                                          Loop="False"
+                                          HeightRequest="140"
+                                      IndicatorView="indicatorView">
+                                <CarouselView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout Orientation="Vertical">
+                                            <Label Text="{Binding Title}"
+                                                   TextColor="#FD425E"
+                                                    FontSize="Medium"
+                                                    HorizontalOptions="Center" />
+                                            <Label Text="{Binding Content}"
+                                                   Margin="0,10,0,0"
+                                                   HorizontalTextAlignment="Center"
+                                                    HorizontalOptions="Center"
+                                                    MaxLines="4"
+                                                   TextColor="#696B7A"
+                                                    LineBreakMode="TailTruncation" />
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
+                            <IndicatorView x:Name="indicatorView"
+                                           IndicatorColor="#838699"
+                                           SelectedIndicatorColor="#e13851"
+                                           HorizontalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+                
+            </Grid>
+            <StackLayout Orientation="Vertical" VerticalOptions="End">
+                    <Frame HorizontalOptions="Center" Padding="0" HasShadow="False" WidthRequest="160" HeightRequest="32" CornerRadius="16">
+                        <Frame.Background>
+                            <LinearGradientBrush StartPoint="0,0"
+                                                 EndPoint="1,0">
+                                <GradientStop Color="#303138"
+                                              Offset="0.0"/>
+                                <GradientStop Color="#696B7A"
+                                              Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Frame.Background>
+                        <Label HorizontalOptions="Center" VerticalOptions="Center" FontSize="Small" FontAttributes="Bold" Text="JOIN THE TEAM" TextColor="White" />
+                    </Frame>
+                    <StackLayout Margin="0,10,0,25" HorizontalOptions="Center" Spacing="2" Orientation="Horizontal">
+                        <Label Text="Already have an account?" TextColor="#696B7A" />
+                        <Label Text="Log in" FontAttributes="Bold" TextColor="#696B7A">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LoginCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                    <BoxView x:Name="bottomBox" HeightRequest="0"/>
+                </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -28,10 +28,22 @@
     <None Remove="Utils\" />
     <None Remove="Controls\" />
     <None Remove="Views\ContentViews\" />
+    <None Remove="Resources\" />
+    <None Remove="Resources\Fonts\" />
+    <None Remove="Resources\Fonts\FontAwesome5Regular.otf" />
+    <None Remove="Resources\Fonts\FontAwesome5Brand.otf" />
+    <None Remove="Resources\Fonts\FontAwesome5Solid.otf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\" />
     <Folder Include="Controls\" />
     <Folder Include="Views\ContentViews\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Resources\Fonts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Fonts\FontAwesome5Regular.otf" />
+    <EmbeddedResource Include="Resources\Fonts\FontAwesome5Brand.otf" />
+    <EmbeddedResource Include="Resources\Fonts\FontAwesome5Solid.otf" />
   </ItemGroup>
 </Project>

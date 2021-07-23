@@ -1,5 +1,6 @@
 ﻿using q5id.guardian.Utils;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
 
 namespace q5id.guardian.Views
@@ -11,7 +12,7 @@ namespace q5id.guardian.Views
         {
             InitializeComponent();
             SelectTab(0);
-            Application.Current.MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.Black);
+            Xamarin.Forms.Application.Current.MainPage.SetValue(Xamarin.Forms.NavigationPage.BarBackgroundColorProperty, Color.Black);
             gridHome.GestureRecognizers.Add(new TapGestureRecognizer
             {
                 Command = new Command(() =>
@@ -37,16 +38,35 @@ namespace q5id.guardian.Views
             });
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            UpdateSafeArea();
+        }
+
+        private void UpdateSafeArea()
+        {
+            var safeAreaInset = On<Xamarin.Forms.PlatformConfiguration.iOS>().SafeAreaInsets();
+            if (safeAreaInset.Top > 0)
+            {
+                topBox.HeightRequest = safeAreaInset.Top;
+            }
+            if (safeAreaInset.Bottom > 0)
+            {
+                bottomBox.HeightRequest = safeAreaInset.Bottom;
+            }
+        }
+
         public void SelectTab(int index)
         {
             homeView.IsVisible = index == 0;
             lovedView.IsVisible = index == 1;
             alertView.IsVisible = index == 2;
 
-            imageHome.Source = index == 0 ? ImageSource.FromFile("home_icon_active") : ImageSource.FromFile("home_icon_normal");
-            imageLove.Source = index == 1 ? ImageSource.FromFile("heart_icon_active") : ImageSource.FromFile("heart_icon_normal");
-            imageAlert.Source = index == 2 ? ImageSource.FromFile("alert_icon_active") : ImageSource.FromFile("alert_icon_normal");
-
+            imageSourceHome.Color = index == 0 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
+            imageSourceLove.Color = index == 1 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
+            imageSourceAlert.Color = index == 2 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
+            
             labelHome.TextColor = index == 0 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
             labelLove.TextColor = index == 1 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
             labelAlert.TextColor = index == 2 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;

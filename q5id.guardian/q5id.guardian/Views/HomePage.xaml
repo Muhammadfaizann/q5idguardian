@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
-             xmlns:app="clr-namespace:q5id.guardian.Controls"
+             xmlns:utils="clr-namespace:q5id.guardian.Utils"
              xmlns:ctv="clr-namespace:q5id.guardian.Views.ContentViews"
              x:Class="q5id.guardian.Views.HomePage"
              NavigationPage.HasNavigationBar="False">
@@ -17,11 +17,14 @@
 
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="90"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="70"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" RowSpacing="0">
+        <BoxView x:Name="topBox" BackgroundColor="#e13851" Grid.Row="0" HeightRequest="0"/>
+        <Grid Grid.Row="1" RowSpacing="0" Background="#E8EAF2">
             <Image Source="header_bg" HeightRequest="90" Aspect="Fill" />
             <Grid HeightRequest="50" VerticalOptions="Start">
                 <Label FontSize="Medium" TextColor="White" FontAttributes="Bold" Text="guardian" VerticalOptions="Center" HorizontalOptions="Center"/>
@@ -29,16 +32,23 @@
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OpenSettingCommand}" />
                     </Grid.GestureRecognizers>
-                    <Image Source="bars_icon" WidthRequest="32" HeightRequest="20" />
+                    <Image IsEnabled="False" HorizontalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FontAwesome5Solid"
+                                    Color="White"
+                                    Size="Large"
+                                    Glyph="{x:Static utils:FontAwesomeIcons.Bars}"/>
+                        </Image.Source>
+                    </Image>
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="1" HorizontalOptions="Fill" VerticalOptions="Fill">
+        <Grid Grid.Row="2" HorizontalOptions="Fill" VerticalOptions="Fill" Background="#E8EAF2">
             <ctv:HomeContentView x:Name="homeView" IsVisible="True"/>
             <ctv:LovedOnesContentView x:Name="lovedView" IsVisible="False"/>
             <ctv:AlertContentView x:Name="alertView" IsVisible="False"/>
         </Grid>
-        <Grid Grid.Row="2" BackgroundColor="White">
+        <Grid Grid.Row="3" BackgroundColor="White">
             <Grid Padding="0,8,0,6" VerticalOptions="Fill">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -51,24 +61,47 @@
                 </Grid.ColumnDefinitions>
                 <Grid x:Name="gridHome" Grid.Column="1" RowSpacing="0">
                     <StackLayout Spacing="5" Orientation="Vertical" VerticalOptions="Center">
-                        <Image x:Name="imageHome" IsEnabled="False" HeightRequest="20" HorizontalOptions="Center" Aspect="AspectFit"/>
+                        <Image IsEnabled="False" HorizontalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource x:Name="imageSourceHome" FontFamily="FontAwesome5Solid"
+                                     Color="Black"
+                                     Size="Large"
+                                     Glyph="{x:Static utils:FontAwesomeIcons.Home}"/>
+                            </Image.Source>
+                        </Image>
                         <Label Grid.Row="1" x:Name="labelHome" IsEnabled="False" FontSize="Micro" FontAttributes="Bold" Text="HOME" HorizontalOptions="Center"/>
                     </StackLayout>
                 </Grid>
                 <Grid x:Name="gridLove" Grid.Column="3" RowSpacing="0">
                     <StackLayout Spacing="5" Orientation="Vertical" VerticalOptions="Center">
-                        <Image x:Name="imageLove" IsEnabled="False" HeightRequest="20" HorizontalOptions="Center" Aspect="AspectFit"/>
+                        <Image IsEnabled="False" HorizontalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource x:Name="imageSourceLove"
+                                                 FontFamily="FontAwesome5Solid"
+                                     Color="Black"
+                                     Size="Large"
+                                     Glyph="{x:Static utils:FontAwesomeIcons.Heart}"/>
+                            </Image.Source>
+                        </Image>
                         <Label Grid.Row="1" x:Name="labelLove" IsEnabled="False" FontSize="Micro" FontAttributes="Bold" Text="LOVED ONES" HorizontalOptions="Center"/>
                     </StackLayout>
                 </Grid>
                 <Grid x:Name="gridAlert" Grid.Column="5" RowSpacing="0">
                     <StackLayout Spacing="5" Orientation="Vertical" VerticalOptions="Center">
-                        <Image x:Name="imageAlert" HeightRequest="20" WidthRequest="25" IsEnabled="False" HorizontalOptions="Center" Aspect="AspectFit"/>
+                        <Image IsEnabled="False" HorizontalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource x:Name="imageSourceAlert" FontFamily="FontAwesome5Solid"
+                                     Color="Black"
+                                     Size="Large"
+                                     Glyph="{x:Static utils:FontAwesomeIcons.Bullhorn}"/>
+                            </Image.Source>
+                        </Image>
                         <Label Grid.Row="1" x:Name="labelAlert" IsEnabled="False" FontSize="Micro" FontAttributes="Bold" Text="ALERTS" HorizontalOptions="Center"/>
                     </StackLayout>
                 </Grid>
             </Grid>
         </Grid>
+        <BoxView x:Name="bottomBox" BackgroundColor="White" Grid.Row="4" HeightRequest="0"/>
     </Grid>
 
 

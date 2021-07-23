@@ -21,7 +21,7 @@ namespace q5id.guardian
             RegisterPages();
 
             var navigationService = Locator.Current.GetService<INavigationService>();
-            navigationService.SetRoot(typeof(LoginViewModel), null, NavigationType.ContentPageWithNavigation);
+            navigationService.SetRoot(typeof(IntroViewModel), null, NavigationType.ContentPageWithNavigation);
         }
 
         private void RegisterPages()
@@ -32,6 +32,7 @@ namespace q5id.guardian
             navigationService.Register<LoginPage>();
             navigationService.Register<LovedOnesPage>();
             navigationService.Register<SettingPage>();
+            navigationService.Register<IntroPage>();
 
             Locator.CurrentMutable.Register(() =>
             {
@@ -60,6 +61,12 @@ namespace q5id.guardian
             Locator.CurrentMutable.Register(() =>
             {
                 var model = new SettingViewModel();
+                return model;
+            });
+
+            Locator.CurrentMutable.Register(() =>
+            {
+                var model = new IntroViewModel();
                 return model;
             });
         }

@@ -122,14 +122,11 @@
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
-    <BundleResource Include="Resources\heart_icon_active.png" />
-    <BundleResource Include="Resources\heart_icon_normal.png" />
-    <BundleResource Include="Resources\home_icon_active.png" />
-    <BundleResource Include="Resources\home_icon_normal.png" />
-    <BundleResource Include="Resources\alert_icon_active.png" />
-    <BundleResource Include="Resources\alert_icon_normal.png" />
-    <BundleResource Include="Resources\bars_icon.png" />
     <BundleResource Include="Resources\header_bg.png" />
+    <BundleResource Include="Resources\bottom_bg.png" />
+    <BundleResource Include="Resources\splash_logo.png" />
+    <BundleResource Include="Resources\intro_icon.png" />
+    <BundleResource Include="Resources\intro_bg.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
