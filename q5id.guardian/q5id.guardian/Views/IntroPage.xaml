@@ -12,15 +12,22 @@
         <Grid RowSpacing="0" BackgroundColor="White">
             
             <!---->
-            <Grid HorizontalOptions="Fill" VerticalOptions="Start">
+            <Grid RowSpacing="0" HorizontalOptions="Fill" VerticalOptions="Start">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="80"/>
                 </Grid.RowDefinitions>
-                <Image HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="Fill" Source="intro_bg"/>
-                <StackLayout Orientation="Vertical">
+                <Ellipse
+                    Grid.Row="1"
+                    Fill="#E8EAF2"
+                    Margin="-20,-60,-20,0"
+                    HeightRequest="40"/>
+                <StackLayout
+                    Grid.Row="0"
+                    Background="#E8EAF2" Orientation="Vertical">
                     <BoxView x:Name="topBox"  HeightRequest="0"/>
                     <Image Margin="0,40,0,0" WidthRequest="240" HeightRequest="120" Source="intro_icon"/>
-                    <Frame BackgroundColor="White" CornerRadius="10" Margin="20,40,20,100" HeightRequest="160" BorderColor="Transparent" HasShadow="True">
+                    <Frame BackgroundColor="White" CornerRadius="10" Margin="20,40,20,20" HeightRequest="160" BorderColor="Transparent" HasShadow="True">
                         <StackLayout Orientation="Vertical">
                             <CarouselView ItemsSource="{Binding IntroPages}"
                                           Loop="False"

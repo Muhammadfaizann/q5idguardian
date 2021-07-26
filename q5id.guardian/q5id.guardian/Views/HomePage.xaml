@@ -23,10 +23,13 @@
             <RowDefinition Height="70"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <BoxView x:Name="topBox" BackgroundColor="#e13851" Grid.Row="0" HeightRequest="0"/>
+        <BoxView x:Name="topBox" BackgroundColor="#DB2B45" Grid.Row="0" HeightRequest="0"/>
         <Grid Grid.Row="1" RowSpacing="0" Background="#E8EAF2">
-            <Image Source="header_bg" HeightRequest="90" Aspect="Fill" />
-            <Grid HeightRequest="50" VerticalOptions="Start">
+            <Ellipse Fill="#DB2B45"
+                     Margin="-20,-20,-20,0"
+                 HeightRequest="80"
+                 HorizontalOptions="Fill" />
+            <Grid HeightRequest="50" VerticalOptions="Start" Background="#DB2B45">
                 <Label FontSize="Medium" TextColor="White" FontAttributes="Bold" Text="guardian" VerticalOptions="Center" HorizontalOptions="Center"/>
                 <Grid HorizontalOptions="Start" Margin="20,0,0,0">
                     <Grid.GestureRecognizers>
@@ -42,6 +45,7 @@
                     </Image>
                 </Grid>
             </Grid>
+            
         </Grid>
         <Grid Grid.Row="2" HorizontalOptions="Fill" VerticalOptions="Fill" Background="#E8EAF2">
             <ctv:HomeContentView x:Name="homeView" IsVisible="True"/>

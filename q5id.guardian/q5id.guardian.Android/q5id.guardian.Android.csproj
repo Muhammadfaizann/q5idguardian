@@ -108,11 +108,11 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\intro_icon.png">
+    <AndroidResource Include="Resources\drawable\intro_bg.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\intro_bg.png">
+    <AndroidResource Include="Resources\drawable\intro_icon.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

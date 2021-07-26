@@ -125,8 +125,8 @@
     <BundleResource Include="Resources\header_bg.png" />
     <BundleResource Include="Resources\bottom_bg.png" />
     <BundleResource Include="Resources\splash_logo.png" />
-    <BundleResource Include="Resources\intro_icon.png" />
     <BundleResource Include="Resources\intro_bg.png" />
+    <BundleResource Include="Resources\intro_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
