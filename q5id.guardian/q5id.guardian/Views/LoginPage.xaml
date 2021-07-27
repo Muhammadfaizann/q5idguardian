@@ -4,12 +4,22 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:app="clr-namespace:q5id.guardian.Controls"
              x:Class="q5id.guardian.Views.LoginPage"
              NavigationPage.HasNavigationBar="False"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
+            
+            <app:AppFrame
+                HorizontalOptions="Center"
+                Padding="0"
+                Style="{StaticResource frmButton}"
+                WidthRequest="200"
+                HeightRequest="40"
+                CornerRadius="20">
+                <Label HorizontalOptions="Center" VerticalOptions="Center" Text="LOGIN" Style="{StaticResource lbButton}" TextColor="White" />
+            </app:AppFrame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

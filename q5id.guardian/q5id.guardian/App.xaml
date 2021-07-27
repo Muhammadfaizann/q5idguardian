@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:app="clr-namespace:q5id.guardian.Controls"
              x:Class="q5id.guardian.App">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
@@ -8,24 +9,71 @@
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="Primary">#e3304b</Color>
-            <Style TargetType="Button">
-                <Setter Property="TextColor" Value="White"></Setter>
-                <Setter Property="VisualStateManager.VisualStateGroups">
-                    <VisualStateGroupList>
-                        <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Normal">
-                                <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-                                </VisualState.Setters>
-                            </VisualState>
-                            <VisualState x:Name="Disabled">
-                                <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="#332196F3" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </Setter>
+            <Style x:Key="lbHeaderLg" TargetType="Label">
+                <Setter Property="FontSize" Value="22" />
+                <Setter Property="FontFamily" Value="PoppinsLight" />
+            </Style>
+            <Style x:Key="lbHeaderMd" TargetType="Label">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontFamily" Value="PoppinsLight" />
+            </Style>
+            <Style x:Key="lbHeaderSm" TargetType="Label">
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="PoppinsLight" />
+            </Style>
+            <Style x:Key="lbSubheadLg" TargetType="Label">
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="FontFamily" Value="PoppinsBold" />
+            </Style>
+            <Style x:Key="lbSubheadMd" TargetType="Label">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontFamily" Value="PoppinsBold" />
+            </Style>
+            <Style x:Key="lbSubheadSm" TargetType="Label">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontFamily" Value="PoppinsBold" />
+            </Style>
+            <Style x:Key="lbBodyNormalLg" TargetType="Label">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+            </Style>
+             <Style x:Key="lbBodyNormalMd" TargetType="Label">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+            </Style>
+             <Style x:Key="lbBodyNormalSm" TargetType="Label">
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+            </Style>
+            <Style x:Key="lbBodyBoldLg" TargetType="Label">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="PoppinsBold" />
+            </Style>
+             <Style x:Key="lbBodyBoldMd" TargetType="Label">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontFamily" Value="PoppinsBold" />
+            </Style>
+             <Style x:Key="lbBodyBoldSm" TargetType="Label">
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="FontFamily" Value="PoppinsBold" />
+            </Style>
+            <Style x:Key="lbButton" TargetType="Label">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontFamily" Value="PoppinsBold" />
+            </Style>
+            <Color x:Key="redQ5">#DB2B45</Color>
+            <Color x:Key="redVibrant">#FD1437</Color>
+            <Color x:Key="redNue">#FD425E</Color>
+            <Color x:Key="dimCharcoal">#303138</Color>
+            <Color x:Key="normalCharcoal">#696B7A</Color>
+            <Color x:Key="lightCharcoal">#838699</Color>
+            <Color x:Key="paleGray">#E8EAF2</Color>
+            <Color x:Key="blue">#3DA0FF</Color>
+            <Style x:Key="frmButton" TargetType="app:AppFrame">
+                <Setter Property="NormalBackgroundColorStart" Value="{StaticResource dimCharcoal}"/>
+                <Setter Property="NormalBackgroundColorEnd" Value="{StaticResource normalCharcoal}"/>
+                <Setter Property="PressedBackgroundColor" Value="{StaticResource dimCharcoal}" />
+                <Setter Property="DeactiveBackgroundColor" Value="{StaticResource lightCharcoal}" />
             </Style>
         </ResourceDictionary>        
     </Application.Resources>
