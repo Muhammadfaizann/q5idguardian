@@ -42,9 +42,21 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        public Command BackCommand { get; }
+
+        public BaseViewModel()
+        {
+            BackCommand = new Command(OnBack);
+        }
+
         public virtual void Initialize(object parameter)
         {
 
+        }
+
+        private async void OnBack(object obj)
+        {
+            await NavigationService.PopAsync();
         }
 
         //protected bool SetProperty<T>(ref T backingStore, T value,

@@ -3,19 +3,38 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
+    xmlns:effect="clr-namespace:q5id.guardian.Effects"
+    xmlns:utils="clr-namespace:q5id.guardian.Utils"
     NavigationPage.HasNavigationBar="False"
     x:Class="q5id.guardian.Views.SettingPage">
     <ContentPage.Content>
         <Grid RowSpacing="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" RowSpacing="0" BackgroundColor="#FD425E">
-            <Label FontSize="Medium" TextColor="White" FontAttributes="Bold" Text="Settings" VerticalOptions="Center" HorizontalOptions="Center"/>
+        <Grid Grid.Row="0" VerticalOptions="Start" RowSpacing="0" BackgroundColor="#e53b55">
+            <Grid.Effects>
+                <effect:SafeAreaEffect IsPaddingTop="True" IsPaddingBottom="False"/>
+            </Grid.Effects>
+            <Grid VerticalOptions="Start" HeightRequest="50" BackgroundColor="#FD425E">
+                <Label FontSize="Medium" TextColor="White" FontAttributes="Bold" Text="Settings" VerticalOptions="Center" HorizontalOptions="Center"/>
+            </Grid>
+            <Grid HorizontalOptions="Start" Margin="20,0,0,0">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackCommand}" />
+                </Grid.GestureRecognizers>
+                <Image IsEnabled="False" HorizontalOptions="Center">
+                    <Image.Source>
+                        <FontImageSource FontFamily="FontAwesome5Solid"
+                                Color="White"
+                                Size="Large"
+                                Glyph="{x:Static utils:FontAwesomeIcons.ArrowLeft}"/>
+                    </Image.Source>
+                </Image>
+            </Grid>
         </Grid>
         <Grid Grid.Row="1" HorizontalOptions="Fill" VerticalOptions="Fill">
-           
         </Grid>
     </Grid>
     </ContentPage.Content>

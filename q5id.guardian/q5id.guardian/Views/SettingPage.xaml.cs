@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
 
 namespace q5id.guardian.Views
@@ -12,6 +13,12 @@ namespace q5id.guardian.Views
         public SettingPage()
         {
             InitializeComponent();
+        }
+
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
         }
     }
 }

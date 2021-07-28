@@ -35,6 +35,7 @@
     <None Remove="Resources\Fonts\FontAwesome5Solid.otf" />
     <None Remove="Resources\Fonts\PoppinsBold.ttf" />
     <None Remove="Resources\Fonts\PoppinsRegular.ttf" />
+    <None Remove="Effects\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\" />
@@ -42,6 +43,7 @@
     <Folder Include="Views\ContentViews\" />
     <Folder Include="Resources\" />
     <Folder Include="Resources\Fonts\" />
+    <Folder Include="Effects\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Fonts\FontAwesome5Regular.otf" />

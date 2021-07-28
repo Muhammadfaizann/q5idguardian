@@ -15,6 +15,7 @@
                 HorizontalOptions="Center"
                 Padding="0"
                 Style="{StaticResource frmButton}"
+                Command="{Binding LoginCommand}"
                 WidthRequest="200"
                 HeightRequest="40"
                 CornerRadius="20">

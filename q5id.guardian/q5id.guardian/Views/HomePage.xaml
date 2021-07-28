@@ -4,6 +4,7 @@
              xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
              xmlns:utils="clr-namespace:q5id.guardian.Utils"
              xmlns:ctv="clr-namespace:q5id.guardian.Views.ContentViews"
+             xmlns:control="clr-namespace:q5id.guardian.Controls"
              x:Class="q5id.guardian.Views.HomePage"
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
@@ -18,18 +19,15 @@
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="90"/>
+            <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <BoxView x:Name="topBox" BackgroundColor="#DB2B45" Grid.Row="0" HeightRequest="0"/>
+        <BoxView x:Name="topBox" BackgroundColor="#e53b55" Grid.Row="0" HeightRequest="0"/>
         <Grid Grid.Row="1" RowSpacing="0" Background="#E8EAF2">
-            <Ellipse Fill="#DB2B45"
-                     Margin="-20,-20,-20,0"
-                 HeightRequest="80"
-                 HorizontalOptions="Fill" />
-            <Grid HeightRequest="50" VerticalOptions="Start" Background="#DB2B45">
+            <control:AppBoxView HeightRequest="80" BottomHeight="30" BackgroundColor="#FD425E"/>
+            <Grid HeightRequest="50" VerticalOptions="Start">
                 <Label FontSize="Medium" TextColor="White" FontAttributes="Bold" Text="guardian" VerticalOptions="Center" HorizontalOptions="Center"/>
                 <Grid HorizontalOptions="Start" Margin="20,0,0,0">
                     <Grid.GestureRecognizers>

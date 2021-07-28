@@ -12,7 +12,6 @@ namespace q5id.guardian.Views
         {
             InitializeComponent();
             SelectTab(0);
-            Xamarin.Forms.Application.Current.MainPage.SetValue(Xamarin.Forms.NavigationPage.BarBackgroundColorProperty, Color.Black);
             gridHome.GestureRecognizers.Add(new TapGestureRecognizer
             {
                 Command = new Command(() =>

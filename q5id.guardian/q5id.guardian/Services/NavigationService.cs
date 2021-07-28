@@ -93,6 +93,28 @@ namespace q5id.guardian.Services
             }
         }
 
+        public async Task PopAsync()
+        {
+            try
+            {
+                //Navigation to previous page
+                if (Application.Current.MainPage is NavigationPage navigationPage)
+                {
+                    await navigationPage.PopAsync();
+                }
+
+                //Set detail for Flyout Page
+                else if (Application.Current.MainPage is FlyoutPage flyoutPage && flyoutPage.Detail is NavigationPage navigationPageDetail)
+                {
+                    await navigationPageDetail.PopAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         //This method is used for Navigation between Master/Detail inside Mainmenu Page.
         //This page need to have different behaviour in Phone/UWP
         //because in UWP it will use FlyoutPage but in phone, we don't use flyoutPage
@@ -194,5 +216,7 @@ namespace q5id.guardian.Services
 
             throw new Exception($"ViewModel not found for page: {viewModelType.FullName}");
         }
+
+        
     }
 }

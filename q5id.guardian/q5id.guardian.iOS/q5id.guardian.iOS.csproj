@@ -69,6 +69,8 @@
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\AppFrameRenderer.cs" />
+    <Compile Include="Effects\PlatformSafeAreaEffect.cs" />
+    <Compile Include="Renderers\AppBoxViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -156,5 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Renderers\" />
+    <Folder Include="Effects\" />
   </ItemGroup>
 </Project>

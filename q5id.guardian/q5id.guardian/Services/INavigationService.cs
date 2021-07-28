@@ -14,6 +14,8 @@ namespace q5id.guardian.Services
 
         Task NavigateToAsync(Type viewModelType, object parameter = null);
 
+        Task PopAsync();
+
         Task MasterDetailNavigateToAsync(Type viewModelType, object parameter = null);
 
         Task RemoveLastFromBackStackAsync();
