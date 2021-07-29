@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:effect="clr-namespace:q5id.guardian.Effects"
+    xmlns:utils="clr-namespace:q5id.guardian.Utils"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    NavigationPage.HasNavigationBar="False"
+    x:Class="q5id.guardian.Views.AuthenFacePage">
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" VerticalOptions="Start" RowSpacing="0" BackgroundColor="#e53b55">
+                <Grid.Effects>
+                    <effect:SafeAreaEffect IsPaddingTop="True" IsPaddingBottom="False"/>
+                </Grid.Effects>
+                <Grid VerticalOptions="Start" HeightRequest="50" BackgroundColor="#FD425E">
+                    <Label FontSize="Medium" TextColor="White" FontAttributes="Bold" Text="Authenticate Identity" VerticalOptions="Center" HorizontalOptions="Center"/>
+                </Grid>
+                <Grid HorizontalOptions="Start" Margin="20,0,0,0">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Image IsEnabled="False" HorizontalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource FontFamily="FontAwesome5Solid"
+                                    Color="White"
+                                    Size="Large"
+                                    Glyph="{x:Static utils:FontAwesomeIcons.ArrowLeft}"/>
+                        </Image.Source>
+                    </Image>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1" HorizontalOptions="Fill" VerticalOptions="Fill">
+                 <control:CameraPreview
+                     x:Name="cameraPreview"
+                     Camera="Front"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill" />
+                <Grid HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,20">
+                    <control:AppFrame NormalBackgroundColorStart="{StaticResource redNue}"
+                                      NormalBackgroundColorEnd="{StaticResource redVibrant}"
+                                      PressedBackgroundColor="{StaticResource redQ5}"
+                                      HorizontalOptions="Center"
+                                      VerticalOptions="Center"
+                                      WidthRequest="50"
+                                      HeightRequest="50"
+                                      Padding="0"
+                                      HasShadow="False"
+                                      Clicked="OnSwitchCamera_Tapped"
+                                      CornerRadius="25">
+                        <Image IsEnabled="False" HorizontalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource FontFamily="FontAwesome5Solid"
+                                        Color="White"
+                                        Size="Medium"
+                                        Glyph="{x:Static utils:FontAwesomeIcons.Sync}"/>
+                            </Image.Source>
+                        </Image>
+                    </control:AppFrame>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

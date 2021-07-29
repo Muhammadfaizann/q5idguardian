@@ -33,6 +33,7 @@ namespace q5id.guardian
             navigationService.Register<LovedOnesPage>();
             navigationService.Register<SettingPage>();
             navigationService.Register<IntroPage>();
+            navigationService.Register<AuthenFacePage>();
 
             Locator.CurrentMutable.Register(() =>
             {
@@ -67,6 +68,12 @@ namespace q5id.guardian
             Locator.CurrentMutable.Register(() =>
             {
                 var model = new IntroViewModel();
+                return model;
+            });
+
+            Locator.CurrentMutable.Register(() =>
+            {
+                var model = new AuthenFaceViewModel();
                 return model;
             });
         }

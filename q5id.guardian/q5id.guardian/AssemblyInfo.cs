@@ -8,3 +8,4 @@ using Xamarin.Forms.Xaml;
 [assembly: ExportFont("PoppinsBold.ttf", Alias = "PoppinsBold")]
 [assembly: ExportFont("PoppinsRegular.ttf", Alias = "PoppinsRegular")]
 [assembly: ExportFont("PoppinsLight.ttf", Alias = "PoppinsLight")]
+[assembly: ExportFont("PoppinsItalic.ttf", Alias = "PoppinsItalic")]

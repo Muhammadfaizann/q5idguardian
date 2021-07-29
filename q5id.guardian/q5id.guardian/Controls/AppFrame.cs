@@ -60,6 +60,8 @@ namespace q5id.guardian.Controls
             }
         }
 
+        
+
         private Brush GetDeactiveBackground()
         {
             return new SolidColorBrush(this.DeactiveBackgroundColor);
@@ -78,6 +80,8 @@ namespace q5id.guardian.Controls
             return new SolidColorBrush(this.PressedBackgroundColor);
         }
 
+        public event EventHandler Clicked;
+
         public AppFrame()
         {
         }
@@ -85,6 +89,7 @@ namespace q5id.guardian.Controls
         public void SendClickedCommand()
         {
             Command?.Execute(null);
+            Clicked?.Invoke(this, null);
         }
     }
 }

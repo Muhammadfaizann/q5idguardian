@@ -70,6 +70,12 @@
     <Compile Include="SplashActivity.cs" />
     <Compile Include="Renderers\AppFrameRenderer.cs" />
     <Compile Include="Renderers\AppBoxViewRenderer.cs" />
+    <Compile Include="Renderers\AppEntryRenderer.cs" />
+    <Compile Include="Renderers\CameraPreviewRenderer.cs" />
+    <Compile Include="Controls\CameraFragment.cs" />
+    <Compile Include="Controls\AutoFitTextureView.cs" />
+    <Compile Include="Controls\CameraStateListener.cs" />
+    <Compile Include="Controls\CameraCaptureStateListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -118,6 +124,10 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\CameraFragment.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\q5id.guardian\q5id.guardian.csproj">
@@ -129,6 +139,7 @@
     <Folder Include="Services\" />
     <Folder Include="Renderers\" />
     <Folder Include="Resources\layout\" />
+    <Folder Include="Controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

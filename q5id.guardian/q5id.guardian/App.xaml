@@ -61,6 +61,10 @@
                 <Setter Property="FontSize" Value="12" />
                 <Setter Property="FontFamily" Value="PoppinsBold" />
             </Style>
+            <Style x:Key="etBodyNormalLg" TargetType="Entry">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+            </Style>
             <Color x:Key="redQ5">#DB2B45</Color>
             <Color x:Key="redVibrant">#FD1437</Color>
             <Color x:Key="redNue">#FD425E</Color>

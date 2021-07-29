@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="q5id.guardian.Controls.ToggleView">
+    <ContentView.Content>
+        <Frame
+            x:Name="frameContent"
+            Padding="0"
+            HasShadow="False"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill">
+            <Image x:Name="imageIcon" HorizontalOptions="Center" VerticalOptions="Center" />
+        </Frame>
+    </ContentView.Content>
+</ContentView>

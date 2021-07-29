@@ -4,23 +4,70 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:utils="clr-namespace:q5id.guardian.Utils"
              xmlns:app="clr-namespace:q5id.guardian.Controls"
              x:Class="q5id.guardian.Views.LoginPage"
              NavigationPage.HasNavigationBar="False"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            
-            <app:AppFrame
-                HorizontalOptions="Center"
-                Padding="0"
-                Style="{StaticResource frmButton}"
-                Command="{Binding LoginCommand}"
-                WidthRequest="200"
-                HeightRequest="40"
-                CornerRadius="20">
-                <Label HorizontalOptions="Center" VerticalOptions="Center" Text="LOGIN" Style="{StaticResource lbButton}" TextColor="White" />
-            </app:AppFrame>
-        </StackLayout>
+        <Grid BackgroundColor="White">
+            <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
+                <app:AppEntry Style="{StaticResource etBodyNormalLg}"
+                              Padding="10"
+                              FontFamily="PoppinsItalic"
+                              FontAttributes="Italic"
+                              HeightRequest="32"
+                              BorderThickness="2"
+                              FocusBorderColor="#696B7A"
+                              NoramlBorderColor="#E8EAF2"
+                              TextColor="{StaticResource normalCharcoal}"
+                              PlaceholderColor="{StaticResource lightCharcoal}"
+                              Placeholder="Username" />
+                <app:AppEntry Style="{StaticResource etBodyNormalLg}"
+                              Padding="10"
+                              FontFamily="PoppinsItalic"
+                              FontAttributes="Italic"
+                              HeightRequest="32"
+                              BorderThickness="2"
+                              IsPassword="True"
+                              FocusBorderColor="#696B7A"
+                              NoramlBorderColor="#E8EAF2"
+                              TextColor="{StaticResource normalCharcoal}"
+                              PlaceholderColor="{StaticResource lightCharcoal}"
+                              Placeholder="Password" />
+                <app:AppFrame
+                    HorizontalOptions="Center"
+                    Padding="0"
+                    Style="{StaticResource frmButton}"
+                    Command="{Binding LoginCommand}"
+                    WidthRequest="200"
+                    HeightRequest="40"
+                    CornerRadius="20">
+                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="LOGIN" Style="{StaticResource lbButton}" TextColor="White" />
+                </app:AppFrame>
+                <app:AppFrame
+                    HorizontalOptions="Center"
+                    Padding="0"
+                    Style="{StaticResource frmButton}"
+                    Command="{Binding SignUpCommand}"
+                    WidthRequest="200"
+                    HeightRequest="40"
+                    CornerRadius="20">
+                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="SIGN UP" Style="{StaticResource lbButton}" TextColor="White" />
+                </app:AppFrame>
+                <!--<app:ToggleView
+                    HorizontalOptions="Center"
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    CornerRadius="25"
+                    NormalBackgroundColor="LightGray"
+                    ActiveBackgroundColor="DeepPink"
+                    NormalIconColor="DimGray"
+                    ActiveIconColor="White"
+                    ImageGlyph="{x:Static utils:FontAwesomeIcons.AddressBook}"
+                    ImageSize="25"/>-->
+            </StackLayout>
+        </Grid>
+        
     </ContentPage.Content>
 </ContentPage>

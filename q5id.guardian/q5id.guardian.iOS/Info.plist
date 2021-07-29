@@ -36,5 +36,9 @@
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow video camera access</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Allow microphone access</string>
 </dict>
 </plist>

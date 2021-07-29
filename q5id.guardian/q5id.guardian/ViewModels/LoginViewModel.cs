@@ -11,14 +11,22 @@ namespace q5id.guardian.ViewModels
     {
         public Command LoginCommand { get; }
 
+        public Command SignUpCommand { get; }
+
         public LoginViewModel()
         {
             LoginCommand = new Command(OnLoginClicked);
+            SignUpCommand = new Command(OnSignUpClicked);
         }
 
         private void OnLoginClicked(object obj)
         {
             NavigationService.SetRoot(typeof(HomeViewModel), null, NavigationType.ContentPageWithNavigation);
+        }
+
+        private void OnSignUpClicked(object obj)
+        {
+            NavigationService.NavigateToAsync(typeof(AuthenFaceViewModel), obj);
         }
     }
 }
