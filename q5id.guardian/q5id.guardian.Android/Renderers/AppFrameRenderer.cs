@@ -43,15 +43,16 @@ namespace q5id.guardian.Droid.Renderers
 
         private void ThisButton_Touch(object sender, TouchEventArgs e)
         {
-            Log.Debug("Mantheon", "ThisButton_Touch: " + e.Event.Action);
             if (e.Event.Action == MotionEventActions.Down)
             {
                 mIsTouching = true;
+                mAppFrame?.OnTouchBegin();
                 mCardView?.Invalidate();
             }
             else if (e.Event.Action == MotionEventActions.Cancel)
             {
                 mIsTouching = false;
+                mAppFrame?.OnTouchEnd();
                 mCardView?.Invalidate();
             }
             else if (e.Event.Action == MotionEventActions.Move)
@@ -64,6 +65,7 @@ namespace q5id.guardian.Droid.Renderers
                 {
                     //Move outside
                     mIsTouching = false;
+                    mAppFrame?.OnTouchEnd();
                     mCardView?.Invalidate();
                 }
             }
@@ -74,8 +76,8 @@ namespace q5id.guardian.Droid.Renderers
                     mAppFrame?.SendClickedCommand();
                 }
                 mIsTouching = false;
+                mAppFrame?.OnTouchEnd();
                 mCardView?.Invalidate();
-                
             }
         }
 
@@ -156,6 +158,26 @@ namespace q5id.guardian.Droid.Renderers
             base.OnElementPropertyChanged(sender, e);
 
             if (e.PropertyName == nameof(AppFrame.IsDisable))
+            {
+                this.mCardView?.Invalidate();
+            }
+            if (e.PropertyName == AppFrame.CornerRadiusProperty.PropertyName)
+            {
+                this.mCardView?.Invalidate();
+            }
+            else if (e.PropertyName == AppFrame.NormalBackgroundColorEndProperty.PropertyName)
+            {
+                this.mCardView?.Invalidate();
+            }
+            else if (e.PropertyName == AppFrame.NormalBackgroundColorEndProperty.PropertyName)
+            {
+                this.mCardView?.Invalidate();
+            }
+            else if (e.PropertyName == AppFrame.PressedBackgroundColorProperty.PropertyName)
+            {
+                this.mCardView?.Invalidate();
+            }
+            else if (e.PropertyName == AppFrame.DeactiveBackgroundColorProperty.PropertyName)
             {
                 this.mCardView?.Invalidate();
             }

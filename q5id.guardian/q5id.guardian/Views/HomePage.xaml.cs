@@ -1,4 +1,5 @@
 ﻿using q5id.guardian.Utils;
+using q5id.guardian.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
@@ -35,6 +36,7 @@ namespace q5id.guardian.Views
                     SelectTab(2);
                 })
             });
+            homeView.BindingContext = new HomeContentViewModel();
         }
 
         protected override void OnAppearing()

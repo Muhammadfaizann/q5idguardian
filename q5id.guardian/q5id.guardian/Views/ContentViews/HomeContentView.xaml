@@ -2,10 +2,125 @@
 <ContentView
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:utils="clr-namespace:q5id.guardian.Utils"
     x:Class="q5id.guardian.Views.ContentViews.HomeContentView">
     <ContentView.Content>
         <Grid>
-            <Label HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Home" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout Orientation="Vertical"
+                         Grid.Row="0"
+                         Spacing="0">
+                <control:AppButton WidthRequest="256"
+                                   HeightRequest="60"
+                                   CornerRadius="12"
+                                   BorderColor="Transparent"
+                                   HorizontalOptions="Center"
+                                   Margin="0,-20,0,0"
+                                   NormalLabelColor="{StaticResource redVibrant}"
+                                   DeactiveLabelColor="{StaticResource paleGray}"
+                                   DeactiveBackgroundColor="White"
+                                   NormalBackgroundEndColor="White"
+                                   NormalBackgroundStartColor="White"
+                                   PressedBackgroundColor="{StaticResource redVibrant}"
+                                   PressedLabelColor="White"
+                                   ButtonTitle="Create Alert"
+                                   ButtonTitleSize="16"
+                                   IsDisable="True"
+                                   HasShadow="True"
+                                   >
+
+                </control:AppButton>
+                <Label LineBreakMode="WordWrap"
+                       Margin="0,10,0,0"
+                       HorizontalOptions="Center"
+                       Style="{StaticResource lbBodyNormalMd}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Creating alerts requires a" />
+                            <Span Text=" subscription." TextColor="{StaticResource redVibrant}">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding TapCommand}" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+            <Grid Grid.Row="1">
+                <Grid x:Name="gridContent">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Margin="40, 30, 90, 0"
+                        Style="{StaticResource lbSubheadLg}"
+                        HorizontalOptions="Fill">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Welcome back, " />
+                                <Span Text="Amy" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+                <Grid x:Name="gridMap"
+                      IsVisible="False"
+                      Padding="30, 20, 30, 60">
+                    <Frame HasShadow="True"
+                           Padding="0"
+                           IsClippedToBounds="True"
+                           BackgroundColor="LightGray"
+                           BorderColor="Transparent"
+                           CornerRadius="20">
+                        <Grid>
+                            <BoxView HeightRequest="100">
+                                <BoxView.Background>
+                                    <LinearGradientBrush StartPoint="0.5,0"
+                                                         EndPoint="0.5,1">
+                                        <GradientStop Color="White"
+                                                      Offset="0.0"/>
+                                        <GradientStop Color="Transparent"
+                                                      Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </BoxView.Background>
+                            </BoxView>
+                            <Label
+                                Margin="30, 20, 60, 0"
+                                Style="{StaticResource lbBodyNormalLg}"
+                                TextColor="{StaticResource redVibrant}"
+                                Text="There are 2 live alerts in your area"
+                                HorizontalOptions="Fill">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="There are" />
+                                        <Span Text=" 2 " />
+                                        <Span Text="live alerts in your area" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                        
+                    </Frame>
+                </Grid>
+                <control:ToggleView WidthRequest="40"
+                                    HeightRequest="40"
+                                    CornerRadius="20"
+                                    Margin="0,30,40,0"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Start"
+                                    NormalBackgroundColor="#1A838699"
+                                    ActiveBackgroundColor="{StaticResource redVibrant}"
+                                    NormalIconColor="{StaticResource redVibrant}"
+                                    ActiveIconColor="White"
+                                    ImageSize="20"
+                                    Changed="ToggleView_Changed"
+                                    ImageGlyph="{x:Static utils:FontAwesomeIcons.MapMarkedAlt}"/>
+            </Grid>
         </Grid>
     </ContentView.Content>
 </ContentView>

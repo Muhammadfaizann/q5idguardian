@@ -76,6 +76,8 @@ namespace q5id.guardian.Controls
 
         private FontImageSource iconImageSource;
 
+        public event EventHandler Changed;
+
         public ToggleView()
         {
             InitializeComponent();
@@ -122,6 +124,7 @@ namespace q5id.guardian.Controls
         private void ContentTapGes_Tapped(object sender, EventArgs e)
         {
             IsActive = !IsActive;
+            Changed?.Invoke(this, e);
             UpdateView();
         }
 
