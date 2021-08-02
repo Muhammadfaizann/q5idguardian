@@ -25,7 +25,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <BoxView x:Name="topBox" BackgroundColor="#e53b55" Grid.Row="0" HeightRequest="0"/>
-        <Grid Grid.Row="1" RowSpacing="0" Background="#E8EAF2">
+        <Grid Grid.Row="1" RowSpacing="0" Background="{StaticResource paleGray}">
             <control:AppBoxView HeightRequest="80" BottomHeight="30" BackgroundColor="#FD425E"/>
             <Grid HeightRequest="50" VerticalOptions="Start">
                 <Label FontSize="Medium" TextColor="White" FontAttributes="Bold" Text="guardian" VerticalOptions="Center" HorizontalOptions="Center"/>
@@ -45,7 +45,7 @@
             </Grid>
             
         </Grid>
-        <Grid Grid.Row="2" HorizontalOptions="Fill" VerticalOptions="Fill" Background="#E8EAF2">
+        <Grid Grid.Row="2" HorizontalOptions="Fill" VerticalOptions="Fill" Background="{StaticResource paleGray}">
             <ctv:HomeContentView x:Name="homeView" IsVisible="True"/>
             <ctv:LovedOnesContentView x:Name="lovedView" IsVisible="False"/>
             <ctv:AlertContentView x:Name="alertView" IsVisible="False"/>

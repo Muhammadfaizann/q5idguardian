@@ -55,32 +55,13 @@ namespace q5id.guardian.Controls
         {
             get { return (Boolean)GetValue(IsDisableProperty); }
             set {
-                Background = value ? GetDeactiveBackground() : GetNormalBackground();
                 SetValue(IsDisableProperty, value);
             }
         }
 
-        
-
-        private Brush GetDeactiveBackground()
-        {
-            return new SolidColorBrush(this.DeactiveBackgroundColor);
-        }
-
-        private Brush GetNormalBackground()
-        {
-            LinearGradientBrush normalBackground = new LinearGradientBrush();
-            normalBackground.GradientStops.Add(new GradientStop(this.NormalBackgroundColorStart, 0.0F));
-            normalBackground.GradientStops.Add(new GradientStop(this.NormalBackgroundColorEnd, 1.0F));
-            return normalBackground;
-        }
-
-        private Brush GetPressedBackground()
-        {
-            return new SolidColorBrush(this.PressedBackgroundColor);
-        }
-
         public event EventHandler Clicked;
+        public event EventHandler TouchBegin;
+        public event EventHandler TouchEnd;
 
         public AppFrame()
         {
@@ -90,6 +71,16 @@ namespace q5id.guardian.Controls
         {
             Command?.Execute(null);
             Clicked?.Invoke(this, null);
+        }
+
+        public void OnTouchBegin()
+        {
+            TouchBegin?.Invoke(this, null);
+        }
+
+        public void OnTouchEnd()
+        {
+            TouchEnd?.Invoke(this, null);
         }
     }
 }

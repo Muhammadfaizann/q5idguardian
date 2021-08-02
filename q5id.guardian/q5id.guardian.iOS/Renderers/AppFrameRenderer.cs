@@ -129,12 +129,42 @@ namespace q5id.guardian.iOS.Renderers
             }
         }
 
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+            if (e.PropertyName == nameof(AppFrame.IsDisable))
+            {
+                UpdateBackground();
+            }
+            if (e.PropertyName == AppFrame.CornerRadiusProperty.PropertyName)
+            {
+                UpdateBackground();
+            }
+            else if (e.PropertyName == AppFrame.NormalBackgroundColorEndProperty.PropertyName)
+            {
+                UpdateBackground();
+            }
+            else if (e.PropertyName == AppFrame.NormalBackgroundColorEndProperty.PropertyName)
+            {
+                UpdateBackground();
+            }
+            else if (e.PropertyName == AppFrame.PressedBackgroundColorProperty.PropertyName)
+            {
+                UpdateBackground();
+            }
+            else if (e.PropertyName == AppFrame.DeactiveBackgroundColorProperty.PropertyName)
+            {
+                UpdateBackground();
+            }
+        }
+
         public override void TouchesBegan(NSSet touches, UIEvent evt)
         {
             if(this.mIsTouching == false)
             {
                 this.mIsTouching = true;
                 LayoutSubviews();
+                mAppFrame?.OnTouchBegin();
             }
             base.TouchesBegan(touches, evt);
         }
@@ -150,6 +180,7 @@ namespace q5id.guardian.iOS.Renderers
                 {
                     this.mIsTouching = false;
                     this.UpdateBackground();
+                    mAppFrame?.OnTouchEnd();
                 }
             }
             base.TouchesMoved(touches, evt);
@@ -161,6 +192,7 @@ namespace q5id.guardian.iOS.Renderers
             {
                 this.mIsTouching = false;
                 this.UpdateBackground();
+                mAppFrame?.OnTouchEnd();
             }
             base.TouchesCancelled(touches, evt);
         }
@@ -171,6 +203,7 @@ namespace q5id.guardian.iOS.Renderers
             {
                 this.mIsTouching = false;
                 this.UpdateBackground();
+                mAppFrame?.OnTouchEnd();
                 this.mAppFrame?.SendClickedCommand();
             }
             base.TouchesEnded(touches, evt);

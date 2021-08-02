@@ -35,26 +35,24 @@
                               TextColor="{StaticResource normalCharcoal}"
                               PlaceholderColor="{StaticResource lightCharcoal}"
                               Placeholder="Password" />
-                <app:AppFrame
+                <app:AppButton
                     HorizontalOptions="Center"
-                    Padding="0"
-                    Style="{StaticResource frmButton}"
                     Command="{Binding LoginCommand}"
                     WidthRequest="200"
                     HeightRequest="40"
-                    CornerRadius="20">
-                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="LOGIN" Style="{StaticResource lbButton}" TextColor="White" />
-                </app:AppFrame>
-                <app:AppFrame
+                    CornerRadius="20"
+                    NormalLabelColor="White"
+                    PressedLabelColor="LightGray"
+                    ButtonTitle="Login as Volunteer"/>
+                <app:AppButton
                     HorizontalOptions="Center"
-                    Padding="0"
-                    Style="{StaticResource frmButton}"
                     Command="{Binding SignUpCommand}"
                     WidthRequest="200"
                     HeightRequest="40"
-                    CornerRadius="20">
-                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="SIGN UP" Style="{StaticResource lbButton}" TextColor="White" />
-                </app:AppFrame>
+                    CornerRadius="20"
+                    NormalLabelColor="White"
+                    PressedLabelColor="LightGray"
+                    ButtonTitle="Login as Subscriber"/>
                 <!--<app:ToggleView
                     HorizontalOptions="Center"
                     WidthRequest="50"
