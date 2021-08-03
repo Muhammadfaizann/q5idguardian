@@ -25,7 +25,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <BoxView x:Name="topBox" BackgroundColor="#e53b55" Grid.Row="0" HeightRequest="0"/>
-        <Grid Grid.Row="1" RowSpacing="0" Background="{StaticResource paleGray}">
+        <Grid Grid.Row="1" RowSpacing="0" BackgroundColor="{StaticResource paleGray}">
             <control:AppBoxView HeightRequest="80" BottomHeight="30" BackgroundColor="#FD425E"/>
             <Grid HeightRequest="50" VerticalOptions="Start">
                 <Label FontSize="Medium" TextColor="White" FontAttributes="Bold" Text="guardian" VerticalOptions="Center" HorizontalOptions="Center"/>

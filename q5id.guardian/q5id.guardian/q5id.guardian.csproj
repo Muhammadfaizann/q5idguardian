@@ -11,6 +11,7 @@
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Xamarin.Forms.GoogleMaps" Version="3.2.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +38,9 @@
     <None Remove="Resources\Fonts\PoppinsRegular.ttf" />
     <None Remove="Effects\" />
     <None Remove="Controls\Camera\" />
+    <None Remove="Views\ItemViews\" />
+    <None Remove="Xamarin.Forms.GoogleMaps" />
+    <None Remove="Xamarin.Forms.Maps" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\" />
@@ -46,6 +50,7 @@
     <Folder Include="Resources\Fonts\" />
     <Folder Include="Effects\" />
     <Folder Include="Controls\Camera\" />
+    <Folder Include="Views\ItemViews\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Fonts\FontAwesome5Regular.otf" />

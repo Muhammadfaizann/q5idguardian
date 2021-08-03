@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:utils="clr-namespace:q5id.guardian.Utils"
+    xmlns:views="http://xamarin.com/schemas/2020/toolkit"
+    x:Class="q5id.guardian.Views.ItemViews.HomeCarouselItemView">
+    <ContentView.Content>
+        <Grid>
+            <views:MediaElement
+                AutoPlay="False"
+                IsEnabled="False"
+                x:Name="mediaElement"
+                BackgroundColor="Black"
+                ShowsPlaybackControls="False"
+                Source="https://sec.ch9.ms/ch9/5d93/a1eab4bf-3288-4faf-81c4-294402a85d93/XamarinShow_mid.mp4"
+                    />
+            <Grid>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="PlayerGestureRecognizer_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Frame
+                    x:Name="frmPlayBtn"
+                    Padding="0"
+                    HasShadow="False"
+                    WidthRequest="48"
+                    HeightRequest="48"
+                    CornerRadius="24"
+                    BackgroundColor="#80FFFFFF"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <Image HorizontalOptions="Center"
+                            Margin="5,0,0,0"
+                           WidthRequest="24"
+                           HeightRequest="24"
+                           VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource FontFamily="{x:Static utils:ThemeConstanst.FontAwesomeSolid}"
+                                             Size="24"
+                                             Color="White"
+                                             Glyph="{x:Static utils:FontAwesomeIcons.Play}"/>
+                        </Image.Source>
+                    </Image>
+                </Frame>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

@@ -4,9 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:control="clr-namespace:q5id.guardian.Controls"
     xmlns:utils="clr-namespace:q5id.guardian.Utils"
+    xmlns:itemViews="clr-namespace:q5id.guardian.Views.ItemViews"
+    xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
     x:Class="q5id.guardian.Views.ContentViews.HomeContentView">
     <ContentView.Content>
-        <Grid>
+        <Grid BackgroundColor="{StaticResource paleGray}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
@@ -59,6 +61,7 @@
                     <Label
                         Margin="40, 30, 90, 0"
                         Style="{StaticResource lbSubheadLg}"
+                        TextColor="{StaticResource normalCharcoal}"
                         HorizontalOptions="Fill">
                         <Label.FormattedText>
                             <FormattedString>
@@ -67,6 +70,84 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
+                    <ScrollView Grid.Row="1" Orientation="Vertical">
+                        <StackLayout Orientation="Vertical" Padding="40,30,40,0">
+                            <Grid VerticalOptions="Start" HorizontalOptions="Fill">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Text="Progress Report"
+                                    Grid.Column="0"
+                                    Style="{StaticResource lbSubheadSm}"
+                                    TextColor="{StaticResource lightCharcoal}"
+                                    HorizontalOptions="Fill">
+                                </Label>
+                                <Label
+                                    Margin="0,4,0,0"
+                                    Text="VIEW ALL"
+                                    Grid.Column="1"
+                                    Style="{StaticResource lbSubheadLg}"
+                                    FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    FontSize="11">
+                                </Label>
+                            </Grid>
+                            <Label
+                                Margin="0,4,0,0"
+                                Text="Good news about child safety and recovery."
+                                Style="{StaticResource lbBodyNormalMd}"
+                                TextColor="{StaticResource lightCharcoal}">
+                            </Label>
+                            <Frame Margin="0,8,0,10" Padding="0" IsClippedToBounds="True" BackgroundColor="Black" CornerRadius="16" BorderColor="Transparent">
+                                <CarouselView ItemsSource="{Binding Pages}"
+                                          PositionChanged="CarouselView_PositionChanged"
+                                          Loop="False"
+                                          HeightRequest="160"
+                                          IndicatorView="indicatorView">
+                                <CarouselView.ItemTemplate>
+                                    <DataTemplate>
+                                        <itemViews:HomeCarouselItemView
+                                            BindingContextChanged="MediaElement_BindingContextChanged" />
+                                    </DataTemplate>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
+                            </Frame>
+                            
+                            <IndicatorView x:Name="indicatorView"
+                                           IndicatorColor="{StaticResource lightCharcoal}"
+                                           SelectedIndicatorColor="{StaticResource redVibrant}"
+                                           HorizontalOptions="Center" />
+                            <Grid Margin="0,20,0,0" VerticalOptions="Start" HorizontalOptions="Fill">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Text="My Emergency Numbers"
+                                    Grid.Column="0"
+                                    Style="{StaticResource lbSubheadSm}"
+                                    TextColor="{StaticResource lightCharcoal}"
+                                    HorizontalOptions="Fill">
+                                </Label>
+                                <Label
+                                    Margin="0,4,0,0"
+                                    Text="EDIT"
+                                    Grid.Column="1"
+                                    Style="{StaticResource lbSubheadLg}"
+                                    FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    FontSize="11">
+                                </Label>
+                            </Grid>
+                            <Label
+                                Margin="0,4,0,20"
+                                Text="In case of emergency, you’ll be ready to help."
+                                Style="{StaticResource lbBodyNormalMd}"
+                                TextColor="{StaticResource lightCharcoal}"/>
+                        </StackLayout>
+                    </ScrollView>
                 </Grid>
                 <Grid x:Name="gridMap"
                       IsVisible="False"
@@ -103,6 +184,10 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
+                            <maps:Map x:Name="map"
+                                      InitialCameraUpdate="-23.68, -46.87, 13, 30, 60"
+                                      HorizontalOptions="Fill"
+                                      VerticalOptions="Fill" />
                         </Grid>
                         
                     </Frame>
