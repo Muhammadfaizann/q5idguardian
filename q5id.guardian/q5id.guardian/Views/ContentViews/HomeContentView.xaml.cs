@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using q5id.guardian.Controls;
 using q5id.guardian.Views.ItemViews;
-using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace q5id.guardian.Views.ContentViews
@@ -52,7 +51,6 @@ namespace q5id.guardian.Views.ContentViews
                 {
                     gridMap.IsVisible = false;
                     gridContent.IsVisible = true;
-
                 }
             }
         }

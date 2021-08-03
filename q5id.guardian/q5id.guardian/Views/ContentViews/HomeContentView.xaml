@@ -184,10 +184,10 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-                            <maps:Map x:Name="map"
+                            <!--<maps:Map x:Name="map"
                                       InitialCameraUpdate="-23.68, -46.87, 13, 30, 60"
                                       HorizontalOptions="Fill"
-                                      VerticalOptions="Fill" />
+                                      VerticalOptions="Fill" />-->
                         </Grid>
                         
                     </Frame>
