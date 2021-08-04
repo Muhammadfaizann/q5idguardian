@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.q5id.guardian">
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29" />
 	<application android:label="Guardian" android:theme="@style/MainTheme">
-		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyANi77wVc7W33Z4UW_9_2dUCobRbQiB16E" />
+		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBfmbh-Rv6aVh4QP7DR41o-_RwPQKZgMDY" />
+		<uses-library android:name="org.apache.http.legacy" android:required="false" />
+		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 	</application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.CAMERA" />

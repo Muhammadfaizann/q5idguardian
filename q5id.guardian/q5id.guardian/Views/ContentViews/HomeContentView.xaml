@@ -5,7 +5,6 @@
     xmlns:control="clr-namespace:q5id.guardian.Controls"
     xmlns:utils="clr-namespace:q5id.guardian.Utils"
     xmlns:itemViews="clr-namespace:q5id.guardian.Views.ItemViews"
-    xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
     x:Class="q5id.guardian.Views.ContentViews.HomeContentView">
     <ContentView.Content>
         <Grid BackgroundColor="{StaticResource paleGray}">
@@ -42,7 +41,7 @@
                        Style="{StaticResource lbBodyNormalMd}">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Creating alerts requires a" />
+                            <Span Text="Creating alerts requires a" TextColor="{StaticResource lightCharcoal}" />
                             <Span Text=" subscription." TextColor="{StaticResource redVibrant}">
                                 <Span.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding TapCommand}" />
@@ -59,7 +58,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Label
-                        Margin="40, 30, 90, 0"
+                        Margin="40, 20, 90, 0"
                         Style="{StaticResource lbSubheadLg}"
                         TextColor="{StaticResource normalCharcoal}"
                         HorizontalOptions="Fill">
@@ -151,7 +150,7 @@
                 </Grid>
                 <Grid x:Name="gridMap"
                       IsVisible="False"
-                      Padding="30, 20, 30, 60">
+                      Padding="30, 10, 30, 60">
                     <Frame HasShadow="True"
                            Padding="0"
                            IsClippedToBounds="True"
@@ -159,7 +158,19 @@
                            BorderColor="Transparent"
                            CornerRadius="20">
                         <Grid>
-                            <BoxView HeightRequest="100">
+                            <Frame Padding="0"
+                                   HasShadow="False"
+                                   CornerRadius="0"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Fill"
+                                   BorderColor="Transparent"
+                                   x:Name="frmContentMap">
+                            </Frame>
+                            <BoxView InputTransparent="True"
+                                     IsEnabled="False"
+                                     HeightRequest="100"
+                                     VerticalOptions="Start"
+                                     HorizontalOptions="Fill">
                                 <BoxView.Background>
                                     <LinearGradientBrush StartPoint="0.5,0"
                                                          EndPoint="0.5,1">
@@ -175,6 +186,7 @@
                                 Style="{StaticResource lbBodyNormalLg}"
                                 TextColor="{StaticResource redVibrant}"
                                 Text="There are 2 live alerts in your area"
+                                VerticalOptions="Start"
                                 HorizontalOptions="Fill">
                                 <Label.FormattedText>
                                     <FormattedString>
@@ -184,27 +196,25 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-                            <!--<maps:Map x:Name="map"
-                                      InitialCameraUpdate="-23.68, -46.87, 13, 30, 60"
-                                      HorizontalOptions="Fill"
-                                      VerticalOptions="Fill" />-->
                         </Grid>
                         
                     </Frame>
                 </Grid>
-                <control:ToggleView WidthRequest="40"
-                                    HeightRequest="40"
-                                    CornerRadius="20"
-                                    Margin="0,30,40,0"
-                                    HorizontalOptions="End"
-                                    VerticalOptions="Start"
-                                    NormalBackgroundColor="#1A838699"
-                                    ActiveBackgroundColor="{StaticResource redVibrant}"
-                                    NormalIconColor="{StaticResource redVibrant}"
-                                    ActiveIconColor="White"
-                                    ImageSize="20"
-                                    Changed="ToggleView_Changed"
-                                    ImageGlyph="{x:Static utils:FontAwesomeIcons.MapMarkedAlt}"/>
+                <control:ToggleView
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    CornerRadius="20"
+                    Margin="0,20,40,0"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    BackgroundColor="Transparent"
+                    NormalBackgroundColor="#1A838699"
+                    ActiveBackgroundColor="{StaticResource redVibrant}"
+                    NormalIconColor="{StaticResource redVibrant}"
+                    ActiveIconColor="White"
+                    ImageSize="20"
+                    Changed="ToggleView_Changed"
+                    ImageGlyph="{x:Static utils:FontAwesomeIcons.MapMarkedAlt}"/>
             </Grid>
         </Grid>
     </ContentView.Content>

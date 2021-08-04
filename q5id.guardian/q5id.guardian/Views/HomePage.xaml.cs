@@ -9,6 +9,8 @@ namespace q5id.guardian.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage : ContentPage
     {
+        private bool isInitPage = false;
+
         public HomePage()
         {
             InitializeComponent();
@@ -47,14 +49,18 @@ namespace q5id.guardian.Views
 
         private void UpdateSafeArea()
         {
-            var safeAreaInset = On<Xamarin.Forms.PlatformConfiguration.iOS>().SafeAreaInsets();
-            if (safeAreaInset.Top > 0)
+            if(isInitPage == false)
             {
-                topBox.HeightRequest = safeAreaInset.Top;
-            }
-            if (safeAreaInset.Bottom > 0)
-            {
-                bottomBox.HeightRequest = safeAreaInset.Bottom;
+                isInitPage = true;
+                var safeAreaInset = On<Xamarin.Forms.PlatformConfiguration.iOS>().SafeAreaInsets();
+                if (safeAreaInset.Top > 0)
+                {
+                    topBox.HeightRequest = safeAreaInset.Top;
+                }
+                if (safeAreaInset.Bottom > 0)
+                {
+                    bottomBox.HeightRequest = safeAreaInset.Bottom;
+                }
             }
         }
 

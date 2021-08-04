@@ -8,7 +8,7 @@ using FFImageLoading.Forms.Platform;
 using System.Collections.Generic;
 using AndroidX.Core.Content;
 using AndroidX.Core.App;
-using Xamarin.Forms.GoogleMaps.Android;
+using Plugin.CurrentActivity;
 
 namespace q5id.guardian.Droid
 {
@@ -24,7 +24,9 @@ namespace q5id.guardian.Droid
 
             CachedImageRenderer.Init(true);
             CachedImageRenderer.InitImageViewHandler();
-            Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
+            Xamarin.FormsMaps.Init(this, savedInstanceState);
+
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
             LoadApplication(new App());
             Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 229, 59, 85));
             RequestPermissions();

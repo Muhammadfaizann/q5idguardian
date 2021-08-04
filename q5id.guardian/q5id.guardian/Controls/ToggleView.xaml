@@ -8,6 +8,7 @@
             x:Name="frameContent"
             Padding="0"
             HasShadow="False"
+            BackgroundColor="Transparent"
             HorizontalOptions="Fill"
             VerticalOptions="Fill">
             <Image x:Name="imageIcon" HorizontalOptions="Center" VerticalOptions="Center" />

@@ -11,7 +11,8 @@
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
-    <PackageReference Include="Xamarin.Forms.GoogleMaps" Version="3.2.0" />
+    <PackageReference Include="Xam.Plugin.Geolocator" Version="4.5.0.6" />
+    <PackageReference Include="Xamarin.Forms.Maps" Version="5.0.0.2012" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +42,7 @@
     <None Remove="Views\ItemViews\" />
     <None Remove="Xamarin.Forms.GoogleMaps" />
     <None Remove="Xamarin.Forms.Maps" />
+    <None Remove="Xam.Plugin.Geolocator" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\" />

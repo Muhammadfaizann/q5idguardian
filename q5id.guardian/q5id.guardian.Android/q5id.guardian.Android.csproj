@@ -62,11 +62,8 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
-    <PackageReference Include="Xamarin.GooglePlayServices.Maps">
-      <Version>117.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Forms.GoogleMaps">
-      <Version>3.2.0</Version>
+    <PackageReference Include="Xamarin.Forms.Maps">
+      <Version>5.0.0.2012</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +79,7 @@
     <Compile Include="Controls\AutoFitTextureView.cs" />
     <Compile Include="Controls\CameraStateListener.cs" />
     <Compile Include="Controls\CameraCaptureStateListener.cs" />
+    <Compile Include="Renderers\AppMapRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

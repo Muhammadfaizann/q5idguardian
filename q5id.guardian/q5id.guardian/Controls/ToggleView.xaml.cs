@@ -87,6 +87,7 @@ namespace q5id.guardian.Controls
         private void UpdateContentView()
         {
             UpdateImage();
+            this.BackgroundColor = Color.Transparent;
             frameContent.BackgroundColor = this.NormalBackgroundColor;
             frameContent.CornerRadius = this.CornerRadius;
             TapGestureRecognizer contentTapGes = new TapGestureRecognizer();
@@ -140,9 +141,12 @@ namespace q5id.guardian.Controls
 
         private void UpdateView()
         {
+            this.BackgroundColor = Color.Transparent;
             var backgroundColor = IsActive ? ActiveBackgroundColor : NormalBackgroundColor;
             var iconColor = IsActive ? ActiveIconColor : NormalIconColor;
+            frameContent.Background = Brush.Transparent;
             frameContent.BackgroundColor = backgroundColor;
+            frameContent.CornerRadius = this.CornerRadius;
             iconImageSource.Color = iconColor;
         }
     }

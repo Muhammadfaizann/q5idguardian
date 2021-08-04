@@ -4,18 +4,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:control="clr-namespace:q5id.guardian.Controls"
     xmlns:utils="clr-namespace:q5id.guardian.Utils"
-    xmlns:views="http://xamarin.com/schemas/2020/toolkit"
     x:Class="q5id.guardian.Views.ItemViews.HomeCarouselItemView">
     <ContentView.Content>
-        <Grid>
-            <views:MediaElement
-                AutoPlay="False"
-                IsEnabled="False"
-                x:Name="mediaElement"
-                BackgroundColor="Black"
-                ShowsPlaybackControls="False"
-                Source="https://sec.ch9.ms/ch9/5d93/a1eab4bf-3288-4faf-81c4-294402a85d93/XamarinShow_mid.mp4"
-                    />
+        <Grid BackgroundColor="Black">
+            <Frame Padding="0"
+                   HasShadow="False"
+                   CornerRadius="0"
+                   BackgroundColor="Transparent"
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Fill"
+                   BorderColor="Transparent"
+                   x:Name="frmContentMedia">
+
+            </Frame>
             <Grid>
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer Tapped="PlayerGestureRecognizer_Tapped"/>

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using FFImageLoading.Forms.Platform;
 using Foundation;
+using Plugin.Geolocator;
 using UIKit;
-using Xamarin.Forms.GoogleMaps.iOS;
 
 namespace q5id.guardian.iOS
 {
@@ -27,7 +27,8 @@ namespace q5id.guardian.iOS
             CachedImageRenderer.Init();
             CachedImageRenderer.InitImageSourceHandler();
             //Xamarin.FormsMaps.Init();
-            Xamarin.FormsGoogleMaps.Init("AIzaSyANi77wVc7W33Z4UW_9_2dUCobRbQiB16E");
+            Xamarin.FormsMaps.Init();
+            //Xamarin.FormsGoogleMaps.Init("AIzaSyANi77wVc7W33Z4UW_9_2dUCobRbQiB16E");
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
