@@ -27,6 +27,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Resources\Images\header.png" />
     <None Remove="Utils\" />
     <None Remove="Controls\" />
     <None Remove="Views\ContentViews\" />
@@ -48,7 +49,6 @@
     <Folder Include="Utils\" />
     <Folder Include="Controls\" />
     <Folder Include="Views\ContentViews\" />
-    <Folder Include="Resources\" />
     <Folder Include="Resources\Fonts\" />
     <Folder Include="Effects\" />
     <Folder Include="Controls\Camera\" />
@@ -60,5 +60,6 @@
     <EmbeddedResource Include="Resources\Fonts\FontAwesome5Solid.otf" />
     <EmbeddedResource Include="Resources\Fonts\PoppinsBold.ttf" />
     <EmbeddedResource Include="Resources\Fonts\PoppinsRegular.ttf" />
+    <EmbeddedResource Include="Resources\Images\header.png" />
   </ItemGroup>
 </Project>
