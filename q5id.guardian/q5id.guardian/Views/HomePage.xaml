@@ -3,6 +3,7 @@
     x:Class="q5id.guardian.Views.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
     xmlns:ctv="clr-namespace:q5id.guardian.Views.ContentViews"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:utils="clr-namespace:q5id.guardian.Utils"
@@ -28,12 +29,10 @@
             Grid.Row="1"
             BackgroundColor="{StaticResource paleGray}"
             RowSpacing="0">
-            <Image
-                x:Name="header"
-                Aspect="Fill"
-                HorizontalOptions="FillAndExpand"
-                Source="header_bg.png"
-                VerticalOptions="FillAndExpand" />
+            <control:AppBoxView
+                BackgroundColor="#FD425E"
+                BottomHeight="45"
+                HeightRequest="120" />
             <Grid HeightRequest="50" VerticalOptions="Start">
                 <Label
                     FontAttributes="Bold"
@@ -67,10 +66,10 @@
             <ctv:HomeContentView
                 x:Name="homeView"
                 BindingContext="{Binding HomeVm}"
-                IsVisible="{Binding IsBusy}" />
+                IsVisible="True" />
 
-            <!--<ctv:LovedOnesContentView x:Name="lovedView" IsVisible="False" />
-            <ctv:AlertContentView x:Name="alertView" IsVisible="False" />-->
+            <ctv:LovedOnesContentView x:Name="lovedView" IsVisible="False" />
+            <ctv:AlertContentView x:Name="alertView" IsVisible="False" />
         </Grid>
         <Grid Grid.Row="3" BackgroundColor="White">
             <Grid Padding="0,8,0,6" VerticalOptions="Fill">
