@@ -14,7 +14,6 @@ namespace q5id.guardian.Views
         public HomePage()
         {
             InitializeComponent();
-            //this.header.Source = ImageSource.FromResource("q5id.guardian.Resources.Images.header.png", typeof(HomePage).GetTypeInfo().Assembly);
         }
     }
 }

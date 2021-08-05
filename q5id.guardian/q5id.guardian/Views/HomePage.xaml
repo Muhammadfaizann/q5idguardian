@@ -3,11 +3,12 @@
     x:Class="q5id.guardian.Views.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:ctv="clr-namespace:q5id.guardian.Views.ContentViews"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:utils="clr-namespace:q5id.guardian.Utils"
     xmlns:views="clr-namespace:q5id.guardian.Views"
     xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:DataType="vm:HomeViewModel"
     x:TypeArguments="vm:HomeViewModel">
     <ContentPage.Resources>
@@ -29,9 +30,9 @@
             RowSpacing="0">
             <Image
                 x:Name="header"
-                Source="header_bg.png"
-                Aspect="AspectFill"
+                Aspect="Fill"
                 HorizontalOptions="FillAndExpand"
+                Source="header_bg.png"
                 VerticalOptions="FillAndExpand" />
             <Grid HeightRequest="50" VerticalOptions="Start">
                 <Label
@@ -63,8 +64,11 @@
             Background="{StaticResource paleGray}"
             HorizontalOptions="Fill"
             VerticalOptions="Fill">
-            <ctv:HomeContentView x:Name="homeView" IsVisible="{Binding IsBusy}" BindingContext="{Binding HomeVm}" />
-          
+            <ctv:HomeContentView
+                x:Name="homeView"
+                BindingContext="{Binding HomeVm}"
+                IsVisible="{Binding IsBusy}" />
+
             <!--<ctv:LovedOnesContentView x:Name="lovedView" IsVisible="False" />
             <ctv:AlertContentView x:Name="alertView" IsVisible="False" />-->
         </Grid>

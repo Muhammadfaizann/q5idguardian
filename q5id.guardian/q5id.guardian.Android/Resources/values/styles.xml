@@ -18,6 +18,5 @@
     <style name="MainTheme.Splash" parent ="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimaryDark">#e53b55</item>
         <item name="android:windowNoTitle">true</item>  
-        <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
 </resources>

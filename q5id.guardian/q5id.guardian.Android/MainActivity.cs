@@ -14,7 +14,6 @@ using MvvmCross.Forms.Platforms.Android.Views;
 namespace q5id.guardian.Droid
 {
     [Activity(Label = "Guardian", Icon = "@mipmap/icon", Theme = "@style/MainTheme.Splash",
-        MainLauncher = true,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : MvxFormsAppCompatActivity<Setup, MainApp, App>
     {
@@ -23,6 +22,7 @@ namespace q5id.guardian.Droid
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+
 
             CachedImageRenderer.Init(true);
             CachedImageRenderer.InitImageViewHandler();

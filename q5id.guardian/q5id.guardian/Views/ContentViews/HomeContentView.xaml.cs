@@ -26,10 +26,10 @@ namespace q5id.guardian.Views.ContentViews
         public HomeContentView()
         {
             InitializeComponent();
-            Task.Run(async () =>
-            {
-                await GetLocalLocation();
-            });
+            //Task.Run(async () =>
+            //{
+            //    await GetLocalLocation();
+            //});
         }
 
         private void ShowMap()

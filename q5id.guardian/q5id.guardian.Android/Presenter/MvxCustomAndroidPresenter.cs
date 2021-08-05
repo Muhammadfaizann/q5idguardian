@@ -6,12 +6,15 @@ using Android.Widget;
 using MvvmCross;
 using MvvmCross.Forms.Platforms.Android.Presenters;
 using MvvmCross.Forms.Presenters;
+using MvvmCross.Platforms.Android.Presenters.Attributes;
+using MvvmCross.ViewModels;
 using q5id.guardian.Presenter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace q5id.guardian.Droid.Presenter

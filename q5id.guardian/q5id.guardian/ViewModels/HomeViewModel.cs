@@ -48,8 +48,8 @@ namespace q5id.guardian.ViewModels
             base.ViewAppeared();
             _ = Task.Run(async () =>
             {
-                IsBusy = false;
-                await Task.Delay(2000);
+               
+                await Task.Delay(1000);
                 await HomeVm.Initialize();
                 IsBusy = true;
             });
