@@ -9,11 +9,14 @@ using System.Collections.Generic;
 using AndroidX.Core.Content;
 using AndroidX.Core.App;
 using Plugin.CurrentActivity;
+using MvvmCross.Forms.Platforms.Android.Views;
 
 namespace q5id.guardian.Droid
 {
-    [Activity(Label = "Guardian", Icon = "@mipmap/icon", Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    [Activity(Label = "Guardian", Icon = "@mipmap/icon", Theme = "@style/MainTheme.Splash",
+        MainLauncher = true,
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    public class MainActivity : MvxFormsAppCompatActivity<Setup, MainApp, App>
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -27,9 +30,15 @@ namespace q5id.guardian.Droid
             Xamarin.FormsMaps.Init(this, savedInstanceState);
 
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
-            LoadApplication(new App());
             Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 229, 59, 85));
-            RequestPermissions();
+            
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+           // RequestPermissions();
         }
 
         private void RequestPermissions()

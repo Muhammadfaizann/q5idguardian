@@ -7,7 +7,7 @@ using Xamarin.Forms.Xaml;
 namespace q5id.guardian.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomePage : ContentPage
+    public partial class HomePage : BasePage<HomeViewModel>
     {
         private bool isInitPage = false;
 
@@ -38,7 +38,7 @@ namespace q5id.guardian.Views
                     SelectTab(2);
                 })
             });
-            homeView.BindingContext = new HomeContentViewModel();
+           // homeView.BindingContext = new HomeContentViewModel();
         }
 
         protected override void OnAppearing()

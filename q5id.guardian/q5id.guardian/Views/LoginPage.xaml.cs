@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace q5id.guardian.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoginPage : ContentPage
+    public partial class LoginPage : BasePage<LoginViewModel>
     {
         public LoginPage()
         {

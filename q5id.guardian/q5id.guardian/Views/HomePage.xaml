@@ -1,110 +1,179 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
-             xmlns:utils="clr-namespace:q5id.guardian.Utils"
-             xmlns:ctv="clr-namespace:q5id.guardian.Views.ContentViews"
-             xmlns:control="clr-namespace:q5id.guardian.Controls"
-             x:Class="q5id.guardian.Views.HomePage"
-             NavigationPage.HasNavigationBar="False">
+<views:BasePage
+    x:Class="q5id.guardian.Views.HomePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:ctv="clr-namespace:q5id.guardian.Views.ContentViews"
+    xmlns:utils="clr-namespace:q5id.guardian.Utils"
+    xmlns:views="clr-namespace:q5id.guardian.Views"
+    xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
+    x:DataType="vm:HomeViewModel"
+    x:TypeArguments="vm:HomeViewModel">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#f19ca4</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
-     <ContentPage.BindingContext>
-        <vm:HomeViewModel></vm:HomeViewModel>
-    </ContentPage.BindingContext>
 
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="70"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="70" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <BoxView x:Name="topBox" BackgroundColor="#e53b55" Grid.Row="0" HeightRequest="0"/>
-        <Grid Grid.Row="1" RowSpacing="0" BackgroundColor="{StaticResource paleGray}">
-            <control:AppBoxView HeightRequest="80" BottomHeight="30" BackgroundColor="#FD425E"/>
+        <BoxView
+            x:Name="topBox"
+            Grid.Row="0"
+            BackgroundColor="#e53b55"
+            HeightRequest="0" />
+        <Grid
+            Grid.Row="1"
+            BackgroundColor="{StaticResource paleGray}"
+            RowSpacing="0">
+            <control:AppBoxView
+                BackgroundColor="#FD425E"
+                BottomHeight="30"
+                HeightRequest="80" />
             <Grid HeightRequest="50" VerticalOptions="Start">
-                <Label FontSize="Medium" TextColor="White" FontAttributes="Bold" Text="guardian" VerticalOptions="Center" HorizontalOptions="Center"/>
-                <Grid HorizontalOptions="Start" Margin="20,0,0,0">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    HorizontalOptions="Center"
+                    Text="guardian"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <Grid Margin="20,0,0,0" HorizontalOptions="Start">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OpenSettingCommand}" />
                     </Grid.GestureRecognizers>
-                    <Image IsEnabled="False" HorizontalOptions="Center">
+                    <Image HorizontalOptions="Center" IsEnabled="False">
                         <Image.Source>
-                            <FontImageSource FontFamily="FontAwesome5Solid"
-                                    Color="White"
-                                    Size="Large"
-                                    Glyph="{x:Static utils:FontAwesomeIcons.Bars}"/>
+                            <FontImageSource
+                                FontFamily="FontAwesome5Solid"
+                                Glyph="{x:Static utils:FontAwesomeIcons.Bars}"
+                                Size="Large"
+                                Color="White" />
                         </Image.Source>
                     </Image>
                 </Grid>
             </Grid>
-            
+
         </Grid>
-        <Grid Grid.Row="2" HorizontalOptions="Fill" VerticalOptions="Fill" Background="{StaticResource paleGray}">
-            <ctv:HomeContentView x:Name="homeView" IsVisible="True"/>
-            <ctv:LovedOnesContentView x:Name="lovedView" IsVisible="False"/>
-            <ctv:AlertContentView x:Name="alertView" IsVisible="False"/>
+        <Grid
+            Grid.Row="2"
+            Background="{StaticResource paleGray}"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill">
+            <ctv:HomeContentView x:Name="homeView" IsVisible="True" />
+            <ctv:LovedOnesContentView x:Name="lovedView" IsVisible="False" />
+            <ctv:AlertContentView x:Name="alertView" IsVisible="False" />
         </Grid>
         <Grid Grid.Row="3" BackgroundColor="White">
             <Grid Padding="0,8,0,6" VerticalOptions="Fill">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="70"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="70"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Grid x:Name="gridHome" Grid.Column="1" RowSpacing="0">
-                    <StackLayout Spacing="5" Orientation="Vertical" VerticalOptions="Center">
-                        <Image IsEnabled="False" HorizontalOptions="Center">
+                <Grid
+                    x:Name="gridHome"
+                    Grid.Column="1"
+                    RowSpacing="0">
+                    <StackLayout
+                        Orientation="Vertical"
+                        Spacing="5"
+                        VerticalOptions="Center">
+                        <Image HorizontalOptions="Center" IsEnabled="False">
                             <Image.Source>
-                                <FontImageSource x:Name="imageSourceHome" FontFamily="FontAwesome5Solid"
-                                     Color="Black"
-                                     Size="Large"
-                                     Glyph="{x:Static utils:FontAwesomeIcons.Home}"/>
+                                <FontImageSource
+                                    x:Name="imageSourceHome"
+                                    FontFamily="FontAwesome5Solid"
+                                    Glyph="{x:Static utils:FontAwesomeIcons.Home}"
+                                    Size="Large"
+                                    Color="Black" />
                             </Image.Source>
                         </Image>
-                        <Label Grid.Row="1" x:Name="labelHome" IsEnabled="False" FontSize="Micro" FontAttributes="Bold" Text="HOME" HorizontalOptions="Center"/>
+                        <Label
+                            x:Name="labelHome"
+                            Grid.Row="1"
+                            FontAttributes="Bold"
+                            FontSize="Micro"
+                            HorizontalOptions="Center"
+                            IsEnabled="False"
+                            Text="HOME" />
                     </StackLayout>
                 </Grid>
-                <Grid x:Name="gridLove" Grid.Column="3" RowSpacing="0">
-                    <StackLayout Spacing="5" Orientation="Vertical" VerticalOptions="Center">
-                        <Image IsEnabled="False" HorizontalOptions="Center">
+                <Grid
+                    x:Name="gridLove"
+                    Grid.Column="3"
+                    RowSpacing="0">
+                    <StackLayout
+                        Orientation="Vertical"
+                        Spacing="5"
+                        VerticalOptions="Center">
+                        <Image HorizontalOptions="Center" IsEnabled="False">
                             <Image.Source>
-                                <FontImageSource x:Name="imageSourceLove"
-                                                 FontFamily="FontAwesome5Solid"
-                                     Color="Black"
-                                     Size="Large"
-                                     Glyph="{x:Static utils:FontAwesomeIcons.Heart}"/>
+                                <FontImageSource
+                                    x:Name="imageSourceLove"
+                                    FontFamily="FontAwesome5Solid"
+                                    Glyph="{x:Static utils:FontAwesomeIcons.Heart}"
+                                    Size="Large"
+                                    Color="Black" />
                             </Image.Source>
                         </Image>
-                        <Label Grid.Row="1" x:Name="labelLove" IsEnabled="False" FontSize="Micro" FontAttributes="Bold" Text="LOVED ONES" HorizontalOptions="Center"/>
+                        <Label
+                            x:Name="labelLove"
+                            Grid.Row="1"
+                            FontAttributes="Bold"
+                            FontSize="Micro"
+                            HorizontalOptions="Center"
+                            IsEnabled="False"
+                            Text="LOVED ONES" />
                     </StackLayout>
                 </Grid>
-                <Grid x:Name="gridAlert" Grid.Column="5" RowSpacing="0">
-                    <StackLayout Spacing="5" Orientation="Vertical" VerticalOptions="Center">
-                        <Image IsEnabled="False" HorizontalOptions="Center">
+                <Grid
+                    x:Name="gridAlert"
+                    Grid.Column="5"
+                    RowSpacing="0">
+                    <StackLayout
+                        Orientation="Vertical"
+                        Spacing="5"
+                        VerticalOptions="Center">
+                        <Image HorizontalOptions="Center" IsEnabled="False">
                             <Image.Source>
-                                <FontImageSource x:Name="imageSourceAlert" FontFamily="FontAwesome5Solid"
-                                     Color="Black"
-                                     Size="Large"
-                                     Glyph="{x:Static utils:FontAwesomeIcons.Bullhorn}"/>
+                                <FontImageSource
+                                    x:Name="imageSourceAlert"
+                                    FontFamily="FontAwesome5Solid"
+                                    Glyph="{x:Static utils:FontAwesomeIcons.Bullhorn}"
+                                    Size="Large"
+                                    Color="Black" />
                             </Image.Source>
                         </Image>
-                        <Label Grid.Row="1" x:Name="labelAlert" IsEnabled="False" FontSize="Micro" FontAttributes="Bold" Text="ALERTS" HorizontalOptions="Center"/>
+                        <Label
+                            x:Name="labelAlert"
+                            Grid.Row="1"
+                            FontAttributes="Bold"
+                            FontSize="Micro"
+                            HorizontalOptions="Center"
+                            IsEnabled="False"
+                            Text="ALERTS" />
                     </StackLayout>
                 </Grid>
             </Grid>
         </Grid>
-        <BoxView x:Name="bottomBox" BackgroundColor="White" Grid.Row="4" HeightRequest="0"/>
+        <BoxView
+            x:Name="bottomBox"
+            Grid.Row="4"
+            BackgroundColor="White"
+            HeightRequest="0" />
     </Grid>
 
 
-</ContentPage>
+</views:BasePage>

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Microsoft.Extensions.Logging;
+using MvvmCross.Navigation;
 using q5id.guardian.Models;
 using Xamarin.Forms.Maps;
 
@@ -7,15 +9,15 @@ namespace q5id.guardian.ViewModels
 {
     public class HomeContentViewModel : BaseViewModel
     {
+
+        public HomeContentViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
+        {
+        }
         private User mUser = null;
         public User User
         {
             get => mUser;
-            set
-            {
-                mUser = value;
-                OnPropertyChanged(nameof(User));
-            }
+            set => SetProperty(ref mUser, value);
         }
 
         private ObservableCollection<UserPage> mPage;
@@ -25,12 +27,7 @@ namespace q5id.guardian.ViewModels
             {
                 return this.mPage;
             }
-
-            set
-            {
-                this.mPage = value;
-                OnPropertyChanged(nameof(Pages));
-            }
+            set => SetProperty(ref mPage, value);
         }
 
         private ObservableCollection<Alert> mAlerts;
@@ -40,18 +37,10 @@ namespace q5id.guardian.ViewModels
             {
                 return this.mAlerts;
             }
-
-            set
-            {
-                this.mAlerts = value;
-                OnPropertyChanged(nameof(Alerts));
-            }
+            set => SetProperty(ref mAlerts, value);
         }
 
-        public HomeContentViewModel()
-        {
-            GetUserPages();
-        }
+      
 
         private void GetUserPages()
         {

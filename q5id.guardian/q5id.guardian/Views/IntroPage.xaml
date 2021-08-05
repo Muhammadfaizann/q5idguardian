@@ -1,88 +1,124 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<ContentPage
+<views:BasePage
+    x:Class="q5id.guardian.Views.IntroPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="q5id.guardian.Views.IntroPage"
+    xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+    xmlns:models="clr-namespace:q5id.guardian.Models"
+    xmlns:views="clr-namespace:q5id.guardian.Views"
     xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
-    NavigationPage.HasNavigationBar="False">
-    <ContentPage.BindingContext>
-        <vm:IntroViewModel></vm:IntroViewModel>
-    </ContentPage.BindingContext>
+    x:DataType="vm:IntroViewModel"
+    x:TypeArguments="vm:IntroViewModel">
     <ContentPage.Content>
-        <Grid RowSpacing="0" BackgroundColor="White">
-            
-            <!---->
-            <Grid RowSpacing="0" HorizontalOptions="Fill" VerticalOptions="Start">
+        <Grid BackgroundColor="White" RowSpacing="0">
+
+            <!--    -->
+            <Grid
+                HorizontalOptions="Fill"
+                RowSpacing="0"
+                VerticalOptions="Start">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="80" />
                 </Grid.RowDefinitions>
                 <Ellipse
                     Grid.Row="1"
-                    Fill="#E8EAF2"
                     Margin="-20,-60,-20,0"
-                    HeightRequest="40"/>
+                    Fill="#E8EAF2"
+                    HeightRequest="40" />
                 <StackLayout
                     Grid.Row="0"
-                    Background="#E8EAF2" Orientation="Vertical">
-                    <BoxView x:Name="topBox"  HeightRequest="0"/>
-                    <Image Margin="0,40,0,0" WidthRequest="240" HeightRequest="120" Source="intro_icon"/>
-                    <Frame BackgroundColor="White" CornerRadius="10" Margin="20,40,20,20" HeightRequest="160" BorderColor="Transparent" HasShadow="True">
-                        <StackLayout Orientation="Vertical">
-                            <CarouselView ItemsSource="{Binding IntroPages}"
-                                          Loop="False"
-                                          HeightRequest="140"
-                                      IndicatorView="indicatorView">
-                                <CarouselView.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackLayout Orientation="Vertical">
-                                            <Label Text="{Binding Title}"
-                                                   TextColor="#FD425E"
-                                                    FontSize="Medium"
-                                                    HorizontalOptions="Center" />
-                                            <Label Text="{Binding Content}"
-                                                   Margin="0,10,0,0"
-                                                   HorizontalTextAlignment="Center"
-                                                    HorizontalOptions="Center"
-                                                    MaxLines="4"
-                                                   TextColor="#696B7A"
-                                                    LineBreakMode="TailTruncation" />
+                    Background="#E8EAF2"
+                    Orientation="Vertical">
+                    <Image
+                        Margin="0,40,0,0"
+                        HeightRequest="120"
+                        Source="intro_icon"
+                        WidthRequest="240" />
+                    <Frame
+                        Margin="20,40,20,20"
+                        BackgroundColor="White"
+                        BorderColor="Transparent"
+                        CornerRadius="10"
+                        HasShadow="True"
+                        HeightRequest="160">
+                        <Grid>
+                            <controls:CarouselViewControl
+                                CurrentPageIndicatorTintColor="#FD425E"
+                                ItemsSource="{Binding IntroPages}"
+                                Orientation="Horizontal"
+                                ShowIndicators="True">
+                                <controls:CarouselViewControl.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Intro">
+                                        <StackLayout>
+                                            <Label
+                                                FontSize="Medium"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Title}"
+                                                TextColor="#FD425E" />
+                                            <Label
+                                                Margin="0,10,0,0"
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="4"
+                                                Text="{Binding Content}"
+                                                TextColor="#696B7A" />
                                         </StackLayout>
                                     </DataTemplate>
-                                </CarouselView.ItemTemplate>
-                            </CarouselView>
-                            <IndicatorView x:Name="indicatorView"
-                                           IndicatorColor="#838699"
-                                           SelectedIndicatorColor="#e13851"
-                                           HorizontalOptions="Center" />
-                        </StackLayout>
+                                </controls:CarouselViewControl.ItemTemplate>
+                            </controls:CarouselViewControl>
+
+                            <!--<IndicatorView
+                                x:Name="indicatorView"
+                                HorizontalOptions="Center"
+                                IndicatorColor="#838699"
+                                SelectedIndicatorColor="#e13851" />-->
+                        </Grid>
+
                     </Frame>
                 </StackLayout>
-                
+
             </Grid>
             <StackLayout Orientation="Vertical" VerticalOptions="End">
-                    <Frame HorizontalOptions="Center" Padding="0" HasShadow="False" WidthRequest="160" HeightRequest="32" CornerRadius="16">
-                        <Frame.Background>
-                            <LinearGradientBrush StartPoint="0,0"
-                                                 EndPoint="1,0">
-                                <GradientStop Color="#303138"
-                                              Offset="0.0"/>
-                                <GradientStop Color="#696B7A"
-                                              Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </Frame.Background>
-                        <Label HorizontalOptions="Center" VerticalOptions="Center" FontSize="Small" FontAttributes="Bold" Text="JOIN THE TEAM" TextColor="White" />
-                    </Frame>
-                    <StackLayout Margin="0,10,0,25" HorizontalOptions="Center" Spacing="2" Orientation="Horizontal">
-                        <Label Text="Already have an account?" TextColor="#696B7A" />
-                        <Label Text="Log in" FontAttributes="Bold" TextColor="#696B7A">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding LoginCommand}" />
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </StackLayout>
-                    <BoxView x:Name="bottomBox" HeightRequest="0"/>
+                <Frame
+                    Padding="0"
+                    CornerRadius="16"
+                    HasShadow="False"
+                    HeightRequest="32"
+                    HorizontalOptions="Center"
+                    WidthRequest="160">
+                    <Frame.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Offset="0.0" Color="#303138" />
+                            <GradientStop Offset="1.0" Color="#696B7A" />
+                        </LinearGradientBrush>
+                    </Frame.Background>
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="Small"
+                        HorizontalOptions="Center"
+                        Text="JOIN THE TEAM"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                </Frame>
+                <StackLayout
+                    Margin="0,10,0,25"
+                    HorizontalOptions="Center"
+                    Orientation="Horizontal"
+                    Spacing="2">
+                    <Label Text="Already have an account?" TextColor="#696B7A" />
+                    <Label
+                        FontAttributes="Bold"
+                        Text="Log in"
+                        TextColor="#696B7A">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LoginCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
                 </StackLayout>
+                <BoxView x:Name="bottomBox" HeightRequest="0" />
+            </StackLayout>
         </Grid>
     </ContentPage.Content>
-</ContentPage>
+</views:BasePage>

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using q5id.guardian.ViewModels;
+using System;
 using System.Collections.Generic;
 
 using Xamarin.Forms;
 
 namespace q5id.guardian.Views
 {
-    public partial class AuthenFacePage : ContentPage
+    public partial class AuthenFacePage : BasePage<AuthenFaceViewModel>
     {
         public AuthenFacePage()
         {

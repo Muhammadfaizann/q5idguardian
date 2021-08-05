@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Microsoft.Extensions.Logging;
+using MvvmCross.Navigation;
 using q5id.guardian.Models;
 using Xamarin.Forms;
 
@@ -7,26 +9,9 @@ namespace q5id.guardian.ViewModels
 {
     public class IntroViewModel : BaseViewModel
     {
-        public Command LoginCommand { get; }
 
-        private ObservableCollection<Intro> mIntroPages;
-        public ObservableCollection<Intro> IntroPages
+        public IntroViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
-            get
-            {
-                return this.mIntroPages;
-            }
-
-            set
-            {
-                this.mIntroPages = value;
-                OnPropertyChanged(nameof(IntroPages));
-            }
-        }
-
-        public IntroViewModel()
-        {
-            Title = "Intro";
             IntroPages = new ObservableCollection<Intro>()
             {
                 new Intro("Keeping kids and loved ones safe", "Guardian is a secure alert system where parents and caregivers get help from nearby Guardian volunteers to find lost loved ones."),
@@ -36,10 +21,19 @@ namespace q5id.guardian.ViewModels
             };
             LoginCommand = new Command(OnLoginClicked);
         }
+        public Command LoginCommand { get; }
+
+        private ObservableCollection<Intro> mIntroPages;
+        public ObservableCollection<Intro> IntroPages
+        {
+            get => mIntroPages;
+            set => SetProperty(ref mIntroPages, value);
+            
+        }
 
         private async void OnLoginClicked(object obj)
         {
-            await NavigationService.NavigateToAsync(typeof(LoginViewModel));
+            await NavigationService.Navigate<LoginViewModel>();
         }
     }
 }
