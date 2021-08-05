@@ -3,7 +3,7 @@
     x:Class="q5id.guardian.Views.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:ctv="clr-namespace:q5id.guardian.Views.ContentViews"
     xmlns:utils="clr-namespace:q5id.guardian.Utils"
     xmlns:views="clr-namespace:q5id.guardian.Views"
@@ -16,27 +16,23 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid RowSpacing="0">
+    <Grid BackgroundColor="{StaticResource paleGray}" RowSpacing="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="80" />
+            <RowDefinition Height="0" />
+            <RowDefinition Height="120" />
             <RowDefinition Height="*" />
             <RowDefinition Height="70" />
-            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <BoxView
-            x:Name="topBox"
-            Grid.Row="0"
-            BackgroundColor="#e53b55"
-            HeightRequest="0" />
         <Grid
             Grid.Row="1"
             BackgroundColor="{StaticResource paleGray}"
             RowSpacing="0">
-            <control:AppBoxView
-                BackgroundColor="#FD425E"
-                BottomHeight="30"
-                HeightRequest="80" />
+            <Image
+                x:Name="header"
+                Source="header_bg.png"
+                Aspect="AspectFill"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand" />
             <Grid HeightRequest="50" VerticalOptions="Start">
                 <Label
                     FontAttributes="Bold"
@@ -67,9 +63,10 @@
             Background="{StaticResource paleGray}"
             HorizontalOptions="Fill"
             VerticalOptions="Fill">
-            <ctv:HomeContentView x:Name="homeView" IsVisible="True" />
-            <ctv:LovedOnesContentView x:Name="lovedView" IsVisible="False" />
-            <ctv:AlertContentView x:Name="alertView" IsVisible="False" />
+            <ctv:HomeContentView x:Name="homeView" IsVisible="{Binding IsBusy}" BindingContext="{Binding HomeVm}" />
+          
+            <!--<ctv:LovedOnesContentView x:Name="lovedView" IsVisible="False" />
+            <ctv:AlertContentView x:Name="alertView" IsVisible="False" />-->
         </Grid>
         <Grid Grid.Row="3" BackgroundColor="White">
             <Grid Padding="0,8,0,6" VerticalOptions="Fill">
@@ -168,11 +165,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <BoxView
-            x:Name="bottomBox"
-            Grid.Row="4"
-            BackgroundColor="White"
-            HeightRequest="0" />
+
     </Grid>
 
 

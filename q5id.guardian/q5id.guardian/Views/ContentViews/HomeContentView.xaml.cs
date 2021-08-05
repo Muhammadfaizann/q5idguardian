@@ -17,7 +17,7 @@ namespace q5id.guardian.Views.ContentViews
         private bool isInitMap = false;
 
         List<HomeCarouselItemView> mediaElements = new List<HomeCarouselItemView>();
-        int mCurrentMediaPosition = -1;
+        int mCurrentMediaPosition = 0;
 
         Map map;
 
@@ -103,9 +103,7 @@ namespace q5id.guardian.Views.ContentViews
 
         private void CarouselView_PositionChanged(object sender, PositionChangedEventArgs e)
         {
-            mediaElements[e.PreviousPosition].StopPlayer();
-            mediaElements[e.CurrentPosition].ShowMediaPlayer();
-            mCurrentMediaPosition = e.CurrentPosition;
+           
         }
 
         void ToggleView_Changed(System.Object sender, System.EventArgs e)
@@ -132,6 +130,14 @@ namespace q5id.guardian.Views.ContentViews
                     gridContent.IsVisible = true;
                 }
             }
+        }
+
+        private void CarouselViewControl_PositionSelected(object sender, CarouselView.FormsPlugin.Abstractions.PositionSelectedEventArgs e)
+        {
+            if (mediaElements.Count == 0) return;
+            mediaElements[mCurrentMediaPosition].StopPlayer();
+            mediaElements[e.NewValue].ShowMediaPlayer();
+            mCurrentMediaPosition = e.NewValue;
         }
     }
 }

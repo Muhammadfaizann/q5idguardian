@@ -13,7 +13,7 @@
     x:TypeArguments="vm:LoginViewModel"
     mc:Ignorable="d">
     <ContentPage.Content>
-        <Grid>
+        <Grid BackgroundColor="White">
             <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
                 <app:AppEntry
                     Padding="10"

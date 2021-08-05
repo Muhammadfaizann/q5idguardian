@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using q5id.guardian.Models;
@@ -40,8 +41,11 @@ namespace q5id.guardian.ViewModels
             set => SetProperty(ref mAlerts, value);
         }
 
-      
 
+        public override async Task Initialize()
+        {
+            GetUserPages();
+        }
         private void GetUserPages()
         {
             Pages = new ObservableCollection<UserPage>()

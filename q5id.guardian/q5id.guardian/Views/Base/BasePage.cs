@@ -58,7 +58,7 @@ namespace q5id.guardian.Views
             //        this.Padding = new Thickness(0, 0, 45, 0);
             //    }
             //}
-
+            this.BackgroundColor = Color.White;
             if (Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.iOS)
             {
                 var safeInsets = On<iOS>().SetUseSafeArea(false);
@@ -67,7 +67,7 @@ namespace q5id.guardian.Views
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
             Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
 
-            this.LayoutChanged += MyPage_LayoutChanged;
+           this.LayoutChanged += MyPage_LayoutChanged;
         }
 
         protected override void OnAppearing()
