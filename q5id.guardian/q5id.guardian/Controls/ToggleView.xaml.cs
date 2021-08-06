@@ -88,7 +88,7 @@ namespace q5id.guardian.Controls
         {
             UpdateImage();
             this.BackgroundColor = Color.Transparent;
-            frameContent.BackgroundColor = this.NormalBackgroundColor;
+            frameContent.Background = new SolidColorBrush(this.NormalBackgroundColor);
             frameContent.CornerRadius = this.CornerRadius;
             TapGestureRecognizer contentTapGes = new TapGestureRecognizer();
             contentTapGes.Tapped += ContentTapGes_Tapped;
@@ -119,7 +119,7 @@ namespace q5id.guardian.Controls
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            frameContent.BackgroundColor = this.NormalBackgroundColor;
+            frameContent.Background = new SolidColorBrush(this.NormalBackgroundColor);
         }
 
         private void ContentTapGes_Tapped(object sender, EventArgs e)
@@ -144,8 +144,7 @@ namespace q5id.guardian.Controls
             this.BackgroundColor = Color.Transparent;
             var backgroundColor = IsActive ? ActiveBackgroundColor : NormalBackgroundColor;
             var iconColor = IsActive ? ActiveIconColor : NormalIconColor;
-            frameContent.Background = Brush.Transparent;
-            frameContent.BackgroundColor = backgroundColor;
+            frameContent.Background = new SolidColorBrush(backgroundColor);
             frameContent.CornerRadius = this.CornerRadius;
             iconImageSource.Color = iconColor;
         }
