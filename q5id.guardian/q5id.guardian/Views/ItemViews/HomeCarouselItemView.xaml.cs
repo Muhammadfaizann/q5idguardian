@@ -15,22 +15,34 @@ namespace q5id.guardian.Views.ItemViews
         public HomeCarouselItemView()
         {
             InitializeComponent();
+            frmPlayBtn.IsVisible = true;
+            isPlaying = false;
+        }
+
+        public void ShowPlayerControl() {
+            frmPlayBtn.IsVisible = true;
+        }
+
+        public void HidePlayerControl()
+        {
+            frmPlayBtn.IsVisible = false;
         }
 
         private void ShowMediaPlayer()
         {
-            if(mediaElement == null)
+            if (mediaElement == null)
             {
                 mediaElement = new MediaElement();
                 mediaElement.HorizontalOptions = LayoutOptions.Fill;
                 mediaElement.VerticalOptions = LayoutOptions.Fill;
                 mediaElement.ShowsPlaybackControls = false;
                 mediaElement.AutoPlay = false;
-                if(this.BindingContext is UserPage userPage)
-                {
-                    mediaElement.Source = MediaSource.FromUri(userPage.VideoUrl);
-                }
                 this.frmContentMedia.Content = mediaElement;
+            }
+            mediaElement.IsVisible = true;
+            if (this.BindingContext is UserPage userPage)
+            {
+                mediaElement.Source = MediaSource.FromUri(userPage.VideoUrl);
             }
         }
 
@@ -38,9 +50,8 @@ namespace q5id.guardian.Views.ItemViews
         {
             if (mediaElement != null)
             {
+                mediaElement.IsVisible = false;
                 mediaElement.Source = null;
-                mediaElement = null;
-                this.frmContentMedia.Content = new BoxView();
             }
         }
 
@@ -48,8 +59,8 @@ namespace q5id.guardian.Views.ItemViews
         {
             this.mediaElement?.Stop();
             HideMediaPlayer();
-            frmPlayBtn.IsVisible = true;
             isPlaying = false;
+            this.ShowPlayerControl();
         }
 
         void PlayerGestureRecognizer_Tapped(System.Object sender, System.EventArgs e)
@@ -57,15 +68,16 @@ namespace q5id.guardian.Views.ItemViews
             if (isPlaying)
             {
                 this.mediaElement?.Pause();
+                this.ShowPlayerControl();
             }
             else
             {
                 this.ShowMediaPlayer();
                 this.mediaElement?.Play();
+                this.HidePlayerControl();
 
             }
             isPlaying = !isPlaying;
-            frmPlayBtn.IsVisible = !frmPlayBtn.IsVisible;
         }
     }
 }

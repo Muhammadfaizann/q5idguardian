@@ -60,16 +60,17 @@
         </Grid>
         <Grid
             Grid.Row="2"
+            x:Name="gridContentView"
             Background="{StaticResource paleGray}"
             HorizontalOptions="Fill"
             VerticalOptions="Fill">
-            <ctv:HomeContentView
+            <!--<ctv:HomeContentView
                 x:Name="homeView"
                 BindingContext="{Binding HomeVm}"
                 IsVisible="True" />
 
             <ctv:LovedOnesContentView x:Name="lovedView" IsVisible="False" />
-            <ctv:AlertContentView x:Name="alertView" IsVisible="False" />
+            <ctv:AlertContentView x:Name="alertView" IsVisible="False" />-->
         </Grid>
         <Grid Grid.Row="3" BackgroundColor="White">
             <Grid Padding="0,8,0,6" VerticalOptions="Fill">

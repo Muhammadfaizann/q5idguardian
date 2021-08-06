@@ -3,6 +3,7 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.Presenters.Hints;
 using MvvmCross.ViewModels;
+using q5id.guardian.Models;
 using q5id.guardian.Presenter;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,13 @@ namespace q5id.guardian.ViewModels
             await this.NavigationService.Navigate<TViewModel>(presentationBundle: presentation);
         }
 
+        protected async Task ClearStackAndNavigateToPage<XViewModel, TParameter>(TParameter paramsObj) where XViewModel : BaseViewModel<TParameter> where TParameter : class
+        {
+            var presentation = new MvxBundle(new Dictionary<string, string> { { PresentationConstantValue.CLEAR_STACK_AND_SHOW_PAGE, "" } });
+
+            await this.NavigationService.Navigate<XViewModel, TParameter>(param: paramsObj, presentationBundle: presentation);
+        }
+
         public IMvxAsyncCommand CloseCommand => new MvxAsyncCommand(ClosePage);
 
         protected async Task ClosePage()
@@ -55,4 +63,15 @@ namespace q5id.guardian.ViewModels
             set => SetProperty(ref mTitle, value);
         }
     }
+
+    public abstract class BaseViewModel<TParameter> : BaseViewModel, IMvxViewModel<TParameter>, IMvxViewModel where TParameter : class
+    {
+        public BaseViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
+        {
+
+        }
+
+        public abstract void Prepare(TParameter parameter);
+    }
+
 }

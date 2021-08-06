@@ -26,10 +26,10 @@ namespace q5id.guardian.Views.ContentViews
         public HomeContentView()
         {
             InitializeComponent();
-            //Task.Run(async () =>
-            //{
-            //    await GetLocalLocation();
-            //});
+            Task.Run(async () =>
+            {
+                await GetLocalLocation();
+            });
         }
 
         private void ShowMap()
@@ -87,14 +87,9 @@ namespace q5id.guardian.Views.ContentViews
             if (mediaElements.Count == 0)
             {
                 mCurrentMediaPosition = 0;
+                element.ShowPlayerControl();
             }
             mediaElements.Add(element);
-        }
-
-        private void CarouselView_PositionChanged(object sender, PositionChangedEventArgs e)
-        {
-            mediaElements[e.PreviousPosition].StopPlayer();
-            mCurrentMediaPosition = e.CurrentPosition;
         }
 
         void ToggleView_Changed(System.Object sender, System.EventArgs e)
@@ -105,7 +100,7 @@ namespace q5id.guardian.Views.ContentViews
                 {
                     gridMap.IsVisible = true;
                     gridContent.IsVisible = false;
-                    if (mCurrentMediaPosition > -1)
+                    if (mCurrentMediaPosition > -1 && mediaElements != null && mediaElements.Count > mCurrentMediaPosition)
                     {
                         mediaElements[mCurrentMediaPosition].StopPlayer();
                     }
@@ -125,9 +120,13 @@ namespace q5id.guardian.Views.ContentViews
 
         private void CarouselViewControl_PositionSelected(object sender, CarouselView.FormsPlugin.Abstractions.PositionSelectedEventArgs e)
         {
-            if (mediaElements.Count == 0) return;
-            mediaElements[mCurrentMediaPosition].StopPlayer();
+            if (mediaElements.Count == 0 || e.NewValue == mCurrentMediaPosition) return;
+            foreach(HomeCarouselItemView itemView in mediaElements)
+            {
+                itemView.StopPlayer();
+            }
             mCurrentMediaPosition = e.NewValue;
+            mediaElements[mCurrentMediaPosition].ShowPlayerControl();
         }
     }
 }

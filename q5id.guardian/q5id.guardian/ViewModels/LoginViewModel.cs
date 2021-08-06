@@ -23,9 +23,9 @@ namespace q5id.guardian.ViewModels
             SignUpCommand = new Command(OnLoginAsSubClicked);
         }
 
-        private async void OnLoginClicked(object obj)
+        private async void OnLoginClicked(User user)
         {
-            await ClearStackAndNavigateToPage<HomeViewModel>();
+            await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
         }
 
         private void OnLoginAsSubClicked(object obj)

@@ -3,16 +3,14 @@
 using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using MvvmCross.ViewModels;
 using q5id.guardian.Models;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using q5id.guardian.Models;
 using Xamarin.Forms;
 
 namespace q5id.guardian.ViewModels
 {
-    public class HomeViewModel : BaseViewModel
+    public class HomeViewModel : BaseViewModel<User>
     {
         public HomeViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
@@ -42,9 +40,14 @@ namespace q5id.guardian.ViewModels
         //    }
         //}
 
-        private async void OnLoginClicked(object obj)
+        public override void Prepare(User parameter)
         {
+            HomeVm.User = parameter;
+        }
 
+        protected override void InitFromBundle(IMvxBundle parameters)
+        {
+            base.InitFromBundle(parameters);
         }
 
         private async Task OnSettingClicked()
@@ -62,6 +65,5 @@ namespace q5id.guardian.ViewModels
                 await HomeVm.Initialize();
             });
         }
-        
     }
 }

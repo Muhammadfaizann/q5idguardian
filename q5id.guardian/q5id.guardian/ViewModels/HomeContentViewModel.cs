@@ -73,6 +73,8 @@ namespace q5id.guardian.ViewModels
         {
             GetUserPages();
         }
+
+
         private void GetUserPages()
         {
             Pages = new ObservableCollection<UserPage>()
@@ -81,25 +83,25 @@ namespace q5id.guardian.ViewModels
                 {
                     Title = "Title 1",
                     Subtitle = "Subtitle 1",
-                    VideoUrl = "https://sec.ch9.ms/ch9/5d93/a1eab4bf-3288-4faf-81c4-294402a85d93/XamarinShow_mid.mp4",
+                    VideoUrl = "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
                 },
                 new UserPage()
                 {
                     Title = "Title 2",
                     Subtitle = "Subtitle 2",
-                    VideoUrl = "https://sec.ch9.ms/ch9/5d93/a1eab4bf-3288-4faf-81c4-294402a85d93/XamarinShow_mid.mp4",
+                    VideoUrl = "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
                 },
                 new UserPage()
                 {
                     Title = "Title 3",
                     Subtitle = "Subtitle 3",
-                    VideoUrl = "https://sec.ch9.ms/ch9/5d93/a1eab4bf-3288-4faf-81c4-294402a85d93/XamarinShow_mid.mp4",
+                    VideoUrl = "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
                 },
                 new UserPage()
                 {
                     Title = "Title 4",
                     Subtitle = "Subtitle 4",
-                    VideoUrl = "https://sec.ch9.ms/ch9/5d93/a1eab4bf-3288-4faf-81c4-294402a85d93/XamarinShow_mid.mp4",
+                    VideoUrl = "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
                 },
             };
         }

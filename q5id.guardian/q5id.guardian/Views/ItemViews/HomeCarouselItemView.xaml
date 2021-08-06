@@ -6,7 +6,7 @@
     xmlns:utils="clr-namespace:q5id.guardian.Utils"
     x:Class="q5id.guardian.Views.ItemViews.HomeCarouselItemView">
     <ContentView.Content>
-        <Grid BackgroundColor="Black">
+        <Grid>
             <Frame Padding="0"
                    HasShadow="False"
                    CornerRadius="0"
@@ -21,28 +21,35 @@
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer Tapped="PlayerGestureRecognizer_Tapped"/>
                 </Grid.GestureRecognizers>
-                <Frame
-                    x:Name="frmPlayBtn"
-                    Padding="0"
-                    HasShadow="False"
-                    WidthRequest="48"
-                    HeightRequest="48"
-                    CornerRadius="24"
-                    BackgroundColor="#80FFFFFF"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center">
-                    <Image HorizontalOptions="Center"
-                            Margin="5,0,0,0"
-                           WidthRequest="24"
-                           HeightRequest="24"
-                           VerticalOptions="Center">
-                        <Image.Source>
-                            <FontImageSource FontFamily="{x:Static utils:ThemeConstanst.FontAwesomeSolid}"
-                                             Size="24"
-                                             Color="White"
-                                             Glyph="{x:Static utils:FontAwesomeIcons.Play}"/>
-                        </Image.Source>
-                    </Image>
+                <Frame Padding="0"
+                       BackgroundColor="#80000000"
+                       x:Name="frmPlayBtn"
+                        HasShadow="False"
+                       IsEnabled="False"
+                       HorizontalOptions="Fill"
+                       VerticalOptions="Fill">
+                    <Frame
+                        Padding="0"
+                        HasShadow="False"
+                        WidthRequest="48"
+                        HeightRequest="48"
+                        CornerRadius="24"
+                        BackgroundColor="#80FFFFFF"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Image HorizontalOptions="Center"
+                                Margin="5,0,0,0"
+                               WidthRequest="24"
+                               HeightRequest="24"
+                               VerticalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource FontFamily="{x:Static utils:ThemeConstanst.FontAwesomeSolid}"
+                                                 Size="24"
+                                                 Color="White"
+                                                 Glyph="{x:Static utils:FontAwesomeIcons.Play}"/>
+                            </Image.Source>
+                        </Image>
+                    </Frame>
                 </Frame>
             </Grid>
         </Grid>

@@ -21,7 +21,7 @@
                                    CornerRadius="12"
                                    BorderColor="Transparent"
                                    HorizontalOptions="Center"
-                                   Margin="0,-20,0,0"
+                                   Margin="0,-40,0,0"
                                    NormalLabelColor="{StaticResource redVibrant}"
                                    DeactiveLabelColor="{StaticResource paleGray}"
                                    IsDisable="{Binding IsVolunteer}"
@@ -109,7 +109,7 @@
                                     HeightRequest="160"
                                     ShowIndicators="True"
                                     ItemsSource="{Binding Pages}"
-                                    
+                                    x:Name="carouselView"
                                     PositionSelected="CarouselViewControl_PositionSelected"
                                     >
                                     <carousel:CarouselViewControl.ItemTemplate>
@@ -213,14 +213,19 @@
                     </Frame>
                 </Grid>
                 <control:ToggleView
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    CornerRadius="20"
                     Margin="0,20,40,0"
                     IsVisible="{Binding IsVolunteer}"
                     HorizontalOptions="End"
                     VerticalOptions="Start"
+                    BackgroundColor="Transparent"
                     NormalBackgroundColor="#1A838699"
                     ActiveBackgroundColor="{StaticResource redVibrant}"
+                    NormalIconColor="{StaticResource redVibrant}"
                     ActiveIconColor="White"
-                    BackgroundColor="Transparent"
+                    ImageSize="20"
                     Changed="ToggleView_Changed"
                     ImageGlyph="{x:Static utils:FontAwesomeIcons.MapMarkedAlt}"/>
                 <control:ToggleView

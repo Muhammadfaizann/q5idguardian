@@ -1,5 +1,7 @@
-﻿using q5id.guardian.Utils;
+﻿using CarouselView.FormsPlugin.Abstractions;
+using q5id.guardian.Utils;
 using q5id.guardian.ViewModels;
+using q5id.guardian.Views.ContentViews;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
@@ -11,14 +13,25 @@ namespace q5id.guardian.Views
     {
         private bool isInitPage = false;
 
+        private ContentView HomeView = null;
+        private ContentView LovedOnesView = null;
+        private ContentView AlertsView = null;
+
         public HomePage()
         {
             InitializeComponent();
+            HomeView = new HomeContentView();
+            ShowView(HomeView, "HomeVm");
             SelectTab(0);
             gridHome.GestureRecognizers.Add(new TapGestureRecognizer
             {
                 Command = new Command(() =>
                 {
+                    if(HomeView == null)
+                    {
+                        HomeView = new HomeContentView();
+                    }
+                    ShowView(HomeView, "HomeVm");
                     SelectTab(0);
                 })
             });
@@ -27,6 +40,12 @@ namespace q5id.guardian.Views
             {
                 Command = new Command(() =>
                 {
+                    if (LovedOnesView == null)
+                    {
+                        LovedOnesView = new LovedOnesContentView();
+                        
+                    }
+                    ShowView(LovedOnesView, "LovedOnesVm");
                     SelectTab(1);
                 })
             });
@@ -35,6 +54,11 @@ namespace q5id.guardian.Views
             {
                 Command = new Command(() =>
                 {
+                    if (AlertsView == null)
+                    {
+                        AlertsView = new AlertContentView();
+                    }
+                    ShowView(AlertsView, "AlertsVm");
                     SelectTab(2);
                 })
             });
@@ -78,12 +102,18 @@ namespace q5id.guardian.Views
             }
         }
 
+        private void ShowView(ContentView view, string bindingName = null)
+        {
+            this.gridContentView.Children.Clear();
+            this.gridContentView.Children.Add(view);
+            if(bindingName != null)
+            {
+                view.SetBinding(BindingContextProperty, bindingName);
+            }
+        }
+
         public void SelectTab(int index)
         {
-            homeView.IsVisible = index == 0;
-            lovedView.IsVisible = index == 1;
-            alertView.IsVisible = index == 2;
-
             imageSourceHome.Color = index == 0 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
             imageSourceLove.Color = index == 1 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
             imageSourceAlert.Color = index == 2 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
