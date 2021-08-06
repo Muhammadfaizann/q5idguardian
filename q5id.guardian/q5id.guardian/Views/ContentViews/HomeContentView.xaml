@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <ContentView
+    x:Class="q5id.guardian.Views.ContentViews.HomeContentView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
     xmlns:control="clr-namespace:q5id.guardian.Controls"
-    xmlns:utils="clr-namespace:q5id.guardian.Utils"
     xmlns:itemViews="clr-namespace:q5id.guardian.Views.ItemViews"
-    x:Class="q5id.guardian.Views.ContentViews.HomeContentView">
+    xmlns:utils="clr-namespace:q5id.guardian.Utils">
     <ContentView.Content>
         <Grid BackgroundColor="{StaticResource paleGray}">
             <Grid.RowDefinitions>
@@ -55,14 +56,14 @@
             <Grid Grid.Row="1">
                 <Grid x:Name="gridContent">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Label
-                        Margin="40, 20, 90, 0"
+                        Margin="40,20,90,0"
+                        HorizontalOptions="Fill"
                         Style="{StaticResource lbSubheadLg}"
-                        TextColor="{StaticResource normalCharcoal}"
-                        HorizontalOptions="Fill">
+                        TextColor="{StaticResource normalCharcoal}">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Welcome back, " />
@@ -71,119 +72,121 @@
                         </Label.FormattedText>
                     </Label>
                     <ScrollView Grid.Row="1" Orientation="Vertical">
-                        <StackLayout Orientation="Vertical" Padding="40,30,40,0">
-                            <Grid VerticalOptions="Start" HorizontalOptions="Fill">
+                        <StackLayout Padding="40,30,40,0" Orientation="Vertical">
+                            <Grid HorizontalOptions="Fill" VerticalOptions="Start">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
                                 <Label
-                                    Text="Progress Report"
                                     Grid.Column="0"
+                                    HorizontalOptions="Fill"
                                     Style="{StaticResource lbSubheadSm}"
-                                    TextColor="{StaticResource lightCharcoal}"
-                                    HorizontalOptions="Fill">
-                                </Label>
+                                    Text="Progress Report"
+                                    TextColor="{StaticResource lightCharcoal}" />
                                 <Label
-                                    Margin="0,4,0,0"
-                                    Text="VIEW ALL"
                                     Grid.Column="1"
-                                    Style="{StaticResource lbSubheadLg}"
+                                    Margin="0,4,0,0"
                                     FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"
-                                    TextColor="{StaticResource normalCharcoal}"
-                                    FontSize="11">
-                                </Label>
+                                    FontSize="11"
+                                    Style="{StaticResource lbSubheadLg}"
+                                    Text="VIEW ALL"
+                                    TextColor="{StaticResource normalCharcoal}" />
                             </Grid>
                             <Label
                                 Margin="0,4,0,0"
-                                Text="Good news about child safety and recovery."
                                 Style="{StaticResource lbBodyNormalMd}"
-                                TextColor="{StaticResource lightCharcoal}">
-                            </Label>
-                            <Frame Margin="0,8,0,10" Padding="0" IsClippedToBounds="True" BackgroundColor="Black" CornerRadius="16" BorderColor="Transparent">
-                                <CarouselView ItemsSource="{Binding Pages}"
-                                          PositionChanged="CarouselView_PositionChanged"
-                                          Loop="False"
-                                          HeightRequest="160"
-                                          IndicatorView="indicatorView">
-                                <CarouselView.ItemTemplate>
-                                    <DataTemplate>
-                                        <itemViews:HomeCarouselItemView
-                                            BindingContextChanged="MediaElement_BindingContextChanged" />
-                                    </DataTemplate>
-                                </CarouselView.ItemTemplate>
-                            </CarouselView>
+                                Text="Good news about child safety and recovery."
+                                TextColor="{StaticResource lightCharcoal}" />
+                            <Frame
+                                Margin="0,8,0,10"
+                                Padding="0"
+                                BackgroundColor="Black"
+                                BorderColor="Transparent"
+                                CornerRadius="16"
+                                IsClippedToBounds="True">
+                                <carousel:CarouselViewControl
+                                    HeightRequest="160"
+                                    ShowIndicators="True"
+                                    ItemsSource="{Binding Pages}"
+                                    
+                                    PositionSelected="CarouselViewControl_PositionSelected"
+                                    >
+                                    <carousel:CarouselViewControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <itemViews:HomeCarouselItemView BindingContextChanged="MediaElement_BindingContextChanged" />
+                                        </DataTemplate>
+                                    </carousel:CarouselViewControl.ItemTemplate>
+                                </carousel:CarouselViewControl>
                             </Frame>
-                            
-                            <IndicatorView x:Name="indicatorView"
-                                           IndicatorColor="{StaticResource lightCharcoal}"
-                                           SelectedIndicatorColor="{StaticResource redVibrant}"
-                                           HorizontalOptions="Center" />
-                            <Grid Margin="0,20,0,0" VerticalOptions="Start" HorizontalOptions="Fill">
+
+                          
+                            <Grid
+                                Margin="0,20,0,0"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Start">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
                                 <Label
-                                    Text="My Emergency Numbers"
                                     Grid.Column="0"
+                                    HorizontalOptions="Fill"
                                     Style="{StaticResource lbSubheadSm}"
-                                    TextColor="{StaticResource lightCharcoal}"
-                                    HorizontalOptions="Fill">
-                                </Label>
+                                    Text="My Emergency Numbers"
+                                    TextColor="{StaticResource lightCharcoal}" />
                                 <Label
-                                    Margin="0,4,0,0"
-                                    Text="EDIT"
                                     Grid.Column="1"
-                                    Style="{StaticResource lbSubheadLg}"
+                                    Margin="0,4,0,0"
                                     FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"
-                                    TextColor="{StaticResource normalCharcoal}"
-                                    FontSize="11">
-                                </Label>
+                                    FontSize="11"
+                                    Style="{StaticResource lbSubheadLg}"
+                                    Text="EDIT"
+                                    TextColor="{StaticResource normalCharcoal}" />
                             </Grid>
                             <Label
                                 Margin="0,4,0,20"
-                                Text="In case of emergency, you’ll be ready to help."
                                 Style="{StaticResource lbBodyNormalMd}"
-                                TextColor="{StaticResource lightCharcoal}"/>
+                                Text="In case of emergency, you’ll be ready to help."
+                                TextColor="{StaticResource lightCharcoal}" />
                         </StackLayout>
                     </ScrollView>
                 </Grid>
-                <Grid x:Name="gridMap"
-                      IsVisible="False"
-                      Padding="30, 10, 30, 60">
-                    <Frame HasShadow="True"
-                           Padding="0"
-                           IsClippedToBounds="True"
-                           BackgroundColor="LightGray"
-                           BorderColor="Transparent"
-                           CornerRadius="20">
+                <Grid
+                    x:Name="gridMap"
+                    Padding="30,10,30,60"
+                    IsVisible="False">
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="LightGray"
+                        BorderColor="Transparent"
+                        CornerRadius="20"
+                        HasShadow="True"
+                        IsClippedToBounds="True">
                         <Grid>
-                            <Frame Padding="0"
-                                   HasShadow="False"
-                                   CornerRadius="0"
-                                   HorizontalOptions="Fill"
-                                   VerticalOptions="Fill"
-                                   BorderColor="Transparent"
-                                   x:Name="frmContentMap">
-                            </Frame>
-                            <BoxView InputTransparent="True"
-                                     IsEnabled="False"
-                                     HeightRequest="100"
-                                     VerticalOptions="Start"
-                                     HorizontalOptions="Fill">
+                            <Frame
+                                x:Name="frmContentMap"
+                                Padding="0"
+                                BorderColor="Transparent"
+                                CornerRadius="0"
+                                HasShadow="False"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill" />
+                            <BoxView
+                                HeightRequest="100"
+                                HorizontalOptions="Fill"
+                                InputTransparent="True"
+                                IsEnabled="False"
+                                VerticalOptions="Start">
                                 <BoxView.Background>
-                                    <LinearGradientBrush StartPoint="0.5,0"
-                                                         EndPoint="0.5,1">
-                                        <GradientStop Color="White"
-                                                      Offset="0.0"/>
-                                        <GradientStop Color="Transparent"
-                                                      Offset="1.0"/>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop Offset="0.0" Color="White" />
+                                        <GradientStop Offset="1.0" Color="Transparent" />
                                     </LinearGradientBrush>
                                 </BoxView.Background>
                             </BoxView>
                             <Label
-                                Margin="30, 20, 60, 0"
+                                Margin="30,20,60,0"
                                 Style="{StaticResource lbBodyNormalLg}"
                                 TextColor="{StaticResource redVibrant}"
                                 IsVisible="{Binding IsHaveAlerts}"
@@ -206,23 +209,18 @@
                                 VerticalOptions="Start"
                                 HorizontalOptions="Fill"/>
                         </Grid>
-                        
+
                     </Frame>
                 </Grid>
                 <control:ToggleView
-                    WidthRequest="40"
-                    HeightRequest="40"
-                    CornerRadius="20"
                     Margin="0,20,40,0"
                     IsVisible="{Binding IsVolunteer}"
                     HorizontalOptions="End"
                     VerticalOptions="Start"
-                    BackgroundColor="Transparent"
                     NormalBackgroundColor="#1A838699"
                     ActiveBackgroundColor="{StaticResource redVibrant}"
-                    NormalIconColor="{StaticResource redVibrant}"
                     ActiveIconColor="White"
-                    ImageSize="20"
+                    BackgroundColor="Transparent"
                     Changed="ToggleView_Changed"
                     ImageGlyph="{x:Static utils:FontAwesomeIcons.MapMarkedAlt}"/>
                 <control:ToggleView

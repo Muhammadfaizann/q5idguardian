@@ -1,58 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             xmlns:utils="clr-namespace:q5id.guardian.Utils"
-             xmlns:app="clr-namespace:q5id.guardian.Controls"
-             x:Class="q5id.guardian.Views.LoginPage"
-             NavigationPage.HasNavigationBar="False"
-             Shell.NavBarIsVisible="False">
+<views:BasePage
+    x:Class="q5id.guardian.Views.LoginPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:app="clr-namespace:q5id.guardian.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:q5id.guardian.Utils"
+    xmlns:views="clr-namespace:q5id.guardian.Views"
+    xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
+    x:DataType="vm:LoginViewModel"
+    x:TypeArguments="vm:LoginViewModel"
+    mc:Ignorable="d">
     <ContentPage.Content>
-        <Grid>
+        <Grid BackgroundColor="White">
             <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-                <app:AppEntry Style="{StaticResource etBodyNormalLg}"
-                              Padding="10"
-                              FontFamily="PoppinsItalic"
-                              FontAttributes="Italic"
-                              HeightRequest="32"
-                              BorderThickness="2"
-                              FocusBorderColor="#696B7A"
-                              NoramlBorderColor="#E8EAF2"
-                              TextColor="{StaticResource normalCharcoal}"
-                              PlaceholderColor="{StaticResource lightCharcoal}"
-                              Placeholder="Username" />
-                <app:AppEntry Style="{StaticResource etBodyNormalLg}"
-                              Padding="10"
-                              FontFamily="PoppinsItalic"
-                              FontAttributes="Italic"
-                              HeightRequest="32"
-                              BorderThickness="2"
-                              IsPassword="True"
-                              FocusBorderColor="#696B7A"
-                              NoramlBorderColor="#E8EAF2"
-                              TextColor="{StaticResource normalCharcoal}"
-                              PlaceholderColor="{StaticResource lightCharcoal}"
-                              Placeholder="Password" />
+                <app:AppEntry
+                    Padding="10"
+                    BorderThickness="2"
+                    FocusBorderColor="#696B7A"
+                    FontAttributes="Italic"
+                    FontFamily="PoppinsItalic"
+                    HeightRequest="32"
+                    NoramlBorderColor="#E8EAF2"
+                    Placeholder="Username"
+                    PlaceholderColor="{StaticResource lightCharcoal}"
+                    Style="{StaticResource etBodyNormalLg}"
+                    TextColor="{StaticResource normalCharcoal}" />
+                <app:AppEntry
+                    Padding="10"
+                    BorderThickness="2"
+                    FocusBorderColor="#696B7A"
+                    FontAttributes="Italic"
+                    FontFamily="PoppinsItalic"
+                    HeightRequest="32"
+                    IsPassword="True"
+                    NoramlBorderColor="#E8EAF2"
+                    Placeholder="Password"
+                    PlaceholderColor="{StaticResource lightCharcoal}"
+                    Style="{StaticResource etBodyNormalLg}"
+                    TextColor="{StaticResource normalCharcoal}" />
                 <app:AppButton
-                    HorizontalOptions="Center"
+                    ButtonTitle="Login as Volunteer"
                     Command="{Binding LoginCommand}"
-                    WidthRequest="200"
-                    HeightRequest="40"
                     CornerRadius="20"
-                    NormalLabelColor="White"
-                    PressedLabelColor="LightGray"
-                    ButtonTitle="Login as Volunteer"/>
-                <app:AppButton
+                    HeightRequest="40"
                     HorizontalOptions="Center"
-                    Command="{Binding SignUpCommand}"
-                    WidthRequest="200"
-                    HeightRequest="40"
-                    CornerRadius="20"
                     NormalLabelColor="White"
                     PressedLabelColor="LightGray"
-                    ButtonTitle="Login as Subscriber"/>
+                    WidthRequest="200" />
+                <app:AppButton
+                    ButtonTitle="Login as Subscriber"
+                    Command="{Binding SignUpCommand}"
+                    CornerRadius="20"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    NormalLabelColor="White"
+                    PressedLabelColor="LightGray"
+                    WidthRequest="200" />
                 <!--<app:ToggleView
                     HorizontalOptions="Center"
                     WidthRequest="50"
@@ -66,6 +71,6 @@
                     ImageSize="25"/>-->
             </StackLayout>
         </Grid>
-        
+
     </ContentPage.Content>
-</ContentPage>
+</views:BasePage>

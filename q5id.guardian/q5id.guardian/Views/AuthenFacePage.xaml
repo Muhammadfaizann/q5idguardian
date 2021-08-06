@@ -1,63 +1,88 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<ContentPage
+<views:BasePage
+    x:Class="q5id.guardian.Views.AuthenFacePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
     xmlns:effect="clr-namespace:q5id.guardian.Effects"
     xmlns:utils="clr-namespace:q5id.guardian.Utils"
-    xmlns:control="clr-namespace:q5id.guardian.Controls"
-    NavigationPage.HasNavigationBar="False"
-    x:Class="q5id.guardian.Views.AuthenFacePage">
+    xmlns:views="clr-namespace:q5id.guardian.Views"
+    xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
+    x:DataType="vm:AuthenFaceViewModel"
+    x:TypeArguments="vm:AuthenFaceViewModel">
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" VerticalOptions="Start" RowSpacing="0" BackgroundColor="#e53b55">
+            <Grid
+                Grid.Row="0"
+                BackgroundColor="#e53b55"
+                RowSpacing="0"
+                VerticalOptions="Start">
                 <Grid.Effects>
-                    <effect:SafeAreaEffect IsPaddingTop="True" IsPaddingBottom="False"/>
+                    <effect:SafeAreaEffect IsPaddingBottom="False" IsPaddingTop="True" />
                 </Grid.Effects>
-                <Grid VerticalOptions="Start" HeightRequest="50" BackgroundColor="#FD425E">
-                    <Label FontSize="Medium" TextColor="White" FontAttributes="Bold" Text="Authenticate Identity" VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Grid
+                    BackgroundColor="#FD425E"
+                    HeightRequest="50"
+                    VerticalOptions="Start">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        HorizontalOptions="Center"
+                        Text="Authenticate Identity"
+                        TextColor="White"
+                        VerticalOptions="Center" />
                 </Grid>
-                <Grid HorizontalOptions="Start" Margin="20,0,0,0">
+                <Grid Margin="20,0,0,0" HorizontalOptions="Start">
                     <Grid.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding BackCommand}" />
+                        <TapGestureRecognizer Command="{Binding CloseCommand}" />
                     </Grid.GestureRecognizers>
-                    <Image IsEnabled="False" HorizontalOptions="Center">
+                    <Image HorizontalOptions="Center" IsEnabled="False">
                         <Image.Source>
-                            <FontImageSource FontFamily="FontAwesome5Solid"
-                                    Color="White"
-                                    Size="Large"
-                                    Glyph="{x:Static utils:FontAwesomeIcons.ArrowLeft}"/>
+                            <FontImageSource
+                                FontFamily="FontAwesome5Solid"
+                                Glyph="{x:Static utils:FontAwesomeIcons.ArrowLeft}"
+                                Size="Large"
+                                Color="White" />
                         </Image.Source>
                     </Image>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="1" HorizontalOptions="Fill" VerticalOptions="Fill">
-                 <control:CameraPreview
-                     x:Name="cameraPreview"
-                     Camera="Front"
-                     HorizontalOptions="Fill"
-                     VerticalOptions="Fill" />
-                <Grid HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,20">
-                    <control:AppFrame NormalBackgroundColorStart="{StaticResource redNue}"
-                                      NormalBackgroundColorEnd="{StaticResource redVibrant}"
-                                      PressedBackgroundColor="{StaticResource redQ5}"
-                                      HorizontalOptions="Center"
-                                      VerticalOptions="Center"
-                                      WidthRequest="50"
-                                      HeightRequest="50"
-                                      Padding="0"
-                                      HasShadow="False"
-                                      Clicked="OnSwitchCamera_Tapped"
-                                      CornerRadius="25">
-                        <Image IsEnabled="False" HorizontalOptions="Center">
+            <Grid
+                Grid.Row="1"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill">
+                <control:CameraPreview
+                    x:Name="cameraPreview"
+                    Camera="Front"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill" />
+                <Grid
+                    Margin="0,0,0,20"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End">
+                    <control:AppFrame
+                        Padding="0"
+                        Clicked="OnSwitchCamera_Tapped"
+                        CornerRadius="25"
+                        HasShadow="False"
+                        HeightRequest="50"
+                        HorizontalOptions="Center"
+                        NormalBackgroundColorEnd="{StaticResource redVibrant}"
+                        NormalBackgroundColorStart="{StaticResource redNue}"
+                        PressedBackgroundColor="{StaticResource redQ5}"
+                        VerticalOptions="Center"
+                        WidthRequest="50">
+                        <Image HorizontalOptions="Center" IsEnabled="False">
                             <Image.Source>
-                                <FontImageSource FontFamily="FontAwesome5Solid"
-                                        Color="White"
-                                        Size="Medium"
-                                        Glyph="{x:Static utils:FontAwesomeIcons.Sync}"/>
+                                <FontImageSource
+                                    FontFamily="FontAwesome5Solid"
+                                    Glyph="{x:Static utils:FontAwesomeIcons.Sync}"
+                                    Size="Medium"
+                                    Color="White" />
                             </Image.Source>
                         </Image>
                     </control:AppFrame>
@@ -65,4 +90,4 @@
             </Grid>
         </Grid>
     </ContentPage.Content>
-</ContentPage>
+</views:BasePage>

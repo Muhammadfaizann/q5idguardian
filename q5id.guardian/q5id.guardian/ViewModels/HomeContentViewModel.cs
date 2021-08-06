@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using MvvmCross.Navigation;
 using q5id.guardian.Models;
 using Xamarin.Forms.Maps;
 
@@ -7,6 +10,10 @@ namespace q5id.guardian.ViewModels
 {
     public class HomeContentViewModel : BaseViewModel
     {
+
+        public HomeContentViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
+        {
+        }
         private User mUser = null;
         public User User
         {
@@ -14,8 +21,8 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mUser = value;
-                OnPropertyChanged(nameof(User));
-                OnPropertyChanged(nameof(IsVolunteer));
+                RaisePropertyChanged(nameof(User));
+                RaisePropertyChanged(nameof(IsVolunteer));
             }
         }
 
@@ -34,12 +41,7 @@ namespace q5id.guardian.ViewModels
             {
                 return this.mPage;
             }
-
-            set
-            {
-                this.mPage = value;
-                OnPropertyChanged(nameof(Pages));
-            }
+            set => SetProperty(ref mPage, value);
         }
 
         private ObservableCollection<Alert> mAlerts;
@@ -53,8 +55,8 @@ namespace q5id.guardian.ViewModels
             set
             {
                 this.mAlerts = value;
-                OnPropertyChanged(nameof(Alerts));
-                OnPropertyChanged(nameof(IsHaveAlerts));
+                RaisePropertyChanged(nameof(Alerts));
+                RaisePropertyChanged(nameof(IsHaveAlerts));
             }
         }
 
@@ -66,11 +68,11 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        public HomeContentViewModel()
+
+        public override async Task Initialize()
         {
             GetUserPages();
         }
-
         private void GetUserPages()
         {
             Pages = new ObservableCollection<UserPage>()

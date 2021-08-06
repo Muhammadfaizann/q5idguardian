@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using MvvmCross.Navigation;
+using System;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -7,12 +9,8 @@ namespace q5id.guardian.ViewModels
 {
     public class LovedOnesViewModel : BaseViewModel
     {
-        public LovedOnesViewModel()
+        public LovedOnesViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
-            Title = "Loved Ones";
-            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://q5id.com/product"));
         }
-
-        public ICommand OpenWebCommand { get; }
     }
 }

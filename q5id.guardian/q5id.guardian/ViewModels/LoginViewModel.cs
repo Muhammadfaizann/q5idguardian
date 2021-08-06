@@ -1,8 +1,12 @@
-﻿using q5id.guardian.Models;
+﻿using Microsoft.Extensions.Logging;
+using MvvmCross.Commands;
+using MvvmCross.Navigation;
+using q5id.guardian.Models;
 using q5id.guardian.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace q5id.guardian.ViewModels
@@ -13,15 +17,15 @@ namespace q5id.guardian.ViewModels
 
         public Command SignUpCommand { get; }
 
-        public LoginViewModel()
+        public LoginViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
             LoginCommand = new Command(OnLoginAsVolClicked);
             SignUpCommand = new Command(OnLoginAsSubClicked);
         }
 
-        private void OnLoginClicked(object obj)
+        private async void OnLoginClicked(object obj)
         {
-            NavigationService.SetRoot(typeof(HomeViewModel), obj, NavigationType.ContentPageWithNavigation);
+            await ClearStackAndNavigateToPage<HomeViewModel>();
         }
 
         private void OnLoginAsSubClicked(object obj)
@@ -44,9 +48,9 @@ namespace q5id.guardian.ViewModels
             });
         }
 
-        private void OnSignUpClicked(object obj)
+        private async Task OnSignUpClicked()
         {
-            NavigationService.NavigateToAsync(typeof(AuthenFaceViewModel), obj);
+            await NavigationService.Navigate<AuthenFaceViewModel>();
         }
     }
 }
