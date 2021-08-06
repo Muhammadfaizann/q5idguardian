@@ -103,7 +103,16 @@ namespace q5id.guardian.Controls
 
         // BindableProperty implementation
         public static readonly BindableProperty IsDisableProperty =
-            BindableProperty.Create(nameof(IsDisable), typeof(Boolean), typeof(AppButton), false);
+            BindableProperty.Create(nameof(IsDisable), typeof(Boolean), typeof(AppButton), false, BindingMode.TwoWay, null, OnIsDisablePropertyChanged);
+
+        private static void OnIsDisablePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if(bindable is AppButton appButton && newValue is Boolean isDisable)
+            {
+                appButton.frameContent.IsDisable = isDisable;
+                appButton.labelContent.TextColor = isDisable ? appButton.DeactiveLabelColor : appButton.NormalLabelColor;
+            }
+        }
 
         public Boolean IsDisable
         {
@@ -122,7 +131,7 @@ namespace q5id.guardian.Controls
             set
             {
                 SetValue(NormalLabelColorProperty, value);
-                this.labelContent.TextColor = value;
+                this.labelContent.TextColor = IsDisable ? DeactiveLabelColor : value;
             }
             get => (Color)GetValue(NormalLabelColorProperty);
         }
@@ -137,7 +146,11 @@ namespace q5id.guardian.Controls
         public static readonly BindableProperty DeactiveLabelColorProperty = BindableProperty.Create(nameof(DeactiveLabelColor), typeof(Color), typeof(AppButton), Color.Black);
         public Color DeactiveLabelColor
         {
-            set => SetValue(DeactiveLabelColorProperty, value);
+            set
+            {
+                SetValue(DeactiveLabelColorProperty, value);
+                this.labelContent.TextColor = IsDisable ? value : NormalLabelColor;
+            }
             get => (Color)GetValue(DeactiveLabelColorProperty);
         }
 

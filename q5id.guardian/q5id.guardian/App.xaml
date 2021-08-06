@@ -2,6 +2,7 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:app="clr-namespace:q5id.guardian.Controls"
+             xmlns:converters="clr-namespace:q5id.guardian.Converters"
              x:Class="q5id.guardian.App">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
@@ -79,6 +80,7 @@
                 <Setter Property="PressedBackgroundColor" Value="{StaticResource dimCharcoal}" />
                 <Setter Property="DeactiveBackgroundColor" Value="{StaticResource lightCharcoal}" />
             </Style>
+            <converters:ReverseBooleanConverter x:Key="reverseBooleanConverter"/>
         </ResourceDictionary>        
     </Application.Resources>
 </Application>

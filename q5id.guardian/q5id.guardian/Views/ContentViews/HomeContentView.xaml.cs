@@ -34,21 +34,12 @@ namespace q5id.guardian.Views.ContentViews
 
         private void ShowMap()
         {
-            if(map == null)
+            if (map == null)
             {
                 map = new AppMap();
                 map.IsShowingUser = true;
                 map.HorizontalOptions = LayoutOptions.Fill;
                 map.VerticalOptions = LayoutOptions.Fill;
-                //DataTemplate dataTemplate = new DataTemplate(() =>
-                //{
-                //    Pin pin = new Pin();
-                //    pin.SetBinding(Pin.PositionProperty, "Position");
-                //    pin.SetBinding(Pin.AddressProperty, "Address");
-                //    pin.SetBinding(Pin.LabelProperty, "Title");
-                //    return pin;
-                //});
-                //map.ItemTemplate = dataTemplate;
                 map.BindingContext = this.BindingContext;
                 map.SetBinding(AppMap.AlertItemsSourceProperty, "Alerts");
                 frmContentMap.Content = map;
@@ -96,7 +87,6 @@ namespace q5id.guardian.Views.ContentViews
             if (mediaElements.Count == 0)
             {
                 mCurrentMediaPosition = 0;
-                element.ShowMediaPlayer();
             }
             mediaElements.Add(element);
         }
@@ -104,7 +94,6 @@ namespace q5id.guardian.Views.ContentViews
         private void CarouselView_PositionChanged(object sender, PositionChangedEventArgs e)
         {
             mediaElements[e.PreviousPosition].StopPlayer();
-            mediaElements[e.CurrentPosition].ShowMediaPlayer();
             mCurrentMediaPosition = e.CurrentPosition;
         }
 

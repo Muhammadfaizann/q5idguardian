@@ -12,9 +12,6 @@
             <Color x:Key="Accent">#f19ca4</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
-     <ContentPage.BindingContext>
-        <vm:HomeViewModel></vm:HomeViewModel>
-    </ContentPage.BindingContext>
 
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>

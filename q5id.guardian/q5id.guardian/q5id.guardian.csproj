@@ -22,9 +22,6 @@
     <Compile Update="Views\LovedOnesPage.xaml.cs">
       <DependentUpon>LovedOnesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\HomePage.xaml.cs">
-      <DependentUpon>HomePage.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Remove="Utils\" />
@@ -43,6 +40,7 @@
     <None Remove="Xamarin.Forms.GoogleMaps" />
     <None Remove="Xamarin.Forms.Maps" />
     <None Remove="Xam.Plugin.Geolocator" />
+    <None Remove="Converters\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\" />
@@ -53,6 +51,7 @@
     <Folder Include="Effects\" />
     <Folder Include="Controls\Camera\" />
     <Folder Include="Views\ItemViews\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Fonts\FontAwesome5Regular.otf" />

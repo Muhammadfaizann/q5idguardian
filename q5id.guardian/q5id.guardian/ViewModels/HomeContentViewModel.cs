@@ -15,6 +15,15 @@ namespace q5id.guardian.ViewModels
             {
                 mUser = value;
                 OnPropertyChanged(nameof(User));
+                OnPropertyChanged(nameof(IsVolunteer));
+            }
+        }
+
+        public Boolean IsVolunteer
+        {
+            get
+            {
+                return this.mUser != null && this.mUser.Role == UserRole.Volunteer;
             }
         }
 
@@ -45,6 +54,15 @@ namespace q5id.guardian.ViewModels
             {
                 this.mAlerts = value;
                 OnPropertyChanged(nameof(Alerts));
+                OnPropertyChanged(nameof(IsHaveAlerts));
+            }
+        }
+
+        public Boolean IsHaveAlerts
+        {
+            get
+            {
+                return this.Alerts != null && this.Alerts.Count > 0;
             }
         }
 
@@ -108,11 +126,6 @@ namespace q5id.guardian.ViewModels
                 al.Position = new Position(fromPos.Latitude + difLat, fromPos.Longitude + difLong);
                 alerts.Add(al);
             }
-            Alert alCenter = new Alert();
-            alCenter.Title = "Title X";
-            alCenter.Address = "Address X" ;
-            alCenter.Position = new Position(fromPos.Latitude, fromPos.Longitude);
-            alerts.Add(alCenter);
             Alerts = alerts;
         }
     }

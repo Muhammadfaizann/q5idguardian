@@ -15,13 +15,33 @@ namespace q5id.guardian.ViewModels
 
         public LoginViewModel()
         {
-            LoginCommand = new Command(OnLoginClicked);
-            SignUpCommand = new Command(OnSignUpClicked);
+            LoginCommand = new Command(OnLoginAsVolClicked);
+            SignUpCommand = new Command(OnLoginAsSubClicked);
         }
 
         private void OnLoginClicked(object obj)
         {
-            NavigationService.SetRoot(typeof(HomeViewModel), null, NavigationType.ContentPageWithNavigation);
+            NavigationService.SetRoot(typeof(HomeViewModel), obj, NavigationType.ContentPageWithNavigation);
+        }
+
+        private void OnLoginAsSubClicked(object obj)
+        {
+            this.OnLoginClicked(new User()
+            {
+                FirstName = "Minh",
+                LastName = "Luu",
+                Role = UserRole.Subscriber
+            });
+        }
+
+        private void OnLoginAsVolClicked(object obj)
+        {
+            this.OnLoginClicked(new User()
+            {
+                FirstName = "Minh",
+                LastName = "Luu",
+                Role = UserRole.Volunteer
+            });
         }
 
         private void OnSignUpClicked(object obj)

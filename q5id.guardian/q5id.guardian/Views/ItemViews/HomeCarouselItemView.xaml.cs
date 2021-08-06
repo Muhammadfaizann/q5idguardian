@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using q5id.guardian.Models;
+using Xamarin.CommunityToolkit.Core;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
@@ -15,7 +17,7 @@ namespace q5id.guardian.Views.ItemViews
             InitializeComponent();
         }
 
-        public void ShowMediaPlayer()
+        private void ShowMediaPlayer()
         {
             if(mediaElement == null)
             {
@@ -24,15 +26,28 @@ namespace q5id.guardian.Views.ItemViews
                 mediaElement.VerticalOptions = LayoutOptions.Fill;
                 mediaElement.ShowsPlaybackControls = false;
                 mediaElement.AutoPlay = false;
-                mediaElement.BindingContext = this.BindingContext;
-                mediaElement.SetBinding(MediaElement.SourceProperty, "VideoUrl");
+                if(this.BindingContext is UserPage userPage)
+                {
+                    mediaElement.Source = MediaSource.FromUri(userPage.VideoUrl);
+                }
                 this.frmContentMedia.Content = mediaElement;
+            }
+        }
+
+        private void HideMediaPlayer()
+        {
+            if (mediaElement != null)
+            {
+                mediaElement.Source = null;
+                mediaElement = null;
+                this.frmContentMedia.Content = new BoxView();
             }
         }
 
         public void StopPlayer()
         {
             this.mediaElement?.Stop();
+            HideMediaPlayer();
             frmPlayBtn.IsVisible = true;
             isPlaying = false;
         }
@@ -45,6 +60,7 @@ namespace q5id.guardian.Views.ItemViews
             }
             else
             {
+                this.ShowMediaPlayer();
                 this.mediaElement?.Play();
 
             }

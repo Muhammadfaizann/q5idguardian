@@ -27,6 +27,7 @@ namespace q5id.guardian.Controls
         {
             var appMap = this;
             appMap.MapElements.Clear();
+            appMap.Pins.Clear();
             Color pinColor = Color.Red;
             object pinColorObj;
             Application.Current.Resources.TryGetValue("redNue", out pinColorObj);
@@ -42,7 +43,7 @@ namespace q5id.guardian.Controls
                     Circle insideCircle = new Circle
                     {
                         Center = new Position(position.Latitude, position.Longitude),
-                        Radius = Distance.FromKilometers(1),
+                        Radius = Distance.FromKilometers(0.4),
                         StrokeColor = pinColor,
                         StrokeWidth = 0,
                         FillColor = pinColor
@@ -50,13 +51,24 @@ namespace q5id.guardian.Controls
                     Circle outsideCircle = new Circle
                     {
                         Center = new Position(position.Latitude, position.Longitude),
-                        Radius = Distance.FromKilometers(5),
+                        Radius = Distance.FromKilometers(2.5),
                         StrokeColor = pinColor,
                         StrokeWidth = 4,
                         FillColor = Color.Transparent
                     };
                     appMap.MapElements.Add(insideCircle);
                     appMap.MapElements.Add(outsideCircle);
+                    //Pin pin = new Pin()
+                    //{
+                    //    Label = alert.Title,
+                    //    Address = alert.Address,
+                    //    Position = new Position(position.Latitude - 0.0025, position.Longitude)
+                    //    {
+                            
+                    //    },
+                        
+                    //};
+                    //appMap.Pins.Add(pin);
                 }
             }
         }

@@ -38,7 +38,21 @@ namespace q5id.guardian.Views
                     SelectTab(2);
                 })
             });
-            homeView.BindingContext = new HomeContentViewModel();
+            
+        }
+
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+            if (this.BindingContext is HomeViewModel homeViewModel)
+            {
+                homeView.BindingContext = homeViewModel.HomeContentViewModel;
+            }
+            else
+            {
+                homeView.BindingContext = this.BindingContext;
+            }
+
         }
 
         protected override void OnAppearing()
