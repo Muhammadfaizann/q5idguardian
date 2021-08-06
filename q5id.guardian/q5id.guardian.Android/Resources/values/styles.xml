@@ -16,8 +16,10 @@
         <!--<item name="colorAccent">#FF4081</item>-->
     </style>
     <style name="MainTheme.Splash" parent ="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimaryDark">#e53b55</item>
-        <item name="android:windowNoTitle">true</item>  
-        <item name="android:windowBackground">@drawable/splash_background</item>
+        <!--<item name="colorPrimaryDark">#e53b55</item>-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 </resources>

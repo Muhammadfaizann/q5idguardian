@@ -8,9 +8,16 @@
     xmlns:views="clr-namespace:q5id.guardian.Views"
     xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
     x:DataType="vm:IntroViewModel"
-    x:TypeArguments="vm:IntroViewModel">
+    x:TypeArguments="vm:IntroViewModel"
+    BackgroundColor="#E8EAF2">
     <ContentPage.Content>
         <Grid BackgroundColor="White" RowSpacing="0">
+            <Grid.Padding>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0, 0, 0, 20" />
+                    <On Platform="Android" Value="0, 0, 0, 0" />
+                </OnPlatform>
+            </Grid.Padding>
 
             <!--    -->
             <Grid
@@ -25,9 +32,11 @@
                     Grid.Row="1"
                     Margin="-20,-60,-20,0"
                     Fill="#E8EAF2"
-                    HeightRequest="40" />
+                    HeightRequest="40"
+                    StrokeThickness="0" />
                 <StackLayout
                     Grid.Row="0"
+                    Padding="0,20,0,0"
                     Background="#E8EAF2"
                     Orientation="Vertical">
                     <Image

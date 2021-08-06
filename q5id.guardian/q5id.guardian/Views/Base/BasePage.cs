@@ -58,7 +58,6 @@ namespace q5id.guardian.Views
             //        this.Padding = new Thickness(0, 0, 45, 0);
             //    }
             //}
-            this.BackgroundColor = Color.White;
             if (Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.iOS)
             {
                 var safeInsets = On<iOS>().SetUseSafeArea(false);
@@ -89,7 +88,7 @@ namespace q5id.guardian.Views
             if (Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.iOS)
             {
                 var padding = SafeAreaInsets;
-                (MainContainer ?? this.Content as Layout).Margin = padding;
+                (MainContainer ?? this.Content as Layout).Margin = new Thickness(padding.Left,padding.Top,padding.Right,0);
                 await Task.Delay(100);
                 //var safeInsets = On<iOS>().SetUseSafeArea(false);
             }

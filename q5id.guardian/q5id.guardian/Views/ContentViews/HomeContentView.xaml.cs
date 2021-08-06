@@ -13,7 +13,6 @@ namespace q5id.guardian.Views.ContentViews
 {
     public partial class HomeContentView : ContentView
     {
-        private bool isInitView = false;
         private bool isInitMap = false;
 
         List<HomeCarouselItemView> mediaElements = new List<HomeCarouselItemView>();

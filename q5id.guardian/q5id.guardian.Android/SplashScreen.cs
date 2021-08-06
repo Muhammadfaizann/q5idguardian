@@ -25,10 +25,12 @@ namespace q5id.guardian.Droid
         {
         }
 
-        protected override Task RunAppStartAsync(Bundle bundle)
+        protected override async Task RunAppStartAsync(Bundle bundle)
         {
+            
+            await base.RunAppStartAsync(bundle);
+
             StartActivity(typeof(MainActivity));
-            return base.RunAppStartAsync(bundle);
         }
 
         //protected override void RunAppStart(Bundle bundle)

@@ -11,7 +11,8 @@
     xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:DataType="vm:HomeViewModel"
-    x:TypeArguments="vm:HomeViewModel">
+    x:TypeArguments="vm:HomeViewModel"
+    BackgroundColor="#FD425E">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#f19ca4</Color>
@@ -20,15 +21,11 @@
 
     <Grid BackgroundColor="{StaticResource paleGray}" RowSpacing="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0" />
             <RowDefinition Height="120" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="70" />
+            <RowDefinition Height="90" />
         </Grid.RowDefinitions>
-        <Grid
-            Grid.Row="1"
-            BackgroundColor="{StaticResource paleGray}"
-            RowSpacing="0">
+        <Grid Grid.Row="0" BackgroundColor="{StaticResource paleGray}" RowSpacing="0">
             <control:AppBoxView
                 BackgroundColor="#FD425E"
                 BottomHeight="45"
@@ -59,8 +56,8 @@
 
         </Grid>
         <Grid
-            Grid.Row="2"
             x:Name="gridContentView"
+            Grid.Row="1"
             Background="{StaticResource paleGray}"
             HorizontalOptions="Fill"
             VerticalOptions="Fill">
@@ -72,101 +69,102 @@
             <ctv:LovedOnesContentView x:Name="lovedView" IsVisible="False" />
             <ctv:AlertContentView x:Name="alertView" IsVisible="False" />-->
         </Grid>
-        <Grid Grid.Row="3" BackgroundColor="White">
-            <Grid Padding="0,8,0,6" VerticalOptions="Fill">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="70" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="70" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid
-                    x:Name="gridHome"
-                    Grid.Column="1"
-                    RowSpacing="0">
-                    <StackLayout
-                        Orientation="Vertical"
-                        Spacing="5"
-                        VerticalOptions="Center">
-                        <Image HorizontalOptions="Center" IsEnabled="False">
-                            <Image.Source>
-                                <FontImageSource
-                                    x:Name="imageSourceHome"
-                                    FontFamily="FontAwesome5Solid"
-                                    Glyph="{x:Static utils:FontAwesomeIcons.Home}"
-                                    Size="Large"
-                                    Color="Black" />
-                            </Image.Source>
-                        </Image>
-                        <Label
-                            x:Name="labelHome"
-                            Grid.Row="1"
-                            FontAttributes="Bold"
-                            FontSize="Micro"
-                            HorizontalOptions="Center"
-                            IsEnabled="False"
-                            Text="HOME" />
-                    </StackLayout>
-                </Grid>
-                <Grid
-                    x:Name="gridLove"
-                    Grid.Column="3"
-                    RowSpacing="0">
-                    <StackLayout
-                        Orientation="Vertical"
-                        Spacing="5"
-                        VerticalOptions="Center">
-                        <Image HorizontalOptions="Center" IsEnabled="False">
-                            <Image.Source>
-                                <FontImageSource
-                                    x:Name="imageSourceLove"
-                                    FontFamily="FontAwesome5Solid"
-                                    Glyph="{x:Static utils:FontAwesomeIcons.Heart}"
-                                    Size="Large"
-                                    Color="Black" />
-                            </Image.Source>
-                        </Image>
-                        <Label
-                            x:Name="labelLove"
-                            Grid.Row="1"
-                            FontAttributes="Bold"
-                            FontSize="Micro"
-                            HorizontalOptions="Center"
-                            IsEnabled="False"
-                            Text="LOVED ONES" />
-                    </StackLayout>
-                </Grid>
-                <Grid
-                    x:Name="gridAlert"
-                    Grid.Column="5"
-                    RowSpacing="0">
-                    <StackLayout
-                        Orientation="Vertical"
-                        Spacing="5"
-                        VerticalOptions="Center">
-                        <Image HorizontalOptions="Center" IsEnabled="False">
-                            <Image.Source>
-                                <FontImageSource
-                                    x:Name="imageSourceAlert"
-                                    FontFamily="FontAwesome5Solid"
-                                    Glyph="{x:Static utils:FontAwesomeIcons.Bullhorn}"
-                                    Size="Large"
-                                    Color="Black" />
-                            </Image.Source>
-                        </Image>
-                        <Label
-                            x:Name="labelAlert"
-                            Grid.Row="1"
-                            FontAttributes="Bold"
-                            FontSize="Micro"
-                            HorizontalOptions="Center"
-                            IsEnabled="False"
-                            Text="ALERTS" />
-                    </StackLayout>
-                </Grid>
+        <Grid
+            Grid.Row="2"
+            Padding="0,8,0,26"
+            BackgroundColor="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid
+                x:Name="gridHome"
+                Grid.Column="1"
+                RowSpacing="0">
+                <StackLayout
+                    Orientation="Vertical"
+                    Spacing="5"
+                    VerticalOptions="Center">
+                    <Image HorizontalOptions="Center" IsEnabled="False">
+                        <Image.Source>
+                            <FontImageSource
+                                x:Name="imageSourceHome"
+                                FontFamily="FontAwesome5Solid"
+                                Glyph="{x:Static utils:FontAwesomeIcons.Home}"
+                                Size="Large"
+                                Color="Black" />
+                        </Image.Source>
+                    </Image>
+                    <Label
+                        x:Name="labelHome"
+                        Grid.Row="1"
+                        FontAttributes="Bold"
+                        FontSize="Micro"
+                        HorizontalOptions="Center"
+                        IsEnabled="False"
+                        Text="HOME" />
+                </StackLayout>
+            </Grid>
+            <Grid
+                x:Name="gridLove"
+                Grid.Column="3"
+                RowSpacing="0">
+                <StackLayout
+                    Orientation="Vertical"
+                    Spacing="5"
+                    VerticalOptions="Center">
+                    <Image HorizontalOptions="Center" IsEnabled="False">
+                        <Image.Source>
+                            <FontImageSource
+                                x:Name="imageSourceLove"
+                                FontFamily="FontAwesome5Solid"
+                                Glyph="{x:Static utils:FontAwesomeIcons.Heart}"
+                                Size="Large"
+                                Color="Black" />
+                        </Image.Source>
+                    </Image>
+                    <Label
+                        x:Name="labelLove"
+                        Grid.Row="1"
+                        FontAttributes="Bold"
+                        FontSize="Micro"
+                        HorizontalOptions="Center"
+                        IsEnabled="False"
+                        Text="LOVED ONES" />
+                </StackLayout>
+            </Grid>
+            <Grid
+                x:Name="gridAlert"
+                Grid.Column="5"
+                RowSpacing="0">
+                <StackLayout
+                    Orientation="Vertical"
+                    Spacing="5"
+                    VerticalOptions="Center">
+                    <Image HorizontalOptions="Center" IsEnabled="False">
+                        <Image.Source>
+                            <FontImageSource
+                                x:Name="imageSourceAlert"
+                                FontFamily="FontAwesome5Solid"
+                                Glyph="{x:Static utils:FontAwesomeIcons.Bullhorn}"
+                                Size="Large"
+                                Color="Black" />
+                        </Image.Source>
+                    </Image>
+                    <Label
+                        x:Name="labelAlert"
+                        Grid.Row="1"
+                        FontAttributes="Bold"
+                        FontSize="Micro"
+                        HorizontalOptions="Center"
+                        IsEnabled="False"
+                        Text="ALERTS" />
+                </StackLayout>
             </Grid>
         </Grid>
 

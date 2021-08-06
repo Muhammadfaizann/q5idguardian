@@ -64,43 +64,7 @@ namespace q5id.guardian.Views
             });
 
         }
-
-        protected override void OnBindingContextChanged()
-        {
-            base.OnBindingContextChanged();
-            //if (this.BindingContext is HomeViewModel homeViewModel)
-            //{
-            //    homeView.BindingContext = homeViewModel.HomeContentViewModel;
-            //}
-            //else
-            //{
-            //    homeView.BindingContext = this.BindingContext;
-            //}
-
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            UpdateSafeArea();
-        }
-
-        private void UpdateSafeArea()
-        {
-            if (isInitPage == false)
-            {
-                isInitPage = true;
-                //var safeAreaInset = On<Xamarin.Forms.PlatformConfiguration.iOS>().SafeAreaInsets();
-                //if (safeAreaInset.Top > 0)
-                //{
-                //    topBox.HeightRequest = safeAreaInset.Top;
-                //}
-                //if (safeAreaInset.Bottom > 0)
-                //{
-                //    bottomBox.HeightRequest = safeAreaInset.Bottom;
-                //}
-            }
-        }
+      
 
         private void ShowView(ContentView view, string bindingName = null)
         {

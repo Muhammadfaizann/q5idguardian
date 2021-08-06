@@ -8,7 +8,8 @@
     xmlns:views="clr-namespace:q5id.guardian.Views"
     xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
     x:DataType="vm:SettingViewModel"
-    x:TypeArguments="vm:SettingViewModel">
+    x:TypeArguments="vm:SettingViewModel"
+    BackgroundColor="#FD425E">
     <ContentPage.Content>
         <Grid BackgroundColor="White" RowSpacing="0">
             <Grid.RowDefinitions>
@@ -19,15 +20,13 @@
                 BackgroundColor="#FD425E"
                 HeightRequest="50"
                 VerticalOptions="Start">
-                <Grid VerticalOptions="Start">
-                    <Label
-                        FontAttributes="Bold"
-                        FontSize="Medium"
-                        HorizontalOptions="Center"
-                        Text="Settings"
-                        TextColor="White"
-                        VerticalOptions="Center" />
-                </Grid>
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    HorizontalOptions="Center"
+                    Text="Settings"
+                    TextColor="White"
+                    VerticalOptions="Center" />
                 <Grid Margin="20,0,0,0" HorizontalOptions="Start">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding CloseCommand}" />
