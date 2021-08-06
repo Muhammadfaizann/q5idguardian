@@ -13,7 +13,7 @@ using MvvmCross.Forms.Platforms.Android.Views;
 
 namespace q5id.guardian.Droid
 {
-    [Activity(Label = "Guardian", Icon = "@mipmap/icon", Theme = "@style/MainTheme.Splash",
+    [Activity(Label = "Guardian", Icon = "@mipmap/icon", Theme = "@style/MainTheme",
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : MvxFormsAppCompatActivity<Setup, MainApp, App>
     {
