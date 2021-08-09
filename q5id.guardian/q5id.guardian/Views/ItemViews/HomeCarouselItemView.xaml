@@ -2,9 +2,9 @@
 <ContentView
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:control="clr-namespace:q5id.guardian.Controls"
-    xmlns:utils="clr-namespace:q5id.guardian.Utils"
-    x:Class="q5id.guardian.Views.ItemViews.HomeCarouselItemView">
+    x:Class=" q5id.guardian.Views.ItemViews.HomeCarouselItemView"
+    xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+    xmlns:utils="clr-namespace:q5id.guardian.Utils">
     <ContentView.Content>
         <Grid>
             <Frame Padding="0"
@@ -13,9 +13,12 @@
                    BackgroundColor="Transparent"
                    HorizontalOptions="Fill"
                    VerticalOptions="Fill"
-                   BorderColor="Transparent"
-                   x:Name="frmContentMedia">
-
+                   BorderColor="Transparent">
+                <xct:MediaElement
+                         x:Name="mediaElement"
+                          AutoPlay="False"
+                          ShowsPlaybackControls="False"
+                          Source="{StaticResource AdvancedAsync}" />
             </Frame>
             <Grid>
                 <Grid.GestureRecognizers>

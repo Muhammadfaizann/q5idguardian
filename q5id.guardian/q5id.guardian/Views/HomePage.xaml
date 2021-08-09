@@ -36,6 +36,7 @@
                     FontSize="Medium"
                     HorizontalOptions="Center"
                     Text="guardian"
+                    x:Name="lbNavigation"
                     TextColor="White"
                     VerticalOptions="Center" />
                 <Grid Margin="20,0,0,0" HorizontalOptions="Start">

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using q5id.guardian.Models;
 using Xamarin.CommunityToolkit.Core;
-using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace q5id.guardian.Views.ItemViews
@@ -10,17 +9,32 @@ namespace q5id.guardian.Views.ItemViews
     public partial class HomeCarouselItemView : ContentView
     {
         private bool isPlaying = false;
-        private MediaElement mediaElement;
+        private bool isStop = true;
+        private string videoUrl = "";
 
         public HomeCarouselItemView()
         {
             InitializeComponent();
             frmPlayBtn.IsVisible = true;
             isPlaying = false;
+            isStop = true;
         }
 
         public void ShowPlayerControl() {
             frmPlayBtn.IsVisible = true;
+        }
+
+        public void ShowMediaPlayer()
+        {
+        }
+
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+            if (this.BindingContext is UserPage userPage)
+            {
+                videoUrl = userPage.VideoUrl;
+            }
         }
 
         public void HidePlayerControl()
@@ -28,37 +42,11 @@ namespace q5id.guardian.Views.ItemViews
             frmPlayBtn.IsVisible = false;
         }
 
-        private void ShowMediaPlayer()
-        {
-            if (mediaElement == null)
-            {
-                mediaElement = new MediaElement();
-                mediaElement.HorizontalOptions = LayoutOptions.Fill;
-                mediaElement.VerticalOptions = LayoutOptions.Fill;
-                mediaElement.ShowsPlaybackControls = false;
-                mediaElement.AutoPlay = false;
-                this.frmContentMedia.Content = mediaElement;
-            }
-            mediaElement.IsVisible = true;
-            if (this.BindingContext is UserPage userPage)
-            {
-                mediaElement.Source = MediaSource.FromUri(userPage.VideoUrl);
-            }
-        }
-
-        private void HideMediaPlayer()
-        {
-            if (mediaElement != null)
-            {
-                mediaElement.IsVisible = false;
-                mediaElement.Source = null;
-            }
-        }
-
+        
         public void StopPlayer()
         {
-            this.mediaElement?.Stop();
-            HideMediaPlayer();
+            mediaElement.Stop();
+            isStop = true;
             isPlaying = false;
             this.ShowPlayerControl();
         }
@@ -67,13 +55,22 @@ namespace q5id.guardian.Views.ItemViews
         {
             if (isPlaying)
             {
-                this.mediaElement?.Pause();
+                mediaElement.Pause();
                 this.ShowPlayerControl();
             }
             else
             {
-                this.ShowMediaPlayer();
-                this.mediaElement?.Play();
+                //VideoPlayer.Play();
+                if (isStop)
+                {
+                    isStop = false;
+                    mediaElement.Source = MediaSource.FromUri(videoUrl);
+                    mediaElement.Play();
+                }
+                else
+                {
+                    mediaElement.Play();
+                }
                 this.HidePlayerControl();
 
             }

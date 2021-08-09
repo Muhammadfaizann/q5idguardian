@@ -86,6 +86,7 @@ namespace q5id.guardian.Views.ContentViews
             if (mediaElements.Count == 0)
             {
                 mCurrentMediaPosition = 0;
+                element.ShowMediaPlayer();
                 element.ShowPlayerControl();
             }
             mediaElements.Add(element);
@@ -125,6 +126,7 @@ namespace q5id.guardian.Views.ContentViews
                 itemView.StopPlayer();
             }
             mCurrentMediaPosition = e.NewValue;
+            mediaElements[mCurrentMediaPosition].ShowMediaPlayer();
             mediaElements[mCurrentMediaPosition].ShowPlayerControl();
         }
     }

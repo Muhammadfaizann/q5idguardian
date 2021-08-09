@@ -9,6 +9,9 @@
     <Compile Remove="Services\**" />
     <EmbeddedResource Remove="Services\**" />
     <None Remove="Services\**" />
+    <None Remove="Octane.Xam.VideoPlayer" />
+    <None Remove="Plugin.MediaManager.Forms" />
+    <None Remove="Views\ContentViews\LovedOnesChildContentViews\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,6 +63,7 @@
     <Folder Include="Controls\Camera\" />
     <Folder Include="Views\ItemViews\" />
     <Folder Include="Converters\" />
+    <Folder Include="Views\ContentViews\LovedOnesChildContentViews\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Fonts\FontAwesome5Regular.otf" />

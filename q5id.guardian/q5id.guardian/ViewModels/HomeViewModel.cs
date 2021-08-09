@@ -63,6 +63,7 @@ namespace q5id.guardian.ViewModels
             _ = Task.Run(async () =>
             {
                 await HomeVm.Initialize();
+                await LovedOnesVm.Initialize();
             });
         }
     }

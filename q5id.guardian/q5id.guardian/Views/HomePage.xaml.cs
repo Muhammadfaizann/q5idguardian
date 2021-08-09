@@ -85,6 +85,17 @@ namespace q5id.guardian.Views
             labelHome.TextColor = index == 0 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
             labelLove.TextColor = index == 1 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
             labelAlert.TextColor = index == 2 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
+
+            string headerTitlePage = "Guardian";
+            if(index == 1)
+            {
+                headerTitlePage = "Loved Ones";
+            }
+            else if(index == 2)
+            {
+                headerTitlePage = "Alerts";
+            }
+            lbNavigation.Text = headerTitlePage;
         }
     }
 }

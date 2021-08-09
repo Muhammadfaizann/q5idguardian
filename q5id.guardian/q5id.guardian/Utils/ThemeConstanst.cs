@@ -12,5 +12,6 @@ namespace q5id.guardian.Utils
         public static String FontPoppinsRegular = "PoppinsRegular";
         public static String FontPoppinsItalic = "PoppinsItalic";
         public static String FontAwesomeSolid = "FontAwesome5Solid";
+        public static String FontAwesomeRegular = "FontAwesome5Regular";
     }
 }

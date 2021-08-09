@@ -31,6 +31,7 @@ namespace q5id.guardian.iOS
             CachedImageRenderer.InitImageSourceHandler();
             Xamarin.FormsMaps.Init();
             CarouselViewRenderer.Init();
+            Xamarin.Forms.Forms.Init();
             //Xamarin.FormsGoogleMaps.Init("AIzaSyANi77wVc7W33Z4UW_9_2dUCobRbQiB16E");
 
             return base.FinishedLaunching(application, launchOptions);

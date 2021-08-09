@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="q5id.guardian.Views.ContentViews.LovedOnesContentView">
     <ContentView.Content>
-        <Grid>
-            <Label HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Text="Loved Ones" />
+        <Grid x:Name="gridContent">
+            
         </Grid>
     </ContentView.Content>
 </ContentView>
