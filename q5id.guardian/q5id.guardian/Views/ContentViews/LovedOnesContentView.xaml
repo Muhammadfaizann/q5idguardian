@@ -2,10 +2,14 @@
 <ContentView
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:util="clr-namespace:q5id.guardian.Utils"
     x:Class="q5id.guardian.Views.ContentViews.LovedOnesContentView">
     <ContentView.Content>
-        <Grid x:Name="gridContent">
-            
+        <Grid>
+            <Grid x:Name="gridContent">
+
+            </Grid>
         </Grid>
     </ContentView.Content>
 </ContentView>

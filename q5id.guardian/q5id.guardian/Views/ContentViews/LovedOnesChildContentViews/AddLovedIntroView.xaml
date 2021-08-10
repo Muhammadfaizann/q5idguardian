@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<loved:BaseLovedContentChildView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:util="clr-namespace:q5id.guardian.Utils"
+    xmlns:loved="clr-namespace:q5id.guardian.Views.ContentViews.LovedOnesChildContentViews"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    x:Class="q5id.guardian.Views.ContentViews.LovedOnesChildContentViews.AddLovedIntroView">
+    <ContentView.Content>
+        <Grid>
+            <control:AppBoxView
+                Margin="0,-45,0,0"
+                BackgroundColor="#FD425E"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                BottomHeight="45"
+                HeightRequest="120" />
+            <ScrollView Margin="0, -60, 0, 0" Orientation="Vertical">
+                <StackLayout Orientation="Vertical">
+                    <Frame Padding="20"
+                       HasShadow="True"
+                       Margin="25, 0, 25, 0"
+                       BorderColor="Transparent"
+                       CornerRadius="16"
+                       BackgroundColor="White"
+                       HorizontalOptions="Fill"
+                       VerticalOptions="Start">
+                        <StackLayout Orientation="Vertical" Spacing="15" Padding="20, 15, 20, 15">
+                            <Label
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Center"
+                                Text="Let’s add a loved one to Guardian"
+                                TextColor="{StaticResource redNue}"
+                                Style="{StaticResource lbHeaderMd}">
+                            
+                            </Label>
+                            <Label
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Center"
+                                Text="Add some descriptive information, so you won’t need to think about it should you need to create an alert."
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbBodyNormalMd}">
+                            
+                            </Label>
+                            <Label
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Center"
+                                Text="A photo is required, but we recommend adding as much information as possible:"
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbBodyNormalMd}">
+                            
+                            </Label>
+                        </StackLayout>
+                    </Frame>
+                    <Grid HorizontalOptions="Fill"
+                          Margin="0,40,0,30"
+                          RowSpacing="10"
+                          ColumnSpacing="8"
+                          VerticalOptions="Start">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="18" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"  VerticalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource Size="18"
+                                                FontFamily="{x:Static util:ThemeConstanst.FontAwesomeRegular}"
+                                                Color="{StaticResource redNue}"
+                                                Glyph="{x:Static util:FontAwesomeIcons.CheckCircle}"/>
+                            </Image.Source>
+                        </Image>
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            MaxLines="1"
+                            Text="Loved one’s name"
+                            FontSize="12"
+                            TextColor="{StaticResource normalCharcoal}"
+                            Style="{StaticResource lbBodyBoldMd}">
+                            
+                        </Label>
+                        <Image Grid.Row="1" Grid.Column="1" HorizontalOptions="Center"  VerticalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource Size="18"
+                                                FontFamily="{x:Static util:ThemeConstanst.FontAwesomeRegular}"
+                                                Color="{StaticResource redNue}"
+                                                Glyph="{x:Static util:FontAwesomeIcons.CheckCircle}"/>
+                            </Image.Source>
+                        </Image>
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            MaxLines="1"
+                            TextColor="{StaticResource normalCharcoal}"
+                            Style="{StaticResource lbBodyBoldMd}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span FontSize="12" Text="Date of birth " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
+                                    <Span FontSize="12" Text="(for age)" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" TextColor="{StaticResource normalCharcoal}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Image Grid.Row="2" Grid.Column="1" HorizontalOptions="Center"  VerticalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource Size="18"
+                                                FontFamily="{x:Static util:ThemeConstanst.FontAwesomeRegular}"
+                                                Color="{StaticResource redNue}"
+                                                Glyph="{x:Static util:FontAwesomeIcons.CheckCircle}"/>
+                            </Image.Source>
+                        </Image>
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            MaxLines="1"
+                            Text="Height and weight"
+                            FontSize="12"
+                            TextColor="{StaticResource normalCharcoal}"
+                            Style="{StaticResource lbBodyBoldMd}">
+                            
+                        </Label>
+                        <Image Grid.Row="3" Grid.Column="1" HorizontalOptions="Center"  VerticalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource Size="18"
+                                                FontFamily="{x:Static util:ThemeConstanst.FontAwesomeRegular}"
+                                                Color="{StaticResource redNue}"
+                                                Glyph="{x:Static util:FontAwesomeIcons.CheckCircle}"/>
+                            </Image.Source>
+                        </Image>
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            MaxLines="1"
+                            Text="A recent photo"
+                            FontSize="12"
+                            TextColor="{StaticResource normalCharcoal}"
+                            Style="{StaticResource lbBodyBoldMd}">
+                            
+                        </Label>
+                        <Image Grid.Row="4" Grid.Column="1" HorizontalOptions="Center"  VerticalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource Size="18"
+                                                FontFamily="{x:Static util:ThemeConstanst.FontAwesomeRegular}"
+                                                Color="{StaticResource redNue}"
+                                                Glyph="{x:Static util:FontAwesomeIcons.CheckCircle}"/>
+                            </Image.Source>
+                        </Image>
+                        <Label
+                            Grid.Row="4"
+                            Grid.Column="2"
+                            MaxLines="1"
+                            Text="Other helpful information"
+                            FontSize="12"
+                            TextColor="{StaticResource normalCharcoal}"
+                            Style="{StaticResource lbBodyBoldMd}">
+                        </Label>
+                    </Grid>
+                    <control:AppButton
+                        ButtonTitle="GET STARTED"
+                        CornerRadius="16"
+                        HeightRequest="32"
+                        HorizontalOptions="Center"
+                        Clicked="OnStartClicked"
+                        NormalBackgroundStartColor="{StaticResource dimCharcoal}"
+                        NormalBackgroundEndColor="{StaticResource normalCharcoal}"
+                        PressedBackgroundColor="{StaticResource dimCharcoal}"
+                        NormalLabelColor="White"
+                        PressedLabelColor="LightGray"
+                        ButtonTitleSize="12"
+                        WidthRequest="148" />
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentView.Content>
+</loved:BaseLovedContentChildView>

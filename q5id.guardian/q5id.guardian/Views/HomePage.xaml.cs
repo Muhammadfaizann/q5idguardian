@@ -1,4 +1,5 @@
-﻿using CarouselView.FormsPlugin.Abstractions;
+﻿using System;
+using CarouselView.FormsPlugin.Abstractions;
 using q5id.guardian.Utils;
 using q5id.guardian.ViewModels;
 using q5id.guardian.Views.ContentViews;
@@ -16,6 +17,9 @@ namespace q5id.guardian.Views
         private ContentView HomeView = null;
         private ContentView LovedOnesView = null;
         private ContentView AlertsView = null;
+        private int mCurrentTap = -1;
+
+        public event EventHandler RightControlClicked;
 
         public HomePage()
         {
@@ -42,8 +46,7 @@ namespace q5id.guardian.Views
                 {
                     if (LovedOnesView == null)
                     {
-                        LovedOnesView = new LovedOnesContentView();
-                        
+                        LovedOnesView = new LovedOnesContentView(this);
                     }
                     ShowView(LovedOnesView, "LovedOnesVm");
                     SelectTab(1);
@@ -62,9 +65,13 @@ namespace q5id.guardian.Views
                     SelectTab(2);
                 })
             });
-
+            frmRightControl.Clicked += FrmRightControl_Clicked;
         }
-      
+
+        private void FrmRightControl_Clicked(object sender, EventArgs e)
+        {
+            this.RightControlClicked?.Invoke(sender, e);
+        }
 
         private void ShowView(ContentView view, string bindingName = null)
         {
@@ -78,6 +85,8 @@ namespace q5id.guardian.Views
 
         public void SelectTab(int index)
         {
+            mCurrentTap = index;
+
             imageSourceHome.Color = index == 0 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
             imageSourceLove.Color = index == 1 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
             imageSourceAlert.Color = index == 2 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
@@ -96,6 +105,29 @@ namespace q5id.guardian.Views
                 headerTitlePage = "Alerts";
             }
             lbNavigation.Text = headerTitlePage;
+        }
+
+        public void UpdateHeaderTitle(string title)
+        {
+            lbNavigation.Text = title;
+        }
+
+        public void UpdateRightControlVisibility(bool isVisible)
+        {
+            frmRightControl.IsVisible = isVisible;
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            if(mCurrentTap == 1 && LovedOnesView is LovedOnesContentView lovedOnesContentView)
+            {
+                if(lovedOnesContentView.CanBackView() == true)
+                {
+                    lovedOnesContentView.BackView();
+                    return true;
+                }
+            }
+            return base.OnBackButtonPressed();
         }
     }
 }

@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<love:BaseLovedContentChildView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:love="clr-namespace:q5id.guardian.Views.ContentViews.LovedOnesChildContentViews"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    x:Class="q5id.guardian.Views.ContentViews.LovedOnesChildContentViews.AddLovedProfileInfoView">
+    <ContentView.Content>
+        <Grid>
+            <control:AppBoxView
+                Margin="0,-45,0,0"
+                BackgroundColor="#FD425E"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                BottomHeight="45"
+                HeightRequest="120" />
+            <ScrollView Margin="0, -60, 0, 0" Orientation="Vertical">
+                <StackLayout Orientation="Vertical">
+                    <Frame Padding="5,20,5,20"
+                       HasShadow="True"
+                       Margin="25, 0, 25, 0"
+                       BorderColor="Transparent"
+                       CornerRadius="16"
+                       BackgroundColor="White"
+                       HorizontalOptions="Fill"
+                       VerticalOptions="Start">
+                        <StackLayout Orientation="Vertical" Spacing="0" Padding="15">
+                            <Label
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                Margin="30,0,30,0"
+                                HorizontalTextAlignment="Center"
+                                Text="What’s your loved one’s name?"
+                                TextColor="{StaticResource redNue}"
+                                Style="{StaticResource lbHeaderMd}">
+                            </Label>
+                            <control:AppEntry
+                                Margin="0,20,0,0"
+                                Padding="10"
+                                BorderThickness="2"
+                                FocusBorderColor="#696B7A"
+                                FontAttributes="Italic"
+                                FontFamily="PoppinsItalic"
+                                HeightRequest="32"
+                                NoramlBorderColor="#E8EAF2"
+                                Placeholder="First name"
+                                PlaceholderColor="{StaticResource lightCharcoal}"
+                                Style="{StaticResource etBodyNormalLg}"
+                                TextColor="{StaticResource normalCharcoal}" />
+                            <control:AppEntry
+                                Margin="0,20,0,0"
+                                Padding="10"
+                                BorderThickness="2"
+                                FocusBorderColor="#696B7A"
+                                FontAttributes="Italic"
+                                FontFamily="PoppinsItalic"
+                                HeightRequest="32"
+                                NoramlBorderColor="#E8EAF2"
+                                Placeholder="Last name"
+                                PlaceholderColor="{StaticResource lightCharcoal}"
+                                Style="{StaticResource etBodyNormalLg}"
+                                TextColor="{StaticResource normalCharcoal}" />
+                            <Label
+                                Margin="0,20,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Center"
+                                Text="If you create an alert for this person, only the first name and last initial will be shared."
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbBodyNormalMd}">
+                            
+                            </Label>
+                            <Label
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                Margin="30,30,30,0"
+                                HorizontalTextAlignment="Center"
+                                Text="And their birthday?"
+                                TextColor="{StaticResource redNue}"
+                                Style="{StaticResource lbHeaderMd}">
+                            </Label>
+                            <control:AppEntry
+                                Margin="0,20,0,0"
+                                Padding="10"
+                                BorderThickness="2"
+                                FocusBorderColor="#696B7A"
+                                FontAttributes="Italic"
+                                FontFamily="PoppinsItalic"
+                                HeightRequest="32"
+                                NoramlBorderColor="#E8EAF2"
+                                Placeholder="MM/DD/YYYY"
+                                PlaceholderColor="{StaticResource lightCharcoal}"
+                                Style="{StaticResource etBodyNormalLg}"
+                                TextColor="{StaticResource normalCharcoal}" />
+                            <Label
+                                Margin="20,20,20,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Center"
+                                Text="Guardian uses this to calculate an age and will never share it."
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbBodyNormalMd}">
+                            
+                            </Label>
+                        </StackLayout>
+                     </Frame>
+                    <control:AppButton
+                        Margin="0,40,0,10"
+                        ButtonTitle="NEXT"
+                        CornerRadius="16"
+                        HeightRequest="32"
+                        HorizontalOptions="Center"
+                        Clicked="OnNextClicked"
+                        NormalBackgroundStartColor="{StaticResource dimCharcoal}"
+                        NormalBackgroundEndColor="{StaticResource normalCharcoal}"
+                        PressedBackgroundColor="{StaticResource dimCharcoal}"
+                        NormalLabelColor="White"
+                        PressedLabelColor="LightGray"
+                        ButtonTitleSize="12"
+                        WidthRequest="97" />
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentView.Content>
+</love:BaseLovedContentChildView>

@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<loved:BaseLovedContentChildView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:util="clr-namespace:q5id.guardian.Utils"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:loved="clr-namespace:q5id.guardian.Views.ContentViews.LovedOnesChildContentViews"
+    x:Class="q5id.guardian.Views.ContentViews.LovedOnesChildContentViews.AddLovedPhysicalInfoView">
+    <ContentView.Content>
+        <Grid>
+            <control:AppBoxView
+                Margin="0,-45,0,0"
+                BackgroundColor="#FD425E"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                BottomHeight="45"
+                HeightRequest="120" />
+            <ScrollView Margin="0, -60, 0, 0" Orientation="Vertical">
+                <StackLayout Orientation="Vertical">
+                    <Frame Padding="5,20,5,10"
+                       HasShadow="True"
+                       Margin="25, 0, 25, 0"
+                       BorderColor="Transparent"
+                       CornerRadius="16"
+                       BackgroundColor="White"
+                       HorizontalOptions="Fill"
+                       VerticalOptions="Start">
+                        <StackLayout Orientation="Vertical" Spacing="0" Padding="15">
+                            <Label
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                Margin="30,0,30,0"
+                                HorizontalTextAlignment="Center"
+                                Text="Please provide these important physical details."
+                                TextColor="{StaticResource redNue}"
+                                Style="{StaticResource lbHeaderMd}">
+                            </Label>
+                            <Label
+                                Margin="0,30,0,5"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Start"
+                                Text="Hair Color"
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbBodyBoldMd}">
+                            
+                            </Label>
+                            <Grid HorizontalOptions="Fill" VerticalOptions="Start">
+                                <control:AppPicker
+                                    Title="Choose color"
+                                    BorderThickness="2"
+                                    FontSize="14"
+                                    FocusBorderColor="#696B7A"
+                                    HeightRequest="32"
+                                    NoramlBorderColor="#E8EAF2">
+
+                                </control:AppPicker>
+                                <Image HorizontalOptions="End"
+                                       Margin="0,0,10,0"
+                                       VerticalOptions="Center">
+                                    <Image.Source>
+                                        <FontImageSource Size="12"
+                                                         FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                         Color="{StaticResource normalCharcoal}"
+                                                         Glyph="{x:Static util:FontAwesomeIcons.Sort}" />
+                                    </Image.Source>
+                                </Image>
+                            </Grid>
+                            <Label
+                                Margin="0,30,0,5"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Start"
+                                Text="Eye Color"
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbBodyBoldMd}">
+                            
+                            </Label>
+                            <Grid HorizontalOptions="Fill" VerticalOptions="Start">
+                                <control:AppPicker
+                                    Title="Choose color"
+                                    BorderThickness="2"
+                                    FontSize="14"
+                                    FocusBorderColor="#696B7A"
+                                    HeightRequest="32"
+                                    NoramlBorderColor="#E8EAF2">
+
+                                </control:AppPicker>
+                                <Image HorizontalOptions="End"
+                                       Margin="0,0,10,0"
+                                       VerticalOptions="Center">
+                                    <Image.Source>
+                                        <FontImageSource Size="12"
+                                                         FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                         Color="{StaticResource normalCharcoal}"
+                                                         Glyph="{x:Static util:FontAwesomeIcons.Sort}" />
+                                    </Image.Source>
+                                </Image>
+                            </Grid>
+                            <Label
+                                Margin="0,30,0,5"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Start"
+                                Text="Height"
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbBodyBoldMd}">
+                            
+                            </Label>
+                            <Grid WidthRequest="200" HorizontalOptions="Start" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <control:AppEntry
+                                    Grid.Column="0"
+                                    Padding="10"
+                                    BorderThickness="2"
+                                    FocusBorderColor="#696B7A"
+                                    FontAttributes="Italic"
+                                    FontFamily="PoppinsItalic"
+                                    HeightRequest="32"
+                                    NoramlBorderColor="#E8EAF2"
+                                    Placeholder="Feet"
+                                    Keyboard="Numeric"
+                                    PlaceholderColor="{StaticResource lightCharcoal}"
+                                    Style="{StaticResource etBodyNormalLg}"
+                                    TextColor="{StaticResource normalCharcoal}" />
+                                <control:AppEntry
+                                    Grid.Column="1"
+                                    Padding="10"
+                                    BorderThickness="2"
+                                    FocusBorderColor="#696B7A"
+                                    FontAttributes="Italic"
+                                    FontFamily="PoppinsItalic"
+                                    HeightRequest="32"
+                                    NoramlBorderColor="#E8EAF2"
+                                    Placeholder="Inches"
+                                    Keyboard="Numeric"
+                                    PlaceholderColor="{StaticResource lightCharcoal}"
+                                    Style="{StaticResource etBodyNormalLg}"
+                                    TextColor="{StaticResource normalCharcoal}" />
+                            </Grid>
+                            <Label
+                                Margin="0,30,0,5"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Start"
+                                Text="Weight"
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbBodyBoldMd}">
+                            
+                            </Label>
+                            <control:AppEntry
+                                    WidthRequest="200"
+                                    Padding="10"
+                                    BorderThickness="2"
+                                    HorizontalOptions="Start"
+                                    FocusBorderColor="#696B7A"
+                                    FontAttributes="Italic"
+                                    FontFamily="PoppinsItalic"
+                                    HeightRequest="32"
+                                    NoramlBorderColor="#E8EAF2"
+                                    Placeholder="Pounds"
+                                    Keyboard="Numeric"
+                                    PlaceholderColor="{StaticResource lightCharcoal}"
+                                    Style="{StaticResource etBodyNormalLg}"
+                                    TextColor="{StaticResource normalCharcoal}" />
+                        </StackLayout>
+                     </Frame>
+                    <control:AppButton
+                        Margin="0,40,0,10"
+                        ButtonTitle="NEXT"
+                        CornerRadius="16"
+                        HeightRequest="32"
+                        HorizontalOptions="Center"
+                        NormalBackgroundStartColor="{StaticResource dimCharcoal}"
+                        NormalBackgroundEndColor="{StaticResource normalCharcoal}"
+                        PressedBackgroundColor="{StaticResource dimCharcoal}"
+                        NormalLabelColor="White"
+                        PressedLabelColor="LightGray"
+                        ButtonTitleSize="12"
+                        WidthRequest="97" />
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentView.Content>
+</loved:BaseLovedContentChildView>

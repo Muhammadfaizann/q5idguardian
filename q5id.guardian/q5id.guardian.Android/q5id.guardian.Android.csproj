@@ -106,6 +106,9 @@
     <Compile Include="Controls\CameraCaptureStateListener.cs" />
     <Compile Include="Renderers\AppMapRenderer.cs" />
     <Compile Include="SplashScreen.cs" />
+    <Compile Include="Renderers\AppListViewRenderer.cs" />
+    <Compile Include="Renderers\AppViewCellRenderer.cs" />
+    <Compile Include="Renderers\AppPickerRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

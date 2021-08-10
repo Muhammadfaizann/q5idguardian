@@ -12,6 +12,25 @@ namespace q5id.guardian.ViewModels
 {
     public class LovedOnesViewModel : BaseViewModel
     {
+        private User mUser = null;
+        public User User
+        {
+            get => mUser;
+            set
+            {
+                mUser = value;
+                RaisePropertyChanged(nameof(User));
+                RaisePropertyChanged(nameof(IsVolunteer));
+            }
+        }
+
+        public Boolean IsVolunteer
+        {
+            get
+            {
+                return this.mUser != null && this.mUser.Role == UserRole.Volunteer;
+            }
+        }
 
         private List<Love> mLoves = null;
         public List<Love> Loves

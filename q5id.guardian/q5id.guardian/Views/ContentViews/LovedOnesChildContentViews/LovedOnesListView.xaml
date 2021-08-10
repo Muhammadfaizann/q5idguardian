@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<ContentView
+<loved:BaseLovedContentChildView
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:control="clr-namespace:q5id.guardian.Controls"
     xmlns:util="clr-namespace:q5id.guardian.Utils"
+    xmlns:loved="clr-namespace:q5id.guardian.Views.ContentViews.LovedOnesChildContentViews"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:converter="clr-namespace:q5id.guardian.Converters"
     x:Class="q5id.guardian.Views.ContentViews.LovedOnesChildContentViews.LovedOnesListView">
@@ -29,6 +30,7 @@
                     HeightRequest="60"
                     HorizontalOptions="Center"
                     IsDisable="{Binding IsVolunteer}"
+                    Clicked="OnAddClicked"
                     NormalBackgroundEndColor="White"
                     NormalBackgroundStartColor="White"
                     NormalLabelColor="{StaticResource redVibrant}"
@@ -77,6 +79,7 @@
                               HorizontalOptions="Center"
                               VerticalOptions="Center"
                               Padding="0"
+                              Clicked="OnAddClicked"
                               NormalBackgroundColorStart="{StaticResource dimCharcoal}"
                               NormalBackgroundColorEnd="{StaticResource normalCharcoal}"
                               PressedBackgroundColor="{StaticResource dimCharcoal}"  
@@ -105,16 +108,51 @@
                </Grid>
                 <Grid IsVisible="True">
                    <!--Has item layout-->
-                    <ListView ItemsSource="{Binding Loves}"
-                              IsEnabled="False"
+                    <control:AppListView ItemsSource="{Binding Loves}"
                               SeparatorVisibility="None"
+                              BackgroundColor="Transparent"
                               Margin="0,20,0,0"
                               SelectionMode="None"
                               
                               HasUnevenRows="True">
+                        <ListView.Footer>
+                            <StackLayout>
+                                <Frame
+                                    Margin="0,0,0,20"
+                                    WidthRequest="88"
+                                    HeightRequest="88"
+                                    CornerRadius="44"
+                                    Padding="0"
+                                    BackgroundColor="{StaticResource lightCharcoal}"
+                                    HasShadow="False"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                   <control:AppFrame
+                                      WidthRequest="80"
+                                      HeightRequest="80"
+                                      HorizontalOptions="Center"
+                                      VerticalOptions="Center"
+                                      Padding="0"
+                                      Clicked="OnAddClicked"
+                                      NormalBackgroundColorStart="{StaticResource dimCharcoal}"
+                                      NormalBackgroundColorEnd="{StaticResource normalCharcoal}"
+                                      PressedBackgroundColor="{StaticResource dimCharcoal}"  
+                                      CornerRadius="40">
+                                       <Image HorizontalOptions="Center"  VerticalOptions="Center">
+                                           <Image.Source>
+                                               <FontImageSource Size="30"
+                                                                FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                                Color="White"
+                                                                Glyph="{x:Static util:FontAwesomeIcons.Plus}"/>
+                                           </Image.Source>
+                                       </Image>
+                                   </control:AppFrame>
+                               </Frame>
+                            </StackLayout>
+                        </ListView.Footer>
 		                <ListView.ItemTemplate>
 			                <DataTemplate>
-				                <ViewCell>
+				                <control:AppViewCell>
 					                <Frame HeightRequest="96"
                                             Margin="30, 0, 30, 20"
                                             CornerRadius="16"
@@ -187,12 +225,12 @@
                                             </Image>
                                         </Grid>
                                     </Frame>
-				                </ViewCell>
+				                </control:AppViewCell>
 			                </DataTemplate>
 		                </ListView.ItemTemplate>
-	                </ListView>
+	                </control:AppListView>
                </Grid>
             </Grid>
         </Grid>
     </ContentView.Content>
-</ContentView>
+</loved:BaseLovedContentChildView>

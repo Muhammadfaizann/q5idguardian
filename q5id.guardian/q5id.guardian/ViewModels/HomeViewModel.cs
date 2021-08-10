@@ -43,6 +43,7 @@ namespace q5id.guardian.ViewModels
         public override void Prepare(User parameter)
         {
             HomeVm.User = parameter;
+            LovedOnesVm.User = parameter;
         }
 
         protected override void InitFromBundle(IMvxBundle parameters)

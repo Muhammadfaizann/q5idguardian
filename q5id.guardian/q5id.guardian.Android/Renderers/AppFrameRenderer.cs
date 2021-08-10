@@ -78,6 +78,7 @@ namespace q5id.guardian.Droid.Renderers
                 mIsTouching = false;
                 mAppFrame?.OnTouchEnd();
                 mCardView?.Invalidate();
+               
             }
         }
 
@@ -188,6 +189,7 @@ namespace q5id.guardian.Droid.Renderers
             if (mCardView != null)
             {
                 mCardView.Touch -= ThisButton_Touch;
+                mCardView = null;
             }
             base.Dispose(disposing);
         }

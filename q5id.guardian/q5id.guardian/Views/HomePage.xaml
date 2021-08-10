@@ -53,6 +53,29 @@
                         </Image.Source>
                     </Image>
                 </Grid>
+                <control:AppFrame
+                    x:Name="frmRightControl"
+                    IsVisible="False"
+                    Margin="0, 0, 10, 0"
+                    WidthRequest="36"
+                    HeightRequest="36"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    Padding="0"
+                    HasShadow="False"
+                    NormalBackgroundColorStart="{StaticResource redQ5}"
+                    NormalBackgroundColorEnd="{StaticResource redQ5}"
+                    PressedBackgroundColor="{StaticResource redNue}"  
+                    CornerRadius="18">
+                    <Image HorizontalOptions="Center"  VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource Size="Large"
+                                            FontFamily="{x:Static utils:ThemeConstanst.FontAwesomeSolid}"
+                                            Color="White"
+                                            Glyph="{x:Static utils:FontAwesomeIcons.Times}"/>
+                        </Image.Source>
+                    </Image>
+                </control:AppFrame>
             </Grid>
 
         </Grid>
