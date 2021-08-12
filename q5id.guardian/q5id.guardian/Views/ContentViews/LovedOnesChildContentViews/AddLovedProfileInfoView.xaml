@@ -79,7 +79,7 @@
                                 TextColor="{StaticResource redNue}"
                                 Style="{StaticResource lbHeaderMd}">
                             </Label>
-                            <control:AppEntry
+                            <control:AppDatePicker
                                 Margin="0,20,0,0"
                                 Padding="10"
                                 BorderThickness="2"
@@ -89,9 +89,10 @@
                                 HeightRequest="32"
                                 NoramlBorderColor="#E8EAF2"
                                 Placeholder="MM/DD/YYYY"
-                                PlaceholderColor="{StaticResource lightCharcoal}"
                                 Style="{StaticResource etBodyNormalLg}"
-                                TextColor="{StaticResource normalCharcoal}" />
+                                TextColor="{StaticResource normalCharcoal}"
+                                Format="MM/dd/yyyy"
+                                />
                             <Label
                                 Margin="20,20,20,0"
                                 HorizontalOptions="Fill"

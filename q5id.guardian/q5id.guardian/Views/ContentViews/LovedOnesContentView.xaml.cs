@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using q5id.guardian.Views.ContentViews.LovedOnesChildContentViews;
 using Xamarin.Forms;
 
@@ -11,11 +12,20 @@ namespace q5id.guardian.Views.ContentViews
         private BaseLovedContentChildView currentContentView;
         private HomePage MainPage;
 
+        public byte[] PrimaryImageSourceByteArray;
+        public List<byte[]> SecondaryImageSourceByteArrays = new List<byte[]>();
+
         public LovedOnesContentView(HomePage homePage)
         {
             InitializeComponent();
             MainPage = homePage;
             ResetView();
+        }
+
+        public void ClearImages()
+        {
+            PrimaryImageSourceByteArray = null;
+            SecondaryImageSourceByteArrays.Clear();
         }
 
         private void ResetView()

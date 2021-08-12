@@ -23,7 +23,7 @@ namespace q5id.guardian.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 
-
+            Rg.Plugins.Popup.Popup.Init(this);
             CachedImageRenderer.Init(true);
             CachedImageRenderer.InitImageViewHandler();
             Xamarin.FormsMaps.Init(this, savedInstanceState);
@@ -74,6 +74,11 @@ namespace q5id.guardian.Droid
                     return;
                 }
             }
+        }
+
+        public override void OnBackPressed()
+        {
+            Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed);
         }
     }
 }

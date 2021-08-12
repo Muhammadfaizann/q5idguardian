@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<loved:BaseLovedContentChildView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:util="clr-namespace:q5id.guardian.Utils"
+    xmlns:loved="clr-namespace:q5id.guardian.Views.ContentViews.LovedOnesChildContentViews"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    x:Class="q5id.guardian.Views.ContentViews.LovedOnesChildContentViews.AddLovedImageView">
+    <ContentView.Content>
+        <Grid>
+            <control:AppBoxView
+                Margin="0,-45,0,0"
+                BackgroundColor="#FD425E"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                BottomHeight="45"
+                HeightRequest="120" />
+            <Grid Margin="0, -60, 0, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0" Orientation="Vertical">
+                    <Frame
+                        Padding="5,20,5,10"
+                        HasShadow="True"
+                        Margin="25, 0, 25, 0"
+                        BorderColor="Transparent"
+                        CornerRadius="16"
+                        BackgroundColor="White"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Start">
+                        <StackLayout
+                            Orientation="Vertical"
+                            Spacing="0"
+                            Padding="15">
+                            <Label
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                Margin="20,0,20,0"
+                                HorizontalTextAlignment="Center"
+                                Text="Now, add a photo or up to 5 of your loved one."
+                                TextColor="{StaticResource redNue}"
+                                Style="{StaticResource lbHeaderMd}">
+                            </Label>
+                            <StackLayout
+                                IsVisible="True"
+                                x:Name="StackNoImage"
+                                Orientation="Vertical">
+                                <Label
+                                    Margin="20,20,20,0"
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Center"
+                                    Text="You can select a recent photo from your camera roll or take a new one."
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    Style="{StaticResource lbBodyNormalMd}">
+                            
+                                </Label>
+                                <Label
+                                    Margin="0,10,0,0"
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Choose a Primary Photo:"
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    Style="{StaticResource lbSubheadSm}">
+                            
+                                </Label>
+                            </StackLayout>
+                            <StackLayout
+                                IsVisible="False"
+                                x:Name="StackHasImage"
+                                Orientation="Vertical">
+                                <Label
+                                    Margin="0,10,0,20"
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Primary Photo:"
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    Style="{StaticResource lbSubheadSm}">
+                            
+                                </Label>
+                                <Frame 
+                                    WidthRequest="128"
+                                    HeightRequest="128"
+                                    CornerRadius="64"
+                                    IsClippedToBounds="True"
+                                    Padding="0"
+                                    HasShadow="False"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                    <Image x:Name="ImgPrimary" Aspect="AspectFill" />
+                                </Frame>
+                                <Label
+                                    Margin="0,20,0,0"
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Additional photos:"
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    Style="{StaticResource lbSubheadSm}">
+                            
+                                </Label>
+                                <StackLayout
+                                    Spacing="8"
+                                    Orientation="Horizontal"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Start">
+                                    <Grid WidthRequest="48"
+                                          HeightRequest="48"
+                                          HorizontalOptions="Start"
+                                          VerticalOptions="Center">
+                                        <Frame
+                                            BackgroundColor="{StaticResource paleGray}"
+                                            WidthRequest="48"
+                                            HeightRequest="48"
+                                            CornerRadius="24"
+                                            IsClippedToBounds="True"
+                                            Padding="0"
+                                            HasShadow="False"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center">
+                                            <Image x:Name="ImgSnd1" Aspect="AspectFill" />
+                                        </Frame>
+                                        <control:AppFrame
+                                            x:Name="FrmSnd1"
+                                            WidthRequest="48"
+                                            HeightRequest="48"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            Padding="0"
+                                            Clicked="OnAddPhotoClicked"
+                                            NormalBackgroundColorStart="{StaticResource dimCharcoal}"
+                                            NormalBackgroundColorEnd="{StaticResource normalCharcoal}"
+                                            PressedBackgroundColor="{StaticResource dimCharcoal}"  
+                                            CornerRadius="24">
+                                            <Image HorizontalOptions="Center"  VerticalOptions="Center">
+                                                <Image.Source>
+                                                    <FontImageSource Size="22"
+                                                                    FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                                    Color="White"
+                                                                    Glyph="{x:Static util:FontAwesomeIcons.Plus}"/>
+                                                </Image.Source>
+                                            </Image>
+                                        </control:AppFrame>
+                                    </Grid>
+                                    <Grid WidthRequest="48"
+                                          HeightRequest="48"
+                                          HorizontalOptions="Start"
+                                          VerticalOptions="Center">
+                                        <Frame
+                                            BackgroundColor="{StaticResource paleGray}"
+                                            WidthRequest="48"
+                                            HeightRequest="48"
+                                            CornerRadius="24"
+                                            IsClippedToBounds="True"
+                                            Padding="0"
+                                            HasShadow="False"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center">
+                                            <Image x:Name="ImgSnd2" Aspect="AspectFill" />
+                                        </Frame>
+                                        <control:AppFrame
+                                            x:Name="FrmSnd2"
+                                            WidthRequest="48"
+                                            HeightRequest="48"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            Padding="0"
+                                            Clicked="OnAddPhotoClicked"
+                                            NormalBackgroundColorStart="{StaticResource dimCharcoal}"
+                                            NormalBackgroundColorEnd="{StaticResource normalCharcoal}"
+                                            PressedBackgroundColor="{StaticResource dimCharcoal}"  
+                                            CornerRadius="24">
+                                            <Image HorizontalOptions="Center"  VerticalOptions="Center">
+                                                <Image.Source>
+                                                    <FontImageSource Size="22"
+                                                                    FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                                    Color="White"
+                                                                    Glyph="{x:Static util:FontAwesomeIcons.Plus}"/>
+                                                </Image.Source>
+                                            </Image>
+                                        </control:AppFrame>
+                                    </Grid>
+                                    <Grid WidthRequest="48"
+                                          HeightRequest="48"
+                                          HorizontalOptions="Start"
+                                          VerticalOptions="Center">
+                                        <Frame
+                                            BackgroundColor="{StaticResource paleGray}"
+                                            WidthRequest="48"
+                                            HeightRequest="48"
+                                            CornerRadius="24"
+                                            IsClippedToBounds="True"
+                                            Padding="0"
+                                            HasShadow="False"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center">
+                                            <Image x:Name="ImgSnd3" Aspect="AspectFill" />
+                                        </Frame>
+                                        <control:AppFrame
+                                            x:Name="FrmSnd3"
+                                            WidthRequest="48"
+                                            HeightRequest="48"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            Padding="0"
+                                            Clicked="OnAddPhotoClicked"
+                                            NormalBackgroundColorStart="{StaticResource dimCharcoal}"
+                                            NormalBackgroundColorEnd="{StaticResource normalCharcoal}"
+                                            PressedBackgroundColor="{StaticResource dimCharcoal}"  
+                                            CornerRadius="24">
+                                            <Image HorizontalOptions="Center"  VerticalOptions="Center">
+                                                <Image.Source>
+                                                    <FontImageSource Size="22"
+                                                                    FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                                    Color="White"
+                                                                    Glyph="{x:Static util:FontAwesomeIcons.Plus}"/>
+                                                </Image.Source>
+                                            </Image>
+                                        </control:AppFrame>
+                                    </Grid>
+                                    <Grid WidthRequest="48"
+                                          HeightRequest="48"
+                                          HorizontalOptions="Start"
+                                          VerticalOptions="Center">
+                                        <Frame
+                                            BackgroundColor="{StaticResource paleGray}"
+                                            WidthRequest="48"
+                                            HeightRequest="48"
+                                            CornerRadius="24"
+                                            IsClippedToBounds="True"
+                                            Padding="0"
+                                            HasShadow="False"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center">
+                                            <Image x:Name="ImgSnd4" Aspect="AspectFill" />
+                                        </Frame>
+                                        <control:AppFrame
+                                            x:Name="FrmSnd4"
+                                            WidthRequest="48"
+                                            HeightRequest="48"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            Padding="0"
+                                            Clicked="OnAddPhotoClicked"
+                                            NormalBackgroundColorStart="{StaticResource dimCharcoal}"
+                                            NormalBackgroundColorEnd="{StaticResource normalCharcoal}"
+                                            PressedBackgroundColor="{StaticResource dimCharcoal}"  
+                                            CornerRadius="24">
+                                            <Image HorizontalOptions="Center"  VerticalOptions="Center">
+                                                <Image.Source>
+                                                    <FontImageSource Size="22"
+                                                                    FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                                    Color="White"
+                                                                    Glyph="{x:Static util:FontAwesomeIcons.Plus}"/>
+                                                </Image.Source>
+                                            </Image>
+                                        </control:AppFrame>
+                                    </Grid>
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+                
+                <Grid Grid.Row="1" VerticalOptions="Fill" HorizontalOptions="Fill">
+                    <Frame
+                        x:Name="FrmPrimaryPhoto"
+                        WidthRequest="88"
+                        HeightRequest="88"
+                        CornerRadius="44"
+                        IsVisible="True"
+                        Padding="0"
+                        BackgroundColor="{StaticResource lightCharcoal}"
+                        HasShadow="False"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <control:AppFrame
+                            x:Name="FrmPrimaryPhotoBtn"
+                            WidthRequest="80"
+                            HeightRequest="80"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Padding="0"
+                            Clicked="OnAddPhotoClicked"
+                            NormalBackgroundColorStart="{StaticResource dimCharcoal}"
+                            NormalBackgroundColorEnd="{StaticResource normalCharcoal}"
+                            PressedBackgroundColor="{StaticResource dimCharcoal}"  
+                            CornerRadius="40">
+                            <Image HorizontalOptions="Center"  VerticalOptions="Center">
+                                <Image.Source>
+                                    <FontImageSource Size="30"
+                                                    FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                    Color="White"
+                                                    Glyph="{x:Static util:FontAwesomeIcons.Plus}"/>
+                                </Image.Source>
+                            </Image>
+                        </control:AppFrame>
+                    </Frame>
+                    <control:AppButton
+                        x:Name="BtnNext"
+                        Margin="0,30,0,10"
+                        ButtonTitle="NEXT"
+                        CornerRadius="16"
+                        HeightRequest="32"
+                        IsVisible="False"
+                        Clicked="OnNextClicked"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                        NormalBackgroundStartColor="{StaticResource dimCharcoal}"
+                        NormalBackgroundEndColor="{StaticResource normalCharcoal}"
+                        PressedBackgroundColor="{StaticResource dimCharcoal}"
+                        NormalLabelColor="White"
+                        PressedLabelColor="LightGray"
+                        ButtonTitleSize="12"
+                        WidthRequest="97" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</loved:BaseLovedContentChildView>

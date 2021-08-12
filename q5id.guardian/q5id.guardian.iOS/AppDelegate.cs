@@ -27,6 +27,7 @@ namespace q5id.guardian.iOS
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
             global::Xamarin.Forms.Forms.Init();
+            Rg.Plugins.Popup.Popup.Init();
             CachedImageRenderer.Init();
             CachedImageRenderer.InitImageSourceHandler();
             Xamarin.FormsMaps.Init();

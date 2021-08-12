@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:util="clr-namespace:q5id.guardian.Utils"
+    x:Class="q5id.guardian.Controls.AppPopupPickerView">
+    <ContentView.Content>
+        <Grid HorizontalOptions="Fill" VerticalOptions="Fill">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnContentTapped" />
+            </Grid.GestureRecognizers>
+            <control:AppPicker
+                x:Name="mAppPicker"
+                IsEnabled="False" />
+            <Image HorizontalOptions="End"
+                    Margin="0,0,10,0"
+                    VerticalOptions="Center">
+                <Image.Source>
+                    <FontImageSource Size="12"
+                                        FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                        Color="{StaticResource normalCharcoal}"
+                                        Glyph="{x:Static util:FontAwesomeIcons.Sort}" />
+                </Image.Source>
+            </Image>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

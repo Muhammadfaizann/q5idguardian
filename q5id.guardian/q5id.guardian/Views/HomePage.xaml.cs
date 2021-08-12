@@ -31,10 +31,7 @@ namespace q5id.guardian.Views
             {
                 Command = new Command(() =>
                 {
-                    if(HomeView == null)
-                    {
-                        HomeView = new HomeContentView();
-                    }
+                    HomeView = new HomeContentView();
                     ShowView(HomeView, "HomeVm");
                     SelectTab(0);
                 })
@@ -44,10 +41,7 @@ namespace q5id.guardian.Views
             {
                 Command = new Command(() =>
                 {
-                    if (LovedOnesView == null)
-                    {
-                        LovedOnesView = new LovedOnesContentView(this);
-                    }
+                    LovedOnesView = new LovedOnesContentView(this);
                     ShowView(LovedOnesView, "LovedOnesVm");
                     SelectTab(1);
                 })
@@ -57,10 +51,7 @@ namespace q5id.guardian.Views
             {
                 Command = new Command(() =>
                 {
-                    if (AlertsView == null)
-                    {
-                        AlertsView = new AlertContentView();
-                    }
+                    AlertsView = new AlertContentView();
                     ShowView(AlertsView, "AlertsVm");
                     SelectTab(2);
                 })

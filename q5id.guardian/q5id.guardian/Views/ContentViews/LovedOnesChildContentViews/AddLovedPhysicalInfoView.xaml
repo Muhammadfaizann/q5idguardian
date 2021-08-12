@@ -46,25 +46,27 @@
                             
                             </Label>
                             <Grid HorizontalOptions="Fill" VerticalOptions="Start">
-                                <control:AppPicker
-                                    Title="Choose color"
+                                <control:AppPopupPickerView
+                                    Placeholder="Choose color"
                                     BorderThickness="2"
                                     FontSize="14"
                                     FocusBorderColor="#696B7A"
                                     HeightRequest="32"
+                                    BindingContext="{x:Static util:Constansts.HAIR_COLORS}"
+                                    ItemsSource="{Binding .}"
+                                    ItemDisplayBinding="{Binding Name}"
                                     NoramlBorderColor="#E8EAF2">
-
-                                </control:AppPicker>
-                                <Image HorizontalOptions="End"
-                                       Margin="0,0,10,0"
-                                       VerticalOptions="Center">
-                                    <Image.Source>
-                                        <FontImageSource Size="12"
-                                                         FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
-                                                         Color="{StaticResource normalCharcoal}"
-                                                         Glyph="{x:Static util:FontAwesomeIcons.Sort}" />
-                                    </Image.Source>
-                                </Image>
+                                    <control:AppPopupPickerView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout Orientation="Horizontal" Padding="10">
+                                                <BoxView WidthRequest="30"
+                                                            HeightRequest="30"
+                                                            BackgroundColor="{Binding HexColor}"/>
+                                                <Label HorizontalOptions="Fill" VerticalOptions="Center" Text="{Binding Name}" />
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </control:AppPopupPickerView.ItemTemplate>
+                                </control:AppPopupPickerView>
                             </Grid>
                             <Label
                                 Margin="0,30,0,5"
@@ -77,25 +79,28 @@
                             
                             </Label>
                             <Grid HorizontalOptions="Fill" VerticalOptions="Start">
-                                <control:AppPicker
-                                    Title="Choose color"
+                                <control:AppPopupPickerView
+                                    Placeholder="Choose color"
                                     BorderThickness="2"
                                     FontSize="14"
                                     FocusBorderColor="#696B7A"
                                     HeightRequest="32"
+                                    BindingContext="{x:Static util:Constansts.EYE_COLORS}"
+                                    ItemsSource="{Binding .}"
+                                    ItemDisplayBinding="{Binding Name}"
                                     NoramlBorderColor="#E8EAF2">
-
-                                </control:AppPicker>
-                                <Image HorizontalOptions="End"
-                                       Margin="0,0,10,0"
-                                       VerticalOptions="Center">
-                                    <Image.Source>
-                                        <FontImageSource Size="12"
-                                                         FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
-                                                         Color="{StaticResource normalCharcoal}"
-                                                         Glyph="{x:Static util:FontAwesomeIcons.Sort}" />
-                                    </Image.Source>
-                                </Image>
+                                    <control:AppPopupPickerView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout Orientation="Horizontal" Padding="10">
+                                                <BoxView WidthRequest="30"
+                                                            HeightRequest="30"
+                                                            BackgroundColor="{Binding HexColor}"/>
+                                                <Label HorizontalOptions="Fill" VerticalOptions="Center" Text="{Binding Name}" />
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </control:AppPopupPickerView.ItemTemplate>
+                                </control:AppPopupPickerView>
+                                
                             </Grid>
                             <Label
                                 Margin="0,30,0,5"
@@ -179,6 +184,7 @@
                         PressedBackgroundColor="{StaticResource dimCharcoal}"
                         NormalLabelColor="White"
                         PressedLabelColor="LightGray"
+                        Clicked="OnNextClicked"
                         ButtonTitleSize="12"
                         WidthRequest="97" />
                 </StackLayout>

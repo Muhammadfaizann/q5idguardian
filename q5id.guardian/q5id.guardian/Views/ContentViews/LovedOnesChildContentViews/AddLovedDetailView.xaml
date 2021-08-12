@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<loved:BaseLovedContentChildView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:util="clr-namespace:q5id.guardian.Utils"
+    xmlns:loved="clr-namespace:q5id.guardian.Views.ContentViews.LovedOnesChildContentViews"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    x:Class="q5id.guardian.Views.ContentViews.LovedOnesChildContentViews.AddLovedDetailView">
+    <ContentView.Content>
+        <Grid>
+            <control:AppBoxView
+                Margin="0,-45,0,0"
+                BackgroundColor="#FD425E"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                BottomHeight="45"
+                HeightRequest="120" />
+            <ScrollView Margin="0, -60, 0, 0" Orientation="Vertical">
+                <StackLayout Orientation="Vertical">
+                    <Frame Padding="5,20,5,20"
+                       HasShadow="True"
+                       Margin="25, 0, 25, 0"
+                       BorderColor="Transparent"
+                       CornerRadius="16"
+                       BackgroundColor="White"
+                       HorizontalOptions="Fill"
+                       VerticalOptions="Start">
+                        <StackLayout Orientation="Vertical" Spacing="0" Padding="15">
+                            <Label
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                Margin="0"
+                                HorizontalTextAlignment="Center"
+                                Text="Provide any additional detail that can help identify your loved one."
+                                TextColor="{StaticResource redNue}"
+                                Style="{StaticResource lbHeaderMd}">
+                            </Label>
+                            <Label
+                                Margin="0,20,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Center"
+                                Text="For example, birthmarks, tattoos, mannerisms, allergies or medical concerns, and how they might respond if found by a Guardian they don’t know."
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbBodyNormalMd}">
+                            
+                            </Label>
+                            <control:AppEditor
+                                Margin="0,20,0,0"
+                                Padding="10"
+                                BorderThickness="2"
+                                FocusBorderColor="#696B7A"
+                                FontAttributes="Italic"
+                                FontFamily="PoppinsItalic"
+                                HeightRequest="165"
+                                NoramlBorderColor="#E8EAF2"
+                                Placeholder="Enter detail"
+                                PlaceholderColor="{StaticResource lightCharcoal}"
+                                Style="{StaticResource etBodyNormalLg}"
+                                TextColor="{StaticResource normalCharcoal}" />
+                        </StackLayout>
+                    </Frame>
+                    <control:AppButton
+                        Margin="0,40,0,10"
+                        ButtonTitle="REVIEW"
+                        CornerRadius="16"
+                        HeightRequest="32"
+                        HorizontalOptions="Center"
+                        Clicked="OnNextClicked"
+                        NormalBackgroundStartColor="{StaticResource dimCharcoal}"
+                        NormalBackgroundEndColor="{StaticResource normalCharcoal}"
+                        PressedBackgroundColor="{StaticResource dimCharcoal}"
+                        NormalLabelColor="White"
+                        PressedLabelColor="LightGray"
+                        ButtonTitleSize="12"
+                        WidthRequest="115" />
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentView.Content>
+</loved:BaseLovedContentChildView>

@@ -129,5 +129,14 @@ namespace q5id.guardian.Views.ContentViews
             mediaElements[mCurrentMediaPosition].ShowMediaPlayer();
             mediaElements[mCurrentMediaPosition].ShowPlayerControl();
         }
+
+        protected override void OnParentSet()
+        {
+            base.OnParentSet();
+            if(Parent == null && mediaElements.Count > 0)
+            {
+                mediaElements[mCurrentMediaPosition].StopPlayer();
+            }
+        }
     }
 }

@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<loved:BaseLovedContentChildView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:util="clr-namespace:q5id.guardian.Utils"
+    xmlns:loved="clr-namespace:q5id.guardian.Views.ContentViews.LovedOnesChildContentViews"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    x:Class="q5id.guardian.Views.ContentViews.LovedOnesChildContentViews.AddLovedReviewView">
+    <ContentView.Content>
+        <Grid>
+            <control:AppBoxView
+                Margin="0,-45,0,0"
+                BackgroundColor="#FD425E"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                BottomHeight="45"
+                HeightRequest="120" />
+            <ScrollView Margin="0, -60, 0, 0" Orientation="Vertical">
+                <StackLayout Orientation="Vertical">
+                    <Frame Padding="5,20,5,20"
+                       HasShadow="True"
+                       Margin="25, 0, 25, 0"
+                       BorderColor="Transparent"
+                       CornerRadius="16"
+                       BackgroundColor="White"
+                       HorizontalOptions="Fill"
+                       VerticalOptions="Start">
+                        <StackLayout Orientation="Vertical" Spacing="0" Padding="15">
+                            <StackLayout
+                                Orientation="Horizontal"
+                                Spacing="20"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Start">
+                                <Frame
+                                    BackgroundColor="{StaticResource paleGray}"
+                                    WidthRequest="128"
+                                    HeightRequest="128"
+                                    CornerRadius="64"
+                                    IsClippedToBounds="True"
+                                    Padding="0"
+                                    HasShadow="False"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                    <Image x:Name="ImgPrimary" Aspect="AspectFill" />
+                                </Frame>
+                                <Grid
+                                    RowSpacing="8"
+                                    ColumnSpacing="8"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="48" />
+                                        <RowDefinition Height="48" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="48" />
+                                        <ColumnDefinition Width="48" />
+                                    </Grid.ColumnDefinitions>
+                                    <Frame
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        BackgroundColor="{StaticResource paleGray}"
+                                        CornerRadius="24"
+                                        IsClippedToBounds="True"
+                                        Padding="0"
+                                        HasShadow="False"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Fill">
+                                        <Image x:Name="ImgSec1" Aspect="AspectFill" />
+                                    </Frame>
+                                    <Frame
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        BackgroundColor="{StaticResource paleGray}"
+                                        CornerRadius="24"
+                                        IsClippedToBounds="True"
+                                        Padding="0"
+                                        HasShadow="False"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Fill">
+                                        <Image x:Name="ImgSec2" Aspect="AspectFill" />
+                                    </Frame>
+                                    <Frame
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        BackgroundColor="{StaticResource paleGray}"
+                                        CornerRadius="24"
+                                        IsClippedToBounds="True"
+                                        Padding="0"
+                                        HasShadow="False"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Fill">
+                                        <Image x:Name="ImgSec3" Aspect="AspectFill" />
+                                    </Frame>
+                                    <Frame
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        BackgroundColor="{StaticResource paleGray}"
+                                        CornerRadius="24"
+                                        IsClippedToBounds="True"
+                                        Padding="0"
+                                        HasShadow="False"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Fill">
+                                        <Image x:Name="ImgSec4" Aspect="AspectFill" />
+                                    </Frame>
+                                </Grid>
+                            </StackLayout>
+                            <Label
+                                Margin="0,30,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Center"
+                                Text="Amber Jones"
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbSubheadSm}">
+                            
+                            </Label>
+                            <Label
+                                Margin="0,15,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Center"
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbBodyNormalLg}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontSize="14" Text="Born: " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" TextColor="{StaticResource normalCharcoal}" />
+                                        <Span FontSize="14" Text="02/12/2014" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label
+                                Margin="0,4,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Center"
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbBodyNormalLg}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontSize="14" Text="Hair: " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" TextColor="{StaticResource normalCharcoal}" />
+                                        <Span FontSize="14" Text="Brown" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label
+                                Margin="0,4,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Center"
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbBodyNormalLg}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontSize="14" Text="Eyes: " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" TextColor="{StaticResource normalCharcoal}" />
+                                        <Span FontSize="14" Text="Brown" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label
+                                Margin="0,4,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Center"
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbBodyNormalLg}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontSize="14" Text="Height: " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" TextColor="{StaticResource normalCharcoal}" />
+                                        <Span FontSize="14" Text="3’ 11”" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label
+                                Margin="0,4,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Center"
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbBodyNormalLg}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontSize="14" Text="Weight: " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" TextColor="{StaticResource normalCharcoal}" />
+                                        <Span FontSize="14" Text="60 lbs" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label
+                                Margin="0,15,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                HorizontalTextAlignment="Center"
+                                Text="Has a small birthmark on her right hand. She is very shy."
+                                TextColor="{StaticResource normalCharcoal}"
+                                Style="{StaticResource lbBodyNormalLg}">
+                                
+                            </Label>
+                        </StackLayout>
+                    </Frame>
+                    <StackLayout Orientation="Horizontal"
+                                 Margin="0,30,0,20"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Start">
+                        <control:AppButton
+                            ButtonTitle="EDIT"
+                            Clicked="OnEditClicked"
+                            CornerRadius="16"
+                            HeightRequest="32"
+                            HorizontalOptions="Center"
+                            NormalBackgroundStartColor="{StaticResource normalCharcoal}"
+                            NormalBackgroundEndColor="{StaticResource normalCharcoal}"
+                            PressedBackgroundColor="{StaticResource dimCharcoal}"
+                            NormalLabelColor="White"
+                            PressedLabelColor="LightGray"
+                            ButtonTitleSize="12"
+                            WidthRequest="97" />
+                        <control:AppButton
+                            ButtonTitle="SAVE"
+                            CornerRadius="16"
+                            HeightRequest="32"
+                            HorizontalOptions="Center"
+                            NormalBackgroundStartColor="{StaticResource dimCharcoal}"
+                            NormalBackgroundEndColor="{StaticResource normalCharcoal}"
+                            PressedBackgroundColor="{StaticResource dimCharcoal}"
+                            NormalLabelColor="White"
+                            PressedLabelColor="LightGray"
+                            ButtonTitleSize="12"
+                            WidthRequest="97" />
+                    </StackLayout>
+                    
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentView.Content>
+</loved:BaseLovedContentChildView>

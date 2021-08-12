@@ -109,6 +109,8 @@
     <Compile Include="Renderers\AppListViewRenderer.cs" />
     <Compile Include="Renderers\AppViewCellRenderer.cs" />
     <Compile Include="Renderers\AppPickerRenderer.cs" />
+    <Compile Include="Renderers\AppEditorRenderer.cs" />
+    <Compile Include="Renderers\AppDatePickerRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
