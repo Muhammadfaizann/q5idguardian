@@ -6,8 +6,10 @@ using q5id.guardian.Controls;
 using q5id.guardian.Utils;
 using q5id.guardian.ViewModels;
 using q5id.guardian.Views.ItemViews;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
+using Map = Xamarin.Forms.Maps.Map;
 
 namespace q5id.guardian.Views.ContentViews
 {

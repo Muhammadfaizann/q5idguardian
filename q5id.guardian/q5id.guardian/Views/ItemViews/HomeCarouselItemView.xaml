@@ -1,55 +1,58 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <ContentView
+    x:Class=" q5id.guardian.Views.ItemViews.HomeCarouselItemView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class=" q5id.guardian.Views.ItemViews.HomeCarouselItemView"
-    xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-    xmlns:utils="clr-namespace:q5id.guardian.Utils">
+    xmlns:utils="clr-namespace:q5id.guardian.Utils"
+    xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
     <ContentView.Content>
         <Grid>
-            <Frame Padding="0"
-                   HasShadow="False"
-                   CornerRadius="0"
-                   BackgroundColor="Transparent"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Fill"
-                   BorderColor="Transparent">
+            <Frame
+                Padding="0"
+                BackgroundColor="Transparent"
+                BorderColor="Transparent"
+                CornerRadius="0"
+                HasShadow="False"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill">
                 <xct:MediaElement
-                         x:Name="mediaElement"
-                          AutoPlay="False"
-                          ShowsPlaybackControls="False"
-                          Source="{StaticResource AdvancedAsync}" />
+                    x:Name="mediaElement"
+                    AutoPlay="False"
+                    ShowsPlaybackControls="False" />
             </Frame>
             <Grid>
                 <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="PlayerGestureRecognizer_Tapped"/>
+                    <TapGestureRecognizer Tapped="PlayerGestureRecognizer_Tapped" />
                 </Grid.GestureRecognizers>
-                <Frame Padding="0"
-                       BackgroundColor="#80000000"
-                       x:Name="frmPlayBtn"
-                        HasShadow="False"
-                       IsEnabled="False"
-                       HorizontalOptions="Fill"
-                       VerticalOptions="Fill">
+                <Frame
+                    x:Name="frmPlayBtn"
+                    Padding="0"
+                    BackgroundColor="#80000000"
+                    HasShadow="False"
+                    HorizontalOptions="Fill"
+                    IsEnabled="False"
+                    VerticalOptions="Fill">
                     <Frame
                         Padding="0"
-                        HasShadow="False"
-                        WidthRequest="48"
-                        HeightRequest="48"
-                        CornerRadius="24"
                         BackgroundColor="#80FFFFFF"
+                        CornerRadius="24"
+                        HasShadow="False"
+                        HeightRequest="48"
                         HorizontalOptions="Center"
-                        VerticalOptions="Center">
-                        <Image HorizontalOptions="Center"
-                                Margin="5,0,0,0"
-                               WidthRequest="24"
-                               HeightRequest="24"
-                               VerticalOptions="Center">
+                        VerticalOptions="Center"
+                        WidthRequest="48">
+                        <Image
+                            Margin="5,0,0,0"
+                            HeightRequest="24"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            WidthRequest="24">
                             <Image.Source>
-                                <FontImageSource FontFamily="{x:Static utils:ThemeConstanst.FontAwesomeSolid}"
-                                                 Size="24"
-                                                 Color="White"
-                                                 Glyph="{x:Static utils:FontAwesomeIcons.Play}"/>
+                                <FontImageSource
+                                    FontFamily="{x:Static utils:ThemeConstanst.FontAwesomeSolid}"
+                                    Glyph="{x:Static utils:FontAwesomeIcons.Play}"
+                                    Size="24"
+                                    Color="White" />
                             </Image.Source>
                         </Image>
                     </Frame>

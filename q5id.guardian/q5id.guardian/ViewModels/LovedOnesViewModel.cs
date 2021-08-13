@@ -214,7 +214,6 @@ namespace q5id.guardian.ViewModels
 
         private async Task GetLoves()
         {
-            await Task.Delay(3000);
             Loves = new List<Love>()
             {
                 new Love()
@@ -243,6 +242,7 @@ namespace q5id.guardian.ViewModels
                     IsLongTime = true,
                 }
             };
+            await Task.CompletedTask;
         }
     }
 }

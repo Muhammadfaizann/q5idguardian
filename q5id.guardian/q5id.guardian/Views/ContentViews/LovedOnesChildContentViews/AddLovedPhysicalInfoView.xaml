@@ -1,70 +1,82 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <loved:BaseLovedContentChildView
+    x:Class="q5id.guardian.Views.ContentViews.LovedOnesChildContentViews.AddLovedPhysicalInfoView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:util="clr-namespace:q5id.guardian.Utils"
     xmlns:control="clr-namespace:q5id.guardian.Controls"
     xmlns:loved="clr-namespace:q5id.guardian.Views.ContentViews.LovedOnesChildContentViews"
-    x:Class="q5id.guardian.Views.ContentViews.LovedOnesChildContentViews.AddLovedPhysicalInfoView">
+    xmlns:models="clr-namespace:q5id.guardian.Models"
+    xmlns:util="clr-namespace:q5id.guardian.Utils">
     <ContentView.Content>
         <Grid>
             <control:AppBoxView
                 Margin="0,-45,0,0"
                 BackgroundColor="#FD425E"
-                HorizontalOptions="Fill"
-                VerticalOptions="Start"
                 BottomHeight="45"
-                HeightRequest="120" />
-            <ScrollView Margin="0, -60, 0, 0" Orientation="Vertical">
+                HeightRequest="120"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start" />
+            <ScrollView Margin="0,-60,0,0" Orientation="Vertical">
                 <StackLayout Orientation="Vertical">
-                    <Frame Padding="5,20,5,10"
-                       HasShadow="True"
-                       Margin="25, 0, 25, 0"
-                       BorderColor="Transparent"
-                       CornerRadius="16"
-                       BackgroundColor="White"
-                       HorizontalOptions="Fill"
-                       VerticalOptions="Start">
-                        <StackLayout Orientation="Vertical" Spacing="0" Padding="15">
+                    <Frame
+                        Margin="25,0,25,0"
+                        Padding="5,20,5,10"
+                        BackgroundColor="White"
+                        BorderColor="Transparent"
+                        CornerRadius="16"
+                        HasShadow="True"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Start">
+                        <StackLayout
+                            Padding="15"
+                            Orientation="Vertical"
+                            Spacing="0">
                             <Label
-                                HorizontalOptions="Fill"
-                                LineBreakMode="WordWrap"
                                 Margin="30,0,30,0"
+                                HorizontalOptions="Fill"
                                 HorizontalTextAlignment="Center"
+                                LineBreakMode="WordWrap"
+                                Style="{StaticResource lbHeaderMd}"
                                 Text="Please provide these important physical details."
-                                TextColor="{StaticResource redNue}"
-                                Style="{StaticResource lbHeaderMd}">
-                            </Label>
+                                TextColor="{StaticResource redNue}" />
                             <Label
                                 Margin="0,30,0,5"
                                 HorizontalOptions="Fill"
-                                LineBreakMode="WordWrap"
                                 HorizontalTextAlignment="Start"
+                                LineBreakMode="WordWrap"
+                                Style="{StaticResource lbBodyBoldMd}"
                                 Text="Hair Color"
-                                TextColor="{StaticResource normalCharcoal}"
-                                Style="{StaticResource lbBodyBoldMd}">
-                            
-                            </Label>
+                                TextColor="{StaticResource normalCharcoal}" />
                             <Grid HorizontalOptions="Fill" VerticalOptions="Start">
                                 <control:AppPopupPickerView
-                                    Placeholder="Choose color"
                                     BorderThickness="2"
-                                    FontSize="14"
                                     FocusBorderColor="#696B7A"
+                                    FontSize="14"
                                     HeightRequest="32"
-                                    PlaceholderColor="{StaticResource lightCharcoal}"
-                                    TextColor="{StaticResource dimCharcoal}"
+                                    ItemDisplayBinding="{Binding Name}"
                                     ItemsSource="{Binding Source={x:Static util:Constansts.HAIR_COLORS}, Path=.}"
-                                    ItemDisplayBinding="{Binding Name}"
+                                    NoramlBorderColor="#E8EAF2"
+                                    Placeholder="Choose color"
+                                    PlaceholderColor="{StaticResource lightCharcoal}"
                                     SelectedItem="{Binding HairColor}"
-                                    NoramlBorderColor="#E8EAF2">
+                                    TextColor="{StaticResource dimCharcoal}">
                                     <control:AppPopupPickerView.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackLayout Orientation="Horizontal" Padding="10">
-                                                <BoxView WidthRequest="30"
-                                                            HeightRequest="30"
-                                                            BackgroundColor="{Binding HexColor}"/>
-                                                <Label HorizontalOptions="Fill" VerticalOptions="Center" Text="{Binding Name}" />
+                                        <DataTemplate x:DataType="models:ColorData">
+                                            <StackLayout
+                                                Padding="10"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Ellipse
+                                                    Fill="{Binding HexColor, Converter={StaticResource colorToSolidColorBrushConverter}}"
+                                                    HeightRequest="20"
+                                                    StrokeThickness="1"
+                                                    Stroke="Gray"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="20" />
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    Text="{Binding Name}"
+                                                    VerticalOptions="Center" />
                                             </StackLayout>
                                         </DataTemplate>
                                     </control:AppPopupPickerView.ItemTemplate>
@@ -73,50 +85,56 @@
                             <Label
                                 Margin="0,30,0,5"
                                 HorizontalOptions="Fill"
-                                LineBreakMode="WordWrap"
                                 HorizontalTextAlignment="Start"
+                                LineBreakMode="WordWrap"
+                                Style="{StaticResource lbBodyBoldMd}"
                                 Text="Eye Color"
-                                TextColor="{StaticResource normalCharcoal}"
-                                Style="{StaticResource lbBodyBoldMd}">
-                            
-                            </Label>
+                                TextColor="{StaticResource normalCharcoal}" />
                             <Grid HorizontalOptions="Fill" VerticalOptions="Start">
                                 <control:AppPopupPickerView
-                                    Placeholder="Choose color"
                                     BorderThickness="2"
-                                    FontSize="14"
                                     FocusBorderColor="#696B7A"
+                                    FontSize="14"
                                     HeightRequest="32"
-                                    PlaceholderColor="{StaticResource lightCharcoal}"
-                                    TextColor="{StaticResource dimCharcoal}"
-                                    ItemsSource="{Binding Source={x:Static util:Constansts.EYE_COLORS}, Path=.}"
                                     ItemDisplayBinding="{Binding Name}"
+                                    ItemsSource="{Binding Source={x:Static util:Constansts.EYE_COLORS}, Path=.}"
+                                    NoramlBorderColor="#E8EAF2"
+                                    Placeholder="Choose color"
+                                    PlaceholderColor="{StaticResource lightCharcoal}"
                                     SelectedItem="{Binding EyeColor}"
-                                    NoramlBorderColor="#E8EAF2">
+                                    TextColor="{StaticResource dimCharcoal}">
                                     <control:AppPopupPickerView.ItemTemplate>
                                         <DataTemplate>
-                                            <StackLayout Orientation="Horizontal" Padding="10">
-                                                <BoxView WidthRequest="30"
-                                                            HeightRequest="30"
-                                                            BackgroundColor="{Binding HexColor}"/>
-                                                <Label HorizontalOptions="Fill" VerticalOptions="Center" Text="{Binding Name}" />
+                                            <StackLayout Padding="10" Orientation="Horizontal">
+                                                <Ellipse
+                                                    Fill="{Binding HexColor, Converter={StaticResource colorToSolidColorBrushConverter}}"
+                                                    HeightRequest="20"
+                                                    StrokeThickness="1"
+                                                    Stroke="Gray"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="20" />
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    Text="{Binding Name}"
+                                                    VerticalOptions="Center" />
                                             </StackLayout>
                                         </DataTemplate>
                                     </control:AppPopupPickerView.ItemTemplate>
                                 </control:AppPopupPickerView>
-                                
+
                             </Grid>
                             <Label
                                 Margin="0,30,0,5"
                                 HorizontalOptions="Fill"
-                                LineBreakMode="WordWrap"
                                 HorizontalTextAlignment="Start"
+                                LineBreakMode="WordWrap"
+                                Style="{StaticResource lbBodyBoldMd}"
                                 Text="Height"
-                                TextColor="{StaticResource normalCharcoal}"
-                                Style="{StaticResource lbBodyBoldMd}">
-                            
-                            </Label>
-                            <Grid WidthRequest="200" HorizontalOptions="Start" VerticalOptions="Start">
+                                TextColor="{StaticResource normalCharcoal}" />
+                            <Grid
+                                HorizontalOptions="Start"
+                                VerticalOptions="Start"
+                                WidthRequest="200">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
@@ -129,12 +147,12 @@
                                     FontAttributes="Italic"
                                     FontFamily="PoppinsItalic"
                                     HeightRequest="32"
+                                    Keyboard="Numeric"
                                     NoramlBorderColor="#E8EAF2"
                                     Placeholder="Feet"
-                                    Text="{Binding HeightFeet}"
-                                    Keyboard="Numeric"
                                     PlaceholderColor="{StaticResource lightCharcoal}"
                                     Style="{StaticResource etBodyNormalLg}"
+                                    Text="{Binding HeightFeet}"
                                     TextColor="{StaticResource normalCharcoal}" />
                                 <control:AppEntry
                                     Grid.Column="1"
@@ -144,55 +162,53 @@
                                     FontAttributes="Italic"
                                     FontFamily="PoppinsItalic"
                                     HeightRequest="32"
+                                    Keyboard="Numeric"
                                     NoramlBorderColor="#E8EAF2"
                                     Placeholder="Inches"
-                                    Text="{Binding HeightInches}"
-                                    Keyboard="Numeric"
                                     PlaceholderColor="{StaticResource lightCharcoal}"
                                     Style="{StaticResource etBodyNormalLg}"
+                                    Text="{Binding HeightInches}"
                                     TextColor="{StaticResource normalCharcoal}" />
                             </Grid>
                             <Label
                                 Margin="0,30,0,5"
                                 HorizontalOptions="Fill"
-                                LineBreakMode="WordWrap"
                                 HorizontalTextAlignment="Start"
+                                LineBreakMode="WordWrap"
+                                Style="{StaticResource lbBodyBoldMd}"
                                 Text="Weight"
-                                TextColor="{StaticResource normalCharcoal}"
-                                Style="{StaticResource lbBodyBoldMd}">
-                            
-                            </Label>
+                                TextColor="{StaticResource normalCharcoal}" />
                             <control:AppEntry
-                                    WidthRequest="200"
-                                    Padding="10"
-                                    BorderThickness="2"
-                                    HorizontalOptions="Start"
-                                    FocusBorderColor="#696B7A"
-                                    FontAttributes="Italic"
-                                    FontFamily="PoppinsItalic"
-                                    HeightRequest="32"
-                                    NoramlBorderColor="#E8EAF2"
-                                    Placeholder="Pounds"
-                                    Text="{Binding Weight}"
-                                    Keyboard="Numeric"
-                                    PlaceholderColor="{StaticResource lightCharcoal}"
-                                    Style="{StaticResource etBodyNormalLg}"
-                                    TextColor="{StaticResource normalCharcoal}" />
+                                Padding="10"
+                                BorderThickness="2"
+                                FocusBorderColor="#696B7A"
+                                FontAttributes="Italic"
+                                FontFamily="PoppinsItalic"
+                                HeightRequest="32"
+                                HorizontalOptions="Start"
+                                Keyboard="Numeric"
+                                NoramlBorderColor="#E8EAF2"
+                                Placeholder="Pounds"
+                                PlaceholderColor="{StaticResource lightCharcoal}"
+                                Style="{StaticResource etBodyNormalLg}"
+                                Text="{Binding Weight}"
+                                TextColor="{StaticResource normalCharcoal}"
+                                WidthRequest="200" />
                         </StackLayout>
-                     </Frame>
+                    </Frame>
                     <control:AppButton
                         Margin="0,40,0,10"
                         ButtonTitle="NEXT"
+                        ButtonTitleSize="12"
+                        Clicked="OnNextClicked"
                         CornerRadius="16"
                         HeightRequest="32"
                         HorizontalOptions="Center"
-                        NormalBackgroundStartColor="{StaticResource dimCharcoal}"
                         NormalBackgroundEndColor="{StaticResource normalCharcoal}"
-                        PressedBackgroundColor="{StaticResource dimCharcoal}"
+                        NormalBackgroundStartColor="{StaticResource dimCharcoal}"
                         NormalLabelColor="White"
+                        PressedBackgroundColor="{StaticResource dimCharcoal}"
                         PressedLabelColor="LightGray"
-                        Clicked="OnNextClicked"
-                        ButtonTitleSize="12"
                         WidthRequest="97" />
                 </StackLayout>
             </ScrollView>

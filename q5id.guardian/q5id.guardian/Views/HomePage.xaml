@@ -23,20 +23,30 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="120" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="90" />
+            <RowDefinition Height="60">
+                <RowDefinition.Height>
+                    <OnPlatform x:TypeArguments="GridLength">
+                        <On Platform="Android">60</On>
+                        <On Platform="iOS">70</On>
+                    </OnPlatform>
+                </RowDefinition.Height>
+            </RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" BackgroundColor="{StaticResource paleGray}" RowSpacing="0">
+        <Grid
+            Grid.Row="0"
+            BackgroundColor="{StaticResource paleGray}"
+            RowSpacing="0">
             <control:AppBoxView
                 BackgroundColor="#FD425E"
                 BottomHeight="45"
                 HeightRequest="120" />
             <Grid HeightRequest="50" VerticalOptions="Start">
                 <Label
+                    x:Name="lbNavigation"
                     FontAttributes="Bold"
                     FontSize="Medium"
                     HorizontalOptions="Center"
                     Text="guardian"
-                    x:Name="lbNavigation"
                     TextColor="White"
                     VerticalOptions="Center" />
                 <Grid Margin="20,0,0,0" HorizontalOptions="Start">
@@ -55,24 +65,25 @@
                 </Grid>
                 <control:AppFrame
                     x:Name="frmRightControl"
-                    IsVisible="False"
-                    Margin="0, 0, 10, 0"
-                    WidthRequest="36"
+                    Margin="0,0,10,0"
+                    Padding="0"
+                    CornerRadius="18"
+                    HasShadow="False"
                     HeightRequest="36"
                     HorizontalOptions="End"
-                    VerticalOptions="Center"
-                    Padding="0"
-                    HasShadow="False"
-                    NormalBackgroundColorStart="{StaticResource redQ5}"
+                    IsVisible="False"
                     NormalBackgroundColorEnd="{StaticResource redQ5}"
-                    PressedBackgroundColor="{StaticResource redNue}"  
-                    CornerRadius="18">
-                    <Image HorizontalOptions="Center"  VerticalOptions="Center">
+                    NormalBackgroundColorStart="{StaticResource redQ5}"
+                    PressedBackgroundColor="{StaticResource redNue}"
+                    VerticalOptions="Center"
+                    WidthRequest="36">
+                    <Image HorizontalOptions="Center" VerticalOptions="Center">
                         <Image.Source>
-                            <FontImageSource Size="Large"
-                                            FontFamily="{x:Static utils:ThemeConstanst.FontAwesomeSolid}"
-                                            Color="White"
-                                            Glyph="{x:Static utils:FontAwesomeIcons.Times}"/>
+                            <FontImageSource
+                                FontFamily="{x:Static utils:ThemeConstanst.FontAwesomeSolid}"
+                                Glyph="{x:Static utils:FontAwesomeIcons.Times}"
+                                Size="Large"
+                                Color="White" />
                         </Image.Source>
                     </Image>
                 </control:AppFrame>
@@ -93,10 +104,13 @@
             <ctv:LovedOnesContentView x:Name="lovedView" IsVisible="False" />
             <ctv:AlertContentView x:Name="alertView" IsVisible="False" />-->
         </Grid>
-        <Grid
-            Grid.Row="2"
-            Padding="0,8,0,26"
-            BackgroundColor="White">
+        <Grid Grid.Row="2" BackgroundColor="White">
+            <Grid.Padding>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0, 8, 0, 15" />
+                    <On Platform="Android" Value="0, 8, 0, 10" />
+                </OnPlatform>
+            </Grid.Padding>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="70" />

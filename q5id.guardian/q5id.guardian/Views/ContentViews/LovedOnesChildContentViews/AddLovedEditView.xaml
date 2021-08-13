@@ -202,9 +202,13 @@
                                     <control:AppPopupPickerView.ItemTemplate>
                                         <DataTemplate>
                                             <StackLayout Orientation="Horizontal" Padding="10">
-                                                <BoxView WidthRequest="30"
-                                                            HeightRequest="30"
-                                                            BackgroundColor="{Binding HexColor}"/>
+                                                <Ellipse
+                                                    Fill="{Binding HexColor, Converter={StaticResource colorToSolidColorBrushConverter}}"
+                                                    HeightRequest="20"
+                                                    StrokeThickness="1"
+                                                    Stroke="Gray"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="20" />
                                                 <Label HorizontalOptions="Fill" VerticalOptions="Center" Text="{Binding Name}" />
                                             </StackLayout>
                                         </DataTemplate>
@@ -237,9 +241,13 @@
                                     <control:AppPopupPickerView.ItemTemplate>
                                         <DataTemplate>
                                             <StackLayout Orientation="Horizontal" Padding="10">
-                                                <BoxView WidthRequest="30"
-                                                            HeightRequest="30"
-                                                            BackgroundColor="{Binding HexColor}"/>
+                                                <Ellipse
+                                                    Fill="{Binding HexColor, Converter={StaticResource colorToSolidColorBrushConverter}}"
+                                                    HeightRequest="20"
+                                                    StrokeThickness="1"
+                                                    Stroke="Gray"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="20" />
                                                 <Label HorizontalOptions="Fill" VerticalOptions="Center" Text="{Binding Name}" />
                                             </StackLayout>
                                         </DataTemplate>

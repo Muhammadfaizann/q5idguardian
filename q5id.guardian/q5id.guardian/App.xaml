@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:app="clr-namespace:q5id.guardian.Controls"
-             xmlns:converters="clr-namespace:q5id.guardian.Converters"
-             x:Class="q5id.guardian.App">
+<Application
+    x:Class="q5id.guardian.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:app="clr-namespace:q5id.guardian.Controls"
+    xmlns:converters="clr-namespace:q5id.guardian.Converters">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
     -->
@@ -38,11 +39,11 @@
                 <Setter Property="FontSize" Value="14" />
                 <Setter Property="FontFamily" Value="PoppinsRegular" />
             </Style>
-             <Style x:Key="lbBodyNormalMd" TargetType="Label">
+            <Style x:Key="lbBodyNormalMd" TargetType="Label">
                 <Setter Property="FontSize" Value="12" />
                 <Setter Property="FontFamily" Value="PoppinsRegular" />
             </Style>
-             <Style x:Key="lbBodyNormalSm" TargetType="Label">
+            <Style x:Key="lbBodyNormalSm" TargetType="Label">
                 <Setter Property="FontSize" Value="11" />
                 <Setter Property="FontFamily" Value="PoppinsRegular" />
             </Style>
@@ -50,11 +51,11 @@
                 <Setter Property="FontSize" Value="14" />
                 <Setter Property="FontFamily" Value="PoppinsBold" />
             </Style>
-             <Style x:Key="lbBodyBoldMd" TargetType="Label">
+            <Style x:Key="lbBodyBoldMd" TargetType="Label">
                 <Setter Property="FontSize" Value="12" />
                 <Setter Property="FontFamily" Value="PoppinsBold" />
             </Style>
-             <Style x:Key="lbBodyBoldSm" TargetType="Label">
+            <Style x:Key="lbBodyBoldSm" TargetType="Label">
                 <Setter Property="FontSize" Value="11" />
                 <Setter Property="FontFamily" Value="PoppinsBold" />
             </Style>
@@ -75,13 +76,14 @@
             <Color x:Key="paleGray">#E8EAF2</Color>
             <Color x:Key="blue">#3DA0FF</Color>
             <Style x:Key="frmButton" TargetType="app:AppFrame">
-                <Setter Property="NormalBackgroundColorStart" Value="{StaticResource dimCharcoal}"/>
-                <Setter Property="NormalBackgroundColorEnd" Value="{StaticResource normalCharcoal}"/>
+                <Setter Property="NormalBackgroundColorStart" Value="{StaticResource dimCharcoal}" />
+                <Setter Property="NormalBackgroundColorEnd" Value="{StaticResource normalCharcoal}" />
                 <Setter Property="PressedBackgroundColor" Value="{StaticResource dimCharcoal}" />
                 <Setter Property="DeactiveBackgroundColor" Value="{StaticResource lightCharcoal}" />
             </Style>
-            <converters:ReverseBooleanConverter x:Key="reverseBooleanConverter"/>
+            <converters:ReverseBooleanConverter x:Key="reverseBooleanConverter" />
             <converters:DateToStringConverter x:Key="dateToStringConverter" />
-        </ResourceDictionary>        
+            <converters:ColorToSolidColorBrushConverter x:Key="colorToSolidColorBrushConverter" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
