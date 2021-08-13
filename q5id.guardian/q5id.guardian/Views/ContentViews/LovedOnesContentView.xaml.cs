@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Input;
 using q5id.guardian.Views.ContentViews.LovedOnesChildContentViews;
 using Xamarin.Forms;
 
@@ -15,11 +16,33 @@ namespace q5id.guardian.Views.ContentViews
         public byte[] PrimaryImageSourceByteArray;
         public List<byte[]> SecondaryImageSourceByteArrays = new List<byte[]>();
 
+        public static readonly BindableProperty ResetCommandProperty =
+            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(LovedOnesContentView), null, defaultBindingMode: BindingMode.TwoWay);
+
+        public ICommand ResetCommand
+        {
+            get { return (ICommand)GetValue(ResetCommandProperty); }
+            set
+            {
+                SetValue(ResetCommandProperty, value);
+            }
+        }
+
         public LovedOnesContentView(HomePage homePage)
         {
             InitializeComponent();
             MainPage = homePage;
+            this.SetBinding(ResetCommandProperty, "ResetCommand");
             ResetView();
+        }
+
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+            if(currentContentView != null)
+            {
+                currentContentView.BindingContext = this.BindingContext;
+            }
         }
 
         public void ClearImages()
@@ -32,6 +55,8 @@ namespace q5id.guardian.Views.ContentViews
         {
             previousContentViews = new List<BaseLovedContentChildView>();
             currentContentView = null;
+            ClearImages();
+            ResetCommand?.Execute(null);
             this.PushView(new LovedOnesListView(this));
         }
 
@@ -58,7 +83,9 @@ namespace q5id.guardian.Views.ContentViews
             if(currentContentView != null)
             {
                 previousContentViews.Add(currentContentView);
+                currentContentView.BindingContext = null;
             }
+            view.BindingContext = this.BindingContext;
             gridContent.Children.Clear();
             gridContent.Children.Add(view);
             currentContentView = view;
@@ -76,10 +103,12 @@ namespace q5id.guardian.Views.ContentViews
         {
             if(CanBackView())
             {
+                currentContentView.BindingContext = null;
                 BaseLovedContentChildView previousView = previousContentViews[previousContentViews.Count - 1];
                 gridContent.Children.Clear();
                 gridContent.Children.Add(previousView);
                 currentContentView = previousView;
+                currentContentView.BindingContext = this.BindingContext;
                 previousContentViews.Remove(previousView);
                 MainPage.UpdateRightControlVisibility(previousContentViews.Count > 0);
                 MainPage.UpdateHeaderTitle(currentContentView.ViewTitle);
@@ -90,10 +119,7 @@ namespace q5id.guardian.Views.ContentViews
         {
             if(previousContentViews.Count > 0)
             {
-                var firstView = previousContentViews[0];
-                previousContentViews = new List<BaseLovedContentChildView>();
-                currentContentView = null;
-                PushView(firstView);
+                ResetView();
             }
         }
 

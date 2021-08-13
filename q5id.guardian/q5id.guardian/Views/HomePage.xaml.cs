@@ -32,6 +32,7 @@ namespace q5id.guardian.Views
                 Command = new Command(() =>
                 {
                     HomeView = new HomeContentView();
+
                     ShowView(HomeView, "HomeVm");
                     SelectTab(0);
                 })
@@ -67,11 +68,11 @@ namespace q5id.guardian.Views
         private void ShowView(ContentView view, string bindingName = null)
         {
             this.gridContentView.Children.Clear();
-            this.gridContentView.Children.Add(view);
             if(bindingName != null)
             {
                 view.SetBinding(BindingContextProperty, bindingName);
             }
+            this.gridContentView.Children.Add(view);
         }
 
         public void SelectTab(int index)
@@ -110,14 +111,6 @@ namespace q5id.guardian.Views
 
         protected override bool OnBackButtonPressed()
         {
-            if(mCurrentTap == 1 && LovedOnesView is LovedOnesContentView lovedOnesContentView)
-            {
-                if(lovedOnesContentView.CanBackView() == true)
-                {
-                    lovedOnesContentView.BackView();
-                    return true;
-                }
-            }
             return base.OnBackButtonPressed();
         }
     }

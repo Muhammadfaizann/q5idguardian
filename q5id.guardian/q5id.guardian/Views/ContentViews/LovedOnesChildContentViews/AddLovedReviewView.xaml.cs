@@ -10,8 +10,30 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
         {
             InitializeComponent();
             ViewTitle = "Add Loved One";
-            UpdateImage();
         }
+
+        protected override void OnParentSet()
+        {
+            base.OnParentSet();
+            if (Parent != null)
+            {
+                UpdateImage();
+            }
+            else
+            {
+                ClearImage();
+            }
+        }
+
+        private void ClearImage()
+        {
+            ImgPrimary.Source = null;
+            ImgSec1.Source = null;
+            ImgSec2.Source = null;
+            ImgSec3.Source = null;
+            ImgSec4.Source = null;
+        }
+
 
         private void UpdateImage()
         {
@@ -27,10 +49,9 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
                 };
                 int imageCount = imageSecSourceStreams.Count;
                 int indexImage = 0;
-                if (indexImage < imageCount && indexImage < imageSecs.Count)
+                while (indexImage < imageCount && indexImage < imageSecs.Count)
                 {
-                    int currentIndex = indexImage;
-                    System.IO.MemoryStream streamSec = new System.IO.MemoryStream(imageSecSourceStreams[currentIndex]);
+                    System.IO.MemoryStream streamSec = new System.IO.MemoryStream(imageSecSourceStreams[indexImage]);
                     imageSecs[indexImage].Source = ImageSource.FromStream(() => streamSec);
                     indexImage++;
                 }

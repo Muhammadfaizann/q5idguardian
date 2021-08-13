@@ -52,8 +52,159 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        private string mFirstName = null;
+        public string FirstName
+        {
+            get => mFirstName;
+            set
+            {
+                mFirstName = value;
+                RaisePropertyChanged(nameof(FirstName));
+                RaisePropertyChanged(nameof(FullName));
+            }
+        }
+
+        private string mLastName = null;
+        public string LastName
+        {
+            get => mLastName;
+            set
+            {
+                mLastName = value;
+                RaisePropertyChanged(nameof(LastName));
+                RaisePropertyChanged(nameof(FullName));
+            }
+        }
+
+        public string FullName
+        {
+            get
+            {
+                return mFirstName + " " + mLastName;
+            }
+            
+        }
+
+        private DateTime? mBirthDay = null;
+        public DateTime? BirthDay
+        {
+            get => mBirthDay;
+            set
+            {
+                mBirthDay = value;
+                RaisePropertyChanged(nameof(BirthDay));
+            }
+        }
+
+        private string mHeightFeet = null;
+        public string HeightFeet
+        {
+            get => mHeightFeet;
+            set
+            {
+                mHeightFeet = value;
+                RaisePropertyChanged(nameof(HeightFeet));
+                RaisePropertyChanged(nameof(Height));
+            }
+        }
+
+        private string mHeightInches = null;
+        public string HeightInches
+        {
+            get => mHeightInches;
+            set
+            {
+                mHeightInches = value;
+                RaisePropertyChanged(nameof(HeightInches));
+                RaisePropertyChanged(nameof(Height));
+            }
+        }
+
+        public string Height
+        {
+            get
+            {
+                return mHeightFeet + "’ " + mHeightInches + "”";
+            }
+        }
+
+        private string mWeight = null;
+        public string Weight
+        {
+            get => mWeight;
+            set
+            {
+                mWeight = value;
+                RaisePropertyChanged(nameof(Weight));
+            }
+        }
+
+        private string mDetail = null;
+        public string Detail
+        {
+            get => mDetail;
+            set
+            {
+                mDetail = value;
+                RaisePropertyChanged(nameof(Detail));
+            }
+        }
+
+        private ColorData mHairColor = null;
+        public ColorData HairColor
+        {
+            get
+            {
+                return mHairColor;
+            }
+            set
+            {
+                mHairColor = value;
+                RaisePropertyChanged(nameof(HairColor));
+            }
+        }
+
+        private ColorData mEyeColor = null;
+        public ColorData EyeColor
+        {
+            get
+            {
+                return mEyeColor;
+            }
+            set
+            {
+                mEyeColor = value;
+                RaisePropertyChanged(nameof(EyeColor));
+            }
+        }
+
+        private Command mResetCommand;
+        public Command ResetCommand
+        {
+            get => mResetCommand;
+            set
+            {
+                mResetCommand = value;
+                RaisePropertyChanged(nameof(ResetCommand));
+            }
+        }
+
         public LovedOnesViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
+            ResetCommand = new Command(OnResetData);
+        }
+
+        private void OnResetData(object obj)
+        {
+            this.FirstName = "";
+            this.LastName = "";
+            this.BirthDay = null;
+            this.HairColor = null;
+            this.EyeColor = null;
+            this.HeightFeet = null;
+            this.HeightInches = null;
+            this.Weight = null;
+            this.Detail = null;
         }
 
         public override async Task Initialize()

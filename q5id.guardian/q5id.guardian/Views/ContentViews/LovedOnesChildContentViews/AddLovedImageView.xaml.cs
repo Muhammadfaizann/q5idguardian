@@ -88,38 +88,42 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
             {
                 if (sender == FrmPrimaryPhotoBtn)
                 {
+                    MainContentView.PrimaryImageSourceByteArray = Utils.Utils.ConvertStreamToByteArray(sourceStream);
                     ImgPrimary.Source = ImageSource.FromStream(() => sourceStream);
                     FrmSnd1.IsVisible = true;
-                    MainContentView.PrimaryImageSourceByteArray = Utils.Utils.ConvertStreamToByteArray(sourceStream);
                     
                     UpdateView(true);
                 }
                 else if(sender == FrmSnd1)
                 {
+                    MainContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
                     ImgSnd1.Source = ImageSource.FromStream(() => sourceStream);
                     FrmSnd1.IsVisible = false;
                     FrmSnd2.IsVisible = true;
-                    MainContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
+                    
                 }
                 else if (sender == FrmSnd2)
                 {
+                    MainContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
                     ImgSnd2.Source = ImageSource.FromStream(() => sourceStream);
                     FrmSnd2.IsVisible = false;
                     FrmSnd3.IsVisible = true;
-                    MainContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
+                    
                 }
                 else if (sender == FrmSnd3)
                 {
+                    MainContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
                     ImgSnd3.Source = ImageSource.FromStream(() => sourceStream);
                     FrmSnd3.IsVisible = false;
                     FrmSnd4.IsVisible = true;
-                    MainContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
+                    
                 }
                 else if (sender == FrmSnd4)
                 {
+                    MainContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
                     ImgSnd4.Source = ImageSource.FromStream(() => sourceStream);
                     FrmSnd4.IsVisible = false;
-                    MainContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
+                   
                 }
             }
         }

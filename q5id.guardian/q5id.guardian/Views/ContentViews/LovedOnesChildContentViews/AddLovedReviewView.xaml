@@ -111,7 +111,7 @@
                                 HorizontalOptions="Fill"
                                 LineBreakMode="WordWrap"
                                 HorizontalTextAlignment="Center"
-                                Text="Amber Jones"
+                                Text="{Binding FullName}"
                                 TextColor="{StaticResource normalCharcoal}"
                                 Style="{StaticResource lbSubheadSm}">
                             
@@ -126,7 +126,7 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontSize="14" Text="Born: " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" TextColor="{StaticResource normalCharcoal}" />
-                                        <Span FontSize="14" Text="02/12/2014" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
+                                        <Span FontSize="14" Text="{Binding BirthDay, Converter={StaticResource dateToStringConverter}, ConverterParameter=MM/dd/yyyy}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -140,7 +140,7 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontSize="14" Text="Hair: " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" TextColor="{StaticResource normalCharcoal}" />
-                                        <Span FontSize="14" Text="Brown" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
+                                        <Span FontSize="14" Text="{Binding HairColor.Name}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -154,7 +154,7 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontSize="14" Text="Eyes: " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" TextColor="{StaticResource normalCharcoal}" />
-                                        <Span FontSize="14" Text="Brown" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
+                                        <Span FontSize="14" Text="{Binding EyeColor.Name}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -168,7 +168,7 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontSize="14" Text="Height: " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" TextColor="{StaticResource normalCharcoal}" />
-                                        <Span FontSize="14" Text="3’ 11”" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
+                                        <Span FontSize="14" Text="{Binding Height}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -182,7 +182,7 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontSize="14" Text="Weight: " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" TextColor="{StaticResource normalCharcoal}" />
-                                        <Span FontSize="14" Text="60 lbs" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
+                                        <Span FontSize="14" Text="{Binding Weight}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" TextColor="{StaticResource normalCharcoal}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -191,7 +191,7 @@
                                 HorizontalOptions="Fill"
                                 LineBreakMode="WordWrap"
                                 HorizontalTextAlignment="Center"
-                                Text="Has a small birthmark on her right hand. She is very shy."
+                                Text="{Binding Detail}"
                                 TextColor="{StaticResource normalCharcoal}"
                                 Style="{StaticResource lbBodyNormalLg}">
                                 

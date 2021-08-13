@@ -95,7 +95,7 @@ namespace q5id.guardian.Droid.Renderers
             Android.Graphics.Color borderColor = control.IsFocused ? mAppPicker.FocusBorderColor.ToAndroid() : mAppPicker.NoramlBorderColor.ToAndroid();
             gd.SetStroke((int)Context.ToPixels(mAppPicker.BorderThickness), borderColor);
             control.SetBackground(gd);
-
+            control.SetTextColor(mAppPicker.TextColor.ToAndroid());
 
             var padTop = (int)Context.ToPixels(mAppPicker.Padding.Top);
             var padBottom = (int)Context.ToPixels(mAppPicker.Padding.Bottom);

@@ -81,6 +81,7 @@
                 <Setter Property="DeactiveBackgroundColor" Value="{StaticResource lightCharcoal}" />
             </Style>
             <converters:ReverseBooleanConverter x:Key="reverseBooleanConverter"/>
+            <converters:DateToStringConverter x:Key="dateToStringConverter" />
         </ResourceDictionary>        
     </Application.Resources>
 </Application>

@@ -52,9 +52,11 @@
                                     FontSize="14"
                                     FocusBorderColor="#696B7A"
                                     HeightRequest="32"
-                                    BindingContext="{x:Static util:Constansts.HAIR_COLORS}"
-                                    ItemsSource="{Binding .}"
+                                    PlaceholderColor="{StaticResource lightCharcoal}"
+                                    TextColor="{StaticResource dimCharcoal}"
+                                    ItemsSource="{Binding Source={x:Static util:Constansts.HAIR_COLORS}, Path=.}"
                                     ItemDisplayBinding="{Binding Name}"
+                                    SelectedItem="{Binding HairColor}"
                                     NoramlBorderColor="#E8EAF2">
                                     <control:AppPopupPickerView.ItemTemplate>
                                         <DataTemplate>
@@ -85,9 +87,11 @@
                                     FontSize="14"
                                     FocusBorderColor="#696B7A"
                                     HeightRequest="32"
-                                    BindingContext="{x:Static util:Constansts.EYE_COLORS}"
-                                    ItemsSource="{Binding .}"
+                                    PlaceholderColor="{StaticResource lightCharcoal}"
+                                    TextColor="{StaticResource dimCharcoal}"
+                                    ItemsSource="{Binding Source={x:Static util:Constansts.EYE_COLORS}, Path=.}"
                                     ItemDisplayBinding="{Binding Name}"
+                                    SelectedItem="{Binding EyeColor}"
                                     NoramlBorderColor="#E8EAF2">
                                     <control:AppPopupPickerView.ItemTemplate>
                                         <DataTemplate>
@@ -127,6 +131,7 @@
                                     HeightRequest="32"
                                     NoramlBorderColor="#E8EAF2"
                                     Placeholder="Feet"
+                                    Text="{Binding HeightFeet}"
                                     Keyboard="Numeric"
                                     PlaceholderColor="{StaticResource lightCharcoal}"
                                     Style="{StaticResource etBodyNormalLg}"
@@ -141,6 +146,7 @@
                                     HeightRequest="32"
                                     NoramlBorderColor="#E8EAF2"
                                     Placeholder="Inches"
+                                    Text="{Binding HeightInches}"
                                     Keyboard="Numeric"
                                     PlaceholderColor="{StaticResource lightCharcoal}"
                                     Style="{StaticResource etBodyNormalLg}"
@@ -167,6 +173,7 @@
                                     HeightRequest="32"
                                     NoramlBorderColor="#E8EAF2"
                                     Placeholder="Pounds"
+                                    Text="{Binding Weight}"
                                     Keyboard="Numeric"
                                     PlaceholderColor="{StaticResource lightCharcoal}"
                                     Style="{StaticResource etBodyNormalLg}"

@@ -44,6 +44,7 @@
                                 HeightRequest="32"
                                 NoramlBorderColor="#E8EAF2"
                                 Placeholder="First name"
+                                Text="{Binding FirstName}"
                                 PlaceholderColor="{StaticResource lightCharcoal}"
                                 Style="{StaticResource etBodyNormalLg}"
                                 TextColor="{StaticResource normalCharcoal}" />
@@ -57,6 +58,7 @@
                                 HeightRequest="32"
                                 NoramlBorderColor="#E8EAF2"
                                 Placeholder="Last name"
+                                Text="{Binding LastName}"
                                 PlaceholderColor="{StaticResource lightCharcoal}"
                                 Style="{StaticResource etBodyNormalLg}"
                                 TextColor="{StaticResource normalCharcoal}" />
@@ -89,6 +91,7 @@
                                 HeightRequest="32"
                                 NoramlBorderColor="#E8EAF2"
                                 Placeholder="MM/DD/YYYY"
+                                NullableDate="{Binding BirthDay}"
                                 Style="{StaticResource etBodyNormalLg}"
                                 TextColor="{StaticResource normalCharcoal}"
                                 Format="MM/dd/yyyy"

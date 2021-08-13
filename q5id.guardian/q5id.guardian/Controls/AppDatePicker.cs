@@ -8,7 +8,7 @@ namespace q5id.guardian.Controls
     {
         private string _format = null;
         
-        public static readonly BindableProperty NullableDateProperty = BindableProperty.Create(nameof(NullableDate), typeof(DateTime?), typeof(AppDatePicker), null, BindingMode.Default, null, propertyChanged: OnNullableDateChanged);
+        public static readonly BindableProperty NullableDateProperty = BindableProperty.Create(nameof(NullableDate), typeof(DateTime?), typeof(AppDatePicker), null, BindingMode.TwoWay, null, propertyChanged: OnNullableDateChanged);
 
         public static void OnNullableDateChanged(BindableObject bindable, object oldValue, object newValue)
         {

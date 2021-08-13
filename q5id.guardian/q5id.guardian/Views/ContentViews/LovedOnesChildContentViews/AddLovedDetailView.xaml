@@ -55,6 +55,7 @@
                                 HeightRequest="165"
                                 NoramlBorderColor="#E8EAF2"
                                 Placeholder="Enter detail"
+                                Text="{Binding Detail}"
                                 PlaceholderColor="{StaticResource lightCharcoal}"
                                 Style="{StaticResource etBodyNormalLg}"
                                 TextColor="{StaticResource normalCharcoal}" />

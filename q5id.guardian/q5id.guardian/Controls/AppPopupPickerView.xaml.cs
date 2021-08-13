@@ -154,7 +154,16 @@ namespace q5id.guardian.Controls
             set => SetValue(ItemTemplateProperty, value);
         }
 
-        public static readonly BindableProperty SelectedItemProperty = BindableProperty.Create(nameof(SelectedItem), typeof(object), typeof(AppPopupPickerView), "");
+        public static readonly BindableProperty SelectedItemProperty = BindableProperty.Create(nameof(SelectedItem), typeof(object), typeof(AppPopupPickerView), "", BindingMode.TwoWay, propertyChanged: OnItemSelectedChanged);
+
+        private static void OnItemSelectedChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+           if(bindable is AppPopupPickerView appPopupPickerView)
+            {
+                appPopupPickerView.SelectedItem = newValue;
+            }
+        }
+
         public object SelectedItem
         {
             set
