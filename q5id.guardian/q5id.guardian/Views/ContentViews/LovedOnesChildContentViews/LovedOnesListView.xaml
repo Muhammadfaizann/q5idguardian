@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<loved:BaseLovedContentChildView
+<base:BaseChildContentView
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:control="clr-namespace:q5id.guardian.Controls"
     xmlns:util="clr-namespace:q5id.guardian.Utils"
-    xmlns:loved="clr-namespace:q5id.guardian.Views.ContentViews.LovedOnesChildContentViews"
+    xmlns:base="clr-namespace:q5id.guardian.Views.Base"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:converter="clr-namespace:q5id.guardian.Converters"
     x:Class="q5id.guardian.Views.ContentViews.LovedOnesChildContentViews.LovedOnesListView">
@@ -233,4 +233,4 @@
             </Grid>
         </Grid>
     </ContentView.Content>
-</loved:BaseLovedContentChildView>
+</base:BaseChildContentView>

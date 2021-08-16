@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Input;
+using q5id.guardian.Views.Base;
 using q5id.guardian.Views.ContentViews.LovedOnesChildContentViews;
 using Xamarin.Forms;
 
 namespace q5id.guardian.Views.ContentViews
 {
-    public partial class LovedOnesContentView : ContentView
+    public partial class LovedOnesContentView : BaseContainerView
     {
-        private List<BaseLovedContentChildView> previousContentViews;
-        private BaseLovedContentChildView currentContentView;
-        private HomePage MainPage;
-
         public byte[] PrimaryImageSourceByteArray;
         public List<byte[]> SecondaryImageSourceByteArrays = new List<byte[]>();
 
@@ -28,36 +25,21 @@ namespace q5id.guardian.Views.ContentViews
             }
         }
 
-        public LovedOnesContentView(HomePage homePage)
+        public LovedOnesContentView(HomePage homePage) : base(homePage)
         {
             InitializeComponent();
-            MainPage = homePage;
             this.SetBinding(ResetCommandProperty, "ResetCommand");
+            MainPage.UpdateRightControlVisibility(false);
             ResetView();
+            this.PushView(new LovedOnesListView(this));
         }
 
-        protected override void OnBindingContextChanged()
-        {
-            base.OnBindingContextChanged();
-            if(currentContentView != null)
-            {
-                currentContentView.BindingContext = this.BindingContext;
-            }
-        }
+        
 
         public void ClearImages()
         {
             PrimaryImageSourceByteArray = null;
             SecondaryImageSourceByteArrays.Clear();
-        }
-
-        private void ResetView()
-        {
-            previousContentViews = new List<BaseLovedContentChildView>();
-            currentContentView = null;
-            ClearImages();
-            ResetCommand?.Execute(null);
-            this.PushView(new LovedOnesListView(this));
         }
 
         protected override void OnParentSet()
@@ -78,41 +60,16 @@ namespace q5id.guardian.Views.ContentViews
             }
         }
 
-        public void PushView(BaseLovedContentChildView view)
+        public override void PushView(BaseChildContentView view)
         {
-            if(currentContentView != null)
-            {
-                previousContentViews.Add(currentContentView);
-                currentContentView.BindingContext = null;
-            }
-            view.BindingContext = this.BindingContext;
-            gridContent.Children.Clear();
-            gridContent.Children.Add(view);
-            currentContentView = view;
-            MainPage.UpdateRightControlVisibility(previousContentViews.Count > 0);
-            MainPage.UpdateHeaderTitle(view.ViewTitle);
+            base.PushView(view);
+            MainPage.UpdateRightControlVisibility(this.previousContentViews.Count > 0);
         }
 
-        
-        public bool CanBackView()
+        public override void BackView()
         {
-            return previousContentViews.Count > 0;
-        }
-
-        public void BackView()
-        {
-            if(CanBackView())
-            {
-                currentContentView.BindingContext = null;
-                BaseLovedContentChildView previousView = previousContentViews[previousContentViews.Count - 1];
-                gridContent.Children.Clear();
-                gridContent.Children.Add(previousView);
-                currentContentView = previousView;
-                currentContentView.BindingContext = this.BindingContext;
-                previousContentViews.Remove(previousView);
-                MainPage.UpdateRightControlVisibility(previousContentViews.Count > 0);
-                MainPage.UpdateHeaderTitle(currentContentView.ViewTitle);
-            }
+            base.BackView();
+            MainPage.UpdateRightControlVisibility(this.previousContentViews.Count > 0);
         }
 
         public void OnHomeRightControlClick(object sender, EventArgs e)
@@ -120,8 +77,13 @@ namespace q5id.guardian.Views.ContentViews
             if(previousContentViews.Count > 0)
             {
                 ResetView();
+                this.PushView(new LovedOnesListView(this));
             }
         }
 
+        protected override Layout<View> GetContentView()
+        {
+            return gridContent;
+        }
     }
 }

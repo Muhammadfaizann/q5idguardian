@@ -44,6 +44,7 @@ namespace q5id.guardian.ViewModels
         {
             HomeVm.User = parameter;
             LovedOnesVm.User = parameter;
+            AlertsVm.User = parameter;
         }
 
         protected override void InitFromBundle(IMvxBundle parameters)
@@ -65,6 +66,7 @@ namespace q5id.guardian.ViewModels
             {
                 await HomeVm.Initialize();
                 await LovedOnesVm.Initialize();
+                await AlertsVm.Initialize();
             });
         }
     }

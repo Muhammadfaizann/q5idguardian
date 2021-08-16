@@ -15,6 +15,10 @@
     <None Remove="Xamarin.Forms.ImagePicker" />
     <None Remove="Xamarin.MediaGallery" />
     <None Remove="Rg.Plugins.Popup" />
+    <None Remove="Views\ContentViews\AlertContentChildViews\" />
+    <None Remove="Views\ContentViews\AlertContentChildViews\ItemViews\" />
+    <None Remove="ViewModels\ItemViewModels\" />
+    <None Remove="Selectors\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -68,6 +72,10 @@
     <Folder Include="Controls\Camera\" />
     <Folder Include="Views\ItemViews\" />
     <Folder Include="Views\ContentViews\LovedOnesChildContentViews\" />
+    <Folder Include="Views\ContentViews\AlertContentChildViews\" />
+    <Folder Include="Views\ContentViews\AlertContentChildViews\ItemViews\" />
+    <Folder Include="ViewModels\ItemViewModels\" />
+    <Folder Include="Selectors\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Fonts\FontAwesome5Regular.otf" />

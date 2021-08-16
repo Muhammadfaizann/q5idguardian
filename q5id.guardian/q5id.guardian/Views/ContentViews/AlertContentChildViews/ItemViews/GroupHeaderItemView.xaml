@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews.GroupHeaderItemView">
+    <ContentView.Content>
+        <StackLayout Orientation="Vertical" Spacing="8" Padding="20">
+            <Label Style="{StaticResource lbSubheadMd}"
+                   Text="{Binding Title}">
+
+            </Label>
+            <Label
+                Style="{StaticResource lbBodyNormalLg}"
+                Text="{Binding Description}"
+                IsVisible="{Binding IsEmptyList}">
+
+            </Label>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using q5id.guardian.Views.Base;
 using Xamarin.Forms;
 
 namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
 {
-    public partial class AddLovedEditView : BaseLovedContentChildView
+    public partial class AddLovedEditView : BaseChildContentView
     {
-        public AddLovedEditView(LovedOnesContentView mainCtv) : base(mainCtv)
+        public AddLovedEditView(BaseContainerView mainCtv) : base(mainCtv)
         {
             InitializeComponent();
             ViewTitle = "Add Loved One";
@@ -36,23 +37,26 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
 
         private void UpdateImage()
         {
-            System.IO.MemoryStream streamPrimary = new System.IO.MemoryStream(MainContentView.PrimaryImageSourceByteArray);
-            ImgPrimary.Source = ImageSource.FromStream(() => streamPrimary);
-            List<byte[]> imageSecSourceStreams = MainContentView.SecondaryImageSourceByteArrays;
-
-            if (imageSecSourceStreams != null && imageSecSourceStreams.Count > 0)
+            if (MainContentView is LovedOnesContentView lovedOnesContentView)
             {
-                List<Image> imageSecs = new List<Image>()
+                System.IO.MemoryStream streamPrimary = new System.IO.MemoryStream(lovedOnesContentView.PrimaryImageSourceByteArray);
+                ImgPrimary.Source = ImageSource.FromStream(() => streamPrimary);
+                List<byte[]> imageSecSourceStreams = lovedOnesContentView.SecondaryImageSourceByteArrays;
+
+                if (imageSecSourceStreams != null && imageSecSourceStreams.Count > 0)
+                {
+                    List<Image> imageSecs = new List<Image>()
                 {
                     ImgSec1, ImgSec2, ImgSec3, ImgSec4
                 };
-                int imageCount = imageSecSourceStreams.Count;
-                int indexImage = 0;
-                while (indexImage < imageCount && indexImage < imageSecs.Count)
-                {
-                    System.IO.MemoryStream streamSec = new System.IO.MemoryStream(imageSecSourceStreams[indexImage]);
-                    imageSecs[indexImage].Source = ImageSource.FromStream(() => streamSec);
-                    indexImage++;
+                    int imageCount = imageSecSourceStreams.Count;
+                    int indexImage = 0;
+                    while (indexImage < imageCount && indexImage < imageSecs.Count)
+                    {
+                        System.IO.MemoryStream streamSec = new System.IO.MemoryStream(imageSecSourceStreams[indexImage]);
+                        imageSecs[indexImage].Source = ImageSource.FromStream(() => streamSec);
+                        indexImage++;
+                    }
                 }
             }
         }

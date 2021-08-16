@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using q5id.guardian.Views.Base;
 using Xamarin.Forms;
 
 namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
 {
-    public partial class LovedOnesListView : BaseLovedContentChildView
+    public partial class LovedOnesListView : BaseChildContentView
     {
-        public LovedOnesListView(LovedOnesContentView mainCtv) : base(mainCtv)
+        public LovedOnesListView(BaseContainerView mainCtv) : base(mainCtv)
         {
             InitializeComponent();
         }

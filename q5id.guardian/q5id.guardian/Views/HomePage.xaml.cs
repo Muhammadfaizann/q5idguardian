@@ -52,7 +52,7 @@ namespace q5id.guardian.Views
             {
                 Command = new Command(() =>
                 {
-                    AlertsView = new AlertContentView();
+                    AlertsView = new AlertContentView(this);
                     ShowView(AlertsView, "AlertsVm");
                     SelectTab(2);
                 })

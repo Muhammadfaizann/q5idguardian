@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<base:BaseChildContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:q5id.guardian.Views.Base"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:template="clr-namespace:q5id.guardian.Selectors"
+    xmlns:alertItemView="clr-namespace:q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews"
+    x:Class="q5id.guardian.Views.ContentViews.AlertContentChildViews.AlertListVew">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="headerGroupTemplate">
+                <control:AppViewCell>
+                    <alertItemView:GroupHeaderItemView />
+                </control:AppViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="itemTemplate">
+                <control:AppViewCell>
+                    <Label />
+                </control:AppViewCell>
+            </DataTemplate>
+            <template:AlertTemplateSelector x:Key="alertTemplateSelector"
+                                            HeaderGroupTemplate="{StaticResource headerGroupTemplate}"
+                                            ItemTemplate="{StaticResource itemTemplate}" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid BackgroundColor="{StaticResource paleGray}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout
+                Grid.Row="0"
+                Orientation="Vertical"
+                Spacing="0">
+                <control:AppButton
+                    Margin="0,-40,0,0"
+                    BorderColor="Transparent"
+                    ButtonTitle="Create Alert"
+                    ButtonTitleSize="16"
+                    CornerRadius="12"
+                    DeactiveBackgroundColor="White"
+                    DeactiveLabelColor="{StaticResource paleGray}"
+                    HasShadow="True"
+                    HeightRequest="60"
+                    HorizontalOptions="Center"
+                    IsDisable="{Binding IsVolunteer}"
+                    NormalBackgroundEndColor="White"
+                    NormalBackgroundStartColor="White"
+                    NormalLabelColor="{StaticResource redVibrant}"
+                    PressedBackgroundColor="{StaticResource redVibrant}"
+                    PressedLabelColor="White"
+                    WidthRequest="256" />
+                <Label
+                    Margin="0,10,0,0"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding IsVolunteer}"
+                    LineBreakMode="WordWrap"
+                    Style="{StaticResource lbBodyNormalMd}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Creating alerts requires a" TextColor="{StaticResource lightCharcoal}" />
+                            <Span Text=" subscription." TextColor="{StaticResource redVibrant}">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding TapCommand}" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+             <Grid Grid.Row="1">
+                   <!--Has item layout-->
+                    <control:AppListView ItemsSource="{Binding Alerts}"
+                              SeparatorVisibility="None"
+                              BackgroundColor="Transparent"
+                              Margin="0,20,0,0"
+                              SelectionMode="None"
+                              ItemTemplate="{StaticResource alertTemplateSelector}"  
+                              HasUnevenRows="True">
+		                
+	                </control:AppListView>
+               </Grid>
+        </Grid>
+    </ContentView.Content>
+</base:BaseChildContentView>

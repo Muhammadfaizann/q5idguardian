@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FFImageLoading.Forms;
+using q5id.guardian.Views.Base;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
 {
-    public partial class AddLovedImageView : BaseLovedContentChildView
+    public partial class AddLovedImageView : BaseChildContentView
     {
-        public AddLovedImageView(LovedOnesContentView mainCtv) : base(mainCtv)
+        public AddLovedImageView(BaseContainerView mainCtv) : base(mainCtv)
         {
             InitializeComponent();
             ViewTitle = "Add Loved One";
             UpdateView(false);
-            mainCtv.ClearImages();
+            if(mainCtv is LovedOnesContentView lovedOnesContentView)
+            {
+                lovedOnesContentView.ClearImages();
+            }
             ClearImages();
         }
 
@@ -83,47 +87,50 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
 
         public async void OnAddPhotoClicked(System.Object sender, System.EventArgs e)
         {
-            System.IO.Stream sourceStream = await PickPhotoAsync();
-            if(sourceStream != null)
+            if (MainContentView is LovedOnesContentView lovedOnesContentView)
             {
-                if (sender == FrmPrimaryPhotoBtn)
+                System.IO.Stream sourceStream = await PickPhotoAsync();
+                if (sourceStream != null)
                 {
-                    MainContentView.PrimaryImageSourceByteArray = Utils.Utils.ConvertStreamToByteArray(sourceStream);
-                    ImgPrimary.Source = ImageSource.FromStream(() => sourceStream);
-                    FrmSnd1.IsVisible = true;
-                    
-                    UpdateView(true);
-                }
-                else if(sender == FrmSnd1)
-                {
-                    MainContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
-                    ImgSnd1.Source = ImageSource.FromStream(() => sourceStream);
-                    FrmSnd1.IsVisible = false;
-                    FrmSnd2.IsVisible = true;
-                    
-                }
-                else if (sender == FrmSnd2)
-                {
-                    MainContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
-                    ImgSnd2.Source = ImageSource.FromStream(() => sourceStream);
-                    FrmSnd2.IsVisible = false;
-                    FrmSnd3.IsVisible = true;
-                    
-                }
-                else if (sender == FrmSnd3)
-                {
-                    MainContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
-                    ImgSnd3.Source = ImageSource.FromStream(() => sourceStream);
-                    FrmSnd3.IsVisible = false;
-                    FrmSnd4.IsVisible = true;
-                    
-                }
-                else if (sender == FrmSnd4)
-                {
-                    MainContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
-                    ImgSnd4.Source = ImageSource.FromStream(() => sourceStream);
-                    FrmSnd4.IsVisible = false;
-                   
+                    if (sender == FrmPrimaryPhotoBtn)
+                    {
+                        lovedOnesContentView.PrimaryImageSourceByteArray = Utils.Utils.ConvertStreamToByteArray(sourceStream);
+                        ImgPrimary.Source = ImageSource.FromStream(() => sourceStream);
+                        FrmSnd1.IsVisible = true;
+
+                        UpdateView(true);
+                    }
+                    else if (sender == FrmSnd1)
+                    {
+                        lovedOnesContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
+                        ImgSnd1.Source = ImageSource.FromStream(() => sourceStream);
+                        FrmSnd1.IsVisible = false;
+                        FrmSnd2.IsVisible = true;
+
+                    }
+                    else if (sender == FrmSnd2)
+                    {
+                        lovedOnesContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
+                        ImgSnd2.Source = ImageSource.FromStream(() => sourceStream);
+                        FrmSnd2.IsVisible = false;
+                        FrmSnd3.IsVisible = true;
+
+                    }
+                    else if (sender == FrmSnd3)
+                    {
+                        lovedOnesContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
+                        ImgSnd3.Source = ImageSource.FromStream(() => sourceStream);
+                        FrmSnd3.IsVisible = false;
+                        FrmSnd4.IsVisible = true;
+
+                    }
+                    else if (sender == FrmSnd4)
+                    {
+                        lovedOnesContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
+                        ImgSnd4.Source = ImageSource.FromStream(() => sourceStream);
+                        FrmSnd4.IsVisible = false;
+
+                    }
                 }
             }
         }
