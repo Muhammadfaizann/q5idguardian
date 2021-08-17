@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:util="clr-namespace:q5id.guardian.Utils"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    x:Class="q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews.AlertDefaultItemView">
+    <ContentView.Content>
+        <Frame HeightRequest="96"
+                Margin="30, 0, 30, 20"
+                CornerRadius="16"
+                BackgroundColor="White"
+                BorderColor="Transparent"
+                Padding="20,0,20,0"
+                IsClippedToBounds="True"
+                HasShadow="False">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Frame
+                    Grid.Column="0"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    IsClippedToBounds="true"
+                    Padding="0"
+                    HasShadow="False"
+                    WidthRequest="64"
+                    HeightRequest="64"
+                    CornerRadius="32"
+                    BorderColor="Transparent"
+                    >
+                    <ffimageloading:CachedImage
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill"
+                        Aspect="AspectFill"
+			            DownsampleToViewSize="true"
+			            Source="{Binding Model.Love.ImageUrl}">
+		            </ffimageloading:CachedImage>
+                </Frame>
+                <StackLayout Orientation="Vertical"
+                                Spacing="0"
+                                Margin="10,0,0,0"
+                                VerticalOptions="Center"
+                                Grid.Column="1">
+                    <Label
+                        HorizontalOptions="Fill"
+                        LineBreakMode="WordWrap"
+                        TextColor="{StaticResource redQ5}"
+                        Text="Live Alert"
+                        Style="{StaticResource lbSubheadSm}">
+                            
+                    </Label>
+                    <Label
+                        HorizontalOptions="Fill"
+                        LineBreakMode="WordWrap"
+                        Text="{Binding Model.Love.FullName}"
+                        Style="{StaticResource lbSubheadSm}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Model.Love.FullName}"/>
+                                <Span Text=" age " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                <Span Text="{Binding Model.Love.Age}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                            </FormattedString>
+                        </Label.FormattedText>    
+                    </Label>
+                </StackLayout>
+                <Image Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center">
+                    <Image.Source>
+                        <FontImageSource Size="18"
+                                            Color="{StaticResource lightCharcoal}"
+                                            Glyph="{x:Static util:FontAwesomeIcons.ChevronDown}"
+                                            FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"/>
+                    </Image.Source>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnExpandedClicked" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

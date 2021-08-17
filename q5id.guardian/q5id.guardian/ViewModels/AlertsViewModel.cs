@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
@@ -31,8 +32,8 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private List<object> mAlerts = null;
-        public List<object> Alerts
+        private ObservableCollection<object> mAlerts = null;
+        public ObservableCollection<object> Alerts
         {
             get => mAlerts;
             set
@@ -49,21 +50,68 @@ namespace q5id.guardian.ViewModels
 
         private void GetAlerts()
         {
-            Alerts = new List<object>()
+            Alerts = new ObservableCollection<object>()
             {
                 new GroupHeaderItemViewModel()
                 {
                     Title="Live",
                     Description="There aren’t any active alerts near you.",
-                    IsEmptyList=true
+                    IsEmptyList=false
+                },
+                new AlertItemViewModel(new Alert()
+                {
+                    Love = new Love()
+                    {
+                        FirstName= "John",
+                        LastName= "Doe",
+                        ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-01.jpg",
+                        BirthDay= new DateTime(2016, 12, 6)
+                    }
+                })
+                {
+                    UpdatedTimeDescription = "Started 23 minutes ago",
+                    OnUpdateItemAction = OnUpdateItemList,
+                },  
+                new AlertItemViewModel(new Alert()
+                {
+                    Love = new Love()
+                    {
+                        FirstName= "Hue",
+                        LastName= "Sanron",
+                        BirthDay= new DateTime(2018, 5, 13),
+                        ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-05.jpg",
+                    }
+                })
+                {
+                    UpdatedTimeDescription = "Started 2 hours ago",
+                    OnUpdateItemAction = OnUpdateItemList,
                 },
                 new GroupHeaderItemViewModel()
                 {
                     Title="History",
                     Description="You don’t have any past alerts.",
-                    IsEmptyList=true
+                    IsEmptyList=false
+                },
+                new AlertItemViewModel(new Alert()
+                {
+                    Love = new Love()
+                    {
+                        FirstName= "Donian",
+                        LastName= "Billean",
+                        BirthDay= new DateTime(2015, 2, 8),
+                        ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-06.jpg",
+                    }
+                })
+                {
+                    UpdatedTimeDescription = "Started 3 days ago",
+                    OnUpdateItemAction = OnUpdateItemList,
                 },
             };
+        }
+
+        private void OnUpdateItemList()
+        {
+            RaisePropertyChanged(nameof(Alerts));
         }
 
         public AlertsViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)

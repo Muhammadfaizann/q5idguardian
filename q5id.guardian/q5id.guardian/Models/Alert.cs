@@ -10,5 +10,7 @@ namespace q5id.guardian.Models
         public string Address { get; set; }
 
         public Position Position { get; set; }
+
+        public Love Love { get; set; }
     }
 }

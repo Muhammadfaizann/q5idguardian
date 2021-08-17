@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:util="clr-namespace:q5id.guardian.Utils"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    x:Class="q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews.AlertExpandedItemView">
+    <ContentView.Content>
+        <StackLayout Spacing="0">
+            <Frame
+                Margin="30, 0, 30, 20"
+                CornerRadius="16"
+                BackgroundColor="White"
+                BorderColor="Transparent"
+                Padding="0"
+                IsClippedToBounds="True"
+                HasShadow="False">
+                <StackLayout Orientation="Vertical" Padding="20" Spacing="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Orientation="Vertical"
+                                        Spacing="0"
+                                        VerticalOptions="Center"
+                                        Grid.Column="0">
+                            <Label
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                TextColor="{StaticResource redQ5}"
+                                Style="{StaticResource lbSubheadSm}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Live Alert "/>
+                                        <Span Text="{Binding UpdatedTimeDescription}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                Text="{Binding Model.Love.FullName}"
+                                Style="{StaticResource lbSubheadSm}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Model.Love.FullName}"/>
+                                        <Span Text=" age " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                        <Span Text="{Binding Model.Love.Age}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>    
+                            </Label>
+                        </StackLayout>
+                        <Image Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource Size="18"
+                                                Color="{StaticResource lightCharcoal}"
+                                                Glyph="{x:Static util:FontAwesomeIcons.ChevronUp}"
+                                                FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"/>
+                            </Image.Source>
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCollapsedTapped" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
+                    <Grid
+                        Margin="0,10,0,0"
+                        ColumnSpacing="5"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Fill">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <control:AppRatioFrame
+                            Grid.Column="0"
+                            BackgroundColor="{StaticResource paleGray}"
+                            HorizontalOptions="Fill"
+                            HeightRequest="10"
+                            RatioBase="Width"
+                            RatioValue="1">
+                        </control:AppRatioFrame>
+                        <control:AppRatioFrame
+                            Grid.Column="1"
+                            BackgroundColor="{StaticResource paleGray}"
+                            HorizontalOptions="Fill"
+                            RatioBase="Width"
+                            HeightRequest="10"
+                            RatioValue="1">
+                        </control:AppRatioFrame>
+                        <control:AppRatioFrame
+                            Grid.Column="2"
+                            BackgroundColor="{StaticResource paleGray}"
+                            HorizontalOptions="Fill"
+                            RatioBase="Width"
+                            HeightRequest="10"
+                            RatioValue="1">
+                        </control:AppRatioFrame>
+                    </Grid>
+                    <Label
+                        Margin="0,15,0,0"
+                        HorizontalOptions="Fill"
+                        LineBreakMode="WordWrap"
+                        Style="{StaticResource lbBodyBoldMd}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Austin, TX "/>
+                                <Span Text="Less than 0.1 miles from you" FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label
+                        Margin="0,10,0,0"
+                        HorizontalOptions="Fill"
+                        LineBreakMode="WordWrap"
+                        Style="{StaticResource lbBodyBoldMd}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Amy J "/>
+                                <Span Text="at 9:48 am" FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label HorizontalOptions="Fill"
+                            Margin="0,5,0,0"
+                           FontFamily="{x:Static util:ThemeConstanst.FontPoppinsItalic}"
+                           FontAttributes="Italic"
+                           FontSize="11"
+                           TextColor="{StaticResource normalCharcoal}">
+                        <Label.Text>
+                            “We’re in the kids’ clothing department at Target, my daughter is wearing a blue dress and rainbow shoes.”
+                        </Label.Text>
+                    </Label>
+                    <control:AppButton
+                        Margin="0,20,0,0"
+                        ButtonTitle="OPEN ALERT"
+                        CornerRadius="16"
+                        HeightRequest="32"
+                        HorizontalOptions="Center"
+                        NormalBackgroundStartColor="{StaticResource redVibrant}"
+                        NormalBackgroundEndColor="{StaticResource redQ5}"
+                        PressedBackgroundColor="{StaticResource redQ5}"
+                        NormalLabelColor="White"
+                        PressedLabelColor="LightGray"
+                        ButtonTitleSize="12"
+                        WidthRequest="140" />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

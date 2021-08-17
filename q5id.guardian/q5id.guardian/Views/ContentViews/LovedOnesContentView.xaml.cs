@@ -31,6 +31,7 @@ namespace q5id.guardian.Views.ContentViews
             this.SetBinding(ResetCommandProperty, "ResetCommand");
             MainPage.UpdateRightControlVisibility(false);
             ResetView();
+            ResetCommand?.Execute(null);
             this.PushView(new LovedOnesListView(this));
         }
 
@@ -77,6 +78,7 @@ namespace q5id.guardian.Views.ContentViews
             if(previousContentViews.Count > 0)
             {
                 ResetView();
+                ResetCommand?.Execute(null);
                 this.PushView(new LovedOnesListView(this));
             }
         }

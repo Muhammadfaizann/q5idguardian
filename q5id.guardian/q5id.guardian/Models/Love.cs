@@ -9,10 +9,25 @@ namespace q5id.guardian.Models
         public DateTime? AddedTime { get; set; }
         public DateTime? UpdatedTime { get; set; }
         public Boolean IsLongTime { get; set; } = false;
+        public DateTime? BirthDay { get; set; }
 
         public string FullName
         {
             get => FirstName + " " + LastName;
+        }
+
+        public int Age
+        {
+            get
+            {
+                if (BirthDay.HasValue)
+                {
+                    TimeSpan timeSpanToBirthDay = DateTime.Now.Subtract(BirthDay.Value);
+                    DateTime zeroTime = new DateTime(1, 1, 1);
+                    return (zeroTime + timeSpanToBirthDay).Year - 1;
+                }
+                return 0;
+            }
         }
 
         public string LastUpdatedDuration

@@ -16,12 +16,12 @@
             </DataTemplate>
             <DataTemplate x:Key="itemTemplate">
                 <control:AppViewCell>
-                    <Label />
+                    <alertItemView:AlertItemView />
                 </control:AppViewCell>
             </DataTemplate>
             <template:AlertTemplateSelector x:Key="alertTemplateSelector"
                                             HeaderGroupTemplate="{StaticResource headerGroupTemplate}"
-                                            ItemTemplate="{StaticResource itemTemplate}" />
+                                            ItemTemplate="{StaticResource itemTemplate}"/>
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
@@ -72,7 +72,8 @@
             </StackLayout>
              <Grid Grid.Row="1">
                    <!--Has item layout-->
-                    <control:AppListView ItemsSource="{Binding Alerts}"
+                    <control:AppListView
+                              ItemsSource="{Binding Alerts}"
                               SeparatorVisibility="None"
                               BackgroundColor="Transparent"
                               Margin="0,20,0,0"
