@@ -32,7 +32,7 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private ObservableCollection<object> mAlerts = null;
+        private ObservableCollection<object> mAlerts;
         public ObservableCollection<object> Alerts
         {
             get => mAlerts;
@@ -40,6 +40,20 @@ namespace q5id.guardian.ViewModels
             {
                 mAlerts = value;
                 RaisePropertyChanged(nameof(Alerts));
+            }
+        }
+
+        private Alert mAlertDetail;
+        public Alert AlertDetail
+        {
+            get
+            {
+                return mAlertDetail;
+            }
+            set
+            {
+                mAlertDetail = value;
+                RaisePropertyChanged(nameof(AlertDetail));
             }
         }
 

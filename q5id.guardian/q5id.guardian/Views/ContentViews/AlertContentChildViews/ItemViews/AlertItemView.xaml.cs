@@ -10,6 +10,8 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews
         private AlertExpandedItemView expandedItemView;
         private ContentView currentView;
 
+        public event EventHandler<object> OnItemClicked;
+
         public AlertItemView()
         {
             InitializeComponent();
@@ -65,6 +67,14 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews
             this.gridContent.Children.Clear();
             this.gridContent.Children.Add(expandedItemView);
             currentView = expandedItemView;
+        }
+
+        private void OnItemTapped(object sender, EventArgs e)
+        {
+            if(e is TappedEventArgs tappedEventArgs)
+            {
+                OnItemClicked?.Invoke(sender, tappedEventArgs.Parameter);
+            }
         }
     }
 }

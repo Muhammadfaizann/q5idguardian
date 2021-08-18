@@ -84,6 +84,7 @@
                             HeightRequest="10"
                             RatioBase="Width"
                             RatioValue="1">
+                            <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding FirstImage}" />
                         </control:AppRatioFrame>
                         <control:AppRatioFrame
                             Grid.Column="1"
@@ -92,6 +93,7 @@
                             RatioBase="Width"
                             HeightRequest="10"
                             RatioValue="1">
+                            <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding SecondImage}" />
                         </control:AppRatioFrame>
                         <control:AppRatioFrame
                             Grid.Column="2"
@@ -100,6 +102,7 @@
                             RatioBase="Width"
                             HeightRequest="10"
                             RatioValue="1">
+                            <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding ThirdImage}" />
                         </control:AppRatioFrame>
                     </Grid>
                     <Label
@@ -142,8 +145,8 @@
                         CornerRadius="16"
                         HeightRequest="32"
                         HorizontalOptions="Center"
-                        NormalBackgroundStartColor="{StaticResource redVibrant}"
-                        NormalBackgroundEndColor="{StaticResource redQ5}"
+                        NormalBackgroundStartColor="{StaticResource redQ5}"
+                        NormalBackgroundEndColor="{StaticResource redVibrant}"
                         PressedBackgroundColor="{StaticResource redQ5}"
                         NormalLabelColor="White"
                         PressedLabelColor="LightGray"

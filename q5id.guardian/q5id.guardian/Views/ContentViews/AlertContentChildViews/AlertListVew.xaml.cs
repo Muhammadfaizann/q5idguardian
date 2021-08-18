@@ -12,5 +12,10 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             InitializeComponent();
             ViewTitle = "Alers";
         }
+
+        void OnAlertItemClicked(System.Object sender, System.Object e)
+        {
+            MainContentView.PushView(new AlertDetailView(MainContentView, e));
+        }
     }
 }

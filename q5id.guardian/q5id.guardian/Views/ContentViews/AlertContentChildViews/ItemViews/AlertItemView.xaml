@@ -7,7 +7,9 @@
         <Grid
             VerticalOptions="Start"
             x:Name="gridContent">
-
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnItemTapped" CommandParameter="{Binding Model}" />
+            </Grid.GestureRecognizers>
         </Grid>
     </ContentView.Content>
 </ContentView>

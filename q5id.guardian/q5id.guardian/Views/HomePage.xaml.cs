@@ -109,6 +109,11 @@ namespace q5id.guardian.Views
             frmRightControl.IsVisible = isVisible;
         }
 
+        public void UpdateRightControlImage(string imageVector)
+        {
+            imgSourceRightControl.Glyph = imageVector;
+        }
+
         protected override bool OnBackButtonPressed()
         {
             return base.OnBackButtonPressed();

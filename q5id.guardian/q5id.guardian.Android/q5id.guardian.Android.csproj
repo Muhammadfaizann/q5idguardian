@@ -114,6 +114,7 @@
     <Compile Include="Renderers\AppPickerRenderer.cs" />
     <Compile Include="Renderers\AppEditorRenderer.cs" />
     <Compile Include="Renderers\AppDatePickerRenderer.cs" />
+    <Compile Include="Renderers\AppMediaElementRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

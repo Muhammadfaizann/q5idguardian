@@ -80,6 +80,7 @@
                     <Image HorizontalOptions="Center" VerticalOptions="Center">
                         <Image.Source>
                             <FontImageSource
+                                x:Name="imgSourceRightControl"
                                 FontFamily="{x:Static utils:ThemeConstanst.FontAwesomeSolid}"
                                 Glyph="{x:Static utils:FontAwesomeIcons.Times}"
                                 Size="Large"

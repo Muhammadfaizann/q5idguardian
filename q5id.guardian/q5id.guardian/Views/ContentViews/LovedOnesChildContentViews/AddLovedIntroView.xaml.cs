@@ -10,6 +10,7 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
         public AddLovedIntroView(BaseContainerView mainCtv) : base(mainCtv)
         {
             InitializeComponent();
+            ViewTitle = "Loved Ones";
         }
 
         void OnStartClicked(System.Object sender, System.EventArgs e)

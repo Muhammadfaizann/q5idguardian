@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Input;
+using q5id.guardian.Utils;
 using q5id.guardian.Views.Base;
 using q5id.guardian.Views.ContentViews.LovedOnesChildContentViews;
 using Xamarin.Forms;
@@ -30,6 +31,7 @@ namespace q5id.guardian.Views.ContentViews
             InitializeComponent();
             this.SetBinding(ResetCommandProperty, "ResetCommand");
             MainPage.UpdateRightControlVisibility(false);
+            MainPage.UpdateRightControlImage(FontAwesomeIcons.Times);
             ResetView();
             ResetCommand?.Execute(null);
             this.PushView(new LovedOnesListView(this));

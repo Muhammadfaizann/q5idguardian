@@ -16,7 +16,7 @@
             </DataTemplate>
             <DataTemplate x:Key="itemTemplate">
                 <control:AppViewCell>
-                    <alertItemView:AlertItemView />
+                    <alertItemView:AlertItemView OnItemClicked="OnAlertItemClicked" />
                 </control:AppViewCell>
             </DataTemplate>
             <template:AlertTemplateSelector x:Key="alertTemplateSelector"
