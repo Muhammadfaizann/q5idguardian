@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Plugin.Geolocator;
 using q5id.guardian.Controls;
@@ -9,6 +10,7 @@ using q5id.guardian.Views.ItemViews;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
+using static Xamarin.Essentials.Permissions;
 using Map = Xamarin.Forms.Maps.Map;
 
 namespace q5id.guardian.Views.ContentViews
@@ -27,11 +29,19 @@ namespace q5id.guardian.Views.ContentViews
         public HomeContentView()
         {
             InitializeComponent();
-            Task.Run(async () =>
+            CheckAndGetLocalLocation();
+        }
+
+        private async void CheckAndGetLocalLocation()
+        {
+            var result = await Utils.Utils.CheckAndRequestLocationPermission();
+            if(result == PermissionStatus.Granted)
             {
                 await GetLocalLocation();
-            });
+            }
         }
+
+        
 
         private void ShowMap()
         {
@@ -50,7 +60,7 @@ namespace q5id.guardian.Views.ContentViews
 
         private async void UpdateLocalLocation()
         {
-            if(userPosition == null)
+            if (userPosition == null)
             {
                 await GetLocalLocation();
             }
@@ -59,17 +69,27 @@ namespace q5id.guardian.Views.ContentViews
                 map?.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(userPosition.Latitude, userPosition.Longitude),
                                                  Distance.FromMiles(Constansts.MILES_DEFAULT_MAP_ZOOM_DISTANCT)));
             }
+
         }
 
         private async Task GetLocalLocation()
         {
             if (IsLocationAvailable())
-            { 
-                var locator = CrossGeolocator.Current;
-                userPosition = await locator.GetPositionAsync(TimeSpan.FromSeconds(Constansts.SEC_TIMEOUT_LOAD_LOCATION));
-                if(this.BindingContext is HomeContentViewModel homeContentViewModel)
+            {
+                try
                 {
-                    homeContentViewModel.GetUserAlerts(new Position(userPosition.Latitude, userPosition.Longitude));
+
+                    var locator = CrossGeolocator.Current;
+                    userPosition = await locator.GetLastKnownLocationAsync();
+                    if (this.BindingContext is HomeContentViewModel homeContentViewModel)
+                    {
+                        homeContentViewModel.GetUserAlerts(new Position(userPosition.Latitude, userPosition.Longitude));
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Cannot get local location: " + ex.Message);
                 }
             }
         }
@@ -78,7 +98,6 @@ namespace q5id.guardian.Views.ContentViews
         {
             if (!CrossGeolocator.IsSupported)
                 return false;
-
             return CrossGeolocator.Current.IsGeolocationAvailable;
         }
 

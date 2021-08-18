@@ -58,11 +58,18 @@ namespace q5id.guardian.iOS.Renderers
                 UpdateEntryBackground();
             }
 
-            base.OnElementPropertyChanged(sender, e);
-            if (mAppDatePicker.NullableDate.HasValue == false)
-            {
-                mEditText.Text = mAppDatePicker.Placeholder;
+            if(e.PropertyName == AppDatePicker.DateProperty.PropertyName || e.PropertyName == AppDatePicker.NullableDateProperty.PropertyName){
+                if (mAppDatePicker.NullableDate.HasValue == false)
+                {
+                    mEditText.Text = mAppDatePicker.Placeholder;
+                }
+                else
+                {
+                    mEditText.Text = mEditText.Text;
+                }
             }
+            base.OnElementPropertyChanged(sender, e);
+            
         }
 
 
