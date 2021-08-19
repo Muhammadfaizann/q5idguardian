@@ -46,7 +46,10 @@ namespace q5id.guardian.Controls
         protected override void OnPropertyChanged(string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
-            if (propertyName == DatePicker.DateProperty.PropertyName) NullableDate = Date;
+            if (propertyName == DatePicker.DateProperty.PropertyName)
+            {
+                NullableDate = Date;
+            }
         }
 
         public static readonly BindableProperty PlaceHolderProperty = BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(AppDatePicker), defaultValue: "");

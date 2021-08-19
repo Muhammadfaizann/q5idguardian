@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
+using static Xamarin.Essentials.Permissions;
+
 namespace q5id.guardian.Utils
 {
     public static class Utils
@@ -53,6 +57,27 @@ namespace q5id.guardian.Utils
                     stream.Position = originalPosition;
                 }
             }
+        }
+
+        public static async Task<PermissionStatus> CheckAndRequestPermissionAsync<T>(T permission)
+            where T : BasePermission
+        {
+            var status = await permission.CheckStatusAsync();
+            if (status != PermissionStatus.Granted)
+            {
+                status = await permission.RequestAsync();
+            }
+
+            return status;
+        }
+
+        public static async Task<PermissionStatus> CheckAndRequestLocationPermission()
+        {
+            var status = await CheckAndRequestPermissionAsync<Permissions.LocationAlways>(new LocationAlways());
+            if (status == PermissionStatus.Granted)
+                return status;
+            else
+                return await CheckAndRequestLocationPermission();
         }
     }
 }
