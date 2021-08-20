@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:util="clr-namespace:q5id.guardian.Utils"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    x:Class="q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews.AlertCardInfoView">
+    <ContentView.Content>
+        <Grid VerticalOptions="Start" HorizontalOptions="Fill">
+            <Frame Padding="5,5,5,5"
+                       HasShadow="True"
+                       Margin="5, 0, 5, 0"
+                       BorderColor="Transparent"
+                       CornerRadius="16"
+                       BackgroundColor="White"
+                       HorizontalOptions="Fill"
+                       VerticalOptions="Start">
+                        <Grid VerticalOptions="Start" HorizontalOptions="Fill">
+                            <StackLayout Orientation="Vertical" Spacing="0" Padding="15">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Frame
+                                        Grid.Column="0"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Center"
+                                        IsClippedToBounds="true"
+                                        Padding="0"
+                                        HasShadow="False"
+                                        WidthRequest="80"
+                                        HeightRequest="80"
+                                        CornerRadius="40"
+                                        BorderColor="Transparent"
+                                        >
+                                        <ffimageloading:CachedImage
+                                            HorizontalOptions="Fill"
+                                            VerticalOptions="Fill"
+                                            Aspect="AspectFill"
+			                                DownsampleToViewSize="true"
+			                                Source="{Binding AlertDetail.Love.ImageUrl}">
+		                                </ffimageloading:CachedImage>
+                                    </Frame>
+                                    <StackLayout Orientation="Vertical"
+                                                    Spacing="0"
+                                                    Margin="10,0,0,0"
+                                                    VerticalOptions="Center"
+                                                    Grid.Column="1">
+                                        <Label
+                                            HorizontalOptions="Fill"
+                                            LineBreakMode="WordWrap"
+                                            Text="{Binding Model.Love.FullName}"
+                                            Style="{StaticResource lbSubheadSm}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span FontSize="16" Text="{Binding AlertDetail.Love.FullName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                    <Span FontSize="16" Text=" age " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                                    <Span FontSize="16" Text="{Binding AlertDetail.Love.Age}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>    
+                                        </Label>
+                                        <Grid VerticalOptions="Start"
+                                              RowSpacing="0"
+                                              ColumnSpacing="5"
+                                              HorizontalOptions="Fill">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                HorizontalOptions="Fill"
+                                                LineBreakMode="WordWrap"
+                                                FontSize="10"
+                                                Style="{StaticResource lbSubheadSm}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Eyes: "/>
+                                                        <Span FontSize="12" Text="Brown" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>    
+                                            </Label>
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                HorizontalOptions="Fill"
+                                                LineBreakMode="WordWrap"
+                                                FontSize="10"
+                                                Text="{Binding Model.Love.FullName}"
+                                                Style="{StaticResource lbSubheadSm}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Height: "/>
+                                                        <Span FontSize="12" Text="3’ 11”" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>    
+                                            </Label>
+                                            <Label
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                HorizontalOptions="Fill"
+                                                LineBreakMode="WordWrap"
+                                                FontSize="10"
+                                                Text="{Binding Model.Love.FullName}"
+                                                Style="{StaticResource lbSubheadSm}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Hair: "/>
+                                                        <Span FontSize="12" Text="Brown" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>    
+                                            </Label>
+                                            <Label
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                HorizontalOptions="Fill"
+                                                LineBreakMode="WordWrap"
+                                                FontSize="10"
+                                                Text="{Binding Model.Love.FullName}"
+                                                Style="{StaticResource lbSubheadSm}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Weight: "/>
+                                                        <Span FontSize="12" Text="60 lbs" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>    
+                                            </Label>
+                                        </Grid>
+                                    </StackLayout>
+                                </Grid>
+                                <StackLayout Margin="0,20,0,0"
+                                             Spacing="0"
+                                             Orientation="Vertical"
+                                             IsVisible="False"
+                                             x:Name="StackDetail">
+                                    <Label
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Text="Additional Information:"
+                                        Style="{StaticResource lbBodyBoldMd}">  
+                                    </Label>
+                                    <Label
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Text="Amber has a small birthmark on her right hand. She is very shy"
+                                        Style="{StaticResource lbBodyNormalMd}">  
+                                    </Label>
+                                    <Grid Margin="0,15,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <control:AppRatioGrid
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            HeightRequest="10"
+                                            RatioBase="Width"
+                                            RatioValue="1"
+                                            BackgroundColor="{StaticResource paleGray}"
+                                            HorizontalOptions="Fill">
+                                            <ffimageloading:CachedImage
+                                                HorizontalOptions="Fill"
+                                                VerticalOptions="Fill"
+                                                Aspect="AspectFill"
+			                                    DownsampleToViewSize="true"
+			                                    Source="https://i-cf65ch.gskstatic.com/content/dam/cf-consumer-healthcare/bp-advil/en_US_children/homepage/children-22.jpg">
+		                                    </ffimageloading:CachedImage>
+                                        </control:AppRatioGrid>
+                                        <control:AppRatioGrid
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HeightRequest="10"
+                                            RatioBase="Width"
+                                            RatioValue="1"
+                                            BackgroundColor="{StaticResource paleGray}"
+                                            HorizontalOptions="Fill">
+                                            <ffimageloading:CachedImage
+                                                HorizontalOptions="Fill"
+                                                VerticalOptions="Fill"
+                                                Aspect="AspectFill"
+			                                    DownsampleToViewSize="true"
+			                                    Source="https://www.verywellfamily.com/thmb/DUTf87y7J3Lv0d3cxPiVUcqt_gI=/500x350/filters:no_upscale():max_bytes(150000):strip_icc()/181451278-56a258395f9b58b7d0c931fd.jpg">
+		                                    </ffimageloading:CachedImage>
+                                        </control:AppRatioGrid>
+                                        <control:AppRatioGrid
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            HeightRequest="10"
+                                            RatioBase="Width"
+                                            RatioValue="1"
+                                            BackgroundColor="{StaticResource paleGray}"
+                                            HorizontalOptions="Fill">
+                                            <ffimageloading:CachedImage
+                                                HorizontalOptions="Fill"
+                                                VerticalOptions="Fill"
+                                                Aspect="AspectFill"
+			                                    DownsampleToViewSize="true"
+			                                    Source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIgpviSsRutf7iXGazVYvsC37DXT0F-WHKSw">
+		                                    </ffimageloading:CachedImage>
+                                        </control:AppRatioGrid>
+                                        <control:AppRatioGrid
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            HeightRequest="10"
+                                            RatioBase="Width"
+                                            RatioValue="1"
+                                            BackgroundColor="{StaticResource paleGray}"
+                                            HorizontalOptions="Fill">
+                                            <ffimageloading:CachedImage
+                                                HorizontalOptions="Fill"
+                                                VerticalOptions="Fill"
+                                                Aspect="AspectFill"
+			                                    DownsampleToViewSize="true">
+		                                    </ffimageloading:CachedImage>
+                                        </control:AppRatioGrid>
+                                    </Grid>
+                                    <BoxView HeightRequest="15" />
+                                </StackLayout>
+                            </StackLayout>
+                            <Image WidthRequest="20"
+                                   HeightRequest="20"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="End">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnExpandedInfoToggle" />
+                                </Image.GestureRecognizers>
+                                <Image.Source>
+                                    <FontImageSource Size="20"
+                                                     x:Name="ImageSourceInfoExpand"
+                                                     FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                     Glyph="{x:Static util:FontAwesomeIcons.ChevronDown}"
+                                                     Color="#4D838699" />
+                                </Image.Source>
+                            </Image>
+                        </Grid>
+                     </Frame>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

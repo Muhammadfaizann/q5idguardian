@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Windows.Input;
 using q5id.guardian.Models;
 using Xamarin.Forms;
 
@@ -7,6 +8,8 @@ namespace q5id.guardian.ViewModels.ItemViewModels
 {
     public class AlertItemViewModel : BaseItemViewModel<Alert>
     {
+
+        public Action<AlertItemViewModel> OnUpdateExpanded;
         
         private string mUpdatedTimeDescription = "";
         public string UpdatedTimeDescription
@@ -16,6 +19,31 @@ namespace q5id.guardian.ViewModels.ItemViewModels
             {
                 mUpdatedTimeDescription = value;
                 RaisePropertyChanged(nameof(UpdatedTimeDescription));
+            }
+        }
+
+        private Boolean mIsExpanded = false;
+        public Boolean IsExpanded
+        {
+            get => mIsExpanded;
+            set
+            {
+                mIsExpanded = value;
+                RaisePropertyChanged(nameof(IsExpanded));
+            }
+        }
+
+        public ICommand ToggleExpandedCommand
+        {
+            get
+            {
+                return new Command(() => {
+                    IsExpanded = !IsExpanded;
+                    if(OnUpdateExpanded != null)
+                    {
+                        OnUpdateExpanded(this);
+                    }
+                });
             }
         }
 

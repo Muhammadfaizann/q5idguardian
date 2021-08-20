@@ -16,10 +16,24 @@
             </DataTemplate>
             <DataTemplate x:Key="itemTemplate">
                 <control:AppViewCell>
-                    <alertItemView:AlertItemView OnItemClicked="OnAlertItemClicked" />
+                    <alertItemView:AlertDefaultItemView >
+                        <alertItemView:AlertDefaultItemView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAlertItemClicked" CommandParameter="{Binding Model}" />
+                        </alertItemView:AlertDefaultItemView.GestureRecognizers>
+                    </alertItemView:AlertDefaultItemView>
+                </control:AppViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="itemExpandedTemplate">
+                <control:AppViewCell>
+                    <alertItemView:AlertExpandedItemView >
+                        <alertItemView:AlertExpandedItemView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAlertItemClicked" CommandParameter="{Binding Model}" />
+                        </alertItemView:AlertExpandedItemView.GestureRecognizers>
+                    </alertItemView:AlertExpandedItemView>
                 </control:AppViewCell>
             </DataTemplate>
             <template:AlertTemplateSelector x:Key="alertTemplateSelector"
+                                            ItemExpandedTemplate="{StaticResource itemExpandedTemplate}"
                                             HeaderGroupTemplate="{StaticResource headerGroupTemplate}"
                                             ItemTemplate="{StaticResource itemTemplate}"/>
         </ResourceDictionary>
@@ -74,6 +88,7 @@
                    <!--Has item layout-->
                     <control:AppListView
                               ItemsSource="{Binding Alerts}"
+                              x:Name="ListAlert"
                               SeparatorVisibility="None"
                               BackgroundColor="Transparent"
                               Margin="0,20,0,0"

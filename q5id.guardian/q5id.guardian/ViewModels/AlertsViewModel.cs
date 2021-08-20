@@ -57,9 +57,61 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        private ObservableCollection<object> mFeeds;
+        public ObservableCollection<object> Feeds
+        {
+            get => mFeeds;
+            set
+            {
+                mFeeds = value;
+                RaisePropertyChanged(nameof(Feeds));
+            }
+        }
+
         public override async Task Initialize()
         {
             GetAlerts();
+            GetFeeds();
+        }
+
+        private void GetFeeds()
+        {
+            Feeds = new ObservableCollection<object>()
+            {
+                new FeedItemViewModel(new Feed())
+                {
+                    ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyX16xukQ-ZF5Obira-CMZqamIbFPfaMeB557mzjZjsbZ3h97l3LlXihU5VGiDtegDvo0",
+                    Name = "Mathan A ",
+                    Action = "is looking",
+                    UpdatedTime = "9:50 am",
+                    IsParent = false,
+                },
+                new FeedItemViewModel(new Feed())
+                {
+                    ImageUrl = "https://expertphotography.b-cdn.net/wp-content/uploads/2020/08/social-media-profile-photos-3.jpg",
+                    Name = "Dyland M ",
+                    Action = "is looking",
+                    UpdatedTime = "9:50 am",
+                    IsParent = false,
+                },
+                new FeedItemViewModel(new Feed())
+                {
+                    ImageUrl = "https://cdn.fastly.picmonkey.com/contentful/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg",
+                    Name = "Sarah R ",
+                    Action = "is looking",
+                    UpdatedTime = "9:49 am",
+                    IsParent = false,
+                },
+                new FeedItemViewModel(new Feed())
+                {
+                    ImageUrl = "https://i1.wp.com/www.alphr.com/wp-content/uploads/2020/12/Facebook-How-to-Change-Profile-Picture.jpg",
+                    Name = "Parent ",
+                    Action = "posted",
+                    UpdatedTime = "9:48 am",
+                    IsParent = true,
+                    Detail="“We’re in the kids’ clothing department at Target, my daughter is wearing a blue dress and rainbow shoes.”"
+                },
+            };
         }
 
         private void GetAlerts()
@@ -85,6 +137,7 @@ namespace q5id.guardian.ViewModels
                 {
                     UpdatedTimeDescription = "Started 23 minutes ago",
                     OnUpdateItemAction = OnUpdateItemList,
+                    OnUpdateExpanded = OnItemExpandedUpdate,
                 },  
                 new AlertItemViewModel(new Alert()
                 {
@@ -99,6 +152,7 @@ namespace q5id.guardian.ViewModels
                 {
                     UpdatedTimeDescription = "Started 2 hours ago",
                     OnUpdateItemAction = OnUpdateItemList,
+                    OnUpdateExpanded = OnItemExpandedUpdate,
                 },
                 new GroupHeaderItemViewModel()
                 {
@@ -119,8 +173,15 @@ namespace q5id.guardian.ViewModels
                 {
                     UpdatedTimeDescription = "Started 3 days ago",
                     OnUpdateItemAction = OnUpdateItemList,
+                    OnUpdateExpanded = OnItemExpandedUpdate,
                 },
             };
+        }
+
+        private void OnItemExpandedUpdate(AlertItemViewModel item)
+        {
+            var indexOf = Alerts.IndexOf(item);
+            Alerts[indexOf] = item;
         }
 
         private void OnUpdateItemList()

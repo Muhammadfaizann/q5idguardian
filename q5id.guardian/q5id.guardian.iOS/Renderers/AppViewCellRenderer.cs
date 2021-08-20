@@ -14,7 +14,6 @@ namespace q5id.guardian.iOS.Renderers
         {
             UITableViewCell cell = base.GetCell(item, reusableCell, tv);
             cell.Accessory = UIKit.UITableViewCellAccessory.None;
-            //cell.UserInteractionEnabled = false;
             cell.SelectedBackgroundView = new UIView();
             return cell;
         }

@@ -7,17 +7,21 @@
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     x:Class="q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews.AlertExpandedItemView">
     <ContentView.Content>
-        <StackLayout Spacing="0">
+        <Grid>
             <Frame
                 Margin="30, 0, 30, 20"
                 CornerRadius="16"
                 BackgroundColor="White"
                 BorderColor="Transparent"
                 Padding="0"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
                 IsClippedToBounds="True"
                 HasShadow="False">
-                <StackLayout Orientation="Vertical" Padding="20" Spacing="0">
-                    <Grid>
+                <StackLayout Orientation="Vertical"
+                             VerticalOptions="Start"
+                             Padding="20" Spacing="0">
+                    <Grid HorizontalOptions="Fill" VerticalOptions="Start">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto" />
@@ -60,14 +64,15 @@
                                                 FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"/>
                             </Image.Source>
                             <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnCollapsedTapped" />
+                                <TapGestureRecognizer Command="{Binding ToggleExpandedCommand}" Tapped="OnCollapsedTapped" />
                             </Image.GestureRecognizers>
                         </Image>
                     </Grid>
+                    
                     <Grid
+                        x:Name="GridContentImage"
                         Margin="0,10,0,0"
                         ColumnSpacing="5"
-                        VerticalOptions="Start"
                         HorizontalOptions="Fill">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -75,35 +80,41 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <control:AppRatioFrame
+                        <Frame
+                            HasShadow="False"
+                            Padding="0"
+                            BorderColor="Transparent"
+                            CornerRadius="0"
                             Grid.Column="0"
                             BackgroundColor="{StaticResource paleGray}"
                             HorizontalOptions="Fill"
-                            HeightRequest="10"
-                            RatioBase="Width"
-                            RatioValue="1">
+                            VerticalOptions="Fill">
                             <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding FirstImage}" />
-                        </control:AppRatioFrame>
-                        <control:AppRatioFrame
+                        </Frame>
+                        <Frame
+                            HasShadow="False"
+                            Padding="0"
+                            BorderColor="Transparent"
+                            CornerRadius="0"
                             Grid.Column="1"
                             BackgroundColor="{StaticResource paleGray}"
                             HorizontalOptions="Fill"
-                            RatioBase="Width"
-                            HeightRequest="10"
-                            RatioValue="1">
+                            VerticalOptions="Fill">
                             <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding SecondImage}" />
-                        </control:AppRatioFrame>
-                        <control:AppRatioFrame
+                        </Frame>
+                        <Frame
+                            HasShadow="False"
+                            Padding="0"
+                            BorderColor="Transparent"
+                            CornerRadius="0"
                             Grid.Column="2"
                             BackgroundColor="{StaticResource paleGray}"
                             HorizontalOptions="Fill"
-                            RatioBase="Width"
-                            HeightRequest="10"
-                            RatioValue="1">
+                            VerticalOptions="Fill">
                             <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding ThirdImage}" />
-                        </control:AppRatioFrame>
+                        </Frame>
                     </Grid>
                     <Label
                         Margin="0,15,0,0"
@@ -154,6 +165,6 @@
                         WidthRequest="140" />
                 </StackLayout>
             </Frame>
-        </StackLayout>
+        </Grid>
     </ContentView.Content>
 </ContentView>
