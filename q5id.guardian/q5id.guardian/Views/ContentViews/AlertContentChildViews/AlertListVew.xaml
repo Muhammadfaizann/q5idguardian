@@ -62,6 +62,7 @@
                     IsDisable="{Binding IsVolunteer}"
                     NormalBackgroundEndColor="White"
                     NormalBackgroundStartColor="White"
+                    Clicked="CreateAlertClicked"
                     NormalLabelColor="{StaticResource redVibrant}"
                     PressedBackgroundColor="{StaticResource redVibrant}"
                     PressedLabelColor="White"

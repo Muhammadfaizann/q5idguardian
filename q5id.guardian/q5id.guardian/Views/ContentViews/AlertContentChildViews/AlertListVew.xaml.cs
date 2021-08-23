@@ -18,7 +18,14 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             if (e is TappedEventArgs tappedEventArgs)
             {
                 MainContentView.PushView(new AlertDetailView(MainContentView, tappedEventArgs.Parameter));
+                MainContentView.MainPage.UpdateRightControlImage(Utils.FontAwesomeIcons.Times);
             }
+        }
+
+        void CreateAlertClicked(System.Object sender, System.EventArgs e)
+        {
+            MainContentView.PushView(new CreateAlertChooseLoveView(MainContentView));
+            MainContentView.MainPage.UpdateRightControlImage(Utils.FontAwesomeIcons.ChevronLeft);
         }
     }
 }

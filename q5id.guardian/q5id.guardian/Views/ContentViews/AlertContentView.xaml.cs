@@ -31,6 +31,24 @@ namespace q5id.guardian.Views.ContentViews
             }
         }
 
+        public void AddNewEventHandlerRightControlClicked(EventHandler eventHandler)
+        {
+            MainPage.RightControlClicked -= MainPage_RightControlClicked;
+            MainPage.RightControlClicked += eventHandler;
+        }
+
+        public void RemoveEventHandlerRightControlClicked(EventHandler eventHandler)
+        {
+            MainPage.RightControlClicked -= eventHandler;
+            MainPage.RightControlClicked += MainPage_RightControlClicked;
+        }
+
+        public void BackToTop()
+        {
+            this.ResetView();
+            this.PushView(new AlertListVew(this));
+        }
+
         private void MainPage_RightControlClicked(object sender, EventArgs e)
         {
             if (CanBackView())

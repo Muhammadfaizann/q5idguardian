@@ -8,7 +8,8 @@ namespace q5id.guardian.Views.Base
     {
         protected List<BaseChildContentView> previousContentViews;
         protected BaseChildContentView currentContentView;
-        protected HomePage MainPage;
+
+        public HomePage MainPage;
 
         public BaseContainerView(HomePage homePage)
         {
@@ -44,6 +45,7 @@ namespace q5id.guardian.Views.Base
             GetContentView().Children.Add(view);
             currentContentView = view;
             MainPage.UpdateHeaderTitle(view.ViewTitle);
+            view.OnAttach();
         }
 
 
@@ -57,11 +59,13 @@ namespace q5id.guardian.Views.Base
             if (CanBackView())
             {
                 currentContentView.BindingContext = null;
+                currentContentView.OnDettach();
                 BaseChildContentView previousView = previousContentViews[previousContentViews.Count - 1];
                 GetContentView().Children.Clear();
                 GetContentView().Children.Add(previousView);
                 currentContentView = previousView;
                 currentContentView.BindingContext = this.BindingContext;
+                currentContentView.OnAttach();
                 previousContentViews.Remove(previousView);
                 MainPage.UpdateHeaderTitle(currentContentView.ViewTitle);
             }

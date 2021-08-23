@@ -73,6 +73,7 @@
             <Color x:Key="dimCharcoal">#303138</Color>
             <Color x:Key="normalCharcoal">#696B7A</Color>
             <Color x:Key="lightCharcoal">#838699</Color>
+            <Color x:Key="lightCharcoal40">#66838699</Color>
             <Color x:Key="paleGray">#E8EAF2</Color>
             <Color x:Key="blue">#3DA0FF</Color>
             <Style x:Key="frmButton" TargetType="app:AppFrame">

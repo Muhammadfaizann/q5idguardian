@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 using static Xamarin.Essentials.Permissions;
 
 namespace q5id.guardian.Utils
@@ -78,6 +79,17 @@ namespace q5id.guardian.Utils
                 return status;
             else
                 return await CheckAndRequestLocationPermission();
+        }
+
+        public static Color GetColorFromResource(String key, Color defaultColor)
+        {
+            object pinColorObj;
+            Application.Current.Resources.TryGetValue(key, out pinColorObj);
+            if (pinColorObj is Color color)
+            {
+                return color;
+            }
+            return defaultColor;
         }
     }
 }

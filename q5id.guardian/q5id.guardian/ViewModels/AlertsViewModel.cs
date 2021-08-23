@@ -57,6 +57,20 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        private Love mCreatingLove;
+        public Love CreatingLove
+        {
+            get
+            {
+                return mCreatingLove;
+            }
+            set
+            {
+                mCreatingLove = value;
+                RaisePropertyChanged(nameof(CreatingLove));
+            }
+        }
+
         private ObservableCollection<object> mFeeds;
         public ObservableCollection<object> Feeds
         {
@@ -68,10 +82,57 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        private ObservableCollection<Love> mLoves = null;
+        public ObservableCollection<Love> Loves
+        {
+            get => mLoves;
+            set
+            {
+                mLoves = value;
+                RaisePropertyChanged(nameof(Loves));
+            }
+        }
+
         public override async Task Initialize()
         {
             GetAlerts();
             GetFeeds();
+            GetLoves();
+        }
+
+        private void GetLoves()
+        {
+            Loves = new ObservableCollection<Love>()
+            {
+                new Love()
+                {
+                    FirstName = "Amber",
+                    LastName = "Jones",
+                    ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-01.jpg",
+                    UpdatedTime = null,
+                    AddedTime = new DateTime(2020, 1, 1),
+                    BirthDay = new DateTime(2016, 1, 1),
+                },
+                new Love()
+                {
+                    FirstName = "Sarah",
+                    LastName = "Jones",
+                    ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-05.jpg",
+                    UpdatedTime = new DateTime(2021, 4, 1),
+                    AddedTime = new DateTime(2020, 1, 1),
+                    BirthDay = new DateTime(2017, 1, 1),
+                },
+                new Love()
+                {
+                    FirstName = "Theo",
+                    LastName = "Jones",
+                    ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-06.jpg",
+                    UpdatedTime = new DateTime(2021, 4, 1),
+                    AddedTime = new DateTime(2020, 1, 1),
+                    BirthDay = new DateTime(2018, 1, 1),
+                    IsLongTime = true,
+                }
+            };
         }
 
         private void GetFeeds()

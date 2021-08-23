@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<base:BaseChildContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:q5id.guardian.Views.Base"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:converter="clr-namespace:q5id.guardian.Converters"
+    xmlns:util="clr-namespace:q5id.guardian.Utils"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    x:Class="q5id.guardian.Views.ContentViews.AlertContentChildViews.CreateAlertChooseLoveView">
+    <ContentView.Content>
+        <Grid BackgroundColor="{StaticResource paleGray}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="0"
+                Margin="0,40,0,0"
+                Text="Create alert for which loved one?"
+                HorizontalOptions="Center"
+                LineBreakMode="WordWrap"
+                Style="{StaticResource lbSubheadSm}">
+                    
+            </Label>
+            <Grid Grid.Row="1">
+                   <!--Has item layout-->
+                <control:AppListView ItemsSource="{Binding Loves}"
+                            SeparatorVisibility="None"
+                            BackgroundColor="Transparent"
+                            Margin="0,30,0,0"
+                            SelectionMode="None"
+                            HasUnevenRows="True">
+		            <ListView.ItemTemplate>
+			            <DataTemplate>
+				            <control:AppViewCell>
+					            <Frame HeightRequest="96"
+                                        Margin="30, 0, 30, 20"
+                                        CornerRadius="16"
+                                        BackgroundColor="White"
+                                        BorderColor="Transparent"
+                                        Padding="20,0,20,0"
+                                        IsClippedToBounds="True"
+                                        HasShadow="False">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnItemTapped" CommandParameter="{Binding .}" />
+                                    </Frame.GestureRecognizers>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Frame
+                                            Grid.Column="0"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="Center"
+                                            IsClippedToBounds="true"
+                                            Padding="0"
+                                            HasShadow="False"
+                                            WidthRequest="64"
+                                            HeightRequest="64"
+                                            CornerRadius="32"
+                                            BorderColor="Transparent"
+                                            >
+                                            <ffimageloading:CachedImage
+                                                HorizontalOptions="Fill"
+                                                VerticalOptions="Fill"
+                                                Aspect="AspectFill"
+			                                    DownsampleToViewSize="true"
+			                                    Source="{Binding ImageUrl}">
+		                                    </ffimageloading:CachedImage>
+                                        </Frame>
+                                        <StackLayout Orientation="Vertical"
+                                                        Spacing="0"
+                                                        Margin="10,0,0,0"
+                                                        VerticalOptions="Center"
+                                                        Grid.Column="1">
+                                            <Label
+                                                HorizontalOptions="Fill"
+                                                LineBreakMode="WordWrap"
+                                                Text="{Binding FullName}"
+                                                Style="{StaticResource lbSubheadSm}">
+                            
+                                            </Label>
+                                            <Label
+                                                HorizontalOptions="Fill"
+                                                LineBreakMode="WordWrap"
+                                                Text="{Binding LastUpdatedDuration}"
+                                                Style="{StaticResource lbBodyNormalMd}">
+                                                <Label.TextColor>
+                                                    <Binding Path="IsLongTime">
+                                                        <Binding.Converter>
+                                                            <converter:BoolToObjectConverter x:TypeArguments="Color"
+                                                                                                TrueObject="{StaticResource redVibrant}"
+                                                                                                FalseObject="{StaticResource normalCharcoal}"/>
+                                                        </Binding.Converter>
+                                                    </Binding>
+                                                </Label.TextColor>
+                                            </Label>
+                                        </StackLayout>
+                                        <Image Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center">
+                                            <Image.Source>
+                                                <FontImageSource Size="18"
+                                                                    Color="{StaticResource lightCharcoal}"
+                                                                    Glyph="{x:Static util:FontAwesomeIcons.ChevronRight}"
+                                                                    FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"/>
+                                            </Image.Source>
+                                        </Image>
+                                    </Grid>
+                                </Frame>
+				            </control:AppViewCell>
+			            </DataTemplate>
+		            </ListView.ItemTemplate>
+	            </control:AppListView>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</base:BaseChildContentView>
