@@ -1,4 +1,5 @@
 ﻿using q5id.guardian.Models;
+using q5id.guardian.Services;
 using q5id.guardian.ViewModels;
 using q5id.guardian.Views;
 using System;
@@ -12,6 +13,7 @@ namespace q5id.guardian
     {
         public App()
         {
+            GoogleMapsApiService.Initialize("AIzaSyBfmbh-Rv6aVh4QP7DR41o-_RwPQKZgMDY");
             InitializeComponent();
         }
 

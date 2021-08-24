@@ -74,6 +74,7 @@
             <Color x:Key="normalCharcoal">#696B7A</Color>
             <Color x:Key="lightCharcoal">#838699</Color>
             <Color x:Key="lightCharcoal40">#66838699</Color>
+            <Color x:Key="lightCharcoal10">#1A838699</Color>
             <Color x:Key="paleGray">#E8EAF2</Color>
             <Color x:Key="blue">#3DA0FF</Color>
             <Style x:Key="frmButton" TargetType="app:AppFrame">
@@ -85,6 +86,7 @@
             <converters:ReverseBooleanConverter x:Key="reverseBooleanConverter" />
             <converters:DateToStringConverter x:Key="dateToStringConverter" />
             <converters:ColorToSolidColorBrushConverter x:Key="colorToSolidColorBrushConverter" />
+            <converters:StringToBoolConverter x:Key="stringToBoolConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

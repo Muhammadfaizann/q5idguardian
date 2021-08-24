@@ -12,6 +12,50 @@ namespace q5id.guardian.ViewModels
 {
     public class AlertsViewModel : BaseViewModel
     {
+        private bool mIsYourPersonalNetwork = false;
+        public bool IsYourPersonalNetwork
+        {
+            get => mIsYourPersonalNetwork;
+            set
+            {
+                mIsYourPersonalNetwork = value;
+                RaisePropertyChanged(nameof(IsYourPersonalNetwork));
+            }
+        }
+
+        private bool mIsGuardianNearby = false;
+        public bool IsGuardianNearby
+        {
+            get => mIsGuardianNearby;
+            set
+            {
+                mIsGuardianNearby = value;
+                RaisePropertyChanged(nameof(IsGuardianNearby));
+            }
+        }
+
+        private bool mIsLowEnforcement = false;
+        public bool IsLowEnforcement
+        {
+            get => mIsLowEnforcement;
+            set
+            {
+                mIsLowEnforcement = value;
+                RaisePropertyChanged(nameof(IsLowEnforcement));
+            }
+        }
+
+        private bool mIsOwner = false;
+        public bool IsOwner
+        {
+            get => mIsOwner;
+            set
+            {
+                mIsOwner = value;
+                RaisePropertyChanged(nameof(IsOwner));
+            }
+        }
+
         private User mUser = null;
         public User User
         {

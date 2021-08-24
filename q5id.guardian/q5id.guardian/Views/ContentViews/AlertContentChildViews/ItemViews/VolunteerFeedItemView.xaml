@@ -7,53 +7,67 @@
     x:Class="q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews.VolunteerFeedItemView">
     <ContentView.Content>
         <Grid>
-            <Grid Padding="10,10,10,10" VerticalOptions="Start" HorizontalOptions="Fill">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="32" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-                <Frame
-                    Grid.Column="0"
-                    HorizontalOptions="Start"
-                    VerticalOptions="Center"
-                    IsClippedToBounds="true"
-                    Padding="0"
-                    HasShadow="False"
-                    WidthRequest="32"
-                    HeightRequest="32"
-                    CornerRadius="16"
-                    BackgroundColor="#32838699"
-                    BorderColor="Transparent"
-                    >
-                    <ffimageloading:CachedImage
-                        HorizontalOptions="Fill"
-                        VerticalOptions="Fill"
-                        Aspect="AspectFill"
-			            DownsampleToViewSize="true"
-			            Source="{Binding ImageUrl}">
-		            </ffimageloading:CachedImage>
-                </Frame>
-                <Label Grid.Column="1"
-                       VerticalOptions="Center"
-                       Margin="5,0,0,0"
-                       Style="{StaticResource lbBodyNormalMd}">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span FontSize="12" Text="{Binding Name}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                            <Span FontSize="12" Text="{Binding Action}" TextColor="{StaticResource lightCharcoal}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
+            <StackLayout Padding="10,10,10,10" Orientation="Vertical">
+                <Grid VerticalOptions="Start" HorizontalOptions="Fill">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Frame
+                        Grid.Column="0"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        IsClippedToBounds="true"
+                        Padding="0"
+                        HasShadow="False"
+                        WidthRequest="32"
+                        HeightRequest="32"
+                        CornerRadius="16"
+                        BackgroundColor="#32838699"
+                        BorderColor="Transparent"
+                        >
+                        <ffimageloading:CachedImage
+                            HorizontalOptions="Fill"
+                            VerticalOptions="Fill"
+                            Aspect="AspectFill"
+			                DownsampleToViewSize="true"
+			                Source="{Binding ImageUrl}">
+		                </ffimageloading:CachedImage>
+                    </Frame>
+                    <Label Grid.Column="1"
+                           VerticalOptions="Center"
+                           Margin="5,0,0,0"
+                           Style="{StaticResource lbBodyNormalMd}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span FontSize="12" Text="{Binding Name}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                <Span FontSize="12" Text="{Binding Action}" TextColor="{StaticResource lightCharcoal}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label
+                        Grid.Column="2"
+                        VerticalOptions="Center"
+                        TextColor="{StaticResource lightCharcoal}"
+                        Style="{StaticResource lbBodyNormalMd}"
+                        Text="{Binding UpdatedTime}">
+
+                    </Label>
+                </Grid>
                 <Label
-                    Grid.Column="2"
+                    Margin="0,5,0,0"
                     VerticalOptions="Center"
+                    IsVisible="{Binding Detail, Converter={StaticResource stringToBoolConverter}}"
                     TextColor="{StaticResource lightCharcoal}"
-                    Style="{StaticResource lbBodyNormalMd}"
-                    Text="{Binding UpdatedTime}">
+                    Style="{StaticResource lbBodyNormalSm}"
+                    FontSize="11"
+                    FontFamily="{x:Static util:ThemeConstanst.FontPoppinsItalic}"
+                    Text="{Binding Detail}">
 
                 </Label>
-            </Grid>
+            </StackLayout>
+            
             <BoxView HeightRequest="1"
                      HorizontalOptions="Fill"
                      VerticalOptions="End"

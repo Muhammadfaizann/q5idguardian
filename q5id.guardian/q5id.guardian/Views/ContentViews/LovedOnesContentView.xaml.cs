@@ -63,9 +63,9 @@ namespace q5id.guardian.Views.ContentViews
             }
         }
 
-        public override void PushView(BaseChildContentView view)
+        public override void PushView(BaseChildContentView view, bool isSaved = true)
         {
-            base.PushView(view);
+            base.PushView(view, isSaved);
             MainPage.UpdateRightControlVisibility(this.previousContentViews.Count > 0);
         }
 

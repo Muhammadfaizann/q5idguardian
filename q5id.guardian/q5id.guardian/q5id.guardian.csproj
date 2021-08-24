@@ -19,6 +19,7 @@
     <None Remove="Views\ContentViews\AlertContentChildViews\ItemViews\" />
     <None Remove="ViewModels\ItemViewModels\" />
     <None Remove="Selectors\" />
+    <None Remove="Newtonsoft.Json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,8 +34,12 @@
     <PackageReference Include="Xamarin.Forms.Maps" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.MediaGallery" Version="1.0.2" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.12" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="Services\GoogleMapsApiService.cs" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\AlertsPage.xaml.cs">
       <DependentUpon>AlertsPage.xaml</DependentUpon>
@@ -76,6 +81,7 @@
     <Folder Include="Views\ContentViews\AlertContentChildViews\ItemViews\" />
     <Folder Include="ViewModels\ItemViewModels\" />
     <Folder Include="Selectors\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Fonts\FontAwesome5Regular.otf" />

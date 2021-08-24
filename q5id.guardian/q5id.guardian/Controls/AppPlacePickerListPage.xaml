@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:PopupPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:util="clr-namespace:q5id.guardian.Utils"
+    x:Class="q5id.guardian.Controls.AppPlacePickerListPage">
+    <ContentPage.Content>
+        <Grid>
+            <Frame HasShadow="False"
+               Padding="10"
+               BackgroundColor="White"
+               BorderColor="Transparent"
+               CornerRadius="16"
+               HorizontalOptions="Fill"
+               VerticalOptions="Fill">
+            <Grid HorizontalOptions="Fill"
+                  VerticalOptions="Fill">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <control:AppEntry
+                    x:Name="EntrySearch"
+                    Grid.Row="0"
+                    Padding="10"
+                    BorderThickness="2"
+                    TextChanged="EntrySearch_TextChanged"
+                    FocusBorderColor="{StaticResource normalCharcoal}"
+                    FontAttributes="Italic"
+                    FontFamily="PoppinsItalic"
+                    HeightRequest="32"
+                    HorizontalOptions="Fill"
+                    NoramlBorderColor="{StaticResource paleGray}"
+                    BackgroundColor="White"
+                    Placeholder="Search map…"
+                    PlaceholderColor="{StaticResource lightCharcoal}"
+                    Style="{StaticResource etBodyNormalLg}"
+                    TextColor="{StaticResource normalCharcoal}" />
+                <control:AppListView VerticalOptions="FillAndExpand"
+                        BackgroundColor="Transparent"
+                        x:Name="ListPlaces"
+                        Grid.Row="1"
+                        SelectionMode="None"
+                        HasUnevenRows="true"
+                        ItemTapped="ListPlaces_ItemTapped"
+                        SeparatorColor="{StaticResource lightCharcoal}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <control:AppViewCell>
+                                <Grid Padding="15"
+                                      RowSpacing="2"
+                                      ColumnSpacing="15">
+                                
+                                    <Grid.RowDefinitions>
+                                          <RowDefinition Height="Auto"/>
+                                          <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                      <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="24"/>
+                                        <ColumnDefinition Width="*"/>        
+                                      </Grid.ColumnDefinitions>
+                                      <Grid Grid.Row="0"
+                                             Grid.Column="0"
+                                             Grid.RowSpan="2">
+                                          <Image HeightRequest="20"
+                                                 WidthRequest="20"
+                                                 VerticalOptions="Start"
+                                                 HorizontalOptions="Center">
+                                              <Image.Source>
+                                                  <FontImageSource
+                                                        FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                        Color="{StaticResource redNue}"
+                                                        Glyph="{x:Static util:FontAwesomeIcons.MapMarkerAlt}"/>
+                                              </Image.Source>
+                                         </Image>
+                                      </Grid>
+                                        <Label LineBreakMode="MiddleTruncation"
+                                               Text="{Binding StructuredFormatting.MainText}"
+                                               Grid.Row="0"
+                                               Grid.Column="1"/>
+                                            
+                                         <Label LineBreakMode="MiddleTruncation"
+                                                 Text="{Binding StructuredFormatting.SecondaryText}" 
+                                                 TextColor="Gray" 
+                                                 Grid.Row="1"
+                                                 Grid.Column="1"/>
+                                </Grid>
+                            </control:AppViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </control:AppListView>
+                <control:AppButton
+                    Grid.Row="2"
+                    HeightRequest="30"
+                    HorizontalOptions="Center"
+                    BorderColor="Transparent"
+                    NormalBackgroundEndColor="Transparent"
+                    NormalBackgroundStartColor="Transparent"
+                    PressedBackgroundColor="Transparent"
+                    NormalLabelColor="{StaticResource redNue}"
+                    PressedLabelColor="{StaticResource redQ5}"
+                    Clicked="OnCloseClicked"
+                    ButtonTitle="CLOSE"
+                    ButtonTitleSize="16">
+
+                </control:AppButton>
+            </Grid>
+        </Frame>
+        </Grid>
+    </ContentPage.Content>
+</pages:PopupPage>

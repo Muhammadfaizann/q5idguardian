@@ -100,8 +100,13 @@
                         
                     </StackLayout>
                 </ScrollView>
-                <control:AppListView
-                            x:Name="ViewList"
+                <Grid x:Name="ViewList">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <control:AppListView
+                            Grid.Row="0"
                             ItemsSource="{Binding Feeds}"
                             ItemTemplate="{StaticResource feedTemplateSelector}"
                             SeparatorVisibility="None"
@@ -115,6 +120,7 @@
                                 </StackLayout>
                                 <Grid HorizontalOptions="Fill"
                                       Margin="0,15,0,0"
+                                      IsVisible="{Binding IsOwner, Converter={StaticResource reverseBooleanConverter}}"
                                       VerticalOptions="Start">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -150,6 +156,51 @@
                                         </Image.GestureRecognizers>
                                     </Image>
                                 </Grid>
+                                <Grid HorizontalOptions="Fill"
+                                      Margin="0,15,0,0"
+                                      IsVisible="{Binding IsOwner}"
+                                      VerticalOptions="Start">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Margin="0,5,0,0"
+                                        Grid.Column="0"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Start"
+                                        LineBreakMode="WordWrap"
+                                        Text="Add Alert Recipients"
+                                        Style="{StaticResource lbSubheadSm}">
+                                        
+                                    </Label>
+                                    <control:AppFrame
+                                        Margin="0,0,10,0"
+                                        Padding="0"
+                                        HasShadow="False"
+                                        Grid.Column="1"
+                                        WidthRequest="32"
+                                        HeightRequest="32"
+                                        CornerRadius="16"
+                                        NormalBackgroundColorStart="{StaticResource lightCharcoal10}"
+                                        NormalBackgroundColorEnd="{StaticResource lightCharcoal10}"
+                                        PressedBackgroundColor="{StaticResource lightCharcoal40}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center">
+                                        <Image
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center">
+                                            <Image.Source>
+                                                <FontImageSource
+                                                    FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                    Size="18"
+                                                    Color="{StaticResource lightCharcoal}"
+                                                    Glyph="{x:Static util:FontAwesomeIcons.Plus}" />
+                                            </Image.Source>
+                                        </Image>
+                                    </control:AppFrame>
+                                    
+                                </Grid>
                                 <Label
                                     Margin="0,10,0,0"
                                     Grid.Column="0"
@@ -164,9 +215,93 @@
                                 </Label>
                             </StackLayout>
                         </control:AppListView.Header>
-	            </control:AppListView>
+                        <control:AppListView.Footer>
+                            <StackLayout
+                                IsVisible="{Binding IsOwner}"
+                                Orientation="Vertical"
+                                HorizontalOptions="Fill">
+                                <control:AppButton
+                                    Margin="20"
+                                    ButtonTitle="End This Alert"
+                                    CornerRadius="12"
+                                    HeightRequest="60"
+                                    HorizontalOptions="Fill"
+                                    NormalBackgroundStartColor="{StaticResource dimCharcoal}"
+                                    NormalBackgroundEndColor="{StaticResource normalCharcoal}"
+                                    PressedBackgroundColor="{StaticResource dimCharcoal}"
+                                    NormalLabelColor="White"
+                                    PressedLabelColor="LightGray" />
+                            </StackLayout>
+                        </control:AppListView.Footer>
+	                </control:AppListView>
+                    <Grid HeightRequest="48"
+                          Grid.Row="1"
+                          IsVisible="{Binding IsOwner}"
+                          ColumnSpacing="10"
+                          BackgroundColor="White"
+                          VerticalOptions="Start">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="32" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="32" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            Margin="10,0,0,0"
+                            Grid.Column="0"
+                            WidthRequest="20"
+                            HeightRequest="20"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource
+                                    FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                    Size="12"
+                                    Color="{StaticResource normalCharcoal}"
+                                    Glyph="{x:Static util:FontAwesomeIcons.Camera}" />
+                            </Image.Source>
+                        </Image>
+                        <control:AppEntry
+                                Grid.Column="1"
+                                Padding="10,0,10,0"
+                                BorderThickness="2"
+                                FocusBorderColor="{StaticResource normalCharcoal}"
+                                FontAttributes="Italic"
+                                FontFamily="PoppinsItalic"
+                                HeightRequest="32"
+                                HorizontalOptions="Fill"
+                                NoramlBorderColor="{StaticResource paleGray}"
+                                BackgroundColor="White"
+                                Placeholder="Your message…"
+                                Text="{Binding FirstName}"
+                                VerticalOptions="Center"
+                                PlaceholderColor="{StaticResource lightCharcoal}"
+                                Style="{StaticResource etBodyNormalLg}"
+                                TextColor="{StaticResource normalCharcoal}" />
+                        <Image
+                            Margin="0,0,10,0"
+                            Grid.Column="2"
+                            WidthRequest="20"
+                            HeightRequest="20"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource
+                                    FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                    Size="12"
+                                    Color="{StaticResource normalCharcoal}"
+                                    Glyph="{x:Static util:FontAwesomeIcons.Microphone}" />
+                            </Image.Source>
+                        </Image>
+                        <BoxView HeightRequest="2"
+                                 Grid.ColumnSpan="3"
+                                 BackgroundColor="{StaticResource paleGray}"
+                                 HorizontalOptions="Fill"
+                                 VerticalOptions="End">
+
+                        </BoxView>
+                    </Grid>
+                </Grid>
             </Grid>
-            
         </Grid>
     </ContentView.Content>
 </base:BaseChildContentView>

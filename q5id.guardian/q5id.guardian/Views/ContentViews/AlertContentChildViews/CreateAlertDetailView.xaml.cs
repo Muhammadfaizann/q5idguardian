@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using q5id.guardian.ViewModels;
 using q5id.guardian.Views.Base;
 using Xamarin.Forms;
 
@@ -26,14 +27,80 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             }
         }
 
-        public bool IsYourPersonalNetwork { get; set; }
-        public bool IsGuardianNearby { get; set; }
-        public bool IsLowEnforcement { get; set; }
+        public static readonly BindableProperty IsYourPersonalNetworkProperty = BindableProperty.Create(nameof(IsYourPersonalNetwork), typeof(bool), typeof(CreateAlertDetailView), false, BindingMode.TwoWay, null, propertyChanged: OnIsYourPersonalNetworkChanged);
+
+        private static void OnIsYourPersonalNetworkChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if(bindable is CreateAlertDetailView createAlertDetailView)
+            {
+                createAlertDetailView.UpdateYourPersonalNetwork();
+            }
+        }
+
+        public bool IsYourPersonalNetwork
+        {
+            get
+            {
+                return (bool)GetValue(IsYourPersonalNetworkProperty);
+            }
+            set
+            {
+                SetValue(IsYourPersonalNetworkProperty, value);
+            }
+        }
+
+        public static readonly BindableProperty IsGuardianNearbyProperty = BindableProperty.Create(nameof(IsGuardianNearby), typeof(bool), typeof(CreateAlertDetailView), false, BindingMode.TwoWay, null, propertyChanged: OnIsGuardianNearbyChanged);
+
+        private static void OnIsGuardianNearbyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is CreateAlertDetailView createAlertDetailView)
+            {
+                createAlertDetailView.UpdateGuardianNearby();
+            }
+        }
+
+        public bool IsGuardianNearby
+        {
+            get
+            {
+                return (bool)GetValue(IsGuardianNearbyProperty);
+            }
+            set
+            {
+                SetValue(IsGuardianNearbyProperty, value);
+            }
+        }
+
+        public static readonly BindableProperty IsLowEnforcementProperty = BindableProperty.Create(nameof(IsLowEnforcement), typeof(bool), typeof(CreateAlertDetailView), false, BindingMode.TwoWay, null, propertyChanged: OnIsLowEnforcementChanged);
+
+        private static void OnIsLowEnforcementChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is CreateAlertDetailView createAlertDetailView)
+            {
+                createAlertDetailView.UpdateLowEnforcement();
+            }
+        }
+
+        public bool IsLowEnforcement
+        {
+            get
+            {
+                return (bool)GetValue(IsLowEnforcementProperty);
+            }
+            set
+            {
+                SetValue(IsLowEnforcementProperty, value);
+            }
+        }
 
         public CreateAlertDetailView(BaseContainerView mainContentView, Object itemModel) : base(mainContentView)
         {
             InitializeComponent();
             ViewTitle = "Create Alert";
+            this.SetBinding(LoveProperty, "CreatingLove");
+            this.SetBinding(IsYourPersonalNetworkProperty, "IsYourPersonalNetwork");
+            this.SetBinding(IsGuardianNearbyProperty, "IsGuardianNearby");
+            this.SetBinding(IsLowEnforcementProperty, "IsLowEnforcement");
             this.SetBinding(LoveProperty, "CreatingLove");
             Love = itemModel;
             InitView();
@@ -78,6 +145,11 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
         void YourPersonalNetworkTapped(System.Object sender, System.EventArgs e)
         {
             IsYourPersonalNetwork = !IsYourPersonalNetwork;
+            UpdateYourPersonalNetwork();
+        }
+
+        private void UpdateYourPersonalNetwork()
+        {
             String colorResource = IsYourPersonalNetwork ? "redNue" : "lightCharcoal40";
             ImageSourceYourPersonalNetwork.Color = Utils.Utils.GetColorFromResource(colorResource, Color.LightGray);
             ImageSourceYourPersonalNetwork.FontFamily = IsYourPersonalNetwork ? Utils.ThemeConstanst.FontAwesomeSolid : Utils.ThemeConstanst.FontAwesomeRegular;
@@ -86,6 +158,11 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
         void GuardianNearbyTapped(System.Object sender, System.EventArgs e)
         {
             IsGuardianNearby = !IsGuardianNearby;
+            UpdateGuardianNearby();
+        }
+
+        private void UpdateGuardianNearby()
+        {
             String colorResource = IsGuardianNearby ? "redNue" : "lightCharcoal40";
             ImageSourceGuardianNearby.Color = Utils.Utils.GetColorFromResource(colorResource, Color.LightGray);
             ImageSourceGuardianNearby.FontFamily = IsGuardianNearby ? Utils.ThemeConstanst.FontAwesomeSolid : Utils.ThemeConstanst.FontAwesomeRegular;
@@ -94,9 +171,25 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
         void LowEnforcementTapped(System.Object sender, System.EventArgs e)
         {
             IsLowEnforcement = !IsLowEnforcement;
+            UpdateLowEnforcement();
+        }
+
+        private void UpdateLowEnforcement()
+        {
             String colorResource = IsLowEnforcement ? "redNue" : "lightCharcoal40";
             ImageSourceLowEnforcement.Color = Utils.Utils.GetColorFromResource(colorResource, Color.LightGray);
             ImageSourceLowEnforcement.FontFamily = IsLowEnforcement ? Utils.ThemeConstanst.FontAwesomeSolid : Utils.ThemeConstanst.FontAwesomeRegular;
+        }
+
+        void CreateAlertClicked(System.Object sender, System.EventArgs e)
+        {
+            if (this.BindingContext is AlertsViewModel alertsViewModel)
+            {
+                alertsViewModel.IsOwner = true;
+            }
+            MainContentView.PushView(new AlertDetailView(MainContentView, null), false);
+            MainContentView.MainPage.UpdateRightControlImage(Utils.FontAwesomeIcons.ChevronLeft);
+            
         }
     }
 }

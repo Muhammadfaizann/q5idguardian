@@ -33,11 +33,14 @@ namespace q5id.guardian.Views.Base
             currentContentView = null;
         }
 
-        public virtual void PushView(BaseChildContentView view)
+        public virtual void PushView(BaseChildContentView view, bool isSaved = true)
         {
             if (currentContentView != null)
             {
-                previousContentViews.Add(currentContentView);
+                if(isSaved == true)
+                {
+                    previousContentViews.Add(currentContentView);
+                }
                 currentContentView.BindingContext = null;
             }
             view.BindingContext = this.BindingContext;
