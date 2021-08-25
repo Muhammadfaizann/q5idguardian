@@ -26,6 +26,10 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
         public override void OnDettach()
         {
             base.OnDettach();
+            if (MainContentView is AlertContentView alertContentView)
+            {
+                alertContentView.RemoveEventHandlerRightControlClicked(OnCustomRightControlClicked);
+            }
         }
 
         void OnCustomRightControlClicked(System.Object sender, System.EventArgs e)
@@ -41,7 +45,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
         {
             if(e is TappedEventArgs tappedEventArgs)
             {
-                MainContentView.PushView(new CreateAlertDetailView(MainContentView, tappedEventArgs.Parameter));
+                MainContentView.PushView(new CreateAlertDetailView(MainContentView, tappedEventArgs.Parameter), false);
             }
         }
     }

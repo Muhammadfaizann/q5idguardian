@@ -10,6 +10,7 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
         public AddLovedReviewView(BaseContainerView mainCtv) : base(mainCtv)
         {
             InitializeComponent();
+            ViewTitle = "Add Loved One";
         }
 
         protected override void OnParentSet()

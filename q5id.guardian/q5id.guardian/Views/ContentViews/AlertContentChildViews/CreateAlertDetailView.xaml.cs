@@ -189,7 +189,33 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             }
             MainContentView.PushView(new AlertDetailView(MainContentView, null), false);
             MainContentView.MainPage.UpdateRightControlImage(Utils.FontAwesomeIcons.ChevronLeft);
-            
+        }
+
+        public override void OnAttach()
+        {
+            base.OnAttach();
+            if (MainContentView is AlertContentView alertContentView)
+            {
+                alertContentView.AddNewEventHandlerRightControlClicked(OnCustomRightControlClicked);
+            }
+        }
+
+        public override void OnDettach()
+        {
+            base.OnDettach();
+            if (MainContentView is AlertContentView alertContentView)
+            {
+                alertContentView.RemoveEventHandlerRightControlClicked(OnCustomRightControlClicked);
+            }
+        }
+
+        void OnCustomRightControlClicked(System.Object sender, System.EventArgs e)
+        {
+            if (MainContentView is AlertContentView alertContentView)
+            {
+                alertContentView.RemoveEventHandlerRightControlClicked(OnCustomRightControlClicked);
+                alertContentView.BackToTop();
+            }
         }
     }
 }

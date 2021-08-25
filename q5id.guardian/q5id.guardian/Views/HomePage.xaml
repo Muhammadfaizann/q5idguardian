@@ -21,7 +21,7 @@
 
     <Grid BackgroundColor="{StaticResource paleGray}" RowSpacing="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="120" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
             <RowDefinition Height="60">
                 <RowDefinition.Height>
@@ -32,71 +32,73 @@
                 </RowDefinition.Height>
             </RowDefinition>
         </Grid.RowDefinitions>
-        <Grid
-            Grid.Row="0"
-            BackgroundColor="{StaticResource paleGray}"
-            RowSpacing="0">
-            <control:AppBoxView
-                BackgroundColor="#FD425E"
-                BottomHeight="45"
-                HeightRequest="120" />
-            <Grid HeightRequest="50" VerticalOptions="Start">
-                <Label
-                    x:Name="lbNavigation"
-                    FontAttributes="Bold"
-                    FontSize="Medium"
-                    HorizontalOptions="Center"
-                    Text="guardian"
-                    TextColor="White"
-                    VerticalOptions="Center" />
-                <Grid Margin="20,0,0,0" HorizontalOptions="Start">
-                    <Grid.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OpenSettingCommand}" />
-                    </Grid.GestureRecognizers>
-                    <Image HorizontalOptions="Center" IsEnabled="False">
-                        <Image.Source>
-                            <FontImageSource
-                                FontFamily="FontAwesome5Solid"
-                                Glyph="{x:Static utils:FontAwesomeIcons.Bars}"
-                                Size="Large"
-                                Color="White" />
-                        </Image.Source>
-                    </Image>
-                </Grid>
-                <control:AppFrame
-                    x:Name="frmRightControl"
-                    Margin="0,0,10,0"
-                    Padding="0"
-                    CornerRadius="18"
-                    HasShadow="False"
-                    HeightRequest="36"
-                    HorizontalOptions="End"
-                    IsVisible="False"
-                    NormalBackgroundColorEnd="{StaticResource redQ5}"
-                    NormalBackgroundColorStart="{StaticResource redQ5}"
-                    PressedBackgroundColor="{StaticResource redNue}"
-                    VerticalOptions="Center"
-                    WidthRequest="36">
-                    <Image HorizontalOptions="Center" VerticalOptions="Center">
-                        <Image.Source>
-                            <FontImageSource
-                                x:Name="imgSourceRightControl"
-                                FontFamily="{x:Static utils:ThemeConstanst.FontAwesomeSolid}"
-                                Glyph="{x:Static utils:FontAwesomeIcons.Times}"
-                                Size="Large"
-                                Color="White" />
-                        </Image.Source>
-                    </Image>
-                </control:AppFrame>
+        <Grid Grid.Row="0"
+                BackgroundColor="{StaticResource redNue}"
+                VerticalOptions="Fill">
+            <Label
+                x:Name="lbNavigation"
+                FontAttributes="Bold"
+                FontSize="Medium"
+                HorizontalOptions="Center"
+                Text="guardian"
+                TextColor="White"
+                VerticalOptions="Center" />
+            <Grid Margin="20,0,0,0" HorizontalOptions="Start">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenSettingCommand}" />
+                </Grid.GestureRecognizers>
+                <Image HorizontalOptions="Center" IsEnabled="False">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="FontAwesome5Solid"
+                            Glyph="{x:Static utils:FontAwesomeIcons.Bars}"
+                            Size="Large"
+                            Color="White" />
+                    </Image.Source>
+                </Image>
             </Grid>
-
+            <control:AppFrame
+                x:Name="frmRightControl"
+                Margin="0,0,10,0"
+                Padding="0"
+                CornerRadius="18"
+                HasShadow="False"
+                HeightRequest="36"
+                HorizontalOptions="End"
+                IsVisible="False"
+                NormalBackgroundColorEnd="{StaticResource redQ5}"
+                NormalBackgroundColorStart="{StaticResource redQ5}"
+                PressedBackgroundColor="{StaticResource redNue}"
+                VerticalOptions="Center"
+                WidthRequest="36">
+                <Image HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image.Source>
+                        <FontImageSource
+                            x:Name="imgSourceRightControl"
+                            FontFamily="{x:Static utils:ThemeConstanst.FontAwesomeSolid}"
+                            Glyph="{x:Static utils:FontAwesomeIcons.Times}"
+                            Size="Large"
+                            Color="White" />
+                    </Image.Source>
+                </Image>
+            </control:AppFrame>
         </Grid>
         <Grid
-            x:Name="gridContentView"
+            
             Grid.Row="1"
             Background="{StaticResource paleGray}"
             HorizontalOptions="Fill"
             VerticalOptions="Fill">
+            <control:AppBoxView HorizontalOptions="Fill"
+                                VerticalOptions="Start"
+                                HeightRequest="50"
+                                BottomHeight="45"
+                                BackgroundColor="{StaticResource redNue}"/>
+            <Grid HorizontalOptions="Fill"
+                  x:Name="gridContentView"
+                  VerticalOptions="Fill">
+
+            </Grid>
             <!--<ctv:HomeContentView
                 x:Name="homeView"
                 BindingContext="{Binding HomeVm}"

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
 using Rg.Plugins.Popup.Extensions;
@@ -33,9 +34,16 @@ namespace q5id.guardian.Controls
 
         private async void ListPlaces_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            GooglePlaceAutoCompletePrediction itemData = mItemSource[e.ItemIndex];
-            var place = await mapsService.GetPlaceDetails(itemData.PlaceId);
-            mPickerView.SelectedItem = place;
+            try
+            {
+                GooglePlaceAutoCompletePrediction itemData = mItemSource[e.ItemIndex];
+                var place = await mapsService.GetPlaceDetails(itemData.PlaceId);
+                mPickerView.SelectedItem = place;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Get Place Detail Error: " + ex.Message);
+            }
             await Navigation.PopPopupAsync();
         }
 
@@ -46,21 +54,30 @@ namespace q5id.guardian.Controls
 
         private async void GetPlaces()
         {
-            if(mIsCalling == false)
+            try
             {
-                mIsNeedContinueCall = false;
-                var result = await mapsService.GetPlaces(EntrySearch.Text);
-                mIsCalling = false;
-                mItemSource = result.AutoCompletePlaces;
-                ListPlaces.ItemsSource = mItemSource;
-                if (mIsNeedContinueCall == true)
+                if (mIsCalling == false)
                 {
-                    GetPlaces();
+                    mIsNeedContinueCall = false;
+                    var result = await mapsService.GetPlaces(EntrySearch.Text);
+                    mIsCalling = false;
+                    mItemSource = result.AutoCompletePlaces;
+                    ListPlaces.ItemsSource = mItemSource;
+                    if (mIsNeedContinueCall == true)
+                    {
+                        GetPlaces();
+                    }
+                }
+                else
+                {
+                    mIsNeedContinueCall = true;
                 }
             }
-            else
+            catch(Exception ex)
             {
-                mIsNeedContinueCall = true;
+                Debug.WriteLine("Get Places Error: " + ex.Message);
+                mItemSource = new List<GooglePlaceAutoCompletePrediction>();
+                 ListPlaces.ItemsSource = mItemSource;
             }
         }
 

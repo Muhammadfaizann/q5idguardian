@@ -39,7 +39,7 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <Grid BackgroundColor="{StaticResource paleGray}">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
@@ -49,7 +49,7 @@
                 Orientation="Vertical"
                 Spacing="0">
                 <control:AppButton
-                    Margin="0,-40,0,0"
+                    Margin="0,15,0,0"
                     BorderColor="Transparent"
                     ButtonTitle="Create Alert"
                     ButtonTitleSize="16"

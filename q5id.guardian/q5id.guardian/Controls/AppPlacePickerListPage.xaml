@@ -43,6 +43,7 @@
                         BackgroundColor="Transparent"
                         x:Name="ListPlaces"
                         Grid.Row="1"
+                        SeparatorVisibility="None"
                         SelectionMode="None"
                         HasUnevenRows="true"
                         ItemTapped="ListPlaces_ItemTapped"

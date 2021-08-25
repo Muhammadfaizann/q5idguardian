@@ -9,7 +9,7 @@
     xmlns:converter="clr-namespace:q5id.guardian.Converters"
     x:Class="q5id.guardian.Views.ContentViews.LovedOnesChildContentViews.LovedOnesListView">
     <ContentView.Content>
-        <Grid BackgroundColor="{StaticResource paleGray}">
+        <Grid Margin="0,15,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
@@ -19,7 +19,6 @@
                 Orientation="Vertical"
                 Spacing="0">
                 <control:AppButton
-                    Margin="0,-40,0,0"
                     BorderColor="Transparent"
                     ButtonTitle="Create Alert"
                     ButtonTitleSize="16"

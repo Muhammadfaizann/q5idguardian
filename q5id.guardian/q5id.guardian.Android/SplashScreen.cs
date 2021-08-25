@@ -20,8 +20,7 @@ namespace q5id.guardian.Droid
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class SplashScreen : MvxFormsSplashScreenActivity<Setup, MainApp, App>
     {
-        public SplashScreen()
-            : base(Resource.Layout.SplashScreen)
+        public SplashScreen() : base()
         {
         }
 

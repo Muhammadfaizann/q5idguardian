@@ -10,13 +10,13 @@
     <ContentView.Content>
         <Grid>
             <control:AppBoxView
-                Margin="0,-45,0,0"
+                Margin="0,0,0,0"
                 BackgroundColor="#FD425E"
                 HorizontalOptions="Fill"
                 VerticalOptions="Start"
                 BottomHeight="45"
                 HeightRequest="80" />
-            <Grid Margin="0, -60, 0, 0">
+            <Grid Padding="0, 15, 0, 0">
                 <ScrollView Orientation="Vertical">
                     <StackLayout Orientation="Vertical"
                                  Margin="20,0,20,0"
@@ -286,6 +286,7 @@
                                 Grid.Column="1"
                                 WidthRequest="32"
                                 HeightRequest="32"
+                                HasShadow="False"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center"
                                 Padding="0"

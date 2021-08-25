@@ -8,7 +8,7 @@
     xmlns:itemViews="clr-namespace:q5id.guardian.Views.ItemViews"
     xmlns:utils="clr-namespace:q5id.guardian.Utils">
     <ContentView.Content>
-        <Grid BackgroundColor="{StaticResource paleGray}">
+        <Grid Padding="0,15,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
@@ -18,7 +18,6 @@
                 Orientation="Vertical"
                 Spacing="0">
                 <control:AppButton
-                    Margin="0,-40,0,0"
                     BorderColor="Transparent"
                     ButtonTitle="Create Alert"
                     ButtonTitleSize="16"
@@ -145,11 +144,87 @@
                                     TextColor="{StaticResource normalCharcoal}" />
                             </Grid>
                             <Label
-                                Margin="0,4,0,20"
+                                Margin="0,4,0,10"
                                 Style="{StaticResource lbBodyNormalMd}"
                                 Text="In case of emergency, you’ll be ready to help."
                                 TextColor="{StaticResource lightCharcoal}" />
+                            <Frame HeightRequest="60"
+                                    CornerRadius="12"
+                                    BackgroundColor="White"
+                                    BorderColor="Transparent"
+                                    Padding="20,0,20,0"
+                                    IsClippedToBounds="True"
+                                    HorizontalOptions="Fill"
+                                    HasShadow="False">
+                                <Grid VerticalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Grid.Column="0"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Center"
+                                        LineBreakMode="WordWrap"
+                                        Text="Police Emergency"
+                                        FontSize="14"
+                                        Style="{StaticResource lbBodyBoldLg}">
+                            
+                                    </Label>
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Center"
+                                        LineBreakMode="WordWrap"
+                                        Text="Call 911"
+                                        FontSize="14"
+                                        TextColor="{StaticResource redNue}"
+                                        Style="{StaticResource lbBodyBoldLg}">
+                            
+                                    </Label>
+                                    
+                                </Grid>
+                            </Frame>
+                            <Frame HeightRequest="60"
+                                    CornerRadius="12"
+                                    Margin="0,5,0,20"
+                                    BackgroundColor="White"
+                                    BorderColor="Transparent"
+                                    Padding="20,0,20,0"
+                                    IsClippedToBounds="True"
+                                    HorizontalOptions="Fill"
+                                    HasShadow="False">
+                                <Grid VerticalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Grid.Column="0"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Center"
+                                        LineBreakMode="WordWrap"
+                                        Text="Police Non-Emergency"
+                                        FontSize="14"
+                                        Style="{StaticResource lbBodyBoldLg}">
+                            
+                                    </Label>
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Center"
+                                        LineBreakMode="WordWrap"
+                                        Text="Call 311"
+                                        FontSize="14"
+                                        TextColor="{StaticResource redNue}"
+                                        Style="{StaticResource lbBodyBoldLg}">
+                            
+                                    </Label>
+                                    
+                                </Grid>
+                            </Frame>
                         </StackLayout>
+
                     </ScrollView>
                 </Grid>
                 <Grid

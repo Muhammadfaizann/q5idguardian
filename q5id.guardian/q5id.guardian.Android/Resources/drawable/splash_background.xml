@@ -9,7 +9,7 @@
         android:top="50dp">
     <bitmap
         android:src="@drawable/splash_logo"
-        android:gravity="center"/>
+        android:gravity="fill"/>
   </item>
   <item android:height="286dp"
         android:gravity="bottom"
