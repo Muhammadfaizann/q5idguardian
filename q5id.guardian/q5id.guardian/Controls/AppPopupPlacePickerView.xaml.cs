@@ -132,7 +132,10 @@ namespace q5id.guardian.Controls
 
         private static void OnItemSelectedChanged(BindableObject bindable, object oldValue, object newValue)
         {
-          
+            if (bindable is AppPopupPlacePickerView appPopupPicker)
+            {
+                appPopupPicker.GetDisplayMember();
+            }
         }
 
         public object SelectedItem
@@ -189,6 +192,7 @@ namespace q5id.guardian.Controls
             this.mAppPicker.TextColor = this.TextColor;
             this.mAppPicker.Placeholder = this.Placeholder;
             this.mAppPicker.PlaceholderColor = this.PlaceholderColor;
+            GetDisplayMember();
         }
 
         public void SetSelectedObject(object obj)

@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using q5id.guardian.Models;
+using q5id.guardian.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -150,8 +152,8 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private ColorData mHairColor = null;
-        public ColorData HairColor
+        private ItemChoice mHairColor = null;
+        public ItemChoice HairColor
         {
             get
             {
@@ -164,8 +166,8 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private ColorData mEyeColor = null;
-        public ColorData EyeColor
+        private ItemChoice mEyeColor = null;
+        public ItemChoice EyeColor
         {
             get
             {
@@ -175,6 +177,34 @@ namespace q5id.guardian.ViewModels
             {
                 mEyeColor = value;
                 RaisePropertyChanged(nameof(EyeColor));
+            }
+        }
+
+        private byte[] mPrimaryImage = null;
+        public byte[] PrimaryImage
+        {
+            get
+            {
+                return mPrimaryImage;
+            }
+            set
+            {
+                mPrimaryImage = value;
+                RaisePropertyChanged(nameof(PrimaryImage));
+            }
+        }
+
+        private ObservableCollection<byte[]> mSecondaryImages = null;
+        public ObservableCollection<byte[]> SecondaryImages
+        {
+            get
+            {
+                return mSecondaryImages;
+            }
+            set
+            {
+                mSecondaryImages = value;
+                RaisePropertyChanged(nameof(SecondaryImages));
             }
         }
 
@@ -207,9 +237,58 @@ namespace q5id.guardian.ViewModels
             this.Detail = null;
         }
 
+        private List<ItemChoice> mHairColors = null;
+        public List<ItemChoice> HairColors
+        {
+            get => mHairColors;
+            set
+            {
+                mHairColors = value;
+                RaisePropertyChanged(nameof(HairColors));
+            }
+        }
+
+        private List<ItemChoice> mEyeColors = null;
+        public List<ItemChoice> EyeColors
+        {
+            get => mEyeColors;
+            set
+            {
+                mEyeColors = value;
+                RaisePropertyChanged(nameof(EyeColors));
+            }
+        }
+
+        private async Task GetChoices()
+        {
+            var response = await AppService.Instances.GetChoices();
+            if (response.IsSuccess)
+            {
+                List<Choice> choices = response.ResponseObject;
+                Choice hairColorChoice = choices.Find((Choice obj) =>
+                {
+                    return obj.Name == Utils.Constansts.HAIR_COLORS_SETTING_KEY;
+                });
+                if (hairColorChoice != null)
+                {
+                    HairColors = hairColorChoice.Items;
+                }
+
+                Choice eyeColorChoice = choices.Find((Choice obj) =>
+                {
+                    return obj.Name == Utils.Constansts.EYE_COLORS_SETTING_KEY;
+                });
+                if (eyeColorChoice != null)
+                {
+                    EyeColors = eyeColorChoice.Items;
+                }
+            }
+        }
+
         public override async Task Initialize()
         {
             await GetLoves();
+            await GetChoices();
         }
 
         private async Task GetLoves()

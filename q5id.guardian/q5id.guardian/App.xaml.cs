@@ -14,10 +14,20 @@ namespace q5id.guardian
         public App()
         {
             GoogleMapsApiService.Initialize("AIzaSyBfmbh-Rv6aVh4QP7DR41o-_RwPQKZgMDY");
+            AppService.Init("12dc1a185cad4cf0a9e51fcd314c2a59");
             InitializeComponent();
+            GetSettings();
         }
 
-       
+        private async void GetSettings()
+        {
+            var response = await AppService.Instances.GetSettings();
+            if (response.IsSuccess)
+            {
+                var struture = response.ResponseObject;
+                Utils.Utils.SaveSetting(struture.Entities);
+            }
+        }
 
         protected override void OnStart()
         {

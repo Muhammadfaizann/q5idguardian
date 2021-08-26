@@ -9,6 +9,9 @@ namespace q5id.guardian.Utils
         public static int SEC_TIMEOUT_LOAD_LOCATION = 10;
         public static int MILES_DEFAULT_MAP_ZOOM_DISTANCT = 10;
 
+        public static string HAIR_COLORS_SETTING_KEY = "HairColor";
+        public static string EYE_COLORS_SETTING_KEY = "EyeColor";
+
         public static List<ColorData> HAIR_COLORS = new List<ColorData>()
         {
             new ColorData()

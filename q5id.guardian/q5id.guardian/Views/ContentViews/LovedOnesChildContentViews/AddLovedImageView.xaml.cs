@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using FFImageLoading.Forms;
 using q5id.guardian.Views.Base;
@@ -90,8 +91,10 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
             if (MainContentView is LovedOnesContentView lovedOnesContentView)
             {
                 System.IO.Stream sourceStream = await PickPhotoAsync();
+               
                 if (sourceStream != null)
                 {
+                    var listSecondaryImages = lovedOnesContentView.SecondaryImageSourceByteArrays;
                     if (sender == FrmPrimaryPhotoBtn)
                     {
                         lovedOnesContentView.PrimaryImageSourceByteArray = Utils.Utils.ConvertStreamToByteArray(sourceStream);
@@ -102,7 +105,7 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
                     }
                     else if (sender == FrmSnd1)
                     {
-                        lovedOnesContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
+                        listSecondaryImages.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
                         ImgSnd1.Source = ImageSource.FromStream(() => sourceStream);
                         FrmSnd1.IsVisible = false;
                         FrmSnd2.IsVisible = true;
@@ -110,7 +113,7 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
                     }
                     else if (sender == FrmSnd2)
                     {
-                        lovedOnesContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
+                        listSecondaryImages.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
                         ImgSnd2.Source = ImageSource.FromStream(() => sourceStream);
                         FrmSnd2.IsVisible = false;
                         FrmSnd3.IsVisible = true;
@@ -118,7 +121,7 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
                     }
                     else if (sender == FrmSnd3)
                     {
-                        lovedOnesContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
+                        listSecondaryImages.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
                         ImgSnd3.Source = ImageSource.FromStream(() => sourceStream);
                         FrmSnd3.IsVisible = false;
                         FrmSnd4.IsVisible = true;
@@ -126,13 +129,23 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
                     }
                     else if (sender == FrmSnd4)
                     {
-                        lovedOnesContentView.SecondaryImageSourceByteArrays.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
+                        listSecondaryImages.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
                         ImgSnd4.Source = ImageSource.FromStream(() => sourceStream);
                         FrmSnd4.IsVisible = false;
-
                     }
+                    lovedOnesContentView.SecondaryImageSourceByteArrays = CloneImages(listSecondaryImages);
                 }
             }
+        }
+
+        private ObservableCollection<byte[]> CloneImages(ObservableCollection<byte[]> listImage)
+        {
+            var result = new ObservableCollection<byte[]>();
+            foreach(byte[] imgByteArr in listImage)
+            {
+                result.Add(imgByteArr);
+            }
+            return result;
         }
     }
 }

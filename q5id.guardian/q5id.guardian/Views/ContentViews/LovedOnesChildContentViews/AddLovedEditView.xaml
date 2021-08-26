@@ -195,8 +195,8 @@
                                     PlaceholderColor="{StaticResource lightCharcoal}"
                                     TextColor="{StaticResource dimCharcoal}"
                                     HeightRequest="32"
-                                    ItemsSource="{Binding Source={x:Static util:Constansts.HAIR_COLORS}, Path=.}"
-                                    ItemDisplayBinding="{Binding Name}"
+                                    ItemsSource="{Binding HairColors}"
+                                    ItemDisplayBindingPath="Name"
                                     SelectedItem="{Binding HairColor}"
                                     NoramlBorderColor="#E8EAF2">
                                     <control:AppPopupPickerView.ItemTemplate>
@@ -234,8 +234,8 @@
                                     HeightRequest="32"
                                     PlaceholderColor="{StaticResource lightCharcoal}"
                                     TextColor="{StaticResource dimCharcoal}"
-                                    ItemsSource="{Binding Source={x:Static util:Constansts.EYE_COLORS}, Path=.}"
-                                    ItemDisplayBinding="{Binding Name}"
+                                    ItemsSource="{Binding EyeColors}"
+                                    ItemDisplayBindingPath="Name"
                                     SelectedItem="{Binding EyeColor}"
                                     NoramlBorderColor="#E8EAF2">
                                     <control:AppPopupPickerView.ItemTemplate>

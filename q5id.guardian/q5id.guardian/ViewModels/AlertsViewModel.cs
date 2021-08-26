@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using q5id.guardian.Models;
+using q5id.guardian.Services;
 using q5id.guardian.ViewModels.ItemViewModels;
 
 namespace q5id.guardian.ViewModels

@@ -106,7 +106,7 @@ namespace q5id.guardian.Controls
             set
             {
                 SetValue(PlaceholderColorProperty, value);
-                mAppPicker.TitleColor = value;
+                mAppPicker.PlaceholderColor = value;
             }
             get => (Color)GetValue(PlaceholderColorProperty);
         }
@@ -117,7 +117,7 @@ namespace q5id.guardian.Controls
             set
             {
                 SetValue(PlaceholderProperty, value);
-                mAppPicker.Title = value;
+                mAppPicker.Placeholder = value;
             }
             get => (string)GetValue(PlaceholderProperty);
         }
@@ -140,7 +140,6 @@ namespace q5id.guardian.Controls
             set
             {
                 SetValue(ItemsSourceProperty, value);
-                this.mAppPicker.ItemsSource = value;
             }
         }
 
@@ -158,10 +157,10 @@ namespace q5id.guardian.Controls
 
         private static void OnItemSelectedChanged(BindableObject bindable, object oldValue, object newValue)
         {
-           //if(bindable is AppPopupPickerView appPopupPickerView)
-           // {
-           //     appPopupPickerView.SelectedItem = newValue;
-           // }
+            if(bindable is AppPopupPickerView appPopupPicker)
+            {
+                appPopupPicker.GetDisplayMember();
+            }
         }
 
         public object SelectedItem
@@ -169,21 +168,38 @@ namespace q5id.guardian.Controls
             set
             {
                 SetValue(SelectedItemProperty, value);
-                mAppPicker.SelectedItem = value;
+                GetDisplayMember();
             }
-            get => GetValue(SelectedItemProperty);
+            get
+            {
+                return GetValue(SelectedItemProperty);
+            }
         }
 
-        private static readonly BindableProperty ItemDisplayBindingProperty = BindableProperty.Create(nameof(ItemDisplayBinding), typeof(BindingBase), typeof(AppPopupPickerView), null);
+        private static readonly BindableProperty ItemDisplayBindingPathProperty = BindableProperty.Create(nameof(ItemDisplayBindingPath), typeof(string), typeof(AppPopupPlacePickerView), "");
 
-        public BindingBase ItemDisplayBinding
+        public string ItemDisplayBindingPath
         {
             set
             {
-                SetValue(ItemDisplayBindingProperty, value);
-                mAppPicker.ItemDisplayBinding = value;
+                SetValue(ItemDisplayBindingPathProperty, value);
+                GetDisplayMember();
             }
-            get => (BindingBase)GetValue(ItemDisplayBindingProperty);
+            get => (string)GetValue(ItemDisplayBindingPathProperty);
+        }
+
+
+        void GetDisplayMember()
+        {
+            if (ItemDisplayBindingPath == null || ItemDisplayBindingPath == "")
+            {
+                mAppPicker.RemoveBinding(AppEntry.TextProperty);
+                mAppPicker.Text = "";
+                return;
+            }
+            Binding displayBinding = new Binding(ItemDisplayBindingPath, BindingMode.TwoWay, null, null, null, SelectedItem);
+            mAppPicker.BindingContext = SelectedItem;
+            mAppPicker.SetBinding(AppEntry.TextProperty, displayBinding);
         }
 
         public AppPopupPickerView()
@@ -206,11 +222,8 @@ namespace q5id.guardian.Controls
             this.mAppPicker.Padding = this.ContentPadding;
             this.mAppPicker.FontSize = this.FontSize;
             this.mAppPicker.TextColor = this.TextColor;
-            this.mAppPicker.Title = this.Placeholder;
-            this.mAppPicker.TitleColor = this.PlaceholderColor;
-            this.mAppPicker.ItemsSource = this.ItemsSource;
-            this.mAppPicker.SelectedItem = this.SelectedItem;
-            this.mAppPicker.ItemDisplayBinding = this.ItemDisplayBinding;
+            this.mAppPicker.Placeholder = this.Placeholder;
+            this.mAppPicker.PlaceholderColor = this.PlaceholderColor;
         }
 
         public void SetSelectedObject(object obj)

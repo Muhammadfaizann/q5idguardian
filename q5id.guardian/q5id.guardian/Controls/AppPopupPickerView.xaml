@@ -10,7 +10,9 @@
             <Grid.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnContentTapped" />
             </Grid.GestureRecognizers>
-            <control:AppPicker
+            <control:AppEntry
+                FontAttributes="Italic"
+                FontFamily="{x:Static util:ThemeConstanst.FontPoppinsItalic}"
                 x:Name="mAppPicker"
                 IsEnabled="False"/>
             <Image HorizontalOptions="End"

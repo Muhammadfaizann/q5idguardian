@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using q5id.guardian.Views.Base;
 using Xamarin.Forms;
 
@@ -41,7 +42,7 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
             {
                 System.IO.MemoryStream streamPrimary = new System.IO.MemoryStream(lovedOnesContentView.PrimaryImageSourceByteArray);
                 ImgPrimary.Source = ImageSource.FromStream(() => streamPrimary);
-                List<byte[]> imageSecSourceStreams = lovedOnesContentView.SecondaryImageSourceByteArrays;
+                ObservableCollection<byte[]> imageSecSourceStreams = lovedOnesContentView.SecondaryImageSourceByteArrays;
 
                 if (imageSecSourceStreams != null && imageSecSourceStreams.Count > 0)
                 {

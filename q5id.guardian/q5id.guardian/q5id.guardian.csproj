@@ -20,6 +20,8 @@
     <None Remove="ViewModels\ItemViewModels\" />
     <None Remove="Selectors\" />
     <None Remove="Newtonsoft.Json" />
+    <None Remove="Flurl" />
+    <None Remove="Flurl.Http" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,10 +37,14 @@
     <PackageReference Include="Xamarin.MediaGallery" Version="1.0.2" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.12" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Flurl.Http" Version="3.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Include="Services\GoogleMapsApiService.cs" />
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\Bases\ApiResponse.cs" />
+    <Compile Include="Services\AppService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\AlertsPage.xaml.cs">
@@ -82,6 +88,7 @@
     <Folder Include="ViewModels\ItemViewModels\" />
     <Folder Include="Selectors\" />
     <Folder Include="Services\" />
+    <Folder Include="Services\Bases\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Fonts\FontAwesome5Regular.otf" />

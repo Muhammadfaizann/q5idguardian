@@ -49,23 +49,20 @@
                                 TextColor="{StaticResource normalCharcoal}" />
                             <Grid HorizontalOptions="Fill" VerticalOptions="Start">
                                 <control:AppPopupPickerView
-                                    BorderThickness="2"
-                                    FocusBorderColor="#696B7A"
-                                    FontSize="14"
-                                    HeightRequest="32"
-                                    ItemDisplayBinding="{Binding Name}"
-                                    ItemsSource="{Binding Source={x:Static util:Constansts.HAIR_COLORS}, Path=.}"
-                                    NoramlBorderColor="#E8EAF2"
                                     Placeholder="Choose color"
+                                    BorderThickness="2"
+                                    FontSize="14"
+                                    FocusBorderColor="#696B7A"
                                     PlaceholderColor="{StaticResource lightCharcoal}"
+                                    TextColor="{StaticResource dimCharcoal}"
+                                    HeightRequest="32"
+                                    ItemsSource="{Binding HairColors}"
+                                    ItemDisplayBindingPath="Name"
                                     SelectedItem="{Binding HairColor}"
-                                    TextColor="{StaticResource dimCharcoal}">
+                                    NoramlBorderColor="#E8EAF2">
                                     <control:AppPopupPickerView.ItemTemplate>
-                                        <DataTemplate x:DataType="models:ColorData">
-                                            <StackLayout
-                                                Padding="10"
-                                                Orientation="Horizontal"
-                                                Spacing="10">
+                                        <DataTemplate>
+                                            <StackLayout Orientation="Horizontal" Padding="10">
                                                 <Ellipse
                                                     Fill="{Binding HexColor, Converter={StaticResource colorToSolidColorBrushConverter}}"
                                                     HeightRequest="20"
@@ -73,10 +70,7 @@
                                                     Stroke="Gray"
                                                     VerticalOptions="Center"
                                                     WidthRequest="20" />
-                                                <Label
-                                                    HorizontalOptions="Fill"
-                                                    Text="{Binding Name}"
-                                                    VerticalOptions="Center" />
+                                                <Label HorizontalOptions="Fill" VerticalOptions="Center" Text="{Binding Name}" />
                                             </StackLayout>
                                         </DataTemplate>
                                     </control:AppPopupPickerView.ItemTemplate>
@@ -96,8 +90,8 @@
                                     FocusBorderColor="#696B7A"
                                     FontSize="14"
                                     HeightRequest="32"
-                                    ItemDisplayBinding="{Binding Name}"
-                                    ItemsSource="{Binding Source={x:Static util:Constansts.EYE_COLORS}, Path=.}"
+                                    ItemDisplayBindingPath="Name"
+                                    ItemsSource="{Binding EyeColors}"
                                     NoramlBorderColor="#E8EAF2"
                                     Placeholder="Choose color"
                                     PlaceholderColor="{StaticResource lightCharcoal}"

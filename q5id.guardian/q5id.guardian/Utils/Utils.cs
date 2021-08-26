@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using q5id.guardian.Models;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using static Xamarin.Essentials.Permissions;
@@ -8,6 +12,8 @@ namespace q5id.guardian.Utils
 {
     public static class Utils
     {
+        private static string SETTING_KEY = "settings";
+
         public static byte[] ConvertStreamToByteArray(System.IO.Stream stream)
         {
             long originalPosition = 0;
@@ -90,6 +96,25 @@ namespace q5id.guardian.Utils
                 return color;
             }
             return defaultColor;
+        }
+
+        public static void SaveSetting(List<StrutureEntity> settings)
+        {
+            Preferences.Set(SETTING_KEY, JsonConvert.SerializeObject(settings));
+        }
+
+        public static List<StrutureEntity> GetSettings()
+        {
+            try
+            {
+                var strSettings = Preferences.Get(SETTING_KEY, "");
+                return JsonConvert.DeserializeObject<List<StrutureEntity>>(strSettings);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("Cannot get settings: " + ex.Message);
+            }
+            return new List<StrutureEntity>();
         }
     }
 }

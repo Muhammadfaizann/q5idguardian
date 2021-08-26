@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Input;
 using q5id.guardian.Utils;
@@ -11,8 +12,43 @@ namespace q5id.guardian.Views.ContentViews
 {
     public partial class LovedOnesContentView : BaseContainerView
     {
-        public byte[] PrimaryImageSourceByteArray;
-        public List<byte[]> SecondaryImageSourceByteArrays = new List<byte[]>();
+        public static readonly BindableProperty PrimaryImageSourceByteArrayProperty =
+            BindableProperty.Create(nameof(PrimaryImageSourceByteArray), typeof(byte[]), typeof(LovedOnesContentView), null, defaultBindingMode: BindingMode.TwoWay);
+
+        public byte[] PrimaryImageSourceByteArray
+        {
+            get
+            {
+                return (byte[])GetValue(PrimaryImageSourceByteArrayProperty);
+            }
+            set
+            {
+                SetValue(PrimaryImageSourceByteArrayProperty, value);
+            }
+        }
+
+        public static readonly BindableProperty SecondaryImageSourceByteArraysProperty =
+            BindableProperty.Create(nameof(SecondaryImageSourceByteArrays), typeof(ObservableCollection<byte[]>), typeof(LovedOnesContentView), null, defaultBindingMode: BindingMode.TwoWay, propertyChanged: OnSecondImagesChanged);
+
+        private static void OnSecondImagesChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if(bindable is LovedOnesContentView lovedOnesContent && newValue is ObservableCollection<byte[]> newList)
+            {
+                lovedOnesContent.SecondaryImageSourceByteArrays = newList;
+            }
+        }
+
+        public ObservableCollection<byte[]> SecondaryImageSourceByteArrays
+        {
+            get
+            {
+                return (ObservableCollection<byte[]>)GetValue(SecondaryImageSourceByteArraysProperty);
+            }
+            set
+            {
+                SetValue(SecondaryImageSourceByteArraysProperty, value);
+            }
+        }
 
         public static readonly BindableProperty ResetCommandProperty =
             BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(LovedOnesContentView), null, defaultBindingMode: BindingMode.TwoWay);
@@ -30,11 +66,14 @@ namespace q5id.guardian.Views.ContentViews
         {
             InitializeComponent();
             this.SetBinding(ResetCommandProperty, "ResetCommand");
+            this.SetBinding(PrimaryImageSourceByteArrayProperty, "PrimaryImage");
+            this.SetBinding(SecondaryImageSourceByteArraysProperty, "SecondaryImages");
             MainPage.UpdateRightControlVisibility(false);
             MainPage.UpdateRightControlImage(FontAwesomeIcons.Times);
             ResetView();
             ResetCommand?.Execute(null);
             this.PushView(new LovedOnesListView(this));
+            
         }
 
         
@@ -42,7 +81,7 @@ namespace q5id.guardian.Views.ContentViews
         public void ClearImages()
         {
             PrimaryImageSourceByteArray = null;
-            SecondaryImageSourceByteArrays.Clear();
+            SecondaryImageSourceByteArrays = new ObservableCollection<byte[]>();
         }
 
         protected override void OnParentSet()
