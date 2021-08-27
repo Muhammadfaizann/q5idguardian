@@ -38,10 +38,57 @@ namespace q5id.guardian.Services
             return await Get<List<Choice>>(url);
         }
 
-        public async Task<ApiResponse<Structure>> GetSettings()
+        public async Task<ApiResponse<List<Structure>>> GetSettings()
         {
             string url = $"{BASE_URL}/datavaultmanagement/datavault/instances/{INSTANCES_ID}";
-            return await Get<Structure>(url);
+            return await Get<List<Structure>>(url);
+        }
+
+        public async Task<ApiResponse<ImageResponse>> UploadImage(string entityId, ImageData image)
+        {
+            string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}/upload/{DATAVAULT_ID}/{entityId}";
+            var body = new
+            {
+                File = image.GetBase64Data(),
+                Extension = image.Extension
+            };
+            return await Post<ImageResponse>(url, body);
+        }
+
+        public async Task<ApiResponse<EntityResponse<Love>>> CreateLovedOnes(string entityId, Love love)
+        {
+            string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}";
+            var body = new
+            {
+                datavaultId = DATAVAULT_ID,
+                entityId = entityId,
+                data = love
+            };
+            return await Post<EntityResponse<Love>>(url, body);
+        }
+
+        public async Task<ApiResponse<EntityResponse<Love>>> UpdateLovedOnes(string entityId, Love love)
+        {
+            string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}/{love.Id}";
+            var body = new
+            {
+                datavaultId = DATAVAULT_ID,
+                entityId = entityId,
+                data = love
+            };
+            return await Put<EntityResponse<Love>>(url, body);
+        }
+
+        public async Task<ApiResponse<EntityResponse<Love>>> DeleteLovedOnes(string lovedonesId)
+        {
+            string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}/{lovedonesId}";
+            return await Delete<EntityResponse<Love>>(url);
+        }
+
+        public async Task<ApiResponse<List<Entity<Love>>>> GetListLovedOnes(string entityId)
+        {
+            string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}/entity/{entityId}";
+            return await Get<List<Entity<Love>>>(url);
         }
     }
 }

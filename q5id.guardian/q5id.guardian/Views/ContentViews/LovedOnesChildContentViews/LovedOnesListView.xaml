@@ -55,7 +55,7 @@
                 </Label>
             </StackLayout>
             <Grid Grid.Row="1">
-               <Grid IsVisible="False">
+               <Grid IsVisible="{Binding IsHasNoLove}">
                    <!--Empty layout-->
                    <Grid.RowDefinitions>
                        <RowDefinition Height="*"/>
@@ -105,14 +105,14 @@
                    </StackLayout>
                    
                </Grid>
-                <Grid IsVisible="True">
+                <Grid IsVisible="{Binding IsHasNoLove, Converter={StaticResource reverseBooleanConverter}}">
                    <!--Has item layout-->
                     <control:AppListView ItemsSource="{Binding Loves}"
                               SeparatorVisibility="None"
                               BackgroundColor="Transparent"
                               Margin="0,20,0,0"
                               SelectionMode="None"
-                              
+                              ItemTapped="OnLovedOnesItemTapped"
                               HasUnevenRows="True">
                         <ListView.Footer>
                             <StackLayout>
@@ -183,7 +183,7 @@
                                                     VerticalOptions="Fill"
                                                     Aspect="AspectFill"
 			                                        DownsampleToViewSize="true"
-			                                        Source="{Binding ImageUrl}">
+			                                        Source="{Binding Image}">
 		                                        </ffimageloading:CachedImage>
                                             </Frame>
                                             <StackLayout Orientation="Vertical"

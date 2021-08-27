@@ -19,10 +19,10 @@ namespace q5id.guardian.Models
         public string DisplayName { get; set; }
 
         [JsonProperty("entities")]
-        public List<StrutureEntity> Entities { get; set; }
+        public List<StructureEntity> Entities { get; set; }
     }
 
-    public class StrutureEntity
+    public class StructureEntity
     {
         [JsonProperty("id")]
         public string Id { get; set; }

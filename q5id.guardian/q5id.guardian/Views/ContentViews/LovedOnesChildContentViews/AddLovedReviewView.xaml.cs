@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using q5id.guardian.Models;
 using q5id.guardian.Views.Base;
 using Xamarin.Forms;
 
@@ -39,24 +40,23 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
 
         private void UpdateImage()
         {
-            if(MainContentView is LovedOnesContentView lovedOnesContentView)
+            if (MainContentView is LovedOnesContentView lovedOnesContentView)
             {
-                System.IO.MemoryStream streamPrimary = new System.IO.MemoryStream(lovedOnesContentView.PrimaryImageSourceByteArray);
-                ImgPrimary.Source = ImageSource.FromStream(() => streamPrimary);
-                ObservableCollection<byte[]> imageSecSourceStreams = lovedOnesContentView.SecondaryImageSourceByteArrays;
+                ImgPrimary.Source = ImageSource.FromStream(() => new System.IO.MemoryStream(lovedOnesContentView.PrimaryImageData.ImageByteArray));
+                ObservableCollection<ImageData> imageSecSourceStreams = lovedOnesContentView.SecondaryImageDatas;
 
                 if (imageSecSourceStreams != null && imageSecSourceStreams.Count > 0)
                 {
                     List<Image> imageSecs = new List<Image>()
-                {
+                    {
                     ImgSec1, ImgSec2, ImgSec3, ImgSec4
-                };
+                    };
                     int imageCount = imageSecSourceStreams.Count;
                     int indexImage = 0;
                     while (indexImage < imageCount && indexImage < imageSecs.Count)
                     {
-                        System.IO.MemoryStream streamSec = new System.IO.MemoryStream(imageSecSourceStreams[indexImage]);
-                        imageSecs[indexImage].Source = ImageSource.FromStream(() => streamSec);
+                        var imageByteArray = lovedOnesContentView.SecondaryImageDatas[indexImage].ImageByteArray;
+                        imageSecs[indexImage].Source = ImageSource.FromStream(() => new System.IO.MemoryStream(imageByteArray));
                         indexImage++;
                     }
                 }

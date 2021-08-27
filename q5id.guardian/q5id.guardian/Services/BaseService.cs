@@ -411,5 +411,90 @@ namespace q5id.guardian.Services
 
             return apiResponse;
         }
+
+        protected async Task<ApiResponse<T>> Delete<T>(string url, bool isAuthorized = true) where T : class, new()
+        {
+            ApiResponse<T> apiResponse = new ApiResponse<T>();
+            T result;
+            try
+            {
+                string token = Preferences.Get(SUBSCRIPTION_KEY, null);
+                if (isAuthorized)
+                {
+                    result = await url.WithHeader(SUBSCRIPTION_KEY, token).DeleteAsync().ReceiveJson<T>();
+                }
+                else
+                {
+                    result = await url.DeleteAsync().ReceiveJson<T>();
+                }
+                apiResponse.IsSuccess = true;
+                apiResponse.ResponseStatusCode = 200;
+                apiResponse.ResponseObject = result;
+            }
+            catch (FlurlHttpException fhx)
+            {
+                apiResponse = new ApiResponse<T>()
+                {
+                    IsSuccess = false,
+                    Errors = new List<string>() { fhx.ToMessage() },
+                    ResponseStatusCode = fhx.StatusCode != null ? fhx.StatusCode.Value : 500
+                };
+                Debug.WriteLine($"DELETE {url} : {fhx.Message}");
+            }
+            catch (Exception ex)
+            {
+                apiResponse = new ApiResponse<T>()
+                {
+                    IsSuccess = false,
+                    Errors = new List<string>() { ex.ToMessage() },
+                    ResponseStatusCode = 500
+                };
+                Debug.WriteLine($"DELETE {url} : {ex.Message}");
+            }
+
+            return apiResponse;
+        }
+
+        protected async Task<ApiResponse<T>> Put<T>(string url, object body, bool isAuthorized = true) where T : class, new()
+        {
+            ApiResponse<T> apiResponse = new ApiResponse<T>();
+            T result;
+            try
+            {
+                string token = Preferences.Get(SUBSCRIPTION_KEY, null);
+                if (isAuthorized)
+                {
+                    result = await url.WithHeader(SUBSCRIPTION_KEY, token).PutJsonAsync(body).ReceiveJson<T>();
+                }
+                else
+                {
+                    result = await url.PutJsonAsync(body).ReceiveJson<T>();
+                }
+                apiResponse.IsSuccess = true;
+                apiResponse.ResponseStatusCode = 200;
+                apiResponse.ResponseObject = result;
+            }
+            catch (FlurlHttpException fhx)
+            {
+                apiResponse = new ApiResponse<T>()
+                {
+                    IsSuccess = false,
+                    Errors = new List<string>() { fhx.ToMessage() },
+                    ResponseStatusCode = fhx.StatusCode != null ? fhx.StatusCode.Value : 500
+                };
+                Debug.WriteLine($"PUT {url} - {JsonConvert.SerializeObject(body)} : {fhx.Message}");
+            }
+            catch (Exception ex)
+            {
+                apiResponse = new ApiResponse<T>()
+                {
+                    IsSuccess = false,
+                    Errors = new List<string>() { ex.ToMessage() },
+                    ResponseStatusCode = 500
+                };
+                Debug.WriteLine($"PUT {url} - {JsonConvert.SerializeObject(body)} : {ex.Message}");
+            }
+            return apiResponse;
+        }
     }
 }

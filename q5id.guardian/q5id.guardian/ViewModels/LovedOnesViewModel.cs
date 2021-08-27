@@ -2,9 +2,13 @@
 using MvvmCross.Navigation;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
+using q5id.guardian.Services.Bases;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -14,6 +18,69 @@ namespace q5id.guardian.ViewModels
 {
     public class LovedOnesViewModel : BaseViewModel
     {
+        private int mSelectedLovedOnesIndex = -1;
+        public int SelectedLovedOnesIndex
+        {
+            get => mSelectedLovedOnesIndex;
+            set
+            {
+                mSelectedLovedOnesIndex = value;
+                RaisePropertyChanged(nameof(SelectedLovedOnesIndex));
+                UpdateProperties();
+            }
+        }
+
+        private void UpdateProperties()
+        {
+            if(SelectedLovedOnesIndex > -1 && Loves != null && SelectedLovedOnesIndex < Loves.Count)
+            {
+                var selectedLovedOnes = Loves[SelectedLovedOnesIndex];
+                FirstName = selectedLovedOnes.FirstName;
+                LastName = selectedLovedOnes.LastName;
+                BirthDay = DateTime.Parse(selectedLovedOnes.DateofBirth);
+                HairColor = HairColors.Find((ItemChoice choice) =>
+                {
+                    return choice.Name == selectedLovedOnes.HairColor;
+                });
+                EyeColor = EyeColors.Find((ItemChoice choice) =>
+                {
+                    return choice.Name == selectedLovedOnes.EyeColor;
+                });
+                HeightFeet = HeightFeets.Find((ItemChoice choice) =>
+                {
+                    return choice.Name == selectedLovedOnes.HeightFeet;
+                });
+                HeightInches = ListHeightInches.Find((ItemChoice choice) =>
+                {
+                    return choice.Name == selectedLovedOnes.HeightInches;
+                });
+                Weight = selectedLovedOnes.Weight;
+                Detail = selectedLovedOnes.OtherInformation;
+                PrimaryImage = null;
+                SecondaryImages = new ObservableCollection<ImageData>();
+                Image = selectedLovedOnes.Image;
+                Image2 = selectedLovedOnes.Image2;
+                Image3 = selectedLovedOnes.Image3;
+                Image4 = selectedLovedOnes.Image4;
+                Image5 = selectedLovedOnes.Image5;
+            }
+            else
+            {
+                OnResetData(null);
+            }
+        }
+
+        private Boolean mIsUpdateSuccess = false;
+        public Boolean IsUpdateSuccess
+        {
+            get => mIsUpdateSuccess;
+            set
+            {
+                mIsUpdateSuccess = value;
+                RaisePropertyChanged(nameof(IsUpdateSuccess));
+            }
+        }
+
         private User mUser = null;
         public User User
         {
@@ -87,6 +154,64 @@ namespace q5id.guardian.ViewModels
             
         }
 
+        private string mImage = null;
+        public string Image
+        {
+            get
+            {
+                return mImage;
+            }
+            set
+            {
+                mImage = value;
+                RaisePropertyChanged(nameof(Image));
+            }
+        }
+
+        private string mImage2 = null;
+        public string Image2
+        {
+            get => mImage2;
+            set
+            {
+                mImage2 = value;
+                RaisePropertyChanged(nameof(Image2));
+            }
+        }
+
+        private string mImage3 = null;
+        public string Image3
+        {
+            get => mImage3;
+            set
+            {
+                mImage3 = value;
+                RaisePropertyChanged(nameof(Image3));
+            }
+        }
+
+        private string mImage4 = null;
+        public string Image4
+        {
+            get => mImage4;
+            set
+            {
+                mImage4 = value;
+                RaisePropertyChanged(nameof(Image4));
+            }
+        }
+
+        private string mImage5 = null;
+        public string Image5
+        {
+            get => mImage5;
+            set
+            {
+                mImage5 = value;
+                RaisePropertyChanged(nameof(Image5));
+            }
+        }
+
         private DateTime? mBirthDay = null;
         public DateTime? BirthDay
         {
@@ -98,8 +223,8 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private string mHeightFeet = null;
-        public string HeightFeet
+        private ItemChoice mHeightFeet = null;
+        public ItemChoice HeightFeet
         {
             get => mHeightFeet;
             set
@@ -110,8 +235,8 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private string mHeightInches = null;
-        public string HeightInches
+        private ItemChoice mHeightInches = null;
+        public ItemChoice HeightInches
         {
             get => mHeightInches;
             set
@@ -126,7 +251,11 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                return mHeightFeet + "’ " + mHeightInches + "”";
+                if(mHeightFeet == null || mHeightInches == null)
+                {
+                    return "0";
+                }
+                return mHeightFeet.Name + "’ " + mHeightInches.Name + "”";
             }
         }
 
@@ -180,8 +309,8 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private byte[] mPrimaryImage = null;
-        public byte[] PrimaryImage
+        private ImageData mPrimaryImage = null;
+        public ImageData PrimaryImage
         {
             get
             {
@@ -194,8 +323,8 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private ObservableCollection<byte[]> mSecondaryImages = null;
-        public ObservableCollection<byte[]> SecondaryImages
+        private ObservableCollection<ImageData> mSecondaryImages = null;
+        public ObservableCollection<ImageData> SecondaryImages
         {
             get
             {
@@ -208,20 +337,24 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private Command mResetCommand;
-        public Command ResetCommand
+        public Command CreateUpdateCommand
         {
-            get => mResetCommand;
-            set
+            get
             {
-                mResetCommand = value;
-                RaisePropertyChanged(nameof(ResetCommand));
+                return new Command(CreateUpdateLove);
+            }
+        }
+
+        public Command DeleteCommand
+        {
+            get
+            {
+                return new Command(DeleteLove);
             }
         }
 
         public LovedOnesViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
-            ResetCommand = new Command(OnResetData);
         }
 
         private void OnResetData(object obj)
@@ -235,6 +368,8 @@ namespace q5id.guardian.ViewModels
             this.HeightInches = null;
             this.Weight = null;
             this.Detail = null;
+            this.PrimaryImage = null;
+            this.SecondaryImages = null;
         }
 
         private List<ItemChoice> mHairColors = null;
@@ -259,7 +394,29 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private async Task GetChoices()
+        private List<ItemChoice> mHeightFeets = null;
+        public List<ItemChoice> HeightFeets
+        {
+            get => mHeightFeets;
+            set
+            {
+                mHeightFeets = value;
+                RaisePropertyChanged(nameof(HeightFeets));
+            }
+        }
+
+        private List<ItemChoice> mListHeightInches = null;
+        public List<ItemChoice> ListHeightInches
+        {
+            get => mListHeightInches;
+            set
+            {
+                mListHeightInches = value;
+                RaisePropertyChanged(nameof(ListHeightInches));
+            }
+        }
+
+        private async void GetChoices()
         {
             var response = await AppService.Instances.GetChoices();
             if (response.IsSuccess)
@@ -282,46 +439,192 @@ namespace q5id.guardian.ViewModels
                 {
                     EyeColors = eyeColorChoice.Items;
                 }
+
+                Choice heightFeetChoice = choices.Find((Choice obj) =>
+                {
+                    return obj.Name == Utils.Constansts.HEIGHT_FEETS_SETTING_KEY;
+                });
+                if (heightFeetChoice != null)
+                {
+                    HeightFeets = heightFeetChoice.Items;
+                }
+
+                Choice heightInchesChoice = choices.Find((Choice obj) =>
+                {
+                    return obj.Name == Utils.Constansts.HEIGHT_LIST_INCHES_SETTING_KEY;
+                });
+                if (heightInchesChoice != null)
+                {
+                    ListHeightInches = heightInchesChoice.Items;
+                }
             }
         }
 
+        private StructureEntity LovedOnesEntity = null;
+
         public override async Task Initialize()
         {
-            await GetLoves();
-            await GetChoices();
-        }
-
-        private async Task GetLoves()
-        {
-            Loves = new List<Love>()
-            {
-                new Love()
-                {
-                    FirstName = "Amber",
-                    LastName = "Jones",
-                    ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-01.jpg",
-                    UpdatedTime = null,
-                    AddedTime = new DateTime(2020, 1, 1)
-                },
-                new Love()
-                {
-                    FirstName = "Sarah",
-                    LastName = "Jones",
-                    ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-05.jpg",
-                    UpdatedTime = new DateTime(2021, 4, 1),
-                    AddedTime = new DateTime(2020, 1, 1)
-                },
-                new Love()
-                {
-                    FirstName = "Theo",
-                    LastName = "Jones",
-                    ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-06.jpg",
-                    UpdatedTime = new DateTime(2021, 4, 1),
-                    AddedTime = new DateTime(2020, 1, 1),
-                    IsLongTime = true,
-                }
-            };
+            GetLovedOnesEntity();
+            GetLoves();
+            GetChoices();
             await Task.CompletedTask;
         }
+
+        private void GetLovedOnesEntity()
+        {
+            var settings = Utils.Utils.GetSettings();
+            if (settings != null)
+            {
+                LovedOnesEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
+                {
+                    return entity.EntityName == Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY;
+                });
+            }
+        }
+
+        private async void GetLoves()
+        {
+            Loves = new List<Love>();
+            IsLoading = true;
+            if (LovedOnesEntity != null)
+            {
+                var response = await AppService.Instances.GetListLovedOnes(LovedOnesEntity.Id);
+                if (response.IsSuccess)
+                {
+                    Loves = response.ResponseObject.Select((Entity<Love> entityLove) =>
+                    {
+                        var love = entityLove.Data;
+                        love.Id = entityLove.Id;
+                        return love;
+                    }).ToList();
+                }
+            }
+            IsLoading = false;
+        }
+
+        private async void CreateUpdateLove()
+        {
+            if (LovedOnesEntity != null)
+            {
+                IsLoading = true;
+                Love lovedOnesToUpdate = null;
+                if (mSelectedLovedOnesIndex > -1 && mSelectedLovedOnesIndex < Loves.Count)
+                {
+                    //Update Flow
+                    lovedOnesToUpdate = Loves[mSelectedLovedOnesIndex];
+                }
+                var lovedOnesToPost = new Love()
+                {
+                    Id = lovedOnesToUpdate != null ? lovedOnesToUpdate.Id : "",
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    DateofBirth = GetStrDateOfBirth(),
+                    HairColor = HairColor.Name,
+                    EyeColor = EyeColor.Name,
+                    HeightFeet = HeightFeet.Name,
+                    HeightInches = HeightInches.Name,
+                    Weight = Weight,
+                    OtherInformation = Detail,
+                    Image = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image : "",
+                    Image2 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image2 : "",
+                    Image3 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image3 : "",
+                    Image4 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image4 : "",
+                    Image5 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image5 : "",
+                };
+                if(PrimaryImage != null)
+                {
+                    var responseUploadImageOne = await AppService.Instances.UploadImage(LovedOnesEntity.Id, PrimaryImage);
+                    if (responseUploadImageOne.IsSuccess)
+                    {
+                        lovedOnesToPost.Image = responseUploadImageOne.ResponseObject.Path;
+                    }
+                }
+                if (SecondaryImages.Count > 0)
+                {
+                    var responseUploadImageTwo = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[0]);
+                    if (responseUploadImageTwo.IsSuccess)
+                    {
+                        lovedOnesToPost.Image2 = responseUploadImageTwo.ResponseObject.Path;
+                    }
+                }
+                if (SecondaryImages.Count > 1)
+                {
+                    var responseUploadImageThree = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[1]);
+                    if (responseUploadImageThree.IsSuccess)
+                    {
+                        lovedOnesToPost.Image3 = responseUploadImageThree.ResponseObject.Path;
+                    }
+                }
+                if (SecondaryImages.Count > 2)
+                {
+                    var responseUploadImageFour = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[2]);
+                    if (responseUploadImageFour.IsSuccess)
+                    {
+                        lovedOnesToPost.Image4 = responseUploadImageFour.ResponseObject.Path;
+                    }
+                }
+                if (SecondaryImages.Count > 3)
+                {
+                    var responseUploadImageFive = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[3]);
+                    if (responseUploadImageFive.IsSuccess)
+                    {
+                        lovedOnesToPost.Image5 = responseUploadImageFive.ResponseObject.Path;
+                    }
+                }
+                ApiResponse<EntityResponse<Love>> response;
+                if(lovedOnesToUpdate != null)
+                {
+                    //Update flow
+                    response = await AppService.Instances.UpdateLovedOnes(LovedOnesEntity.Id, lovedOnesToPost);
+                }
+                else
+                {
+                    //Create flow
+                    response = await AppService.Instances.CreateLovedOnes(LovedOnesEntity.Id, lovedOnesToPost);
+                }
+                
+                IsLoading = false;
+                if (response.IsSuccess)
+                {
+                    IsUpdateSuccess = true;
+                    SelectedLovedOnesIndex = -1;
+                    GetLoves();
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", response.Message, "OK");
+                }
+            }
+        }
+
+        private string GetStrDateOfBirth()
+        {
+            if(BirthDay != null)
+            {
+                return BirthDay.Value.ToString(Utils.Constansts.BIRTHDAY_DATE_FORMAT);
+            }
+            return "";
+        }
+
+        private async void DeleteLove()
+        {
+            if (mSelectedLovedOnesIndex > -1 && mSelectedLovedOnesIndex < Loves.Count)
+            {
+                IsLoading = true;
+                var selectedLovedOnes = Loves[mSelectedLovedOnesIndex];
+                var response = await AppService.Instances.DeleteLovedOnes(selectedLovedOnes.Id);
+                IsLoading = false;
+                if (response.IsSuccess)
+                {
+                    IsUpdateSuccess = true;
+                    GetLoves();
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", response.Message, "OK");
+                }
+            }
+        }
+
     }
 }

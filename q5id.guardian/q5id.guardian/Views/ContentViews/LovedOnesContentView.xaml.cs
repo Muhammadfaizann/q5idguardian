@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Input;
+using q5id.guardian.Models;
 using q5id.guardian.Utils;
 using q5id.guardian.Views.Base;
 using q5id.guardian.Views.ContentViews.LovedOnesChildContentViews;
@@ -12,41 +13,68 @@ namespace q5id.guardian.Views.ContentViews
 {
     public partial class LovedOnesContentView : BaseContainerView
     {
-        public static readonly BindableProperty PrimaryImageSourceByteArrayProperty =
-            BindableProperty.Create(nameof(PrimaryImageSourceByteArray), typeof(byte[]), typeof(LovedOnesContentView), null, defaultBindingMode: BindingMode.TwoWay);
+        public static readonly BindableProperty IsUpdateSuccessProperty =
+            BindableProperty.Create(nameof(IsUpdateSuccess), typeof(Boolean), typeof(LovedOnesContentView), false, defaultBindingMode: BindingMode.TwoWay, propertyChanged: OnIsUpdateSuccessChanged);
 
-        public byte[] PrimaryImageSourceByteArray
+        private static void OnIsUpdateSuccessChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            get
+            if(bindable is LovedOnesContentView view && newValue is Boolean boolVal)
             {
-                return (byte[])GetValue(PrimaryImageSourceByteArrayProperty);
-            }
-            set
-            {
-                SetValue(PrimaryImageSourceByteArrayProperty, value);
+                if(boolVal == true)
+                {
+                    view.OnUpdateSuccess();
+                    view.IsUpdateSuccess = false;
+                }
             }
         }
 
-        public static readonly BindableProperty SecondaryImageSourceByteArraysProperty =
-            BindableProperty.Create(nameof(SecondaryImageSourceByteArrays), typeof(ObservableCollection<byte[]>), typeof(LovedOnesContentView), null, defaultBindingMode: BindingMode.TwoWay, propertyChanged: OnSecondImagesChanged);
+        public Boolean IsUpdateSuccess
+        {
+            get
+            {
+                return (Boolean)GetValue(IsUpdateSuccessProperty);
+            }
+            set
+            {
+                SetValue(IsUpdateSuccessProperty, value);
+            }
+        }
+
+        public static readonly BindableProperty PrimaryImageDataProperty =
+            BindableProperty.Create(nameof(PrimaryImageData), typeof(ImageData), typeof(LovedOnesContentView), null, defaultBindingMode: BindingMode.TwoWay);
+
+        public ImageData PrimaryImageData
+        {
+            get
+            {
+                return (ImageData)GetValue(PrimaryImageDataProperty);
+            }
+            set
+            {
+                SetValue(PrimaryImageDataProperty, value);
+            }
+        }
+
+        public static readonly BindableProperty SecondaryImageDatasProperty =
+            BindableProperty.Create(nameof(SecondaryImageDatas), typeof(ObservableCollection<ImageData>), typeof(LovedOnesContentView), null, defaultBindingMode: BindingMode.TwoWay, propertyChanged: OnSecondImagesChanged);
 
         private static void OnSecondImagesChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if(bindable is LovedOnesContentView lovedOnesContent && newValue is ObservableCollection<byte[]> newList)
+            if(bindable is LovedOnesContentView lovedOnesContent && newValue is ObservableCollection<ImageData> newList)
             {
-                lovedOnesContent.SecondaryImageSourceByteArrays = newList;
+                lovedOnesContent.SecondaryImageDatas = newList;
             }
         }
 
-        public ObservableCollection<byte[]> SecondaryImageSourceByteArrays
+        public ObservableCollection<ImageData> SecondaryImageDatas
         {
             get
             {
-                return (ObservableCollection<byte[]>)GetValue(SecondaryImageSourceByteArraysProperty);
+                return (ObservableCollection<ImageData>)GetValue(SecondaryImageDatasProperty);
             }
             set
             {
-                SetValue(SecondaryImageSourceByteArraysProperty, value);
+                SetValue(SecondaryImageDatasProperty, value);
             }
         }
 
@@ -66,8 +94,9 @@ namespace q5id.guardian.Views.ContentViews
         {
             InitializeComponent();
             this.SetBinding(ResetCommandProperty, "ResetCommand");
-            this.SetBinding(PrimaryImageSourceByteArrayProperty, "PrimaryImage");
-            this.SetBinding(SecondaryImageSourceByteArraysProperty, "SecondaryImages");
+            this.SetBinding(PrimaryImageDataProperty, "PrimaryImage");
+            this.SetBinding(SecondaryImageDatasProperty, "SecondaryImages");
+            this.SetBinding(IsUpdateSuccessProperty, "IsUpdateSuccess");
             MainPage.UpdateRightControlVisibility(false);
             MainPage.UpdateRightControlImage(FontAwesomeIcons.Times);
             ResetView();
@@ -76,12 +105,19 @@ namespace q5id.guardian.Views.ContentViews
             
         }
 
-        
+        public void OnUpdateSuccess()
+        {
+            MainPage.UpdateRightControlVisibility(false);
+            MainPage.UpdateRightControlImage(FontAwesomeIcons.Times);
+            ClearImages();
+            ResetView();
+            this.PushView(new LovedOnesListView(this));
+        }
 
         public void ClearImages()
         {
-            PrimaryImageSourceByteArray = null;
-            SecondaryImageSourceByteArrays = new ObservableCollection<byte[]>();
+            PrimaryImageData = null;
+            SecondaryImageDatas = new ObservableCollection<ImageData>();
         }
 
         protected override void OnParentSet()

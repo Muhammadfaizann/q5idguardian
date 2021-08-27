@@ -220,6 +220,7 @@
                             CornerRadius="16"
                             HeightRequest="32"
                             HorizontalOptions="Center"
+                            Command="{Binding CreateUpdateCommand}"
                             NormalBackgroundStartColor="{StaticResource dimCharcoal}"
                             NormalBackgroundEndColor="{StaticResource normalCharcoal}"
                             PressedBackgroundColor="{StaticResource dimCharcoal}"

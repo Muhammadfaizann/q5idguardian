@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Threading.Tasks;
 using FFImageLoading.Forms;
+using q5id.guardian.Models;
 using q5id.guardian.Views.Base;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -65,13 +67,18 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
             FrmSnd4.IsVisible = false;
         }
 
-        private async Task<System.IO.Stream> PickPhotoAsync()
+        private async Task<ImageData> PickPhotoAsync()
         {
             try
             {
                 var photo = await MediaPicker.PickPhotoAsync();
                 var photoStream = await photo.OpenReadAsync();
-                return photoStream;
+                
+                return new ImageData()
+                {
+                    ImageByteArray = Utils.Utils.ConvertStreamToByteArray(photoStream),
+                    Extension = Path.GetExtension(photo.FileName)
+                };
             }
             catch (Exception ex)
             {
@@ -90,60 +97,62 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
         {
             if (MainContentView is LovedOnesContentView lovedOnesContentView)
             {
-                System.IO.Stream sourceStream = await PickPhotoAsync();
+                ImageData imageData = await PickPhotoAsync();
                
-                if (sourceStream != null)
+                if (imageData != null)
                 {
-                    var listSecondaryImages = lovedOnesContentView.SecondaryImageSourceByteArrays;
+                    var listSecondImageDatas = lovedOnesContentView.SecondaryImageDatas;
                     if (sender == FrmPrimaryPhotoBtn)
                     {
-                        lovedOnesContentView.PrimaryImageSourceByteArray = Utils.Utils.ConvertStreamToByteArray(sourceStream);
-                        ImgPrimary.Source = ImageSource.FromStream(() => sourceStream);
+                        lovedOnesContentView.PrimaryImageData = imageData;
+                        ImgPrimary.Source = ImageSource.FromStream(() =>
+                        {
+                            return new MemoryStream(imageData.ImageByteArray);
+                        });
                         FrmSnd1.IsVisible = true;
-
                         UpdateView(true);
                     }
                     else if (sender == FrmSnd1)
                     {
-                        listSecondaryImages.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
-                        ImgSnd1.Source = ImageSource.FromStream(() => sourceStream);
+                        listSecondImageDatas.Add(imageData);
+                        ImgSnd1.Source = ImageSource.FromStream(() => new MemoryStream(imageData.ImageByteArray));
                         FrmSnd1.IsVisible = false;
                         FrmSnd2.IsVisible = true;
 
                     }
                     else if (sender == FrmSnd2)
                     {
-                        listSecondaryImages.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
-                        ImgSnd2.Source = ImageSource.FromStream(() => sourceStream);
+                        listSecondImageDatas.Add(imageData);
+                        ImgSnd2.Source = ImageSource.FromStream(() => new MemoryStream(imageData.ImageByteArray));
                         FrmSnd2.IsVisible = false;
                         FrmSnd3.IsVisible = true;
 
                     }
                     else if (sender == FrmSnd3)
                     {
-                        listSecondaryImages.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
-                        ImgSnd3.Source = ImageSource.FromStream(() => sourceStream);
+                        listSecondImageDatas.Add(imageData);
+                        ImgSnd3.Source = ImageSource.FromStream(() => new MemoryStream(imageData.ImageByteArray));
                         FrmSnd3.IsVisible = false;
                         FrmSnd4.IsVisible = true;
 
                     }
                     else if (sender == FrmSnd4)
                     {
-                        listSecondaryImages.Add(Utils.Utils.ConvertStreamToByteArray(sourceStream));
-                        ImgSnd4.Source = ImageSource.FromStream(() => sourceStream);
+                        listSecondImageDatas.Add(imageData);
+                        ImgSnd4.Source = ImageSource.FromStream(() => new MemoryStream(imageData.ImageByteArray));
                         FrmSnd4.IsVisible = false;
                     }
-                    lovedOnesContentView.SecondaryImageSourceByteArrays = CloneImages(listSecondaryImages);
+                    lovedOnesContentView.SecondaryImageDatas = CloneImages(listSecondImageDatas);
                 }
             }
         }
 
-        private ObservableCollection<byte[]> CloneImages(ObservableCollection<byte[]> listImage)
+        private ObservableCollection<ImageData> CloneImages(ObservableCollection<ImageData> listImage)
         {
-            var result = new ObservableCollection<byte[]>();
-            foreach(byte[] imgByteArr in listImage)
+            var result = new ObservableCollection<ImageData>();
+            foreach (ImageData imageData in listImage)
             {
-                result.Add(imgByteArr);
+                result.Add(imageData);
             }
             return result;
         }

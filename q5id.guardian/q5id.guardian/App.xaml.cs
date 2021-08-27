@@ -24,8 +24,11 @@ namespace q5id.guardian
             var response = await AppService.Instances.GetSettings();
             if (response.IsSuccess)
             {
-                var struture = response.ResponseObject;
-                Utils.Utils.SaveSetting(struture.Entities);
+                var strutures = response.ResponseObject;
+                if(strutures.Count > 0)
+                {
+                    Utils.Utils.SaveSetting(strutures[0].Entities);
+                }
             }
         }
 

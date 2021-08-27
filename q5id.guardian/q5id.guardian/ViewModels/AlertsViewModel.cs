@@ -147,37 +147,7 @@ namespace q5id.guardian.ViewModels
 
         private void GetLoves()
         {
-            Loves = new ObservableCollection<Love>()
-            {
-                new Love()
-                {
-                    FirstName = "Amber",
-                    LastName = "Jones",
-                    ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-01.jpg",
-                    UpdatedTime = null,
-                    AddedTime = new DateTime(2020, 1, 1),
-                    BirthDay = new DateTime(2016, 1, 1),
-                },
-                new Love()
-                {
-                    FirstName = "Sarah",
-                    LastName = "Jones",
-                    ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-05.jpg",
-                    UpdatedTime = new DateTime(2021, 4, 1),
-                    AddedTime = new DateTime(2020, 1, 1),
-                    BirthDay = new DateTime(2017, 1, 1),
-                },
-                new Love()
-                {
-                    FirstName = "Theo",
-                    LastName = "Jones",
-                    ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-06.jpg",
-                    UpdatedTime = new DateTime(2021, 4, 1),
-                    AddedTime = new DateTime(2020, 1, 1),
-                    BirthDay = new DateTime(2018, 1, 1),
-                    IsLongTime = true,
-                }
-            };
+            Loves = new ObservableCollection<Love>();
         }
 
         private void GetFeeds()
@@ -237,7 +207,6 @@ namespace q5id.guardian.ViewModels
                         FirstName= "John",
                         LastName= "Doe",
                         ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-01.jpg",
-                        BirthDay= new DateTime(2016, 12, 6)
                     }
                 })
                 {
@@ -251,7 +220,6 @@ namespace q5id.guardian.ViewModels
                     {
                         FirstName= "Hue",
                         LastName= "Sanron",
-                        BirthDay= new DateTime(2018, 5, 13),
                         ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-05.jpg",
                     }
                 })
@@ -272,7 +240,6 @@ namespace q5id.guardian.ViewModels
                     {
                         FirstName= "Donian",
                         LastName= "Billean",
-                        BirthDay= new DateTime(2015, 2, 8),
                         ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-06.jpg",
                     }
                 })

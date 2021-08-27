@@ -14,6 +14,16 @@ namespace q5id.guardian.ViewModels
 {
     public class BaseViewModel : MvxNavigationViewModel
     {
+        private bool mIsLoading = false;
+        public bool IsLoading
+        {
+            get => mIsLoading;
+            set
+            {
+                mIsLoading = value;
+                RaisePropertyChanged(nameof(IsLoading));
+            }
+        }
 
         public BaseViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(logProvider, navigationService)
         {

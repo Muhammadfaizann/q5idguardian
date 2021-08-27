@@ -133,36 +133,48 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <control:AppEntry
+                                <control:AppPopupPickerView
                                     Grid.Column="0"
-                                    Padding="10"
-                                    BorderThickness="2"
-                                    FocusBorderColor="#696B7A"
-                                    FontAttributes="Italic"
-                                    FontFamily="PoppinsItalic"
-                                    HeightRequest="32"
-                                    Keyboard="Numeric"
-                                    NoramlBorderColor="#E8EAF2"
                                     Placeholder="Feet"
-                                    PlaceholderColor="{StaticResource lightCharcoal}"
-                                    Style="{StaticResource etBodyNormalLg}"
-                                    Text="{Binding HeightFeet}"
-                                    TextColor="{StaticResource normalCharcoal}" />
-                                <control:AppEntry
-                                    Grid.Column="1"
-                                    Padding="10"
                                     BorderThickness="2"
+                                    FontSize="14"
                                     FocusBorderColor="#696B7A"
-                                    FontAttributes="Italic"
-                                    FontFamily="PoppinsItalic"
-                                    HeightRequest="32"
-                                    Keyboard="Numeric"
-                                    NoramlBorderColor="#E8EAF2"
-                                    Placeholder="Inches"
                                     PlaceholderColor="{StaticResource lightCharcoal}"
-                                    Style="{StaticResource etBodyNormalLg}"
-                                    Text="{Binding HeightInches}"
-                                    TextColor="{StaticResource normalCharcoal}" />
+                                    TextColor="{StaticResource dimCharcoal}"
+                                    HeightRequest="32"
+                                    ItemsSource="{Binding HeightFeets}"
+                                    ItemDisplayBindingPath="Name"
+                                    SelectedItem="{Binding HeightFeet}"
+                                    NoramlBorderColor="#E8EAF2">
+                                    <control:AppPopupPickerView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout Orientation="Horizontal" Padding="10">
+                                                <Label HorizontalOptions="Fill" VerticalOptions="Center" Text="{Binding Name}" />
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </control:AppPopupPickerView.ItemTemplate>
+                                </control:AppPopupPickerView>
+                                <control:AppPopupPickerView
+                                    Grid.Column="1"
+                                    Placeholder="Inches"
+                                    BorderThickness="2"
+                                    FontSize="14"
+                                    FocusBorderColor="#696B7A"
+                                    PlaceholderColor="{StaticResource lightCharcoal}"
+                                    TextColor="{StaticResource dimCharcoal}"
+                                    HeightRequest="32"
+                                    ItemsSource="{Binding ListHeightInches}"
+                                    ItemDisplayBindingPath="Name"
+                                    SelectedItem="{Binding HeightInches}"
+                                    NoramlBorderColor="#E8EAF2">
+                                    <control:AppPopupPickerView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout Orientation="Horizontal" Padding="10">
+                                                <Label HorizontalOptions="Fill" VerticalOptions="Center" Text="{Binding Name}" />
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </control:AppPopupPickerView.ItemTemplate>
+                                </control:AppPopupPickerView>
                             </Grid>
                             <Label
                                 Margin="0,30,0,5"
