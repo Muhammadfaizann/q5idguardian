@@ -18,23 +18,23 @@ namespace q5id.guardian.ViewModels
 {
     public class LovedOnesViewModel : BaseViewModel
     {
-        private int mSelectedLovedOnesIndex = -1;
-        public int SelectedLovedOnesIndex
+        private Love mSelectedLovedOnes = null;
+        public Love SelectedLovedOnes
         {
-            get => mSelectedLovedOnesIndex;
+            get => mSelectedLovedOnes;
             set
             {
-                mSelectedLovedOnesIndex = value;
-                RaisePropertyChanged(nameof(SelectedLovedOnesIndex));
+                mSelectedLovedOnes = value;
+                RaisePropertyChanged(nameof(SelectedLovedOnes));
                 UpdateProperties();
             }
         }
 
         private void UpdateProperties()
         {
-            if(SelectedLovedOnesIndex > -1 && Loves != null && SelectedLovedOnesIndex < Loves.Count)
+            if(SelectedLovedOnes != null)
             {
-                var selectedLovedOnes = Loves[SelectedLovedOnesIndex];
+                var selectedLovedOnes = SelectedLovedOnes;
                 FirstName = selectedLovedOnes.FirstName;
                 LastName = selectedLovedOnes.LastName;
                 BirthDay = DateTime.Parse(selectedLovedOnes.DateofBirth);
@@ -57,7 +57,10 @@ namespace q5id.guardian.ViewModels
                 Weight = selectedLovedOnes.Weight;
                 Detail = selectedLovedOnes.OtherInformation;
                 PrimaryImage = null;
-                SecondaryImages = new ObservableCollection<ImageData>();
+                SecondaryImages = new ObservableCollection<ImageData>()
+                {
+                    null, null, null, null,
+                };
                 Image = selectedLovedOnes.Image;
                 Image2 = selectedLovedOnes.Image2;
                 Image3 = selectedLovedOnes.Image3;
@@ -353,6 +356,24 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        public Command ResetCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    if(SelectedLovedOnes == null)
+                    {
+                        OnResetData(null);
+                    }
+                    else
+                    {
+                        SelectedLovedOnes = null;
+                    }
+                });
+            }
+        }
+
         public LovedOnesViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
         }
@@ -369,7 +390,15 @@ namespace q5id.guardian.ViewModels
             this.Weight = null;
             this.Detail = null;
             this.PrimaryImage = null;
-            this.SecondaryImages = null;
+            this.SecondaryImages = new ObservableCollection<ImageData>()
+            {
+                null, null, null, null
+            };
+            this.Image = "";
+            this.Image2 = "";
+            this.Image3 = "";
+            this.Image4 = "";
+            this.Image5 = "";
         }
 
         private List<ItemChoice> mHairColors = null;
@@ -461,12 +490,17 @@ namespace q5id.guardian.ViewModels
         }
 
         private StructureEntity LovedOnesEntity = null;
+        private bool isInitData = false;
 
         public override async Task Initialize()
         {
-            GetLovedOnesEntity();
-            GetLoves();
-            GetChoices();
+            if(isInitData == false)
+            {
+                GetLovedOnesEntity();
+                GetLoves();
+                GetChoices();
+                isInitData = true;
+            }
             await Task.CompletedTask;
         }
 
@@ -484,7 +518,6 @@ namespace q5id.guardian.ViewModels
 
         private async void GetLoves()
         {
-            Loves = new List<Love>();
             IsLoading = true;
             if (LovedOnesEntity != null)
             {
@@ -508,10 +541,10 @@ namespace q5id.guardian.ViewModels
             {
                 IsLoading = true;
                 Love lovedOnesToUpdate = null;
-                if (mSelectedLovedOnesIndex > -1 && mSelectedLovedOnesIndex < Loves.Count)
+                if (mSelectedLovedOnes != null)
                 {
                     //Update Flow
-                    lovedOnesToUpdate = Loves[mSelectedLovedOnesIndex];
+                    lovedOnesToUpdate = mSelectedLovedOnes;
                 }
                 var lovedOnesToPost = new Love()
                 {
@@ -519,10 +552,10 @@ namespace q5id.guardian.ViewModels
                     FirstName = FirstName,
                     LastName = LastName,
                     DateofBirth = GetStrDateOfBirth(),
-                    HairColor = HairColor.Name,
-                    EyeColor = EyeColor.Name,
-                    HeightFeet = HeightFeet.Name,
-                    HeightInches = HeightInches.Name,
+                    HairColor = HairColor == null ? "" : HairColor.Name,
+                    EyeColor = EyeColor == null ? "" : EyeColor.Name,
+                    HeightFeet = HeightFeet == null ? "" : HeightFeet.Name,
+                    HeightInches = HeightInches == null ? "" : HeightInches.Name,
                     Weight = Weight,
                     OtherInformation = Detail,
                     Image = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image : "",
@@ -539,36 +572,39 @@ namespace q5id.guardian.ViewModels
                         lovedOnesToPost.Image = responseUploadImageOne.ResponseObject.Path;
                     }
                 }
-                if (SecondaryImages.Count > 0)
+                if(SecondaryImages != null)
                 {
-                    var responseUploadImageTwo = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[0]);
-                    if (responseUploadImageTwo.IsSuccess)
+                    if (SecondaryImages[0] != null)
                     {
-                        lovedOnesToPost.Image2 = responseUploadImageTwo.ResponseObject.Path;
+                        var responseUploadImageTwo = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[0]);
+                        if (responseUploadImageTwo.IsSuccess)
+                        {
+                            lovedOnesToPost.Image2 = responseUploadImageTwo.ResponseObject.Path;
+                        }
                     }
-                }
-                if (SecondaryImages.Count > 1)
-                {
-                    var responseUploadImageThree = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[1]);
-                    if (responseUploadImageThree.IsSuccess)
+                    if (SecondaryImages[1] != null)
                     {
-                        lovedOnesToPost.Image3 = responseUploadImageThree.ResponseObject.Path;
+                        var responseUploadImageThree = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[1]);
+                        if (responseUploadImageThree.IsSuccess)
+                        {
+                            lovedOnesToPost.Image3 = responseUploadImageThree.ResponseObject.Path;
+                        }
                     }
-                }
-                if (SecondaryImages.Count > 2)
-                {
-                    var responseUploadImageFour = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[2]);
-                    if (responseUploadImageFour.IsSuccess)
+                    if (SecondaryImages[2] != null)
                     {
-                        lovedOnesToPost.Image4 = responseUploadImageFour.ResponseObject.Path;
+                        var responseUploadImageFour = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[2]);
+                        if (responseUploadImageFour.IsSuccess)
+                        {
+                            lovedOnesToPost.Image4 = responseUploadImageFour.ResponseObject.Path;
+                        }
                     }
-                }
-                if (SecondaryImages.Count > 3)
-                {
-                    var responseUploadImageFive = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[3]);
-                    if (responseUploadImageFive.IsSuccess)
+                    if (SecondaryImages[3] != null)
                     {
-                        lovedOnesToPost.Image5 = responseUploadImageFive.ResponseObject.Path;
+                        var responseUploadImageFive = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[3]);
+                        if (responseUploadImageFive.IsSuccess)
+                        {
+                            lovedOnesToPost.Image5 = responseUploadImageFive.ResponseObject.Path;
+                        }
                     }
                 }
                 ApiResponse<EntityResponse<Love>> response;
@@ -584,11 +620,18 @@ namespace q5id.guardian.ViewModels
                 }
                 
                 IsLoading = false;
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.ResponseObject != null)
                 {
-                    IsUpdateSuccess = true;
-                    SelectedLovedOnesIndex = -1;
-                    GetLoves();
+                    if (response.ResponseObject.IsSuccessful)
+                    {
+                        IsUpdateSuccess = true;
+                        SelectedLovedOnes = null;
+                        GetLoves();
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("Error", response.ResponseObject.Message, "OK");
+                    }
                 }
                 else
                 {
@@ -608,10 +651,10 @@ namespace q5id.guardian.ViewModels
 
         private async void DeleteLove()
         {
-            if (mSelectedLovedOnesIndex > -1 && mSelectedLovedOnesIndex < Loves.Count)
+            if (mSelectedLovedOnes != null)
             {
                 IsLoading = true;
-                var selectedLovedOnes = Loves[mSelectedLovedOnesIndex];
+                var selectedLovedOnes = mSelectedLovedOnes;
                 var response = await AppService.Instances.DeleteLovedOnes(selectedLovedOnes.Id);
                 IsLoading = false;
                 if (response.IsSuccess)

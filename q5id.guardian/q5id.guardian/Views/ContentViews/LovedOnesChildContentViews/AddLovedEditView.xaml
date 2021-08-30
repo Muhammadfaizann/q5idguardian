@@ -43,7 +43,6 @@
                                     HorizontalOptions="Center"
                                     VerticalOptions="Center">
                                     <ffimage:CachedImage x:Name="ImgPrimary" Aspect="AspectFill" />
-                                    <!--<Image x:Name="ImgPrimary" Aspect="AspectFill" />-->
                                 </Frame>
                                 <Grid
                                     RowSpacing="8"
@@ -68,7 +67,7 @@
                                         HasShadow="False"
                                         HorizontalOptions="Fill"
                                         VerticalOptions="Fill">
-                                        <Image x:Name="ImgSec1" Aspect="AspectFill" />
+                                        <ffimage:CachedImage x:Name="ImgSec1" Aspect="AspectFill" />
                                     </Frame>
                                     <Frame
                                         Grid.Row="0"
@@ -80,7 +79,7 @@
                                         HasShadow="False"
                                         HorizontalOptions="Fill"
                                         VerticalOptions="Fill">
-                                        <Image x:Name="ImgSec2" Aspect="AspectFill" />
+                                        <ffimage:CachedImage x:Name="ImgSec2" Aspect="AspectFill" />
                                     </Frame>
                                     <Frame
                                         Grid.Row="1"
@@ -92,7 +91,7 @@
                                         HasShadow="False"
                                         HorizontalOptions="Fill"
                                         VerticalOptions="Fill">
-                                        <Image x:Name="ImgSec3" Aspect="AspectFill" />
+                                        <ffimage:CachedImage x:Name="ImgSec3" Aspect="AspectFill" />
                                     </Frame>
                                     <Frame
                                         Grid.Row="1"
@@ -104,7 +103,7 @@
                                         HasShadow="False"
                                         HorizontalOptions="Fill"
                                         VerticalOptions="Fill">
-                                        <Image x:Name="ImgSec4" Aspect="AspectFill" />
+                                        <ffimage:CachedImage x:Name="ImgSec4" Aspect="AspectFill" />
                                     </Frame>
                                 </Grid>
                             </StackLayout>
@@ -132,7 +131,7 @@
                                     Style="{StaticResource etBodyNormalLg}"
                                     TextColor="{StaticResource normalCharcoal}" />
                             <Label
-                                Margin="0,30,0,5"
+                                Margin="0,10,0,5"
                                 HorizontalOptions="Fill"
                                 LineBreakMode="WordWrap"
                                 HorizontalTextAlignment="Start"

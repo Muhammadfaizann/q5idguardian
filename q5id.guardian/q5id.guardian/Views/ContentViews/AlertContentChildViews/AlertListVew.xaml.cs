@@ -16,9 +16,10 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
 
         void OnAlertItemClicked(object sender, EventArgs e)
         {
-            if (e is TappedEventArgs tappedEventArgs)
+            if (e is TappedEventArgs tappedEventArgs && MainContentView is AlertContentView alertContentView)
             {
-                MainContentView.PushView(new AlertDetailView(MainContentView, tappedEventArgs.Parameter));
+                alertContentView.ShowDetail(tappedEventArgs.Parameter);
+                MainContentView.MainPage.UpdateRightControlVisibility(true);
                 MainContentView.MainPage.UpdateRightControlImage(Utils.FontAwesomeIcons.ChevronLeft);
                 if(this.BindingContext is AlertsViewModel alertsViewModel)
                 {
@@ -29,7 +30,11 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
 
         void CreateAlertClicked(System.Object sender, System.EventArgs e)
         {
-            MainContentView.PushView(new CreateAlertChooseLoveView(MainContentView));
+            if(MainContentView is AlertContentView alertContentView)
+            {
+                alertContentView.ShowCreateAlertChooseLove();
+            }
+            MainContentView.MainPage.UpdateRightControlVisibility(true);
             MainContentView.MainPage.UpdateRightControlImage(Utils.FontAwesomeIcons.Times);
         }
     }

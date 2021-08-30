@@ -89,8 +89,10 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
 
         public void OnNextClicked(System.Object sender, System.EventArgs e)
         {
-
-            MainContentView.PushView(new AddLovedDetailView(MainContentView));
+            if (MainContentView is LovedOnesContentView lovedOnesContentView)
+            {
+                lovedOnesContentView.ShowDetailInfoView();
+            }
         }
 
         public async void OnAddPhotoClicked(System.Object sender, System.EventArgs e)
@@ -114,7 +116,7 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
                     }
                     else if (sender == FrmSnd1)
                     {
-                        listSecondImageDatas.Add(imageData);
+                        listSecondImageDatas[0] = imageData;
                         ImgSnd1.Source = ImageSource.FromStream(() => new MemoryStream(imageData.ImageByteArray));
                         FrmSnd1.IsVisible = false;
                         FrmSnd2.IsVisible = true;
@@ -122,7 +124,7 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
                     }
                     else if (sender == FrmSnd2)
                     {
-                        listSecondImageDatas.Add(imageData);
+                        listSecondImageDatas[1] = imageData;
                         ImgSnd2.Source = ImageSource.FromStream(() => new MemoryStream(imageData.ImageByteArray));
                         FrmSnd2.IsVisible = false;
                         FrmSnd3.IsVisible = true;
@@ -130,7 +132,7 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
                     }
                     else if (sender == FrmSnd3)
                     {
-                        listSecondImageDatas.Add(imageData);
+                        listSecondImageDatas[2] = imageData;
                         ImgSnd3.Source = ImageSource.FromStream(() => new MemoryStream(imageData.ImageByteArray));
                         FrmSnd3.IsVisible = false;
                         FrmSnd4.IsVisible = true;
@@ -138,7 +140,7 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
                     }
                     else if (sender == FrmSnd4)
                     {
-                        listSecondImageDatas.Add(imageData);
+                        listSecondImageDatas[3] = imageData;
                         ImgSnd4.Source = ImageSource.FromStream(() => new MemoryStream(imageData.ImageByteArray));
                         FrmSnd4.IsVisible = false;
                     }

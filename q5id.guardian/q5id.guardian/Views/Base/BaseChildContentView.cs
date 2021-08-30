@@ -13,15 +13,5 @@ namespace q5id.guardian.Views.Base
         {
             this.MainContentView = MainContentView;
         }
-
-        public virtual void OnAttach()
-        {
-
-        }
-
-        public virtual void OnDettach()
-        {
-
-        }
     }
 }

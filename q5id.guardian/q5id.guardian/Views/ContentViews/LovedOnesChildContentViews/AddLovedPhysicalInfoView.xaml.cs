@@ -16,7 +16,44 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
 
         void OnNextClicked(System.Object sender, System.EventArgs e)
         {
-            MainContentView.PushView(new AddLovedImageView(MainContentView));
+            if (IsValidInput() == false)
+            {
+                return;
+            }
+            if (MainContentView is LovedOnesContentView lovedOnesContentView)
+            {
+                lovedOnesContentView.ShowImageInfoView();
+            }
+        }
+
+        private bool IsValidInput()
+        {
+            if (HairColorPicker.SelectedItem == null)
+            {
+                ShowErrorMessage("Plase input hair color");
+                return false;
+            }
+            if (EyeColorPicker.SelectedItem == null)
+            {
+                ShowErrorMessage("Plase input eye color");
+                return false;
+            }
+            if (HeightFeetPicker.SelectedItem == null || HeightInchesPicker.SelectedItem == null)
+            {
+                ShowErrorMessage("Plase input height");
+                return false;
+            }
+            if (EntryWeight.Text == "" || EntryWeight.Text == null)
+            {
+                ShowErrorMessage("Plase input weight");
+                return false;
+            }
+            return true;
+        }
+
+        private async void ShowErrorMessage(string message)
+        {
+            await App.Current.MainPage.DisplayAlert("Error", message, "OK");
         }
     }
 }

@@ -63,6 +63,7 @@ namespace q5id.guardian.iOS.Renderers
             control.Layer.BorderWidth = mAppEntry.BorderThickness;
             CGColor borderColor = control.IsEditing ? mAppEntry.FocusBorderColor.ToCGColor() : mAppEntry.NoramlBorderColor.ToCGColor();
             control.Layer.BorderColor = borderColor;
+            control.TextColor = mAppEntry.TextColor.ToUIColor();
         }
 
         protected override UITextField CreateNativeControl()

@@ -147,7 +147,29 @@ namespace q5id.guardian.ViewModels
 
         private void GetLoves()
         {
-            Loves = new ObservableCollection<Love>();
+            Loves = new ObservableCollection<Love>()
+            {
+                new Love()
+                {
+                    FirstName = "Amber",
+                    LastName = "Jones",
+                    ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-01.jpg",
+                },
+                new Love()
+                {
+                    FirstName = "Sarah",
+                    LastName = "Jones",
+                    ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-05.jpg",
+                },
+                new Love()
+                {
+                    FirstName = "Theo",
+                    LastName = "Jones",
+                    ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-06.jpg",
+                    IsLongTime = true,
+                }
+            };
+
         }
 
         private void GetFeeds()

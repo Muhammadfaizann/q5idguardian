@@ -53,7 +53,7 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
                     };
                     int imageCount = imageSecSourceStreams.Count;
                     int indexImage = 0;
-                    while (indexImage < imageCount && indexImage < imageSecs.Count)
+                    while (indexImage < imageSecs.Count && imageSecSourceStreams[indexImage] != null)
                     {
                         var imageByteArray = lovedOnesContentView.SecondaryImageDatas[indexImage].ImageByteArray;
                         imageSecs[indexImage].Source = ImageSource.FromStream(() => new System.IO.MemoryStream(imageByteArray));
@@ -65,7 +65,10 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
 
         void OnEditClicked(System.Object sender, System.EventArgs e)
         {
-            MainContentView.PushView(new AddLovedEditView(MainContentView));
+            if (MainContentView is LovedOnesContentView lovedOnesContentView)
+            {
+                lovedOnesContentView.ShowEditView(false);
+            }
         }
     }
 }

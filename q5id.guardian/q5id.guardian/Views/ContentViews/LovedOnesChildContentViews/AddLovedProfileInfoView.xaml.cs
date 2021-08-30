@@ -15,7 +15,39 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
 
         void OnNextClicked(System.Object sender, System.EventArgs e)
         {
-            MainContentView.PushView(new AddLovedPhysicalInfoView(MainContentView));
+            if (IsValidInput() == false)
+            {
+                return;
+            }
+            if (MainContentView is LovedOnesContentView lovedOnesContentView)
+            {
+                lovedOnesContentView.ShowPhysicalInfoView();
+            }
+        }
+
+        private bool IsValidInput()
+        {
+            if(EntryFirstName.Text == "" || EntryFirstName.Text == null)
+            {
+                ShowErrorMessage("Plase input first name");
+                return false;
+            }
+            if (EntryLastName.Text == "" || EntryLastName.Text == null)
+            {
+                ShowErrorMessage("Plase input first name");
+                return false;
+            }
+            if (EntryBirthDay.NullableDate == null)
+            {
+                ShowErrorMessage("Plase input birthday");
+                return false;
+            }
+            return true;
+        }
+
+        private async void ShowErrorMessage(string message)
+        {
+            await App.Current.MainPage.DisplayAlert("Error", message, "OK");
         }
     }
 }

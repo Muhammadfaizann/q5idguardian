@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using CarouselView.FormsPlugin.Abstractions;
 using q5id.guardian.Utils;
 using q5id.guardian.ViewModels;
@@ -104,9 +105,17 @@ namespace q5id.guardian.Views
             lbNavigation.Text = title;
         }
 
-        public void UpdateRightControlVisibility(bool isVisible)
+        public async void UpdateRightControlVisibility(bool isVisible)
         {
-            frmRightControl.IsVisible = isVisible;
+            if (isVisible)
+            {
+                await Task.Delay(300);
+                frmRightControl.IsVisible = isVisible;
+            }
+            else
+            {
+                frmRightControl.IsVisible = isVisible;
+            }
         }
 
         public void UpdateRightControlImage(string imageVector)

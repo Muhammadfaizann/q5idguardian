@@ -15,7 +15,10 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
 
         public void OnNextClicked(System.Object sender, System.EventArgs e)
         {
-            MainContentView.PushView(new AddLovedReviewView(this.MainContentView));
+            if (MainContentView is LovedOnesContentView lovedOnesContentView)
+            {
+                lovedOnesContentView.ShowReviewView();
+            }
         }
     }
 }

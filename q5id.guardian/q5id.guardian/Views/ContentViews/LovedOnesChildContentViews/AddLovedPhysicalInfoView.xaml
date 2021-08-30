@@ -52,12 +52,13 @@
                                     Placeholder="Choose color"
                                     BorderThickness="2"
                                     FontSize="14"
+                                    x:Name="HairColorPicker"
                                     FocusBorderColor="#696B7A"
                                     PlaceholderColor="{StaticResource lightCharcoal}"
-                                    TextColor="{StaticResource dimCharcoal}"
                                     HeightRequest="32"
                                     ItemsSource="{Binding HairColors}"
                                     ItemDisplayBindingPath="Name"
+                                    TextColor="{StaticResource normalCharcoal}"
                                     SelectedItem="{Binding HairColor}"
                                     NoramlBorderColor="#E8EAF2">
                                     <control:AppPopupPickerView.ItemTemplate>
@@ -90,13 +91,14 @@
                                     FocusBorderColor="#696B7A"
                                     FontSize="14"
                                     HeightRequest="32"
+                                    x:Name="EyeColorPicker"
                                     ItemDisplayBindingPath="Name"
                                     ItemsSource="{Binding EyeColors}"
                                     NoramlBorderColor="#E8EAF2"
                                     Placeholder="Choose color"
                                     PlaceholderColor="{StaticResource lightCharcoal}"
                                     SelectedItem="{Binding EyeColor}"
-                                    TextColor="{StaticResource dimCharcoal}">
+                                    TextColor="{StaticResource normalCharcoal}">
                                     <control:AppPopupPickerView.ItemTemplate>
                                         <DataTemplate>
                                             <StackLayout Padding="10" Orientation="Horizontal">
@@ -142,6 +144,7 @@
                                     PlaceholderColor="{StaticResource lightCharcoal}"
                                     TextColor="{StaticResource dimCharcoal}"
                                     HeightRequest="32"
+                                    x:Name="HeightFeetPicker"
                                     ItemsSource="{Binding HeightFeets}"
                                     ItemDisplayBindingPath="Name"
                                     SelectedItem="{Binding HeightFeet}"
@@ -165,6 +168,7 @@
                                     HeightRequest="32"
                                     ItemsSource="{Binding ListHeightInches}"
                                     ItemDisplayBindingPath="Name"
+                                    x:Name="HeightInchesPicker"
                                     SelectedItem="{Binding HeightInches}"
                                     NoramlBorderColor="#E8EAF2">
                                     <control:AppPopupPickerView.ItemTemplate>
@@ -195,6 +199,7 @@
                                 Keyboard="Numeric"
                                 NoramlBorderColor="#E8EAF2"
                                 Placeholder="Pounds"
+                                x:Name="EntryWeight"
                                 PlaceholderColor="{StaticResource lightCharcoal}"
                                 Style="{StaticResource etBodyNormalLg}"
                                 Text="{Binding Weight}"

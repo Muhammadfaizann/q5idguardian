@@ -47,7 +47,7 @@
                             <Span Text="Creating alerts requires a" TextColor="{StaticResource lightCharcoal}" />
                             <Span Text=" subscription." TextColor="{StaticResource redVibrant}">
                                 <Span.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding TapCommand}" />
+                                    <TapGestureRecognizer />
                                 </Span.GestureRecognizers>
                             </Span>
                         </FormattedString>
@@ -112,7 +112,7 @@
                               BackgroundColor="Transparent"
                               Margin="0,20,0,0"
                               SelectionMode="None"
-                              ItemTapped="OnLovedOnesItemTapped"
+                              x:Name="ListLovedOnes"
                               HasUnevenRows="True">
                         <ListView.Footer>
                             <StackLayout>
@@ -160,6 +160,9 @@
                                             Padding="20,0,20,0"
                                             IsClippedToBounds="True"
                                             HasShadow="False">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnItemFrameTapped" CommandParameter="{Binding .}" />
+                                        </Frame.GestureRecognizers>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto"/>

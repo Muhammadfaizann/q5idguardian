@@ -7,46 +7,54 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
 {
     public partial class LovedOnesListView : BaseChildContentView
     {
-        public static readonly BindableProperty SelectedItemIndexProperty =
-            BindableProperty.Create(nameof(SelectedItemIndex), typeof(int), typeof(LovedOnesListView), -1, defaultBindingMode: BindingMode.TwoWay, propertyChanged: OnSelectedItemIndexChanged);
+        public static readonly BindableProperty SelectedItemProperty =
+            BindableProperty.Create(nameof(SelectedItem), typeof(object), typeof(LovedOnesListView), null, defaultBindingMode: BindingMode.TwoWay, propertyChanged: OnSelectedItemChanged);
 
-        private static void OnSelectedItemIndexChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void OnSelectedItemChanged(BindableObject bindable, object oldValue, object newValue)
         {
             
         }
 
-        public int SelectedItemIndex
+        public object SelectedItem
         {
             get
             {
-                return (int)GetValue(SelectedItemIndexProperty);
+                return (object)GetValue(SelectedItemProperty);
             }
             set
             {
-                SetValue(SelectedItemIndexProperty, value);
+                SetValue(SelectedItemProperty, value);
             }
         }
 
         public LovedOnesListView(BaseContainerView mainCtv) : base(mainCtv)
         {
             InitializeComponent();
-            this.SetBinding(SelectedItemIndexProperty, "SelectedLovedOnesIndex");
+            this.SetBinding(SelectedItemProperty, "SelectedLovedOnes");
             ViewTitle = "Loved Ones";
         }
 
         void OnAddClicked(System.Object sender, System.EventArgs e)
         {
-            SelectedItemIndex = -1;
+            SelectedItem = null;
             MainContentView.MainPage.UpdateRightControlImage(Utils.FontAwesomeIcons.Times);
-            MainContentView.PushView(new AddLovedIntroView(MainContentView));
+            if(MainContentView is LovedOnesContentView lovedOnesContentView)
+            {
+                lovedOnesContentView.ShowIntroView();
+            }
 
         }
 
-        void OnLovedOnesItemTapped(System.Object sender, Xamarin.Forms.ItemTappedEventArgs e)
+        void OnItemFrameTapped(System.Object sender, System.EventArgs e)
         {
-            SelectedItemIndex = e.ItemIndex;
-            MainContentView.MainPage.UpdateRightControlImage(Utils.FontAwesomeIcons.ChevronLeft);
-            MainContentView.PushView(new AddLovedEditView(MainContentView, true));
+            if(e is TappedEventArgs tappedEventArgs)
+            {
+                SelectedItem = tappedEventArgs.Parameter;
+                if (MainContentView is LovedOnesContentView lovedOnesContentView)
+                {
+                    lovedOnesContentView.ShowEditView(true);
+                }
+            }
         }
     }
 }
