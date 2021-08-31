@@ -36,6 +36,7 @@ namespace q5id.guardian.Views
 
                     ShowView(HomeView, "HomeVm");
                     SelectTab(0);
+                    UpdateRightControlVisibility(false);
                 })
             });
 
@@ -46,6 +47,7 @@ namespace q5id.guardian.Views
                     LovedOnesView = new LovedOnesContentView(this);
                     ShowView(LovedOnesView, "LovedOnesVm");
                     SelectTab(1);
+                    UpdateRightControlVisibility(false);
                 })
             });
 
@@ -56,6 +58,7 @@ namespace q5id.guardian.Views
                     AlertsView = new AlertContentView(this);
                     ShowView(AlertsView, "AlertsVm");
                     SelectTab(2);
+                    UpdateRightControlVisibility(false);
                 })
             });
             frmRightControl.Clicked += FrmRightControl_Clicked;

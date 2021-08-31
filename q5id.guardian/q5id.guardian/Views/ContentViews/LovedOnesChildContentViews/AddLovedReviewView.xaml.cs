@@ -49,7 +49,7 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
                 {
                     List<Image> imageSecs = new List<Image>()
                     {
-                    ImgSec1, ImgSec2, ImgSec3, ImgSec4
+                        ImgSec1, ImgSec2, ImgSec3, ImgSec4
                     };
                     int imageCount = imageSecSourceStreams.Count;
                     int indexImage = 0;

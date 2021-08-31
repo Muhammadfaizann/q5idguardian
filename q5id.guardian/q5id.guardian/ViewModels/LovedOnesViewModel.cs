@@ -558,6 +558,7 @@ namespace q5id.guardian.ViewModels
                     HeightInches = HeightInches == null ? "" : HeightInches.Name,
                     Weight = Weight,
                     OtherInformation = Detail,
+                    ModifiedOn = lovedOnesToUpdate != null ? DateTime.UtcNow.ToString() : "",
                     Image = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image : "",
                     Image2 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image2 : "",
                     Image3 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image3 : "",

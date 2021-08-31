@@ -186,11 +186,18 @@ namespace q5id.guardian.Droid.Renderers
 
         protected override void Dispose(bool disposing)
         {
-            if (mCardView != null)
+            try
             {
-                mCardView.Touch -= ThisButton_Touch;
-                mCardView = null;
+                if (mCardView != null)
+                {
+                    mCardView.Touch -= ThisButton_Touch;
+                    mCardView = null;
+                }
             }
+            catch(Exception ex) {
+                Log.Debug("Can not dispose object: ", ex.Message);
+            }
+            
             base.Dispose(disposing);
         }
     }

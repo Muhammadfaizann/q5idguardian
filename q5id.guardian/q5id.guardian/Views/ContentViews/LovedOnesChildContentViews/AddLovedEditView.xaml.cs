@@ -69,6 +69,11 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
         public void UpdateImage(bool isUpdate)
         {
             BtnDelete.IsVisible = isUpdate;
+            ImgPrimary.RemoveBinding(CachedImage.SourceProperty);
+            ImgSec1.RemoveBinding(CachedImage.SourceProperty);
+            ImgSec2.RemoveBinding(CachedImage.SourceProperty);
+            ImgSec3.RemoveBinding(CachedImage.SourceProperty);
+            ImgSec4.RemoveBinding(CachedImage.SourceProperty);
             if (isUpdate == false)
             {
                 if (MainContentView is LovedOnesContentView lovedOnesContentView)
@@ -92,20 +97,10 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
                         }
                     }
                 }
-                ImgPrimary.RemoveBinding(CachedImage.SourceProperty);
-                ImgSec1.RemoveBinding(CachedImage.SourceProperty);
-                ImgSec2.RemoveBinding(CachedImage.SourceProperty);
-                ImgSec3.RemoveBinding(CachedImage.SourceProperty);
-                ImgSec4.RemoveBinding(CachedImage.SourceProperty);
+                
             }
             else
             {
-                ImgPrimary.RemoveBinding(CachedImage.SourceProperty);
-                ImgSec1.RemoveBinding(CachedImage.SourceProperty);
-                ImgSec2.RemoveBinding(CachedImage.SourceProperty);
-                ImgSec3.RemoveBinding(CachedImage.SourceProperty);
-                ImgSec4.RemoveBinding(CachedImage.SourceProperty);
-
                 ImgPrimary.Source = null;
                 ImgSec1.Source = null;
                 ImgSec2.Source = null;

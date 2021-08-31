@@ -156,6 +156,9 @@
                                     IsClippedToBounds="True"
                                     HorizontalOptions="Fill"
                                     HasShadow="False">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEmergencyTapped" />
+                                </Frame.GestureRecognizers>
                                 <Grid VerticalOptions="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
@@ -194,6 +197,9 @@
                                     IsClippedToBounds="True"
                                     HorizontalOptions="Fill"
                                     HasShadow="False">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnNonEmergencyTapped" />
+                                </Frame.GestureRecognizers>
                                 <Grid VerticalOptions="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>

@@ -159,5 +159,33 @@ namespace q5id.guardian.Views.ContentViews
                 mediaElements[mCurrentMediaPosition].StopPlayer();
             }
         }
+
+        void OnEmergencyTapped(System.Object sender, System.EventArgs e)
+        {
+            Call("911");
+        }
+
+        void OnNonEmergencyTapped(System.Object sender, System.EventArgs e)
+        {
+            Call("311");
+        }
+
+        public void Call(string number)
+        {
+            if(DeviceInfo.Platform == DevicePlatform.iOS && DeviceInfo.DeviceType != DeviceType.Physical)
+            {
+                App.Current.MainPage.DisplayAlert("Error", "Phone Dialer is not supported on this device", "OK");
+                return;
+            }
+            try
+            {
+                PhoneDialer.Open(number);
+            }
+            catch (Exception ex)
+            {
+                // Other error has occurred.
+                Debug.WriteLine("Can not call number: " + ex.Message);
+            }
+        }
     }
 }

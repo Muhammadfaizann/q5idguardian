@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
 using Rg.Plugins.Popup.Extensions;
@@ -13,6 +14,7 @@ namespace q5id.guardian.Controls
     {
         private bool mIsCalling = false;
         private bool mIsNeedContinueCall = false;
+        private bool mIsTextChanging = false;
         private GoogleMapsApiService mapsService;
         private List<GooglePlaceAutoCompletePrediction> mItemSource;
 
@@ -49,7 +51,21 @@ namespace q5id.guardian.Controls
 
         private void EntrySearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            this.GetPlaces();
+            DelayGetPlaces();
+        }
+
+        private async void DelayGetPlaces()
+        {
+            if (mIsTextChanging == false)
+            {
+                mIsTextChanging = true;
+                await Task.Delay(1000);
+                mIsTextChanging = false;
+                if(EntrySearch.Text != "" && EntrySearch.Text != null)
+                {
+                    GetPlaces();
+                }
+            }
         }
 
         private async void GetPlaces()
@@ -77,7 +93,7 @@ namespace q5id.guardian.Controls
             {
                 Debug.WriteLine("Get Places Error: " + ex.Message);
                 mItemSource = new List<GooglePlaceAutoCompletePrediction>();
-                 ListPlaces.ItemsSource = mItemSource;
+                ListPlaces.ItemsSource = mItemSource;
             }
         }
 

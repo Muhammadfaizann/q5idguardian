@@ -51,13 +51,6 @@ namespace q5id.guardian.Views
 
         public BasePage()
         {
-            //if (Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.Android)
-            //{
-            //    if (Mvx.IoCProvider.Resolve<IPlatformService>().HasPermanentMenuKey())
-            //    {
-            //        this.Padding = new Thickness(0, 0, 45, 0);
-            //    }
-            //}
             if (Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.iOS)
             {
                 var safeInsets = On<iOS>().SetUseSafeArea(false);
