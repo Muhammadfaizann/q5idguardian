@@ -39,7 +39,7 @@
                             VerticalOptions="Fill"
                             Aspect="AspectFill"
 			                DownsampleToViewSize="true"
-			                Source="{Binding Model.Love.ImageUrl}">
+			                Source="{Binding Model.Love.Image}">
 		                </ffimageloading:CachedImage>
                     </Frame>
                     <StackLayout Orientation="Vertical"

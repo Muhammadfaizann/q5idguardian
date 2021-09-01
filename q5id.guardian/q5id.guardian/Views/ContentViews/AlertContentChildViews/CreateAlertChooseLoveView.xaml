@@ -41,11 +41,12 @@
                                         BorderColor="Transparent"
                                         Padding="20,0,20,0"
                                         IsClippedToBounds="True"
+                                        
                                         HasShadow="False">
                                     <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="OnItemTapped" CommandParameter="{Binding .}" />
+                                        <TapGestureRecognizer Tapped="OnItemTapped" Command="{Binding ItemClickCommand}" CommandParameter="{Binding Model}" />
                                     </Frame.GestureRecognizers>
-                                    <Grid>
+                                    <Grid BindingContext="{Binding Model}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto"/>
                                             <ColumnDefinition Width="*"/>
@@ -68,7 +69,7 @@
                                                 VerticalOptions="Fill"
                                                 Aspect="AspectFill"
 			                                    DownsampleToViewSize="true"
-			                                    Source="{Binding ImageUrl}">
+			                                    Source="{Binding Image}">
 		                                    </ffimageloading:CachedImage>
                                         </Frame>
                                         <StackLayout Orientation="Vertical"

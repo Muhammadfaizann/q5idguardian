@@ -8,7 +8,7 @@ namespace q5id.guardian.ViewModels.ItemViewModels
 {
     public class BaseItemViewModel<T> : BaseViewModel where T : class
      {
-        public Command ItemClickCommand { get; }
+        public Command ItemClickCommand { get; set; }
 
         public T Model { get; set; }
 

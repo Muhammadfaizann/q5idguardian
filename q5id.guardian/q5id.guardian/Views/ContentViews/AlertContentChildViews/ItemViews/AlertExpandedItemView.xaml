@@ -38,7 +38,7 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="Live Alert "/>
-                                        <Span Text="{Binding UpdatedTimeDescription}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                        <Span Text="{Binding Model.UpdatedTimeDescription}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -91,7 +91,7 @@
                             BackgroundColor="{StaticResource paleGray}"
                             HorizontalOptions="Fill"
                             VerticalOptions="Fill">
-                            <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding FirstImage}" />
+                            <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding Model.Love.Image2}" />
                         </Frame>
                         <Frame
                             HasShadow="False"
@@ -102,7 +102,7 @@
                             BackgroundColor="{StaticResource paleGray}"
                             HorizontalOptions="Fill"
                             VerticalOptions="Fill">
-                            <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding SecondImage}" />
+                            <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding Model.Love.Image3}" />
                         </Frame>
                         <Frame
                             HasShadow="False"
@@ -113,7 +113,7 @@
                             BackgroundColor="{StaticResource paleGray}"
                             HorizontalOptions="Fill"
                             VerticalOptions="Fill">
-                            <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding ThirdImage}" />
+                            <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding Model.Love.Image4}" />
                         </Frame>
                     </Grid>
                     <Label
@@ -145,10 +145,8 @@
                            FontFamily="{x:Static util:ThemeConstanst.FontPoppinsItalic}"
                            FontAttributes="Italic"
                            FontSize="11"
+                           Text="{Binding Model.Description}"
                            TextColor="{StaticResource normalCharcoal}">
-                        <Label.Text>
-                            “We’re in the kids’ clothing department at Target, my daughter is wearing a blue dress and rainbow shoes.”
-                        </Label.Text>
                     </Label>
                     <control:AppButton
                         Margin="0,20,0,0"

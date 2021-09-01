@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Input;
 using q5id.guardian.Selectors;
 using q5id.guardian.Utils;
 using q5id.guardian.Views.Base;
@@ -16,30 +17,67 @@ namespace q5id.guardian.Views.ContentViews
         public const int VIEW_CREATE_ALERT_CHOOSE_LOVE_INDEX = 2;
         public const int VIEW_CREATE_ALERT_DETAIL_INDEX = 3;
 
+        public static readonly BindableProperty ResetCommandProperty =
+            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(AlertContentView), null, defaultBindingMode: BindingMode.TwoWay);
+
+        public ICommand ResetCommand
+        {
+            get { return (ICommand)GetValue(ResetCommandProperty); }
+            set
+            {
+                SetValue(ResetCommandProperty, value);
+            }
+        }
+
+        public static readonly BindableProperty IsUpdateSuccessProperty =
+            BindableProperty.Create(nameof(IsUpdateSuccess), typeof(Boolean), typeof(AlertContentView), false, defaultBindingMode: BindingMode.TwoWay, propertyChanged: OnIsUpdateSuccessChanged);
+
+        private static void OnIsUpdateSuccessChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is AlertContentView view && newValue is Boolean boolVal)
+            {
+                if (boolVal == true)
+                {
+                    view.OnUpdateSuccess();
+                    view.IsUpdateSuccess = false;
+                }
+            }
+        }
+
+        private void OnUpdateSuccess()
+        {
+            CarouselViewContent.Position = VIEW_LIST_INDEX;
+            MainPage.UpdateRightControlVisibility(false);
+        }
+
+        public Boolean IsUpdateSuccess
+        {
+            get
+            {
+                return (Boolean)GetValue(IsUpdateSuccessProperty);
+            }
+            set
+            {
+                SetValue(IsUpdateSuccessProperty, value);
+            }
+        }
+
         public AlertDetailView AlertDetailView { get; private set; }
 
         public CreateAlertDetailView CreateAlertDetailView { get; private set; }
-
-        private object mAlertDetail;
-
-        private object mLove;
 
         public AlertContentView(HomePage homePage) : base(homePage)
         {
             InitializeComponent();
             MainPage.UpdateRightControlVisibility(false);
             MainPage.UpdateRightControlImage(FontAwesomeIcons.ChevronLeft);
+            this.SetBinding(IsUpdateSuccessProperty, "IsUpdateSuccess");
             SetupView();
         }
 
-        public void ShowDetail(object parameter)
+        public void ShowDetail()
         {
             CarouselViewContent.Position = VIEW_DETAIL_INDEX;
-            mAlertDetail = parameter;
-            if(AlertDetailView != null)
-            {
-                AlertDetailView.AlertDetail = parameter;
-            }
         }
 
         public void ShowCreateAlertChooseLove()
@@ -50,11 +88,6 @@ namespace q5id.guardian.Views.ContentViews
         public void ShowCreateAlertDetail(object parameter)
         {
             CarouselViewContent.Position = VIEW_CREATE_ALERT_DETAIL_INDEX;
-            mLove = parameter;
-            if(CreateAlertDetailView != null)
-            {
-                CreateAlertDetailView.Love = mLove;
-            }
         }
 
         private void SetupView()
@@ -67,7 +100,7 @@ namespace q5id.guardian.Views.ContentViews
                 }),
                 DetailTemplate = new DataTemplate(() =>
                 {
-                    AlertDetailView = new AlertDetailView(this, mAlertDetail);
+                    AlertDetailView = new AlertDetailView(this);
                     return GetContentView(AlertDetailView);
                 }),
                 CreateAlertChooseLoveTemplate = new DataTemplate(() =>
@@ -76,7 +109,7 @@ namespace q5id.guardian.Views.ContentViews
                 }),
                 CreateAlertDetailTemplate = new DataTemplate(() =>
                 {
-                    CreateAlertDetailView = new CreateAlertDetailView(this, mLove);
+                    CreateAlertDetailView = new CreateAlertDetailView(this);
                     return GetContentView(CreateAlertDetailView);
                 }),
             };
@@ -130,6 +163,7 @@ namespace q5id.guardian.Views.ContentViews
             {
                 CarouselViewContent.Position = VIEW_LIST_INDEX;
                 MainPage.UpdateRightControlVisibility(false);
+                ResetCommand?.Execute(null);
             }
         }
     }

@@ -17,6 +17,15 @@
                 </CarouselView>
                               
             </Grid>
+            <Grid IsVisible="{Binding IsLoading}" BackgroundColor="{StaticResource lightCharcoal10}">
+                <ActivityIndicator
+                    IsRunning="true"
+                    WidthRequest="100"
+                    HeightRequest="100"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Color="{StaticResource redNue}" />
+            </Grid>
         </Grid>
     </ContentView.Content>
 </base:BaseContainerView>

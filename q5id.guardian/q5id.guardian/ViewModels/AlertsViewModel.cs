@@ -2,17 +2,32 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
+using q5id.guardian.Services.Bases;
 using q5id.guardian.ViewModels.ItemViewModels;
+using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 
 namespace q5id.guardian.ViewModels
 {
     public class AlertsViewModel : BaseViewModel
     {
+        private Boolean mIsUpdateSuccess = false;
+        public Boolean IsUpdateSuccess
+        {
+            get => mIsUpdateSuccess;
+            set
+            {
+                mIsUpdateSuccess = value;
+                RaisePropertyChanged(nameof(IsUpdateSuccess));
+            }
+        }
+
         private bool mIsYourPersonalNetwork = false;
         public bool IsYourPersonalNetwork
         {
@@ -54,6 +69,17 @@ namespace q5id.guardian.ViewModels
             {
                 mIsOwner = value;
                 RaisePropertyChanged(nameof(IsOwner));
+            }
+        }
+
+        private Position? mAlertPosition = null;
+        public Position? AlertPosition
+        {
+            get => mAlertPosition;
+            set
+            {
+                mAlertPosition = value;
+                RaisePropertyChanged(nameof(AlertPosition));
             }
         }
 
@@ -116,6 +142,17 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        private string mDetail;
+        public string Detail
+        {
+            get => mDetail;
+            set
+            {
+                mDetail = value;
+                RaisePropertyChanged(nameof(Detail));
+            }
+        }
+
         private ObservableCollection<object> mFeeds;
         public ObservableCollection<object> Feeds
         {
@@ -127,8 +164,8 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private ObservableCollection<Love> mLoves = null;
-        public ObservableCollection<Love> Loves
+        private List<LoveItemViewModel> mLoves = null;
+        public List<LoveItemViewModel> Loves
         {
             get => mLoves;
             set
@@ -138,38 +175,137 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        private StructureEntity LovedOnesEntity = null;
+        private StructureEntity AlertEntity = null;
+        private bool isInitData = false;
+
         public override async Task Initialize()
         {
-            GetAlerts();
+
+            GetLovedOnesEntity();
+            GetAlertEntity();
+
             GetFeeds();
-            GetLoves();
+            await GetLoves();
+            GetAlerts();
+            await Task.CompletedTask;
         }
 
-        private void GetLoves()
+        private void GetLovedOnesEntity()
         {
-            Loves = new ObservableCollection<Love>()
+            var settings = Utils.Utils.GetSettings();
+            if (settings != null)
             {
-                new Love()
+                LovedOnesEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
                 {
-                    FirstName = "Amber",
-                    LastName = "Jones",
-                    ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-01.jpg",
-                },
-                new Love()
-                {
-                    FirstName = "Sarah",
-                    LastName = "Jones",
-                    ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-05.jpg",
-                },
-                new Love()
-                {
-                    FirstName = "Theo",
-                    LastName = "Jones",
-                    ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-06.jpg",
-                    IsLongTime = true,
-                }
-            };
+                    return entity.EntityName == Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY;
+                });
+            }
+        }
 
+        private void GetAlertEntity()
+        {
+            var settings = Utils.Utils.GetSettings();
+            if (settings != null)
+            {
+                AlertEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
+                {
+                    return entity.EntityName == Utils.Constansts.ALERT_ENTITY_SETTING_KEY;
+                });
+            }
+        }
+
+        private async Task GetLoves()
+        {
+            IsLoading = true;
+            if (LovedOnesEntity != null)
+            {
+                var response = await AppService.Instances.GetListLovedOnes(LovedOnesEntity.Id);
+                if (response.IsSuccess)
+                {
+                    Loves = response.ResponseObject.Select((Entity<Love> entityLove) =>
+                    {
+                        var love = entityLove.Data;
+                        love.Id = entityLove.Id;
+                        return new LoveItemViewModel(love)
+                        {
+                            ItemClickCommand = new Command(() =>
+                            {
+                                CreatingLove = love;
+                            })
+                        };
+                    }).ToList();
+                }
+            }
+            IsLoading = false;
+        }
+
+        public Command ResetCommand
+        {
+            get
+            {
+                return new Command(ResetData);
+            }
+        }
+
+        public Command CreateAlertCommand
+        {
+            get
+            {
+                return new Command(CreateAlert);
+            }
+        }
+
+        private void ResetData()
+        {
+            CreatingLove = null;
+            AlertDetail = null;
+            IsYourPersonalNetwork = false;
+            IsLowEnforcement = false;
+            IsGuardianNearby = false;
+            Detail = "";
+            AlertPosition = null;
+        }
+
+        private async void CreateAlert()
+        {
+            if (AlertEntity != null)
+            {
+                IsLoading = true;
+                var alertToPost = new Alert()
+                {
+                    Id = "",
+                    FirstName = mCreatingLove.FullName,
+                    AlertId = System.Guid.NewGuid().ToString(),
+                    ProfileId = mCreatingLove.ProfileId,
+                    CreatedOn = DateTime.UtcNow.ToString(),
+                    Description = Detail,
+                    Latitude = AlertPosition != null ? AlertPosition.Value.Latitude+"" : "",
+                    Lognitude = AlertPosition != null ? AlertPosition.Value.Longitude + "" : "",
+                };
+
+
+                ApiResponse<EntityResponse<Alert>> response = await AppService.Instances.CreateAlert(AlertEntity.Id, alertToPost);
+
+                IsLoading = false;
+                if (response.IsSuccess && response.ResponseObject != null)
+                {
+                    if (response.ResponseObject.IsSuccessful)
+                    {
+                        IsUpdateSuccess = true;
+                        ResetData();
+                        GetAlerts();
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("Error", response.ResponseObject.Message, "OK");
+                    }
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", response.Message, "OK");
+                }
+            }
         }
 
         private void GetFeeds()
@@ -212,65 +348,57 @@ namespace q5id.guardian.ViewModels
             };
         }
 
-        private void GetAlerts()
+        private async void GetAlerts()
         {
-            Alerts = new ObservableCollection<object>()
+            var alerts = new ObservableCollection<object>();
+            var liveHeaderItem = new GroupHeaderItemViewModel()
             {
-                new GroupHeaderItemViewModel()
-                {
-                    Title="Live",
-                    Description="There aren’t any active alerts near you.",
-                    IsEmptyList=false
-                },
-                new AlertItemViewModel(new Alert()
-                {
-                    Love = new Love()
-                    {
-                        FirstName= "John",
-                        LastName= "Doe",
-                        ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-01.jpg",
-                    }
-                })
-                {
-                    UpdatedTimeDescription = "Started 23 minutes ago",
-                    OnUpdateItemAction = OnUpdateItemList,
-                    OnUpdateExpanded = OnItemExpandedUpdate,
-                },  
-                new AlertItemViewModel(new Alert()
-                {
-                    Love = new Love()
-                    {
-                        FirstName= "Hue",
-                        LastName= "Sanron",
-                        ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-05.jpg",
-                    }
-                })
-                {
-                    UpdatedTimeDescription = "Started 2 hours ago",
-                    OnUpdateItemAction = OnUpdateItemList,
-                    OnUpdateExpanded = OnItemExpandedUpdate,
-                },
-                new GroupHeaderItemViewModel()
-                {
-                    Title="History",
-                    Description="You don’t have any past alerts.",
-                    IsEmptyList=false
-                },
-                new AlertItemViewModel(new Alert()
-                {
-                    Love = new Love()
-                    {
-                        FirstName= "Donian",
-                        LastName= "Billean",
-                        ImageUrl = "https://images.statusfacebook.com/profile_pictures/beautiful-children-photos/beautiful-children-dp-profile-pictures-for-whatsapp-facebook-06.jpg",
-                    }
-                })
-                {
-                    UpdatedTimeDescription = "Started 3 days ago",
-                    OnUpdateItemAction = OnUpdateItemList,
-                    OnUpdateExpanded = OnItemExpandedUpdate,
-                },
+                Title = "Live",
+                Description = "There aren’t any active alerts near you.",
+                IsEmptyList = true
             };
+            List<AlertItemViewModel> listLiveItem = new List<AlertItemViewModel>();
+            IsLoading = true;
+            if (AlertEntity != null)
+            {
+                var response = await AppService.Instances.GetListAlert(AlertEntity.Id);
+                if (response.IsSuccess)
+                {
+                    listLiveItem = response.ResponseObject.Select((Entity<Alert> entityAlert) =>
+                    {
+                        AlertItemViewModel item = new AlertItemViewModel(entityAlert.Data)
+                        {
+                            OnUpdateItemAction = OnUpdateItemList,
+                            OnUpdateExpanded = OnItemExpandedUpdate,
+                            
+                        };
+                        item.ItemClickCommand = new Command(() =>
+                        {
+                            AlertDetail = item.Model;
+                        });
+                        item.Model.Love = this.Loves.Find((LoveItemViewModel loveItemViewModel) =>
+                        {
+                            return loveItemViewModel.Model.ProfileId == item.Model.ProfileId;
+                        }).Model;
+                        return item;
+                    }).ToList();
+                }
+            }
+            var historyHeaderItem = new GroupHeaderItemViewModel()
+            {
+                Title = "History",
+                Description = "You don’t have any past alerts.",
+                IsEmptyList = true
+            };
+            liveHeaderItem.IsEmptyList = listLiveItem.Count == 0;
+            alerts.Add(liveHeaderItem);
+            foreach(AlertItemViewModel item in listLiveItem)
+            {
+                alerts.Add(item);
+            }
+            alerts.Add(historyHeaderItem);
+            Alerts = alerts;
+            IsLoading = false;
         }
 
         private void OnItemExpandedUpdate(AlertItemViewModel item)

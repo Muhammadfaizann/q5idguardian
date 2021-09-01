@@ -138,12 +138,15 @@ namespace q5id.guardian.Controls
             }
         }
 
+        public event EventHandler SelectedItemChanged;
+
         public object SelectedItem
         {
             set
             {
                 SetValue(SelectedItemProperty, value);
                 GetDisplayMember();
+                SelectedItemChanged?.Invoke(this, null);
             }
             get => GetValue(SelectedItemProperty);
         }

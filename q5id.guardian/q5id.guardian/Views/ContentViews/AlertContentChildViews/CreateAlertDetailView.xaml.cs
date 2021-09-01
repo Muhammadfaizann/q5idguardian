@@ -1,32 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Plugin.Geolocator;
+using q5id.guardian.Models;
 using q5id.guardian.ViewModels;
 using q5id.guardian.Views.Base;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 
 namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
 {
     public partial class CreateAlertDetailView : BaseChildContentView
     {
-        public static readonly BindableProperty LoveProperty
-        = BindableProperty.Create(nameof(Love),
-            typeof(object),
-            typeof(CreateAlertDetailView),
-            null,
-            BindingMode.OneWayToSource);
-
-        public object Love
-        {
-            get
-            {
-                return GetValue(LoveProperty);
-            }
-            set
-            {
-                SetValue(LoveProperty, value);
-            }
-        }
-
         public static readonly BindableProperty IsYourPersonalNetworkProperty = BindableProperty.Create(nameof(IsYourPersonalNetwork), typeof(bool), typeof(CreateAlertDetailView), false, BindingMode.TwoWay, null, propertyChanged: OnIsYourPersonalNetworkChanged);
 
         private static void OnIsYourPersonalNetworkChanged(BindableObject bindable, object oldValue, object newValue)
@@ -93,16 +80,37 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             }
         }
 
-        public CreateAlertDetailView(BaseContainerView mainContentView, Object itemModel) : base(mainContentView)
+        public static readonly BindableProperty AlertPositionProperty = BindableProperty.Create(nameof(AlertPosition), typeof(Position?), typeof(CreateAlertDetailView), null, BindingMode.TwoWay, propertyChanged: OnAlertPositionChanged);
+
+        private static void OnAlertPositionChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if(bindable is CreateAlertDetailView)
+            {
+
+            }
+        }
+
+        public Position? AlertPosition
+        {
+            get
+            {
+                return (Position?)GetValue(AlertPositionProperty);
+            }
+            set
+            {
+                SetValue(AlertPositionProperty, value);
+            }
+        }
+
+
+        public CreateAlertDetailView(BaseContainerView mainContentView) : base(mainContentView)
         {
             InitializeComponent();
             ViewTitle = "Create Alert";
-            this.SetBinding(LoveProperty, "CreatingLove");
             this.SetBinding(IsYourPersonalNetworkProperty, "IsYourPersonalNetwork");
             this.SetBinding(IsGuardianNearbyProperty, "IsGuardianNearby");
             this.SetBinding(IsLowEnforcementProperty, "IsLowEnforcement");
-            this.SetBinding(LoveProperty, "CreatingLove");
-            Love = itemModel;
+            this.SetBinding(AlertPositionProperty, "AlertPosition");
             InitView();
         }
 
@@ -122,6 +130,23 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             IsYourPersonalNetwork = false;
             IsGuardianNearby = false;
             IsLowEnforcement = false;
+
+            EntrySearchMap.SelectedItemChanged += EntrySearchMap_SelectedItemChanged;
+        }
+
+        private void EntrySearchMap_SelectedItemChanged(object sender, EventArgs e)
+        {
+            if (EntrySearchMap.IsVisible)
+            {
+                if(EntrySearchMap.SelectedItem is GooglePlace googlePlace)
+                {
+                    AlertPosition = new Position(googlePlace.Latitude, googlePlace.Longitude);
+                }
+                else
+                {
+                    AlertPosition = null;
+                }
+            }
         }
 
         void OnCurrentMyLocationTapped(System.Object sender, System.EventArgs e)
@@ -131,6 +156,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             EntrySearchMap.IsVisible = false;
             FrameCurrentLocation.BorderColor = Utils.Utils.GetColorFromResource("redNue", Color.Red);
             ImageCurrentLocation.IsVisible = true;
+            CheckAndGetLocalLocation();
         }
 
         void OnDifferenceLocationTapped(System.Object sender, System.EventArgs e)
@@ -140,6 +166,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             EntrySearchMap.IsVisible = true;
             FrameCurrentLocation.BorderColor = Color.Transparent;
             ImageCurrentLocation.IsVisible = false;
+            AlertPosition = null;
         }
 
         void YourPersonalNetworkTapped(System.Object sender, System.EventArgs e)
@@ -183,15 +210,44 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
 
         void CreateAlertClicked(System.Object sender, System.EventArgs e)
         {
-            if (this.BindingContext is AlertsViewModel alertsViewModel)
-            {
-                alertsViewModel.IsOwner = true;
-            }
             if(MainContentView is AlertContentView alertContentView)
             {
-                alertContentView.ShowDetail(null);
+                alertContentView.ShowDetail();
             }
             MainContentView.MainPage.UpdateRightControlImage(Utils.FontAwesomeIcons.ChevronLeft);
+        }
+
+        private async void CheckAndGetLocalLocation()
+        {
+            var result = await Utils.Utils.CheckAndRequestLocationPermission();
+            if (result == PermissionStatus.Granted)
+            {
+                GetLocalLocation();
+            }
+        }
+
+        private async void GetLocalLocation()
+        {
+            if (IsLocationAvailable())
+            {
+                try
+                {
+                    var locator = CrossGeolocator.Current;
+                    var lastKnowPos = await locator.GetLastKnownLocationAsync();
+                    AlertPosition = new Position(lastKnowPos.Latitude, lastKnowPos.Longitude);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Cannot get local location: " + ex.Message);
+                }
+            }
+        }
+
+        private bool IsLocationAvailable()
+        {
+            if (!CrossGeolocator.IsSupported)
+                return false;
+            return CrossGeolocator.Current.IsGeolocationAvailable;
         }
     }
 }

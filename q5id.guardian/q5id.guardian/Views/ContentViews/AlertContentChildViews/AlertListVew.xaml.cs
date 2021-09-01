@@ -18,13 +18,9 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
         {
             if (e is TappedEventArgs tappedEventArgs && MainContentView is AlertContentView alertContentView)
             {
-                alertContentView.ShowDetail(tappedEventArgs.Parameter);
+                alertContentView.ShowDetail();
                 MainContentView.MainPage.UpdateRightControlVisibility(true);
                 MainContentView.MainPage.UpdateRightControlImage(Utils.FontAwesomeIcons.ChevronLeft);
-                if(this.BindingContext is AlertsViewModel alertsViewModel)
-                {
-                    alertsViewModel.IsOwner = false;
-                }
             }
         }
 

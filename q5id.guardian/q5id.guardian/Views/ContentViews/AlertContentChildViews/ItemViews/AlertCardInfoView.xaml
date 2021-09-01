@@ -40,7 +40,7 @@
                                             VerticalOptions="Fill"
                                             Aspect="AspectFill"
 			                                DownsampleToViewSize="true"
-			                                Source="{Binding AlertDetail.Love.ImageUrl}">
+			                                Source="{Binding AlertDetail.Love.Image}">
 		                                </ffimageloading:CachedImage>
                                     </Frame>
                                     <StackLayout Orientation="Vertical"
@@ -51,7 +51,6 @@
                                         <Label
                                             HorizontalOptions="Fill"
                                             LineBreakMode="WordWrap"
-                                            Text="{Binding Model.Love.FullName}"
                                             Style="{StaticResource lbSubheadSm}">
                                             <Label.FormattedText>
                                                 <FormattedString>
@@ -83,7 +82,7 @@
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Eyes: "/>
-                                                        <Span FontSize="12" Text="Brown" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.EyeColor}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>    
                                             </Label>
@@ -93,12 +92,14 @@
                                                 HorizontalOptions="Fill"
                                                 LineBreakMode="WordWrap"
                                                 FontSize="10"
-                                                Text="{Binding Model.Love.FullName}"
                                                 Style="{StaticResource lbSubheadSm}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Height: "/>
-                                                        <Span FontSize="12" Text="3’ 11”" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.HeightFeet}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="’ " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.HeightInches}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="”" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>    
                                             </Label>
@@ -113,7 +114,7 @@
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Hair: "/>
-                                                        <Span FontSize="12" Text="Brown" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.HairColor}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>    
                                             </Label>
@@ -128,7 +129,8 @@
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Weight: "/>
-                                                        <Span FontSize="12" Text="60 lbs" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.Weight}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text=" lbs" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>    
                                             </Label>
@@ -149,7 +151,7 @@
                                     <Label
                                         HorizontalOptions="Fill"
                                         LineBreakMode="WordWrap"
-                                        Text="Amber has a small birthmark on her right hand. She is very shy"
+                                        Text="{Binding AlertDetail.Love.Detail}"
                                         Style="{StaticResource lbBodyNormalMd}">  
                                     </Label>
                                     <Grid Margin="0,15,0,0">
@@ -174,7 +176,7 @@
                                                 VerticalOptions="Fill"
                                                 Aspect="AspectFill"
 			                                    DownsampleToViewSize="true"
-			                                    Source="https://i-cf65ch.gskstatic.com/content/dam/cf-consumer-healthcare/bp-advil/en_US_children/homepage/children-22.jpg">
+			                                    Source="{Binding AlertDetail.Love.Image2}">
 		                                    </ffimageloading:CachedImage>
                                         </control:AppRatioGrid>
                                         <control:AppRatioGrid
@@ -190,7 +192,7 @@
                                                 VerticalOptions="Fill"
                                                 Aspect="AspectFill"
 			                                    DownsampleToViewSize="true"
-			                                    Source="https://www.verywellfamily.com/thmb/DUTf87y7J3Lv0d3cxPiVUcqt_gI=/500x350/filters:no_upscale():max_bytes(150000):strip_icc()/181451278-56a258395f9b58b7d0c931fd.jpg">
+			                                    Source="{Binding AlertDetail.Love.Image3}">
 		                                    </ffimageloading:CachedImage>
                                         </control:AppRatioGrid>
                                         <control:AppRatioGrid
@@ -206,7 +208,7 @@
                                                 VerticalOptions="Fill"
                                                 Aspect="AspectFill"
 			                                    DownsampleToViewSize="true"
-			                                    Source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIgpviSsRutf7iXGazVYvsC37DXT0F-WHKSw">
+			                                    Source="{Binding AlertDetail.Love.Image4}">
 		                                    </ffimageloading:CachedImage>
                                         </control:AppRatioGrid>
                                         <control:AppRatioGrid
@@ -221,6 +223,7 @@
                                                 HorizontalOptions="Fill"
                                                 VerticalOptions="Fill"
                                                 Aspect="AspectFill"
+                                                Source="{Binding AlertDetail.Love.Image5}"
 			                                    DownsampleToViewSize="true">
 		                                    </ffimageloading:CachedImage>
                                         </control:AppRatioGrid>

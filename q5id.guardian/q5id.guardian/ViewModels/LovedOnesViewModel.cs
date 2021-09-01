@@ -494,13 +494,9 @@ namespace q5id.guardian.ViewModels
 
         public override async Task Initialize()
         {
-            if(isInitData == false)
-            {
-                GetLovedOnesEntity();
-                GetLoves();
-                GetChoices();
-                isInitData = true;
-            }
+            GetLovedOnesEntity();
+            GetLoves();
+            GetChoices();
             await Task.CompletedTask;
         }
 
@@ -564,6 +560,8 @@ namespace q5id.guardian.ViewModels
                     Image3 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image3 : "",
                     Image4 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image4 : "",
                     Image5 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image5 : "",
+                    ProfileId = lovedOnesToUpdate != null ? lovedOnesToUpdate.ProfileId : System.Guid.NewGuid().ToString(),
+                    CreatedOn = lovedOnesToUpdate != null ? lovedOnesToUpdate.CreatedOn : DateTime.UtcNow.ToString(),
                 };
                 if(PrimaryImage != null)
                 {

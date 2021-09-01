@@ -53,7 +53,7 @@
                                                 VerticalOptions="Fill"
                                                 Aspect="AspectFill"
 			                                    DownsampleToViewSize="true"
-			                                    Source="{Binding CreatingLove.ImageUrl}">
+			                                    Source="{Binding CreatingLove.Image}">
 		                                    </ffimageloading:CachedImage>
                                         </Frame>
                                         <StackLayout Orientation="Vertical"
@@ -96,7 +96,7 @@
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Eyes: "/>
-                                                            <Span FontSize="12" Text="Brown" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                            <Span FontSize="12" Text="{Binding CreatingLove.EyeColor}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                         </FormattedString>
                                                     </Label.FormattedText>    
                                                 </Label>
@@ -106,12 +106,14 @@
                                                     HorizontalOptions="Fill"
                                                     LineBreakMode="WordWrap"
                                                     FontSize="10"
-                                                    Text="{Binding Model.Love.FullName}"
                                                     Style="{StaticResource lbSubheadSm}">
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Height: "/>
-                                                            <Span FontSize="12" Text="3’ 11”" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                            <Span FontSize="12" Text="{Binding CreatingLove.HeightFeet}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                            <Span FontSize="12" Text="’ " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                            <Span FontSize="12" Text="{Binding CreatingLove.HeightInches}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                            <Span FontSize="12" Text="”" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                         </FormattedString>
                                                     </Label.FormattedText>    
                                                 </Label>
@@ -126,7 +128,7 @@
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Hair: "/>
-                                                            <Span FontSize="12" Text="Brown" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                            <Span FontSize="12" Text="{Binding CreatingLove.HairColor}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                         </FormattedString>
                                                     </Label.FormattedText>    
                                                 </Label>
@@ -136,12 +138,12 @@
                                                     HorizontalOptions="Fill"
                                                     LineBreakMode="WordWrap"
                                                     FontSize="10"
-                                                    Text="{Binding Model.Love.FullName}"
                                                     Style="{StaticResource lbSubheadSm}">
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Weight: "/>
-                                                            <Span FontSize="12" Text="60 lbs" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                            <Span FontSize="12" Text="{Binding CreatingLove.Weight}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                            <Span FontSize="12" Text=" lbs" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                         </FormattedString>
                                                     </Label.FormattedText>    
                                                 </Label>
@@ -158,7 +160,7 @@
                                     <Label
                                         HorizontalOptions="Fill"
                                         LineBreakMode="WordWrap"
-                                        Text="Amber has a small birthmark on her right hand. She is very shy"
+                                        Text="{Binding CreatingLove.OtherInformation}"
                                         Style="{StaticResource lbBodyNormalMd}">  
                                     </Label>
                                     <Grid Margin="0,15,0,0">
@@ -180,7 +182,7 @@
                                                 VerticalOptions="Fill"
                                                 Aspect="AspectFill"
 			                                    DownsampleToViewSize="true"
-			                                    Source="https://i-cf65ch.gskstatic.com/content/dam/cf-consumer-healthcare/bp-advil/en_US_children/homepage/children-22.jpg">
+			                                    Source="{Binding CreatingLove.Image2}">
 		                                    </ffimageloading:CachedImage>
                                         </control:AppRatioGrid>
                                         <control:AppRatioGrid
@@ -196,7 +198,7 @@
                                                 VerticalOptions="Fill"
                                                 Aspect="AspectFill"
 			                                    DownsampleToViewSize="true"
-			                                    Source="https://www.verywellfamily.com/thmb/DUTf87y7J3Lv0d3cxPiVUcqt_gI=/500x350/filters:no_upscale():max_bytes(150000):strip_icc()/181451278-56a258395f9b58b7d0c931fd.jpg">
+			                                    Source="{Binding CreatingLove.Image3}">
 		                                    </ffimageloading:CachedImage>
                                         </control:AppRatioGrid>
                                         <control:AppRatioGrid
@@ -212,7 +214,7 @@
                                                 VerticalOptions="Fill"
                                                 Aspect="AspectFill"
 			                                    DownsampleToViewSize="true"
-			                                    Source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIgpviSsRutf7iXGazVYvsC37DXT0F-WHKSw">
+			                                    Source="{Binding CreatingLove.Image4}">
 		                                    </ffimageloading:CachedImage>
                                         </control:AppRatioGrid>
                                     </Grid>
@@ -278,7 +280,7 @@
                                 NoramlBorderColor="{StaticResource paleGray}"
                                 BackgroundColor="White"
                                 Placeholder="Enter situation details…"
-                                Text="{Binding FirstName}"
+                                Text="{Binding Detail}"
                                 PlaceholderColor="{StaticResource lightCharcoal}"
                                 Style="{StaticResource etBodyNormalLg}"
                                 TextColor="{StaticResource normalCharcoal}" />
@@ -555,7 +557,7 @@
                             NormalBackgroundEndColor="{StaticResource redNue}"
                             PressedBackgroundColor="{StaticResource redQ5}"
                             NormalLabelColor="White"
-                            Clicked="CreateAlertClicked"
+                            Command="{Binding CreateAlertCommand}"
                             PressedLabelColor="LightGray" />
                     </StackLayout>
                     

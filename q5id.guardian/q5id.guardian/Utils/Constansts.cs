@@ -18,5 +18,6 @@ namespace q5id.guardian.Utils
         public static string HEIGHT_LIST_INCHES_SETTING_KEY = "HeightInches";
 
         public static string LOVED_ONES_ENTITY_SETTING_KEY = "Profile";
+        public static string ALERT_ENTITY_SETTING_KEY = "Alert";
     }
 }

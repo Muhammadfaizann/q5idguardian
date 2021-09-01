@@ -18,7 +18,7 @@
                 <control:AppViewCell>
                     <alertItemView:AlertDefaultItemView >
                         <alertItemView:AlertDefaultItemView.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnAlertItemClicked" CommandParameter="{Binding Model}" />
+                            <TapGestureRecognizer Tapped="OnAlertItemClicked" Command="{Binding ItemClickCommand}" CommandParameter="{Binding Model}" />
                         </alertItemView:AlertDefaultItemView.GestureRecognizers>
                     </alertItemView:AlertDefaultItemView>
                 </control:AppViewCell>
@@ -27,7 +27,7 @@
                 <control:AppViewCell>
                     <alertItemView:AlertExpandedItemView >
                         <alertItemView:AlertExpandedItemView.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnAlertItemClicked" CommandParameter="{Binding Model}" />
+                            <TapGestureRecognizer Tapped="OnAlertItemClicked" Command="{Binding ItemClickCommand}" CommandParameter="{Binding Model}" />
                         </alertItemView:AlertExpandedItemView.GestureRecognizers>
                     </alertItemView:AlertExpandedItemView>
                 </control:AppViewCell>

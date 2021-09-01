@@ -18,6 +18,10 @@ namespace q5id.guardian.ViewModels
             HomeVm = new HomeContentViewModel(navigationService, logProvider);
             LovedOnesVm = new LovedOnesViewModel(navigationService, logProvider);
             AlertsVm = new AlertsViewModel(navigationService, logProvider);
+            Task.Run(async () =>
+            {
+               await HomeVm.Initialize();
+            });
         }
 
         public HomeContentViewModel HomeVm { get; private set; }
@@ -27,18 +31,6 @@ namespace q5id.guardian.ViewModels
         public Command OpenAlertCommand { get; }
 
         public MvxAsyncCommand OpenSettingCommand { get; }
-
-
-        //public override void Initialize(object parameter)
-        //{
-        //    if(parameter is User user)
-        //    {
-        //        HomeVm = new HomeContentViewModel()
-        //        {
-        //            User = user,
-        //        };
-        //    }
-        //}
 
         public override void Prepare(User parameter)
         {
@@ -62,12 +54,39 @@ namespace q5id.guardian.ViewModels
         public override void ViewAppeared()
         {
             base.ViewAppeared();
-            _ = Task.Run(async () =>
+        }
+
+        public Command OpenHomeTapCommand
+        {
+            get
             {
-                await HomeVm.Initialize();
-                await LovedOnesVm.Initialize();
-                await AlertsVm.Initialize();
-            });
+                return new Command(async () =>
+                {
+                    await HomeVm.Initialize();
+                });
+            }
+        }
+
+        public Command OpenLovedOnesTapCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await LovedOnesVm.Initialize();
+                });
+            }
+        }
+
+        public Command OpenAlertTapCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await AlertsVm.Initialize();
+                });
+            }
         }
     }
 }

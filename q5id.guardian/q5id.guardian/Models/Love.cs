@@ -5,7 +5,6 @@ namespace q5id.guardian.Models
 {
     public class Love
     {
-        public string ImageUrl { get; set; }
         [JsonProperty("id")]
         public string Id { get; set; }
         [JsonProperty("ProfileId")]
@@ -45,8 +44,7 @@ namespace q5id.guardian.Models
 
         public Love()
         {
-            ProfileId = "1";
-            CreatedOn = DateTime.UtcNow.ToString();
+           
         }
 
         public DateTime? AddedTime
@@ -60,6 +58,8 @@ namespace q5id.guardian.Models
                 return null;
             }
         }
+
+
         public DateTime? UpdatedTime
         {
             get
