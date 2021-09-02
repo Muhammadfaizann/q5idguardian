@@ -11,19 +11,18 @@ namespace q5id.guardian.Controls
 {
     public class AppMap : Map
     {
-        private const string V = "redNue";
-        public static readonly BindableProperty AlertItemsSourceProperty = BindableProperty.Create(nameof(AlertItemsSource), typeof(IEnumerable), typeof(AppMap), (object)null, (BindingMode)2, (ValidateValueDelegate)null, (BindingPropertyChangedDelegate)(object)(BindingPropertyChangedDelegate)delegate (BindableObject b, object o, object n) {
-            ((AppMap)(object)b).OnAlertItemsSourceChanged((IEnumerable)o, (IEnumerable)n);
+        public static readonly BindableProperty PositionItemsSourceProperty = BindableProperty.Create(nameof(PositionItemsSource), typeof(IEnumerable), typeof(AppMap), (object)null, (BindingMode)2, (ValidateValueDelegate)null, (BindingPropertyChangedDelegate)(object)(BindingPropertyChangedDelegate)delegate (BindableObject b, object o, object n) {
+            ((AppMap)(object)b).OnPositionItemsSourceChanged((IEnumerable)o, (IEnumerable)n);
         }, (BindingPropertyChangingDelegate)null, (CoerceValueDelegate)null, (CreateDefaultValueDelegate)null);
 
 
-        public IEnumerable AlertItemsSource
+        public IEnumerable PositionItemsSource
         {
-            get => (IEnumerable)GetValue(AlertItemsSourceProperty);
-            set => SetValue(AlertItemsSourceProperty, value);
+            get => (IEnumerable)GetValue(PositionItemsSourceProperty);
+            set => SetValue(PositionItemsSourceProperty, value);
         }
 
-        private void OnAlertItemsSourceChanged(IEnumerable oldItemsSource, IEnumerable newItemsSource)
+        private void OnPositionItemsSourceChanged(IEnumerable oldItemsSource, IEnumerable newItemsSource)
         {
             var appMap = this;
             appMap.MapElements.Clear();
@@ -35,11 +34,10 @@ namespace q5id.guardian.Controls
             {
                 pinColor = color;
             }
-            if (newItemsSource != null && newItemsSource is Collection<Alert> listAlert)
+            if (newItemsSource != null && newItemsSource is List<Position> listPosition)
             {
-                foreach (var alert in listAlert)
+                foreach (var position in listPosition)
                 {
-                    var position = alert.Position;
                     Circle insideCircle = new Circle
                     {
                         Center = new Position(position.Latitude, position.Longitude),

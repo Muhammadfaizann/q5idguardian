@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using q5id.guardian.Controls;
+using q5id.guardian.Utils;
 using q5id.guardian.Views.Base;
 using q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews;
 using Xamarin.Forms;
@@ -27,7 +28,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             ShowList();
         }
 
-        private void ShowList()
+        public void ShowList()
         {
             StackHeaderMap.Children.Clear();
             StackHeaderList.Children.Add(cardInfoView);
@@ -55,7 +56,19 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
                 map.HorizontalOptions = LayoutOptions.Fill;
                 map.VerticalOptions = LayoutOptions.Fill;
                 map.BindingContext = this.BindingContext;
+                map.SetBinding(AppMap.PositionItemsSourceProperty, "AlertPositions");
                 FrameContentMap.Content = map;
+                MoveToCurrentPosition();
+            }
+        }
+
+        private async void MoveToCurrentPosition()
+        {
+            var userPosition = await Utils.Utils.GetLocalLocation();
+            if(userPosition != null)
+            {
+                map?.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(userPosition.Latitude, userPosition.Longitude),
+                                                 Distance.FromMiles(Constansts.MILES_DEFAULT_MAP_ZOOM_DISTANCT)));
             }
         }
 

@@ -135,8 +135,9 @@
                                         Style="{StaticResource lbBodyBoldMd}">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span FontSize="16" Text="Austin, TX " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                <Span FontSize="12" Text="Less than 0.1 miles from you" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                                <Span FontSize="16" Text="" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                <Span FontSize="12" Text="{Binding AlertDetail.DistanceFromUser}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                                <Span FontSize="12" Text=" from you" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -217,12 +218,24 @@
                         </control:AppListView.Header>
                         <control:AppListView.Footer>
                             <StackLayout
-                                IsVisible="{Binding IsOwner}"
                                 Orientation="Vertical"
                                 HorizontalOptions="Fill">
                                 <control:AppButton
+                                    IsVisible="{Binding IsOwner}"
                                     Margin="20"
                                     ButtonTitle="End This Alert"
+                                    CornerRadius="12"
+                                    HeightRequest="60"
+                                    HorizontalOptions="Fill"
+                                    NormalBackgroundStartColor="{StaticResource dimCharcoal}"
+                                    NormalBackgroundEndColor="{StaticResource normalCharcoal}"
+                                    PressedBackgroundColor="{StaticResource dimCharcoal}"
+                                    NormalLabelColor="White"
+                                    PressedLabelColor="LightGray" />
+                                <control:AppButton
+                                    IsVisible="{Binding IsCanJoinLooking}"
+                                    Margin="20"
+                                    ButtonTitle="Looking"
                                     CornerRadius="12"
                                     HeightRequest="60"
                                     HorizontalOptions="Fill"
@@ -236,7 +249,7 @@
 	                </control:AppListView>
                     <Grid HeightRequest="48"
                           Grid.Row="1"
-                          IsVisible="{Binding IsOwner}"
+                          IsVisible="{Binding IsMember}"
                           ColumnSpacing="10"
                           BackgroundColor="White"
                           VerticalOptions="Start">
@@ -272,7 +285,7 @@
                                 NoramlBorderColor="{StaticResource paleGray}"
                                 BackgroundColor="White"
                                 Placeholder="Your message…"
-                                Text="{Binding FirstName}"
+                                Text="{Binding FeedMessage}"
                                 VerticalOptions="Center"
                                 PlaceholderColor="{StaticResource lightCharcoal}"
                                 Style="{StaticResource etBodyNormalLg}"

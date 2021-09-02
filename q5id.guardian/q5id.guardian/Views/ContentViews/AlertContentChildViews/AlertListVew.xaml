@@ -17,18 +17,18 @@
             <DataTemplate x:Key="itemTemplate">
                 <control:AppViewCell>
                     <alertItemView:AlertDefaultItemView >
-                        <alertItemView:AlertDefaultItemView.GestureRecognizers>
+                        <!--<alertItemView:AlertDefaultItemView.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnAlertItemClicked" Command="{Binding ItemClickCommand}" CommandParameter="{Binding Model}" />
-                        </alertItemView:AlertDefaultItemView.GestureRecognizers>
+                        </alertItemView:AlertDefaultItemView.GestureRecognizers>-->
                     </alertItemView:AlertDefaultItemView>
                 </control:AppViewCell>
             </DataTemplate>
             <DataTemplate x:Key="itemExpandedTemplate">
                 <control:AppViewCell>
-                    <alertItemView:AlertExpandedItemView >
-                        <alertItemView:AlertExpandedItemView.GestureRecognizers>
+                    <alertItemView:AlertExpandedItemView OnOpenAlertEvent="OnAlertItemClicked" >
+                        <!--<alertItemView:AlertExpandedItemView.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnAlertItemClicked" Command="{Binding ItemClickCommand}" CommandParameter="{Binding Model}" />
-                        </alertItemView:AlertExpandedItemView.GestureRecognizers>
+                        </alertItemView:AlertExpandedItemView.GestureRecognizers>-->
                     </alertItemView:AlertExpandedItemView>
                 </control:AppViewCell>
             </DataTemplate>

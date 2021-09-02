@@ -103,6 +103,18 @@ namespace q5id.guardian.Services
             return await Post<EntityResponse<Alert>>(url, body);
         }
 
+        public async Task<ApiResponse<EntityResponse<Alert>>> UpdateAlert(string entityId, Alert alert)
+        {
+            string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}/{alert.Id}";
+            var body = new
+            {
+                datavaultId = DATAVAULT_ID,
+                entityId = entityId,
+                data = alert
+            };
+            return await Put<EntityResponse<Alert>>(url, body);
+        }
+
         public async Task<ApiResponse<List<Entity<Alert>>>> GetListAlert(string entityId)
         {
             string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}/entity/{entityId}";

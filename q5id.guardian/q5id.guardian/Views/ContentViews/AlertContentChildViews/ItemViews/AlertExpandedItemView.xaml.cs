@@ -9,6 +9,8 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews
     {
         public event EventHandler OnCollapsedEvent;
 
+        public event EventHandler OnOpenAlertEvent;
+
         public AlertExpandedItemView()
         {
             InitializeComponent();
@@ -41,6 +43,11 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews
         public void OnCollapsedTapped(object sender, System.EventArgs e)
         {
             OnCollapsedEvent?.Invoke(sender, e);
+        }
+
+        void OnOpenAlertClicked(System.Object sender, System.EventArgs e)
+        {
+            OnOpenAlertEvent?.Invoke(sender, e);
         }
     }
 }

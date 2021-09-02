@@ -72,22 +72,32 @@ namespace q5id.guardian.Views.ContentViews
             MainPage.UpdateRightControlVisibility(false);
             MainPage.UpdateRightControlImage(FontAwesomeIcons.ChevronLeft);
             this.SetBinding(IsUpdateSuccessProperty, "IsUpdateSuccess");
+            this.SetBinding(ResetCommandProperty, "ResetCommand");
             SetupView();
         }
 
         public void ShowDetail()
         {
             CarouselViewContent.Position = VIEW_DETAIL_INDEX;
+            if(AlertDetailView != null)
+            {
+                AlertDetailView.ShowList();
+            }
         }
 
         public void ShowCreateAlertChooseLove()
         {
+            ResetCommand?.Execute(null);
             CarouselViewContent.Position = VIEW_CREATE_ALERT_CHOOSE_LOVE_INDEX;
         }
 
         public void ShowCreateAlertDetail(object parameter)
         {
             CarouselViewContent.Position = VIEW_CREATE_ALERT_DETAIL_INDEX;
+            if(CreateAlertDetailView != null)
+            {
+                CreateAlertDetailView.InitView();
+            }
         }
 
         private void SetupView()

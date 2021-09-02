@@ -52,7 +52,6 @@ namespace q5id.guardian.Views.ContentViews
                 map.HorizontalOptions = LayoutOptions.Fill;
                 map.VerticalOptions = LayoutOptions.Fill;
                 map.BindingContext = this.BindingContext;
-                map.SetBinding(AppMap.AlertItemsSourceProperty, "Alerts");
                 frmContentMap.Content = map;
                 this.UpdateLocalLocation();
             }
@@ -74,31 +73,7 @@ namespace q5id.guardian.Views.ContentViews
 
         private async Task GetLocalLocation()
         {
-            if (IsLocationAvailable())
-            {
-                try
-                {
-
-                    var locator = CrossGeolocator.Current;
-                    userPosition = await locator.GetLastKnownLocationAsync();
-                    if (this.BindingContext is HomeContentViewModel homeContentViewModel)
-                    {
-                        homeContentViewModel.GetUserAlerts(new Position(userPosition.Latitude, userPosition.Longitude));
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("Cannot get local location: " + ex.Message);
-                }
-            }
-        }
-
-        private bool IsLocationAvailable()
-        {
-            if (!CrossGeolocator.IsSupported)
-                return false;
-            return CrossGeolocator.Current.IsGeolocationAvailable;
+            userPosition = await Utils.Utils.GetLocalLocation();
         }
 
         private void MediaElement_BindingContextChanged(object sender, EventArgs e)

@@ -112,9 +112,15 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             this.SetBinding(IsLowEnforcementProperty, "IsLowEnforcement");
             this.SetBinding(AlertPositionProperty, "AlertPosition");
             InitView();
+            InitEvent();
         }
 
-        private void InitView()
+        private void InitEvent()
+        {
+            EntrySearchMap.SelectedItemChanged += EntrySearchMap_SelectedItemChanged;
+        }
+
+        public void InitView()
         {
             EntrySearchMap.IsVisible = false;
             ImageCurrentLocation.IsVisible = false;
@@ -131,7 +137,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             IsGuardianNearby = false;
             IsLowEnforcement = false;
 
-            EntrySearchMap.SelectedItemChanged += EntrySearchMap_SelectedItemChanged;
+            EntrySearchMap.SelectedItem = null;
         }
 
         private void EntrySearchMap_SelectedItemChanged(object sender, EventArgs e)

@@ -10,6 +10,7 @@ using q5id.guardian.Models;
 using q5id.guardian.Services;
 using q5id.guardian.Services.Bases;
 using q5id.guardian.ViewModels.ItemViewModels;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
@@ -125,6 +126,21 @@ namespace q5id.guardian.ViewModels
             {
                 mAlertDetail = value;
                 RaisePropertyChanged(nameof(AlertDetail));
+                RaisePropertyChanged(nameof(AlertPositions));
+            }
+        }
+
+        public List<Position> AlertPositions
+        {
+            get
+            {
+                if(mAlertDetail != null)
+                {
+                    var result = new List<Position>();
+                    result.Add(mAlertDetail.Position);
+                    return result;
+                }
+                return null;
             }
         }
 
@@ -282,11 +298,56 @@ namespace q5id.guardian.ViewModels
                     Description = Detail,
                     Latitude = AlertPosition != null ? AlertPosition.Value.Latitude+"" : "",
                     Lognitude = AlertPosition != null ? AlertPosition.Value.Longitude + "" : "",
+                    IsClosed = Utils.Constansts.NO_KEY
                 };
 
-
+                if (AlertPosition != null)
+                {
+                    GooglePlace placeJson = await GoogleMapsApiService.Instances.FindPlaceByPosition(AlertPosition.Value);
+                    if(placeJson != null)
+                    {
+                        alertToPost.Address = placeJson.Name;
+                    }
+                }
                 ApiResponse<EntityResponse<Alert>> response = await AppService.Instances.CreateAlert(AlertEntity.Id, alertToPost);
 
+                IsLoading = false;
+                if (response.IsSuccess && response.ResponseObject != null)
+                {
+                    if (response.ResponseObject.IsSuccessful)
+                    {
+                        IsUpdateSuccess = true;
+                        ResetData();
+                        GetAlerts();
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("Error", response.ResponseObject.Message, "OK");
+                    }
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", response.Message, "OK");
+                }
+            }
+        }
+
+        public Command EndAlertCommand
+        {
+            get
+            {
+                return new Command(EndAlert);
+            }
+        }
+
+        private async void EndAlert()
+        {
+            if (AlertEntity != null && AlertDetail != null)
+            {
+                IsLoading = true;
+                var alertToPost = AlertDetail;
+                alertToPost.IsClosed = Utils.Constansts.YES_KEY;
+                ApiResponse<EntityResponse<Alert>> response = await AppService.Instances.UpdateAlert(AlertEntity.Id, alertToPost);
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
@@ -351,20 +412,17 @@ namespace q5id.guardian.ViewModels
         private async void GetAlerts()
         {
             var alerts = new ObservableCollection<object>();
-            var liveHeaderItem = new GroupHeaderItemViewModel()
-            {
-                Title = "Live",
-                Description = "There aren’t any active alerts near you.",
-                IsEmptyList = true
-            };
-            List<AlertItemViewModel> listLiveItem = new List<AlertItemViewModel>();
+            
+            List<AlertItemViewModel> listAlertItem = new List<AlertItemViewModel>();
             IsLoading = true;
+            var userPosition = await Utils.Utils.GetLocalLocation();
+            var userLocation = userPosition != null ? new Location(userPosition.Latitude, userPosition.Longitude) : null;
             if (AlertEntity != null)
             {
                 var response = await AppService.Instances.GetListAlert(AlertEntity.Id);
                 if (response.IsSuccess)
                 {
-                    listLiveItem = response.ResponseObject.Select((Entity<Alert> entityAlert) =>
+                    listAlertItem = response.ResponseObject.Select((Entity<Alert> entityAlert) =>
                     {
                         AlertItemViewModel item = new AlertItemViewModel(entityAlert.Data)
                         {
@@ -372,31 +430,56 @@ namespace q5id.guardian.ViewModels
                             OnUpdateExpanded = OnItemExpandedUpdate,
                             
                         };
+                        item.Model.Id = entityAlert.Id;
+                        item.Model.DistanceFromUser = Alert.GetDistanceFrom(item.Model, userLocation);
                         item.ItemClickCommand = new Command(() =>
                         {
                             AlertDetail = item.Model;
                         });
-                        item.Model.Love = this.Loves.Find((LoveItemViewModel loveItemViewModel) =>
+                        var selectedLoveItemViewModel = this.Loves.Find((LoveItemViewModel loveItemViewModel) =>
                         {
                             return loveItemViewModel.Model.ProfileId == item.Model.ProfileId;
-                        }).Model;
+                        });
+                        if(selectedLoveItemViewModel != null)
+                        {
+                            item.Model.Love = selectedLoveItemViewModel.Model;
+                        }
                         return item;
                     }).ToList();
                 }
             }
+            List<AlertItemViewModel> listLiveItem = listAlertItem.Where((AlertItemViewModel item) =>
+            {
+                return item.Model.IsClosed != Utils.Constansts.YES_KEY;
+            }).ToList();
+            var liveHeaderItem = new GroupHeaderItemViewModel()
+            {
+                Title = "Live",
+                Description = "There aren’t any active alerts near you.",
+                IsEmptyList = true
+            };
+            liveHeaderItem.IsEmptyList = listLiveItem.Count == 0;
+            List<AlertItemViewModel> listHistoryItem = listAlertItem.Where((AlertItemViewModel item) =>
+            {
+                return item.Model.IsClosed == Utils.Constansts.YES_KEY;
+            }).ToList();
             var historyHeaderItem = new GroupHeaderItemViewModel()
             {
                 Title = "History",
                 Description = "You don’t have any past alerts.",
                 IsEmptyList = true
             };
-            liveHeaderItem.IsEmptyList = listLiveItem.Count == 0;
+            historyHeaderItem.IsEmptyList = listHistoryItem.Count == 0;
             alerts.Add(liveHeaderItem);
             foreach(AlertItemViewModel item in listLiveItem)
             {
                 alerts.Add(item);
             }
             alerts.Add(historyHeaderItem);
+            foreach (AlertItemViewModel item in listHistoryItem)
+            {
+                alerts.Add(item);
+            }
             Alerts = alerts;
             IsLoading = false;
         }

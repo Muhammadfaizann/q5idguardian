@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Plugin.Geolocator;
+using Plugin.Geolocator.Abstractions;
 using q5id.guardian.Models;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -159,6 +161,30 @@ namespace q5id.guardian.Utils
                 int years = Convert.ToInt32(Math.Floor((double)ts.Days / 365));
                 return years <= 1 ? "one year ago" : years + " years ago";
             }
+        }
+
+        public static async Task<Position> GetLocalLocation()
+        {
+            if (IsLocationAvailable())
+            {
+                try
+                {
+                    var locator = CrossGeolocator.Current;
+                    return await locator.GetLastKnownLocationAsync();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Cannot get local location: " + ex.Message);
+                }
+            }
+            return null;
+        }
+
+        private static bool IsLocationAvailable()
+        {
+            if (!CrossGeolocator.IsSupported)
+                return false;
+            return CrossGeolocator.Current.IsGeolocationAvailable;
         }
     }
 }

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using q5id.guardian.Models;
+using q5id.guardian.Services;
 using Xamarin.Forms.Maps;
 
 namespace q5id.guardian.ViewModels
@@ -44,8 +47,8 @@ namespace q5id.guardian.ViewModels
             set => SetProperty(ref mPage, value);
         }
 
-        private ObservableCollection<Alert> mAlerts;
-        public ObservableCollection<Alert> Alerts
+        private List<Alert> mAlerts;
+        public List<Alert> Alerts
         {
             get
             {
@@ -60,6 +63,17 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        public List<Position> AlertPositions
+        {
+            get
+            {
+                return Alerts.Select((Alert alert) =>
+                {
+                    return alert.Position;
+                }).ToList();
+            }
+        }
+
         public Boolean IsHaveAlerts
         {
             get
@@ -68,10 +82,39 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        public StructureEntity AlertEntity { get; private set; }
 
         public override async Task Initialize()
         {
             GetUserPages();
+            GetAlerts();
+        }
+
+        private void GetAlertEntity()
+        {
+            var settings = Utils.Utils.GetSettings();
+            if (settings != null)
+            {
+                AlertEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
+                {
+                    return entity.EntityName == Utils.Constansts.ALERT_ENTITY_SETTING_KEY;
+                });
+            }
+        }
+
+        private async void GetAlerts()
+        {
+            if (AlertEntity != null)
+            {
+                var response = await AppService.Instances.GetListAlert(AlertEntity.Id);
+                if (response.IsSuccess)
+                {
+                    Alerts = response.ResponseObject.Select((Entity<Alert> entityAlert) =>
+                    {
+                        return entityAlert.Data;
+                    }).ToList();
+                }
+            }
         }
 
 
@@ -104,33 +147,6 @@ namespace q5id.guardian.ViewModels
                     VideoUrl = "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
                 },
             };
-        }
-
-        public void GetUserAlerts(Position fromPos)
-        {
-            Random rand = new Random();
-            var alerts = new ObservableCollection<Alert>();
-            for(int i = 0; i < 2; i++)
-            {
-                Alert al = new Alert();
-                al.Title = "Title " + (i + 1);
-                al.Address = "Address " + (i + 1);
-                float difLat = 500 + rand.Next(500);
-                if(rand.Next(2) == 0)
-                {
-                    difLat = -difLat;
-                }
-                difLat = difLat / 10000;
-                float difLong = 500 + rand.Next(500);
-                if (rand.Next(2) == 0)
-                {
-                    difLong = -difLong;
-                }
-                difLong = difLong / 10000;
-                al.Position = new Position(fromPos.Latitude + difLat, fromPos.Longitude + difLong);
-                alerts.Add(al);
-            }
-            Alerts = alerts;
         }
     }
 }

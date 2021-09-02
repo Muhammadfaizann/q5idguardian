@@ -16,7 +16,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
 
         void OnAlertItemClicked(object sender, EventArgs e)
         {
-            if (e is TappedEventArgs tappedEventArgs && MainContentView is AlertContentView alertContentView)
+            if (MainContentView is AlertContentView alertContentView)
             {
                 alertContentView.ShowDetail();
                 MainContentView.MainPage.UpdateRightControlVisibility(true);

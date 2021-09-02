@@ -123,8 +123,9 @@
                         Style="{StaticResource lbBodyBoldMd}">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Austin, TX "/>
-                                <Span Text="Less than 0.1 miles from you" FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                <Span Text=""/>
+                                <Span Text="{Binding Model.DistanceFromUser}" FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                <Span Text=" from you" FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
@@ -154,6 +155,8 @@
                         CornerRadius="16"
                         HeightRequest="32"
                         HorizontalOptions="Center"
+                        Clicked="OnOpenAlertClicked"
+                        Command="{Binding ItemClickCommand}"
                         NormalBackgroundStartColor="{StaticResource redQ5}"
                         NormalBackgroundEndColor="{StaticResource redVibrant}"
                         PressedBackgroundColor="{StaticResource redQ5}"
