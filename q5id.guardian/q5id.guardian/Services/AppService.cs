@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using q5id.guardian.Models;
 using q5id.guardian.Services.Bases;
 using Xamarin.Essentials;
@@ -119,6 +120,26 @@ namespace q5id.guardian.Services
         {
             string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}/entity/{entityId}";
             return await Get<List<Entity<Alert>>>(url);
+        }
+
+
+        public async Task<ApiResponse<EntityListResponse<User>>> GetUsers(string entityId, string accountName)
+        {
+            string url = $"{BASE_URL}/datavaultdata/instances/{INSTANCES_ID}/entitydata/{entityId}?$filter=name eq '{accountName}'";
+            
+            return await Get<EntityListResponse<User>>(url);
+        }
+
+        public async Task<ApiResponse<EntityResponse<User>>> CreateUser(string entityId, User user)
+        {
+            string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}";
+            var body = new
+            {
+                datavaultId = DATAVAULT_ID,
+                entityId = entityId,
+                data = user
+            };
+            return await Post<EntityResponse<User>>(url, body);
         }
     }
 }

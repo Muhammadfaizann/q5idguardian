@@ -28,7 +28,13 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             ShowList();
         }
 
-        public void ShowList()
+        public void InitView()
+        {
+            ShowList();
+            cardInfoView.InitView();
+        }
+
+        private void ShowList()
         {
             StackHeaderMap.Children.Clear();
             StackHeaderList.Children.Add(cardInfoView);

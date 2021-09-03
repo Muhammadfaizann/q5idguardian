@@ -45,6 +45,7 @@
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\Bases\ApiResponse.cs" />
     <Compile Include="Services\AppService.cs" />
+    <Compile Include="Services\Bases\EntityListResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\AlertsPage.xaml.cs">

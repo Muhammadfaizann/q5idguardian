@@ -67,8 +67,6 @@ namespace q5id.guardian.Models
             }
         }
 
-        public string Title { get; set; }
-
         public Position Position
         {
             get
@@ -101,6 +99,14 @@ namespace q5id.guardian.Models
                 String mResult = "Started ";
                 DateTime TimeToCheck = (DateTime)AddedTime;
                 return mResult + Utils.Utils.GetTimeAgoFrom(TimeToCheck);
+            }
+        }
+
+        public bool IsEnded
+        {
+            get
+            {
+                return this.IsClosed == Utils.Constansts.YES_KEY;
             }
         }
 

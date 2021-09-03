@@ -81,7 +81,7 @@ namespace q5id.guardian.Views.ContentViews
             CarouselViewContent.Position = VIEW_DETAIL_INDEX;
             if(AlertDetailView != null)
             {
-                AlertDetailView.ShowList();
+                AlertDetailView.InitView();
             }
         }
 

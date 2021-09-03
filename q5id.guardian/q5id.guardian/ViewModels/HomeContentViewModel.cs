@@ -60,6 +60,7 @@ namespace q5id.guardian.ViewModels
                 this.mAlerts = value;
                 RaisePropertyChanged(nameof(Alerts));
                 RaisePropertyChanged(nameof(IsHaveAlerts));
+                RaisePropertyChanged(nameof(AlertPositions));
             }
         }
 
@@ -67,10 +68,14 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                return Alerts.Select((Alert alert) =>
+                if (Alerts != null)
                 {
-                    return alert.Position;
-                }).ToList();
+                    return Alerts.Select((Alert alert) =>
+                    {
+                        return alert.Position;
+                    }).ToList();
+                }
+                return null;
             }
         }
 
@@ -87,6 +92,7 @@ namespace q5id.guardian.ViewModels
         public override async Task Initialize()
         {
             GetUserPages();
+            GetAlertEntity();
             GetAlerts();
         }
 

@@ -7,6 +7,8 @@ namespace q5id.guardian.Models
     {
         [JsonProperty("id")]
         public string Id { get; set; }
+        [JsonProperty("createdby")]
+        public string CreatedBy { get; set; }
         [JsonProperty("ProfileId")]
         public string ProfileId { get; set; }
         [JsonProperty("FirstName")]

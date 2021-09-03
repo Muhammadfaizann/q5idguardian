@@ -73,6 +73,29 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        private bool mIsCanEndAlert = false;
+        public bool IsCanEndAlert
+        {
+            get => mIsCanEndAlert;
+            set
+            {
+                mIsCanEndAlert = value;
+                RaisePropertyChanged(nameof(IsCanEndAlert));
+            }
+        }
+
+        private bool mIsCanJoinLooking = false;
+        public bool IsCanJoinLooking
+        {
+            get => mIsCanJoinLooking;
+            set
+            {
+                mIsCanJoinLooking = value;
+                RaisePropertyChanged(nameof(IsCanJoinLooking));
+            }
+        }
+
+
         private Position? mAlertPosition = null;
         public Position? AlertPosition
         {
@@ -127,6 +150,19 @@ namespace q5id.guardian.ViewModels
                 mAlertDetail = value;
                 RaisePropertyChanged(nameof(AlertDetail));
                 RaisePropertyChanged(nameof(AlertPositions));
+                UpdateIsEndAlert();
+            }
+        }
+
+        private void UpdateIsEndAlert()
+        {
+            if(mAlertDetail != null && mUser.Role == UserRole.Subscriber)
+            {
+                IsCanEndAlert = mAlertDetail.IsClosed != Utils.Constansts.YES_KEY;
+            }
+            else
+            {
+                IsCanEndAlert = false;
             }
         }
 

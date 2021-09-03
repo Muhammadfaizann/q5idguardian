@@ -19,6 +19,7 @@ namespace q5id.guardian.Utils
 
         public static string LOVED_ONES_ENTITY_SETTING_KEY = "Profile";
         public static string ALERT_ENTITY_SETTING_KEY = "Alert";
+        public static string ACCOUNT_ENTITY_SETTING_KEY = "Account";
 
         public static string YES_KEY = "Yes";
         public static string NO_KEY = "No";

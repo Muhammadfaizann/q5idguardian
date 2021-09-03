@@ -66,7 +66,7 @@
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Welcome back, " />
-                                <Span Text="{Binding User.FirstName}" />
+                                <Span Text="{Binding User.AccountName}" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>

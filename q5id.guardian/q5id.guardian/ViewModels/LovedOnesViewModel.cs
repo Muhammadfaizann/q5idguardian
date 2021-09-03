@@ -545,6 +545,7 @@ namespace q5id.guardian.ViewModels
                 var lovedOnesToPost = new Love()
                 {
                     Id = lovedOnesToUpdate != null ? lovedOnesToUpdate.Id : "",
+                    CreatedBy = lovedOnesToUpdate != null ? lovedOnesToUpdate.CreatedBy : User.Id,
                     FirstName = FirstName,
                     LastName = LastName,
                     DateofBirth = GetStrDateOfBirth(),

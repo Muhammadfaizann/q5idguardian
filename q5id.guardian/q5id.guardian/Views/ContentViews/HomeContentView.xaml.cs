@@ -52,6 +52,7 @@ namespace q5id.guardian.Views.ContentViews
                 map.HorizontalOptions = LayoutOptions.Fill;
                 map.VerticalOptions = LayoutOptions.Fill;
                 map.BindingContext = this.BindingContext;
+                map.SetBinding(AppMap.PositionItemsSourceProperty, "AlertPositions");
                 frmContentMap.Content = map;
                 this.UpdateLocalLocation();
             }

@@ -24,6 +24,7 @@
                     HeightRequest="32"
                     NoramlBorderColor="#E8EAF2"
                     Placeholder="Username"
+                    Text="{Binding UserName}"
                     PlaceholderColor="{StaticResource lightCharcoal}"
                     Style="{StaticResource etBodyNormalLg}"
                     TextColor="{StaticResource normalCharcoal}" />
@@ -70,6 +71,15 @@
                     ImageGlyph="{x:Static utils:FontAwesomeIcons.AddressBook}"
                     ImageSize="25"/>-->
             </StackLayout>
+            <Grid IsVisible="{Binding IsLoading}" BackgroundColor="{StaticResource lightCharcoal10}">
+                <ActivityIndicator
+                    IsRunning="true"
+                    WidthRequest="100"
+                    HeightRequest="100"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Color="{StaticResource redNue}" />
+            </Grid>
         </Grid>
 
     </ContentPage.Content>

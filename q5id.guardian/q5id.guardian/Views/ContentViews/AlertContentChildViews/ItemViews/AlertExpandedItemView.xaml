@@ -123,6 +123,7 @@
                         Style="{StaticResource lbBodyBoldMd}">
                         <Label.FormattedText>
                             <FormattedString>
+                                <Span FontSize="16" Text="{Binding Model.Address}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                 <Span Text=""/>
                                 <Span Text="{Binding Model.DistanceFromUser}" FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
                                 <Span Text=" from you" FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
@@ -136,8 +137,9 @@
                         Style="{StaticResource lbBodyBoldMd}">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Amy J "/>
-                                <Span Text="at 9:48 am" FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                <Span Text="Parent"/>
+                                <Span Text=" at " FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                <Span Text="{Binding Model.AddedTime, Converter={StaticResource dateToStringConverter}, ConverterParameter='MM/dd/yyyy HH:mm'}" FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
