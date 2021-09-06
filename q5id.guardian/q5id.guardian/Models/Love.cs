@@ -3,12 +3,8 @@ using Newtonsoft.Json;
 
 namespace q5id.guardian.Models
 {
-    public class Love
+    public class Love : BaseEntity
     {
-        [JsonProperty("id")]
-        public string Id { get; set; }
-        [JsonProperty("createdby")]
-        public string CreatedBy { get; set; }
         [JsonProperty("ProfileId")]
         public string ProfileId { get; set; }
         [JsonProperty("FirstName")]
@@ -39,41 +35,41 @@ namespace q5id.guardian.Models
         public string Image4 { get; set; }
         [JsonProperty("Image5")]
         public string Image5 { get; set; }
-        [JsonProperty("createdon")]
-        public string CreatedOn { get; set; }
-        [JsonProperty("modifiedon")]
-        public string ModifiedOn { get; set; }
 
         public Love()
         {
            
         }
 
-        public DateTime? AddedTime
+        public override object GetParam()
         {
-            get
+            return new
             {
-                if (CreatedOn != null && CreatedOn != "")
-                {
-                    return DateTime.Parse(CreatedOn);
-                }
-                return null;
-            }
+                createdon = CreatedOn,
+                modifiedon = ModifiedOn,
+                createdby = CreatedBy,
+                ProfileId = ProfileId,
+                FirstName = FirstName,
+                LastName = LastName,
+                DateofBirth = DateofBirth,
+                HairColor = HairColor,
+                EyeColor = EyeColor,
+                Weight = Weight,
+                HeightFeet = HeightFeet,
+                HeightInches = HeightInches,
+                OtherInformation = OtherInformation,
+                Image = Image,
+                Image2 = Image2,
+                Image3 = Image3,
+                Image4 = Image4,
+                Image5 = Image5,
+            };
         }
 
-
-        public DateTime? UpdatedTime
-        {
-            get
-            {
-                if (ModifiedOn != null && ModifiedOn != "")
-                {
-                    return DateTime.Parse(ModifiedOn);
-                }
-                return null;
-            }
-        }
+        [JsonIgnore]
         public Boolean IsLongTime { get; set; } = false;
+
+        [JsonIgnore]
         public DateTime? BirthDay
         {
             get
@@ -86,11 +82,13 @@ namespace q5id.guardian.Models
             }
         }
 
+        [JsonIgnore]
         public string FullName
         {
             get => FirstName + " " + LastName;
         }
 
+        [JsonIgnore]
         public int Age
         {
             get
@@ -105,6 +103,7 @@ namespace q5id.guardian.Models
             }
         }
 
+        [JsonIgnore]
         public string LastUpdatedDuration
         {
             get

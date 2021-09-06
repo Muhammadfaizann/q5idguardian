@@ -518,14 +518,9 @@ namespace q5id.guardian.ViewModels
             if (LovedOnesEntity != null)
             {
                 var response = await AppService.Instances.GetListLovedOnes(LovedOnesEntity.Id);
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Value != null)
                 {
-                    Loves = response.ResponseObject.Select((Entity<Love> entityLove) =>
-                    {
-                        var love = entityLove.Data;
-                        love.Id = entityLove.Id;
-                        return love;
-                    }).ToList();
+                    Loves = response.ResponseObject.Value;
                 }
             }
             IsLoading = false;

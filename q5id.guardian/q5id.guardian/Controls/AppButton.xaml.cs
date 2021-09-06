@@ -214,8 +214,11 @@ namespace q5id.guardian.Controls
 
         private void FrameContent_Clicked(object sender, EventArgs e)
         {
-            Clicked?.Invoke(sender, e);
-            Command?.Execute(sender);
+            if(this.IsDisable == false)
+            {
+                Clicked?.Invoke(sender, e);
+                Command?.Execute(sender);
+            }
         }
 
         private void FrameContent_TouchEnd(object sender, EventArgs e)

@@ -91,7 +91,7 @@ namespace q5id.guardian.Views.ContentViews
             CarouselViewContent.Position = VIEW_CREATE_ALERT_CHOOSE_LOVE_INDEX;
         }
 
-        public void ShowCreateAlertDetail(object parameter)
+        public void ShowCreateAlertDetail()
         {
             CarouselViewContent.Position = VIEW_CREATE_ALERT_DETAIL_INDEX;
             if(CreateAlertDetailView != null)

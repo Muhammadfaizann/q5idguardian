@@ -15,12 +15,9 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
 
         void OnItemTapped(System.Object sender, System.EventArgs e)
         {
-            if(e is TappedEventArgs tappedEventArgs)
+            if (MainContentView is AlertContentView alertContentView)
             {
-                if (MainContentView is AlertContentView alertContentView)
-                {
-                    alertContentView.ShowCreateAlertDetail(tappedEventArgs.Parameter);
-                }
+                alertContentView.ShowCreateAlertDetail();
             }
         }
     }

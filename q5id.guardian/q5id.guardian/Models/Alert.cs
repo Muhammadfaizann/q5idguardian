@@ -6,10 +6,8 @@ using Xamarin.Forms.Maps;
 
 namespace q5id.guardian.Models
 {
-    public class Alert
+    public class Alert : BaseEntity
     {
-        [JsonProperty("id")]
-        public string Id { get; set; }
         [JsonProperty("ProfileId")]
         public string ProfileId { get; set; }
         [JsonProperty("AlertId")]
@@ -28,12 +26,8 @@ namespace q5id.guardian.Models
         public string Address { get; set; }
         [JsonProperty("IsClosed")]
         public string IsClosed { get; set; }
-        [JsonProperty("createdon")]
-        public string CreatedOn { get; set; }
-        [JsonProperty("modifiedon")]
-        public string ModifiedOn { get; set; }
-        
 
+        [JsonIgnore]
         public string DistanceFromUser { get; set; }
 
         public static string GetDistanceFrom(Alert alert, Location sourceCoordinates)
@@ -55,18 +49,26 @@ namespace q5id.guardian.Models
             return "Unkown";
         }
 
-        public DateTime? AddedTime
+        public override object GetParam()
         {
-            get
+            return new
             {
-                if (CreatedOn != null && CreatedOn != "")
-                {
-                    return DateTime.Parse(CreatedOn);
-                }
-                return null;
-            }
+                createdon = CreatedOn,
+                modifiedon = ModifiedOn,
+                createdby = CreatedBy,
+                ProfileId = ProfileId,
+                AlertId = AlertId,
+                FirstName = FirstName,
+                Description = Description,
+                Comments = Comments,
+                Latitude = Latitude,
+                Lognitude = Lognitude,
+                Address = Address,
+                IsClosed = IsClosed,
+            };
         }
 
+        [JsonIgnore]
         public Position Position
         {
             get
@@ -86,8 +88,10 @@ namespace q5id.guardian.Models
             }
         }
 
+        [JsonIgnore]
         public Love Love { get; set; }
 
+        [JsonIgnore]
         public string UpdatedTimeDescription
         {
             get
@@ -102,6 +106,7 @@ namespace q5id.guardian.Models
             }
         }
 
+        [JsonIgnore]
         public bool IsEnded
         {
             get

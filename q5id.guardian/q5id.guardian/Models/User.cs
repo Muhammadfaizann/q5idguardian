@@ -3,10 +3,8 @@ using Newtonsoft.Json;
 
 namespace q5id.guardian.Models
 {
-    public class User
+    public class User : BaseEntity
     {
-        [JsonProperty("id")]
-        public string Id { get; set; }
         [JsonProperty("accountid")]
         public string AccountId { get; set; }
         [JsonProperty("name")]
@@ -17,11 +15,8 @@ namespace q5id.guardian.Models
         public string LastUseDinCampaign { get; set; }
         [JsonProperty("statecode")]
         public string Statecode { get; set; }
-        [JsonProperty("createdon")]
-        public string CreatedOn { get; set; }
-        [JsonProperty("modifiedon")]
-        public string ModifiedOn { get; set; }
 
+        [JsonIgnore]
         public UserRole Role { get; set; }
 
         public User()
@@ -29,6 +24,14 @@ namespace q5id.guardian.Models
             OverriddenCreatedon = "2001-03-03";
             LastUseDinCampaign = "2001-03-03";
             Statecode = "Active";
+        }
+
+        public override object GetParam()
+        {
+            return new
+            {
+
+            };
         }
     }
 }

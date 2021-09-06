@@ -236,6 +236,7 @@
                                     PressedLabelColor="LightGray" />
                                 <control:AppButton
                                     IsVisible="{Binding IsCanJoinLooking}"
+                                    Command="{Binding JoinAlertCommand}"
                                     Margin="20"
                                     ButtonTitle="Looking"
                                     CornerRadius="12"
@@ -251,7 +252,7 @@
 	                </control:AppListView>
                     <Grid HeightRequest="48"
                           Grid.Row="1"
-                          IsVisible="{Binding AlertDetail.IsEnded, Converter={StaticResource reverseBooleanConverter}}"
+                          IsVisible="{Binding IsShowAlertComment}"
                           ColumnSpacing="10"
                           BackgroundColor="White"
                           VerticalOptions="Start">
@@ -289,6 +290,7 @@
                                 Placeholder="Your message…"
                                 Text="{Binding FeedMessage}"
                                 VerticalOptions="Center"
+                                ReturnCommand="{Binding PostFeedCommand}"
                                 PlaceholderColor="{StaticResource lightCharcoal}"
                                 Style="{StaticResource etBodyNormalLg}"
                                 TextColor="{StaticResource normalCharcoal}" />

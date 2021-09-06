@@ -113,12 +113,9 @@ namespace q5id.guardian.ViewModels
             if (AlertEntity != null)
             {
                 var response = await AppService.Instances.GetListAlert(AlertEntity.Id);
-                if (response.IsSuccess)
+                if (response.IsSuccess && response.ResponseObject.Value != null)
                 {
-                    Alerts = response.ResponseObject.Select((Entity<Alert> entityAlert) =>
-                    {
-                        return entityAlert.Data;
-                    }).ToList();
+                    Alerts = response.ResponseObject.Value;
                 }
             }
         }
