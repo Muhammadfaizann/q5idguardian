@@ -49,7 +49,7 @@
                         BackgroundColor="White"
                         BorderColor="Transparent"
                         CornerRadius="10"
-                        HasShadow="True"
+                        HasShadow="False"
                         HeightRequest="160">
                         <Grid>
                             <controls:CarouselViewControl

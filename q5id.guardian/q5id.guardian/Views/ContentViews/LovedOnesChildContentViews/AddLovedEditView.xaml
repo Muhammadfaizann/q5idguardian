@@ -8,9 +8,9 @@
     xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     x:Class="q5id.guardian.Views.ContentViews.LovedOnesChildContentViews.AddLovedEditView">
     <ContentView.Content>
-        <Grid>
+        <Grid Padding="0">
             <control:AppBoxView
-                Margin="0,0,0,0"
+                Margin="-1,0,0,0"
                 BackgroundColor="#FD425E"
                 HorizontalOptions="Fill"
                 VerticalOptions="Start"
@@ -19,7 +19,7 @@
             <ScrollView Padding="0, 15, 0, 0" Orientation="Vertical">
                 <StackLayout Orientation="Vertical">
                     <Frame Padding="5,20,5,20"
-                       HasShadow="True"
+                       HasShadow="False"
                        Margin="25, 0, 25, 0"
                        BorderColor="Transparent"
                        CornerRadius="16"

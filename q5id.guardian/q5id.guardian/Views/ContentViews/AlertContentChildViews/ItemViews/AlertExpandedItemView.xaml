@@ -124,7 +124,7 @@
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span FontSize="16" Text="{Binding Model.Address}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                <Span Text=""/>
+                                <Span Text=" "/>
                                 <Span Text="{Binding Model.DistanceFromUser}" FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
                                 <Span Text=" from you" FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
                             </FormattedString>

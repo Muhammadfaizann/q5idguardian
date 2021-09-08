@@ -24,7 +24,7 @@
                     CornerRadius="12"
                     DeactiveBackgroundColor="White"
                     DeactiveLabelColor="{StaticResource paleGray}"
-                    HasShadow="True"
+                    HasShadow="False"
                     HeightRequest="60"
                     HorizontalOptions="Center"
                     IsDisable="{Binding IsVolunteer}"
@@ -103,6 +103,7 @@
                                 BackgroundColor="Black"
                                 BorderColor="Transparent"
                                 CornerRadius="16"
+                                HasShadow="False"
                                 IsClippedToBounds="True">
                                 <carousel:CarouselViewControl
                                     x:Name="carouselView"
@@ -242,7 +243,7 @@
                         BackgroundColor="LightGray"
                         BorderColor="Transparent"
                         CornerRadius="20"
-                        HasShadow="True"
+                        HasShadow="False"
                         IsClippedToBounds="True">
                         <Grid>
                             <Frame

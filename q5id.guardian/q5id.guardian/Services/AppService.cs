@@ -96,9 +96,10 @@ namespace q5id.guardian.Services
             return await Delete<EntityResponse<Love>>(url);
         }
 
-        public async Task<ApiResponse<EntityListResponse<Love>>> GetListLovedOnes(string entityId)
+        public async Task<ApiResponse<EntityListResponse<Love>>> GetListLovedOnes(string entityId, string userId)
         {
-            string url = $"{BASE_URL}/datavaultdata/instances/{INSTANCES_ID}/entitydata/{entityId}";
+            string query = userId != null ? $"?$filter=AccountId eq '{userId}'" : "";
+            string url = $"{BASE_URL}/datavaultdata/instances/{INSTANCES_ID}/entitydata/{entityId}"+query;
             return await Get<EntityListResponse<Love>>(url);
         }
 

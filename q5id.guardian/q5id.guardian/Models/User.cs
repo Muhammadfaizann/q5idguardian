@@ -9,6 +9,8 @@ namespace q5id.guardian.Models
         public string AccountId { get; set; }
         [JsonProperty("name")]
         public string AccountName { get; set; }
+        [JsonProperty("accountnumber")]
+        public string AccountNumber { get; set; }
         [JsonProperty("overriddencreatedon")]
         public string OverriddenCreatedon { get; set; }
         [JsonProperty("lastusedincampaign")]

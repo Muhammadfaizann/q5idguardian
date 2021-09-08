@@ -71,13 +71,20 @@ namespace q5id.guardian.Utils
         public static async Task<PermissionStatus> CheckAndRequestPermissionAsync<T>(T permission)
             where T : BasePermission
         {
-            var status = await permission.CheckStatusAsync();
-            if (status != PermissionStatus.Granted)
+            try
             {
-                status = await permission.RequestAsync();
+                var status = await permission.CheckStatusAsync();
+                if (status != PermissionStatus.Granted)
+                {
+                    status = await permission.RequestAsync();
+                }
+                return status;
             }
-
-            return status;
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Cannot check permission: " + ex.Message);
+            }
+            return PermissionStatus.Denied;
         }
 
         public static async Task<PermissionStatus> CheckAndRequestLocationPermission()

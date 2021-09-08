@@ -38,22 +38,34 @@ namespace q5id.guardian.ViewModels
                 FirstName = selectedLovedOnes.FirstName;
                 LastName = selectedLovedOnes.LastName;
                 BirthDay = DateTime.Parse(selectedLovedOnes.DateofBirth);
-                HairColor = HairColors.Find((ItemChoice choice) =>
+                if(HairColors != null)
                 {
-                    return choice.Name == selectedLovedOnes.HairColor;
-                });
-                EyeColor = EyeColors.Find((ItemChoice choice) =>
+                    HairColor = HairColors.Find((ItemChoice choice) =>
+                    {
+                        return choice.Name == selectedLovedOnes.HairColor;
+                    });
+                }
+                if(EyeColors != null)
                 {
-                    return choice.Name == selectedLovedOnes.EyeColor;
-                });
-                HeightFeet = HeightFeets.Find((ItemChoice choice) =>
+                    EyeColor = EyeColors.Find((ItemChoice choice) =>
+                    {
+                        return choice.Name == selectedLovedOnes.EyeColor;
+                    });
+                }
+                if(HeightFeets != null)
                 {
-                    return choice.Name == selectedLovedOnes.HeightFeet;
-                });
-                HeightInches = ListHeightInches.Find((ItemChoice choice) =>
+                    HeightFeet = HeightFeets.Find((ItemChoice choice) =>
+                    {
+                        return choice.Name == selectedLovedOnes.HeightFeet;
+                    });
+                }
+                if(ListHeightInches != null)
                 {
-                    return choice.Name == selectedLovedOnes.HeightInches;
-                });
+                    HeightInches = ListHeightInches.Find((ItemChoice choice) =>
+                    {
+                        return choice.Name == selectedLovedOnes.HeightInches;
+                    });
+                }
                 Weight = selectedLovedOnes.Weight;
                 Detail = selectedLovedOnes.OtherInformation;
                 PrimaryImage = null;
@@ -517,7 +529,7 @@ namespace q5id.guardian.ViewModels
             IsLoading = true;
             if (LovedOnesEntity != null)
             {
-                var response = await AppService.Instances.GetListLovedOnes(LovedOnesEntity.Id);
+                var response = await AppService.Instances.GetListLovedOnes(LovedOnesEntity.Id, User.AccountId);
                 if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Value != null)
                 {
                     Loves = response.ResponseObject.Value;
@@ -539,7 +551,8 @@ namespace q5id.guardian.ViewModels
                 }
                 var lovedOnesToPost = new Love()
                 {
-                    Id = lovedOnesToUpdate != null ? lovedOnesToUpdate.Id : "",
+                    Id = lovedOnesToUpdate != null ? lovedOnesToUpdate.PrimaryId : null,
+                    AccountId = lovedOnesToUpdate != null ? lovedOnesToUpdate.AccountId : User.AccountId,
                     CreatedBy = lovedOnesToUpdate != null ? lovedOnesToUpdate.CreatedBy : User.Id,
                     FirstName = FirstName,
                     LastName = LastName,
@@ -650,7 +663,7 @@ namespace q5id.guardian.ViewModels
             {
                 IsLoading = true;
                 var selectedLovedOnes = mSelectedLovedOnes;
-                var response = await AppService.Instances.DeleteLovedOnes(selectedLovedOnes.Id);
+                var response = await AppService.Instances.DeleteLovedOnes(selectedLovedOnes.PrimaryId);
                 IsLoading = false;
                 if (response.IsSuccess)
                 {

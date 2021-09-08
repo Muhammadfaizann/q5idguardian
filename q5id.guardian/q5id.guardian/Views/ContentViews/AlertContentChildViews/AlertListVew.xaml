@@ -56,7 +56,7 @@
                     CornerRadius="12"
                     DeactiveBackgroundColor="White"
                     DeactiveLabelColor="{StaticResource paleGray}"
-                    HasShadow="True"
+                    HasShadow="False"
                     HeightRequest="60"
                     HorizontalOptions="Center"
                     IsDisable="{Binding IsVolunteer}"

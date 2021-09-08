@@ -5,8 +5,12 @@ namespace q5id.guardian.Models
 {
     public class Love : BaseEntity
     {
+        [JsonProperty("Id")]
+        public string PrimaryId { get; set; }
         [JsonProperty("ProfileId")]
         public string ProfileId { get; set; }
+        [JsonProperty("AccountId")]
+        public string AccountId { get; set; }
         [JsonProperty("FirstName")]
         public string FirstName { get; set; }
         [JsonProperty("LastName")]
@@ -49,6 +53,7 @@ namespace q5id.guardian.Models
                 modifiedon = ModifiedOn,
                 createdby = CreatedBy,
                 ProfileId = ProfileId,
+                AccountId = AccountId,
                 FirstName = FirstName,
                 LastName = LastName,
                 DateofBirth = DateofBirth,

@@ -10,7 +10,7 @@
     <ContentView.Content>
         <Grid>
             <control:AppBoxView
-                Margin="0,0,0,0"
+                Margin="-1,0,0,0"
                 BackgroundColor="#FD425E"
                 BottomHeight="45"
                 HeightRequest="120"
@@ -24,7 +24,7 @@
                         BackgroundColor="White"
                         BorderColor="Transparent"
                         CornerRadius="16"
-                        HasShadow="True"
+                        HasShadow="False"
                         HorizontalOptions="Fill"
                         VerticalOptions="Start">
                         <StackLayout

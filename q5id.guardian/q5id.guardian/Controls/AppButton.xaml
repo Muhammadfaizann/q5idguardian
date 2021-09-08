@@ -8,6 +8,7 @@
         <control:AppFrame x:Name="frameContent"
                           CornerRadius="20"
                           Padding="0"
+                          HasShadow="False"
                           Style="{StaticResource frmButton}">
             <Label HorizontalOptions="Center"
                    x:Name="labelContent"

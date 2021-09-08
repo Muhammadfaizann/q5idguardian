@@ -51,6 +51,7 @@
                 </Label>
                 <Label
                     Grid.Column="2"
+                    HorizontalTextAlignment="End"
                     VerticalOptions="Center"
                     TextColor="{StaticResource lightCharcoal}"
                     Style="{StaticResource lbBodyNormalMd}"

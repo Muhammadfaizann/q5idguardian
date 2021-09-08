@@ -30,7 +30,7 @@
     <ContentView.Content>
         <Grid>
             <control:AppBoxView
-                Margin="0,0,0,0"
+                Margin="-1,0,0,0"
                 BackgroundColor="#FD425E"
                 HorizontalOptions="Fill"
                 VerticalOptions="Start"
