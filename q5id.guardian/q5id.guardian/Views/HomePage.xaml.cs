@@ -19,12 +19,16 @@ namespace q5id.guardian.Views
         private ContentView LovedOnesView = null;
         private ContentView AlertsView = null;
         private int mCurrentTap = -1;
+        private bool mIsDrawerVisible = false;
+        private bool mIsAnimation = false;
 
         public event EventHandler RightControlClicked;
 
         public HomePage()
         {
             InitializeComponent();
+            GridDrawer.IsVisible = false;
+            GridDrawer.TranslateTo(-320, 0, 0);
             HomeView = new HomeContentView();
             ShowView(HomeView, "HomeVm");
             SelectTab(0);
@@ -130,6 +134,33 @@ namespace q5id.guardian.Views
         protected override bool OnBackButtonPressed()
         {
             return base.OnBackButtonPressed();
+        }
+
+        async void OnDrawerTapped(System.Object sender, System.EventArgs e)
+        {
+            if(mIsAnimation == false)
+            {
+                mIsAnimation = true;
+                mIsDrawerVisible = !mIsDrawerVisible;
+                //GridDrawer.IsVisible = mIsDrawerVisible;
+                if (mIsDrawerVisible)
+                {
+                    GridDrawer.IsVisible = true;
+                    await GridDrawer.TranslateTo(0, 0, 250);
+                    mIsAnimation = false;
+                }
+                else
+                {
+                    await GridDrawer.TranslateTo(-320, 0, 250);
+                    GridDrawer.IsVisible = false;
+                    mIsAnimation = false;
+                }
+            }
+            
+            
+            
+
+            //GridDrawer.IsVisible = !GridDrawer.IsVisible;
         }
     }
 }

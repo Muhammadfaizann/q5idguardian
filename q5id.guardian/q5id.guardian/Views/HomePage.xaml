@@ -23,7 +23,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="60">
+            <RowDefinition>
                 <RowDefinition.Height>
                     <OnPlatform x:TypeArguments="GridLength">
                         <On Platform="Android">60</On>
@@ -45,7 +45,7 @@
                 VerticalOptions="Center" />
             <Grid Margin="20,0,0,0" HorizontalOptions="Start">
                 <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding OpenSettingCommand}" />
+                    <TapGestureRecognizer Tapped="OnDrawerTapped" />
                 </Grid.GestureRecognizers>
                 <Image HorizontalOptions="Center" IsEnabled="False">
                     <Image.Source>
@@ -99,13 +99,208 @@
                   VerticalOptions="Fill">
 
             </Grid>
-            <!--<ctv:HomeContentView
-                x:Name="homeView"
-                BindingContext="{Binding HomeVm}"
-                IsVisible="True" />
-
-            <ctv:LovedOnesContentView x:Name="lovedView" IsVisible="False" />
-            <ctv:AlertContentView x:Name="alertView" IsVisible="False" />-->
+            <Grid Padding="0,0,0,0"
+                  x:Name="GridDrawer">
+                <Frame HorizontalOptions="Start"
+                       WidthRequest="320"
+                       HasShadow="False"
+                       CornerRadius="0"
+                       Padding="20"
+                       BorderColor="Transparent">
+                    <Frame.Background>
+                        <LinearGradientBrush StartPoint="0,0"
+                                             EndPoint="1,0">
+                            <GradientStop Color="{StaticResource dimCharcoal}"
+                                          Offset="0.1"/>
+                            <GradientStop Color="{StaticResource normalCharcoal}"
+                                          Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Frame.Background>
+                    <ScrollView Orientation="Vertical">
+                        <StackLayout Orientation="Vertical" HorizontalOptions="Fill">
+                            <Grid Grid.Row="0"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Start">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    HorizontalOptions="Center"
+                                    Text="Settings"
+                                    TextColor="White"
+                                    VerticalOptions="Center" />
+                                <control:AppFrame
+                                    Padding="0"
+                                    CornerRadius="18"
+                                    HasShadow="False"
+                                    HeightRequest="36"
+                                    HorizontalOptions="Start"
+                                    NormalBackgroundColorEnd="{StaticResource lightCharcoal}"
+                                    NormalBackgroundColorStart="{StaticResource lightCharcoal}"
+                                    PressedBackgroundColor="{StaticResource normalCharcoal}"
+                                    VerticalOptions="Center"
+                                    WidthRequest="36">
+                                    <Image HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Image.Source>
+                                            <FontImageSource
+                                                FontFamily="{x:Static utils:ThemeConstanst.FontAwesomeSolid}"
+                                                Glyph="{x:Static utils:FontAwesomeIcons.Times}"
+                                                Size="Large"
+                                                Color="{StaticResource paleGray}" />
+                                        </Image.Source>
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnDrawerTapped" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </control:AppFrame>
+                            </Grid>
+                            <Label
+                                Margin="0,20,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                TextColor="White"
+                                Style="{StaticResource lbSubheadSm}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Amy J"/>
+                                        <Span Text=" Guardian member since " FontSize="12" FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"/>
+                                        <Span Text="Feb 2021" FontSize="12" FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>    
+                            </Label>
+                            <BoxView Margin="0,20,0,0" HeightRequest="1" BackgroundColor="{StaticResource lightCharcoal40}" />
+                            <Label
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                TextColor="{StaticResource paleGray50}"
+                                Text="ACCOUNT"
+                                Opacity="50"
+                                Style="{StaticResource lbButton}">
+                            
+                            </Label>
+                            <Label
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                TextColor="{StaticResource paleGray}"
+                                FontSize="16"
+                                Text="Profile"
+                                Style="{StaticResource lbBodyNormalLg}">
+                            
+                            </Label>
+                            <Label
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                TextColor="{StaticResource paleGray}"
+                                FontSize="16"
+                                Text="Verified ID"
+                                Style="{StaticResource lbBodyNormalLg}">
+                            
+                            </Label>
+                            <Label
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                TextColor="{StaticResource paleGray}"
+                                FontSize="16"
+                                Text="Subscriptions"
+                                Style="{StaticResource lbBodyNormalLg}">
+                            
+                            </Label>
+                            <BoxView Margin="0,10,0,0" HeightRequest="1" BackgroundColor="{StaticResource lightCharcoal40}" />
+                            <Label
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                TextColor="{StaticResource paleGray50}"
+     
+                                Opacity="50"
+                                Style="{StaticResource lbButton}">
+                                <Label.Text>
+                                    SAFETY &amp; PRIVACY
+                                </Label.Text>
+                            </Label>
+                            <Label
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                TextColor="{StaticResource paleGray}"
+                                FontSize="16"
+                                Text="Privacy Policy"
+                                Style="{StaticResource lbBodyNormalLg}">
+                            
+                            </Label>
+                            <Label
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                TextColor="{StaticResource paleGray}"
+                                FontSize="16"
+                                Text="Privacy Center"
+                                Style="{StaticResource lbBodyNormalLg}">
+                            
+                            </Label>
+                            <BoxView Margin="0,10,0,0" HeightRequest="1" BackgroundColor="{StaticResource lightCharcoal40}" />
+                            <Label
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                TextColor="{StaticResource paleGray50}"
+     
+                                Opacity="50"
+                                Style="{StaticResource lbButton}">
+                                <Label.Text>
+                                    SUPPORT
+                                </Label.Text>
+                            </Label>
+                            <Label
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                TextColor="{StaticResource paleGray}"
+                                FontSize="16"
+                                Text="Help Center"
+                                Style="{StaticResource lbBodyNormalLg}">
+                            
+                            </Label>
+                            <Label
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                TextColor="{StaticResource paleGray}"
+                                FontSize="16"
+                                Text="FAQ"
+                                Style="{StaticResource lbBodyNormalLg}">
+                            
+                            </Label>
+                            <BoxView Margin="0,10,0,0" HeightRequest="1" BackgroundColor="{StaticResource lightCharcoal40}" />
+                            <Label
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                TextColor="{StaticResource paleGray50}"
+     
+                                Opacity="50"
+                                Style="{StaticResource lbButton}">
+                                <Label.Text>
+                                    ABOUT
+                                </Label.Text>
+                            </Label>
+                            <Label
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                TextColor="{StaticResource paleGray}"
+                                FontSize="16"
+                                Text="About Q5id"
+                                Style="{StaticResource lbBodyNormalLg}">
+                            
+                            </Label>
+                        </StackLayout>
+                    </ScrollView>
+                </Frame>
+            </Grid>
         </Grid>
         <Grid Grid.Row="2" BackgroundColor="White">
             <Grid.Padding>

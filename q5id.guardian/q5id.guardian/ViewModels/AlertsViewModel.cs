@@ -482,7 +482,7 @@ namespace q5id.guardian.ViewModels
                 var feedToPost = new Feed()
                 {
                     AlertFeedId = System.Guid.NewGuid().ToString(),
-                    VolunteerName = User.AccountName,
+                    VolunteerName = User.FullName,
                     CreatedBy = User.Id,
                     AlertId = AlertDetail.AlertId,
                     Timestamp = DateTime.UtcNow.ToString(),
@@ -539,7 +539,7 @@ namespace q5id.guardian.ViewModels
                 var feedToPost = new Feed()
                 {
                     AlertFeedId = System.Guid.NewGuid().ToString(),
-                    VolunteerName = User.AccountName,
+                    VolunteerName = User.FullName,
                     CreatedBy = User.Id,
                     AlertId = AlertDetail.AlertId,
                     Timestamp = DateTime.UtcNow.ToString(),

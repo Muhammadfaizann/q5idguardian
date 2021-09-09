@@ -43,7 +43,7 @@
                     TextColor="{StaticResource normalCharcoal}" />
                 <app:AppButton
                     ButtonTitle="Login as Volunteer"
-                    Command="{Binding LoginCommand}"
+                    Command="{Binding LoginVolunteerCommand}"
                     CornerRadius="20"
                     HeightRequest="40"
                     HorizontalOptions="Center"
@@ -52,6 +52,15 @@
                     WidthRequest="200" />
                 <app:AppButton
                     ButtonTitle="Login as Subscriber"
+                    Command="{Binding LoginSubscriberCommand}"
+                    CornerRadius="20"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    NormalLabelColor="White"
+                    PressedLabelColor="LightGray"
+                    WidthRequest="200" />
+                <app:AppButton
+                    ButtonTitle="Sign Up"
                     Command="{Binding SignUpCommand}"
                     CornerRadius="20"
                     HeightRequest="40"

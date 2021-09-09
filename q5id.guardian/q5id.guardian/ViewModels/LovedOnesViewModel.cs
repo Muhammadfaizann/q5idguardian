@@ -529,7 +529,7 @@ namespace q5id.guardian.ViewModels
             IsLoading = true;
             if (LovedOnesEntity != null)
             {
-                var response = await AppService.Instances.GetListLovedOnes(LovedOnesEntity.Id, User.AccountId);
+                var response = await AppService.Instances.GetListLovedOnes(LovedOnesEntity.Id, User.ContactId);
                 if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Value != null)
                 {
                     Loves = response.ResponseObject.Value;
@@ -552,7 +552,7 @@ namespace q5id.guardian.ViewModels
                 var lovedOnesToPost = new Love()
                 {
                     Id = lovedOnesToUpdate != null ? lovedOnesToUpdate.PrimaryId : null,
-                    AccountId = lovedOnesToUpdate != null ? lovedOnesToUpdate.AccountId : User.AccountId,
+                    ContactId = lovedOnesToUpdate != null ? lovedOnesToUpdate.ContactId : User.ContactId,
                     CreatedBy = lovedOnesToUpdate != null ? lovedOnesToUpdate.CreatedBy : User.Id,
                     FirstName = FirstName,
                     LastName = LastName,

@@ -98,7 +98,7 @@ namespace q5id.guardian.Services
 
         public async Task<ApiResponse<EntityListResponse<Love>>> GetListLovedOnes(string entityId, string userId)
         {
-            string query = userId != null ? $"?$filter=AccountId eq '{userId}'" : "";
+            string query = userId != null ? $"?$filter=ContactId eq '{userId}'" : "";
             string url = $"{BASE_URL}/datavaultdata/instances/{INSTANCES_ID}/entitydata/{entityId}"+query;
             return await Get<EntityListResponse<Love>>(url);
         }
@@ -122,7 +122,7 @@ namespace q5id.guardian.Services
 
         public async Task<ApiResponse<EntityListResponse<User>>> GetUsers(string entityId, string accountName)
         {
-            string url = $"{BASE_URL}/datavaultdata/instances/{INSTANCES_ID}/entitydata/{entityId}?$filter=name eq '{accountName}'";
+            string url = $"{BASE_URL}/datavaultdata/instances/{INSTANCES_ID}/entitydata/{entityId}?$filter=nickname eq '{accountName}'";
             
             return await Get<EntityListResponse<User>>(url);
         }
@@ -137,6 +137,11 @@ namespace q5id.guardian.Services
                 data = user
             };
             return await Post<EntityResponse<User>>(url, body);
+        }
+
+        public async Task<ApiResponse<EntityResponse<User>>> UpdateUser(string entityId, User user)
+        {
+            return await UpdateEntity(entityId, user);
         }
 
         public async Task<ApiResponse<EntityResponse<Feed>>> CreateFeed(string entityId, Feed feed)

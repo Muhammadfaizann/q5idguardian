@@ -75,7 +75,9 @@
             <Color x:Key="lightCharcoal">#838699</Color>
             <Color x:Key="lightCharcoal40">#66838699</Color>
             <Color x:Key="lightCharcoal10">#1A838699</Color>
+            <Color x:Key="black10">#1A000000</Color>
             <Color x:Key="paleGray">#E8EAF2</Color>
+            <Color x:Key="paleGray50">#80E8EAF2</Color>
             <Color x:Key="blue">#3DA0FF</Color>
             <Style x:Key="frmButton" TargetType="app:AppFrame">
                 <Setter Property="NormalBackgroundColorStart" Value="{StaticResource dimCharcoal}" />

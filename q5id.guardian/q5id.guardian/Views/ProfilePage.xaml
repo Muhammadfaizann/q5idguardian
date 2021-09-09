@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:ctv="clr-namespace:q5id.guardian.Views.ContentViews"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:utils="clr-namespace:q5id.guardian.Utils"
+    xmlns:views="clr-namespace:q5id.guardian.Views"
+    xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:DataType="vm:ProfileViewModel"
+    x:TypeArguments="vm:ProfileViewModel"
+    BackgroundColor="#FD425E"
+    x:Class="q5id.guardian.Views.ProfilePage">
+    <views:BasePage.Content>
+        <Grid BackgroundColor="{StaticResource paleGray}" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
+                    BackgroundColor="{StaticResource redNue}"
+                    VerticalOptions="Fill">
+                <Label
+                    x:Name="lbTitle"
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    HorizontalOptions="Center"
+                    Text="{Binding TitlePage}"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <Grid Margin="20,0,0,0" HorizontalOptions="Start">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Image HorizontalOptions="Center" IsEnabled="False">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="FontAwesome5Solid"
+                                Glyph="{x:Static utils:FontAwesomeIcons.ChevronCircleLeft}"
+                                Size="36"
+                                Color="White" />
+                        </Image.Source>
+                    </Image>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1">
+                <control:AppBoxView
+                Margin="-1,0,0,0"
+                BackgroundColor="#FD425E"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                BottomHeight="45"
+                HeightRequest="120" />
+                <ScrollView Padding="0, 15, 0, 0" Orientation="Vertical">
+                    <StackLayout Orientation="Vertical">
+                        <Frame Padding="5,20,5,20"
+                           HasShadow="False"
+                           Margin="25, 0, 25, 0"
+                           BorderColor="Transparent"
+                           CornerRadius="16"
+                           BackgroundColor="White"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Start">
+                            <StackLayout Orientation="Vertical" Spacing="0" Padding="15">
+                                <Grid  WidthRequest="128"
+                                    HeightRequest="128"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                    <Frame
+                                        BackgroundColor="{StaticResource paleGray}"
+                                        WidthRequest="128"
+                                        HeightRequest="128"
+                                        CornerRadius="64"
+                                        IsClippedToBounds="True"
+                                        Padding="0"
+                                        HasShadow="False"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnPickImageTapped" />
+                                        </Frame.GestureRecognizers>
+                                        <ffimageloading:CachedImage x:Name="ImgProfile" Source="{Binding Image}" Aspect="AspectFill" />
+                                    </Frame>
+                                    <control:AppFrame
+                                        x:Name="FrmImageProfile"
+                                        WidthRequest="128"
+                                        HeightRequest="128"
+                                        CornerRadius="64"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        Padding="0"
+                                        Clicked="OnPickImageTapped"
+                                        NormalBackgroundColorStart="{StaticResource dimCharcoal}"
+                                        NormalBackgroundColorEnd="{StaticResource normalCharcoal}"
+                                        PressedBackgroundColor="{StaticResource dimCharcoal}">
+                                        <Image HorizontalOptions="Center"  VerticalOptions="Center">
+                                            <Image.Source>
+                                                <FontImageSource Size="22"
+                                                                FontFamily="{x:Static utils:ThemeConstanst.FontAwesomeSolid}"
+                                                                Color="White"
+                                                                Glyph="{x:Static utils:FontAwesomeIcons.Plus}"/>
+                                            </Image.Source>
+                                        </Image>
+                                    </control:AppFrame>
+                                </Grid>
+                                <Label
+                                    Margin="0,30,0,5"
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Start"
+                                    Text="Nick Name"
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    Style="{StaticResource lbBodyBoldMd}">
+                            
+                                </Label>
+                                <control:AppEntry
+                                        Padding="10"
+                                        BorderThickness="2"
+                                        FocusBorderColor="#696B7A"
+                                        FontAttributes="Italic"
+                                        FontFamily="PoppinsItalic"
+                                        HeightRequest="32"
+                                        NoramlBorderColor="#E8EAF2"
+                                        Placeholder=""
+                                        Text="{Binding NickName}"
+                                        PlaceholderColor="{StaticResource lightCharcoal}"
+                                        Style="{StaticResource etBodyNormalLg}"
+                                        TextColor="{StaticResource normalCharcoal}" />
+                                <Label
+                                    Margin="0,10,0,5"
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Start"
+                                    Text="First Name"
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    Style="{StaticResource lbBodyBoldMd}">
+                            
+                                </Label>
+                                <control:AppEntry
+                                        Padding="10"
+                                        BorderThickness="2"
+                                        FocusBorderColor="#696B7A"
+                                        FontAttributes="Italic"
+                                        FontFamily="PoppinsItalic"
+                                        HeightRequest="32"
+                                        NoramlBorderColor="#E8EAF2"
+                                        Placeholder=""
+                                        Text="{Binding FirstName}"
+                                        PlaceholderColor="{StaticResource lightCharcoal}"
+                                        Style="{StaticResource etBodyNormalLg}"
+                                        TextColor="{StaticResource normalCharcoal}" />
+                                <Label
+                                    Margin="0,10,0,5"
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Start"
+                                    Text="Last Name"
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    Style="{StaticResource lbBodyBoldMd}">
+                            
+                                </Label>
+                                <control:AppEntry
+                                        Padding="10"
+                                        BorderThickness="2"
+                                        FocusBorderColor="#696B7A"
+                                        FontAttributes="Italic"
+                                        FontFamily="PoppinsItalic"
+                                        HeightRequest="32"
+                                        NoramlBorderColor="#E8EAF2"
+                                        Placeholder=""
+                                        Text="{Binding LastName}"
+                                        PlaceholderColor="{StaticResource lightCharcoal}"
+                                        Style="{StaticResource etBodyNormalLg}"
+                                        TextColor="{StaticResource normalCharcoal}" />
+                                <Label
+                                    Margin="0,10,0,5"
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Start"
+                                    Text="Date of Birth:"
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    Style="{StaticResource lbBodyBoldMd}">
+                            
+                                </Label>
+                                <control:AppDatePicker
+                                    Padding="10"
+                                    BorderThickness="2"
+                                    FocusBorderColor="#696B7A"
+                                    FontAttributes="Italic"
+                                    FontFamily="PoppinsItalic"
+                                    HeightRequest="32"
+                                    NoramlBorderColor="#E8EAF2"
+                                    Placeholder=""
+                                    NullableDate="{Binding BirthDay}"
+                                    Style="{StaticResource etBodyNormalLg}"
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    Format="MM/dd/yyyy"
+                                    />
+                                
+                            </StackLayout>
+                        </Frame>
+                        <StackLayout Orientation="Horizontal"
+                                     Margin="0,30,0,30"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Start">
+                            <control:AppButton
+                                ButtonTitle="SAVE"
+                                CornerRadius="16"
+                                HeightRequest="32"
+                                HorizontalOptions="Center"
+                                Command="{Binding CreateUpdateCommand}"
+                                NormalBackgroundStartColor="{StaticResource dimCharcoal}"
+                                NormalBackgroundEndColor="{StaticResource normalCharcoal}"
+                                PressedBackgroundColor="{StaticResource dimCharcoal}"
+                                NormalLabelColor="White"
+                                PressedLabelColor="LightGray"
+                                ButtonTitleSize="12"
+                                WidthRequest="97" />
+                        </StackLayout>
+                    
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+            <Grid IsVisible="{Binding IsLoading}"
+                  BackgroundColor="{StaticResource lightCharcoal10}">
+                <ActivityIndicator
+                    IsRunning="true"
+                    WidthRequest="100"
+                    HeightRequest="100"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Color="{StaticResource redNue}" />
+            </Grid>
+        </Grid>
+    </views:BasePage.Content>
+</views:BasePage>
