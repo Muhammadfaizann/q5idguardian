@@ -25,7 +25,7 @@
             </Label>
             <Grid Grid.Row="1">
                    <!--Has item layout-->
-                <control:AppListView ItemsSource="{Binding Loves}"
+                <control:AppListView ItemsSource="{Binding MyLoves}"
                             SeparatorVisibility="None"
                             BackgroundColor="Transparent"
                             Margin="0,30,0,0"

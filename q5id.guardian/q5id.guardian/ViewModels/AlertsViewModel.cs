@@ -272,6 +272,22 @@ namespace q5id.guardian.ViewModels
             {
                 mLoves = value;
                 RaisePropertyChanged(nameof(Loves));
+                RaisePropertyChanged(nameof(MyLoves));
+            }
+        }
+
+        public List<LoveItemViewModel> MyLoves
+        {
+            get
+            {
+                if (mLoves != null)
+                {
+                    return mLoves.Where((LoveItemViewModel item) =>
+                    {
+                        return item.Model.CreatedBy == User.Id;
+                    }).ToList();
+                }
+                return new List<LoveItemViewModel>();
             }
         }
 
