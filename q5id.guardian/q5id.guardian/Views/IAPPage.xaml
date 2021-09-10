@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:ctv="clr-namespace:q5id.guardian.Views.ContentViews"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:utils="clr-namespace:q5id.guardian.Utils"
+    xmlns:views="clr-namespace:q5id.guardian.Views"
+    xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:TypeArguments="vm:IAPViewModel"
+    NavigationPage.HasNavigationBar="False"
+    x:Class="q5id.guardian.Views.IAPPage">
+    <Grid BackgroundColor="{StaticResource paleGray}" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+                BackgroundColor="{StaticResource redNue}"
+                VerticalOptions="Fill">
+            <Label
+                x:Name="lbTitle"
+                FontAttributes="Bold"
+                FontSize="Medium"
+                HorizontalOptions="Center"
+                Text="Purchase"
+                TextColor="White"
+                VerticalOptions="Center" />
+            <Grid Margin="20,0,0,0" HorizontalOptions="Start">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CloseCommand}" />
+                </Grid.GestureRecognizers>
+                <Image HorizontalOptions="Center" IsEnabled="False">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="FontAwesome5Solid"
+                            Glyph="{x:Static utils:FontAwesomeIcons.ChevronCircleLeft}"
+                            Size="24"
+                            Color="White" />
+                    </Image.Source>
+                </Image>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <control:AppListView
+                ItemsSource="{Binding Products}"
+                SeparatorVisibility="Default"
+                BackgroundColor="Transparent"
+                SelectionMode="None"  
+                HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <control:AppViewCell>
+                            <Grid Padding="10"
+                                  RowSpacing="2"
+                                  ColumnSpacing="5">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ItemClickCommand}" />
+                                </Grid.GestureRecognizers>
+                                <Grid.RowDefinitions>
+                                      <RowDefinition Height="auto"/>
+                                      <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>        
+                                    </Grid.ColumnDefinitions>
+                                    <Label LineBreakMode="TailTruncation"
+                                        Text="{Binding Model.Name}"
+                                        Grid.Row="0"
+                                        Grid.Column="0"/>
+                                    <Label LineBreakMode="TailTruncation"
+                                            IsVisible="{Binding IsPaid, Converter={StaticResource reverseBooleanConverter}}"
+                                            Text="{Binding Model.LocalizedPrice}" 
+                                            TextColor="Gray" 
+                                            Grid.Row="0"
+                                            Grid.Column="1"/>
+                                    <Label LineBreakMode="TailTruncation"
+                                            IsVisible="{Binding IsPaid}"
+                                            Text="Paid" 
+                                            TextColor="Gray" 
+                                            Grid.Row="0"
+                                            Grid.Column="1"/>
+                                    <Label LineBreakMode="TailTruncation"
+                                            Text="{Binding Model.Description}" 
+                                            TextColor="Gray" 
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="2"/>
+                            </Grid>
+                        </control:AppViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </control:AppListView>
+        </Grid>
+        <Grid IsVisible="{Binding IsLoading}"
+              Grid.Row="1"
+                BackgroundColor="{StaticResource lightCharcoal10}">
+            <ActivityIndicator
+                IsRunning="true"
+                WidthRequest="100"
+                HeightRequest="100"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Color="{StaticResource redNue}" />
+        </Grid>
+    </Grid>
+</views:BasePage>

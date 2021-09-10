@@ -127,6 +127,13 @@ namespace q5id.guardian.Services
             return await Get<EntityListResponse<User>>(url);
         }
 
+        public async Task<ApiResponse<Entity<User>>> GetUserProfile(string userId)
+        {
+            string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}/{userId}";
+
+            return await Get<Entity<User>>(url);
+        }
+
         public async Task<ApiResponse<EntityResponse<User>>> CreateUser(string entityId, User user)
         {
             string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}";

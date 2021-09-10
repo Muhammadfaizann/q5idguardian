@@ -1,11 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using Plugin.InAppBilling;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
 using q5id.guardian.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -19,6 +21,17 @@ namespace q5id.guardian.ViewModels
         public Command LoginSubscriberCommand { get; }
 
         public Command SignUpCommand { get; }
+
+        public Command BillingCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await MakePurchase();
+                });
+            }
+        }
 
         private string mUserName = "";
         public string UserName
@@ -117,6 +130,11 @@ namespace q5id.guardian.ViewModels
         private async Task OnSignUpClicked()
         {
             await NavigationService.Navigate<AuthenFaceViewModel>();
+        }
+
+        public async Task MakePurchase()
+        {
+            await NavigationService.Navigate<IAPViewModel>();
         }
     }
 }

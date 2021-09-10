@@ -47,6 +47,7 @@ namespace q5id.guardian.ViewModels
             {
                 mUser = value;
                 RaisePropertyChanged(nameof(User));
+                UpdateProperties();
             }
         }
 

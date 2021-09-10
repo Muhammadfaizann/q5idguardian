@@ -224,6 +224,7 @@
                 </ScrollView>
             </Grid>
             <Grid IsVisible="{Binding IsLoading}"
+                  Grid.Row="1"
                   BackgroundColor="{StaticResource lightCharcoal10}">
                 <ActivityIndicator
                     IsRunning="true"

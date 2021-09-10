@@ -22,6 +22,7 @@
     <None Remove="Newtonsoft.Json" />
     <None Remove="Flurl" />
     <None Remove="Flurl.Http" />
+    <None Remove="Plugin.InAppBilling" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +39,7 @@
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.12" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Flurl.Http" Version="3.2.0" />
+    <PackageReference Include="Plugin.InAppBilling" Version="4.0.2" />
   </ItemGroup>
 
   <ItemGroup>

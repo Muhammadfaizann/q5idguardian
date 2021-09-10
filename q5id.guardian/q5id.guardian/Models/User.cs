@@ -50,6 +50,7 @@ namespace q5id.guardian.Models
                 birthdate = BirthDate,
                 contactid = ContactId,
                 anniversary = Anniversary,
+                statecode = Statecode,
                 lastusedincampaign = Lastusedincampaign,
                 overriddencreatedon = Overriddencreatedon,
             };

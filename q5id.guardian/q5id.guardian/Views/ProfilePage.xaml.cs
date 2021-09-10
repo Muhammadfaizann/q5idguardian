@@ -17,6 +17,7 @@ namespace q5id.guardian.Views
         {
             InitializeComponent();
             this.SetBinding(ProfileImageDataProperty, "ProfileImage");
+            this.SetBinding(ProfileImageUrlProperty, "Image");
         }
 
         public static readonly BindableProperty ProfileImageDataProperty =
@@ -32,6 +33,37 @@ namespace q5id.guardian.Views
             {
                 SetValue(ProfileImageDataProperty, value);
             }
+        }
+
+        public static readonly BindableProperty ProfileImageUrlProperty =
+            BindableProperty.Create(nameof(ProfileImageUrl), typeof(string), typeof(ProfilePage), null, defaultBindingMode: BindingMode.TwoWay, propertyChanged: OnImageUrlChanged);
+
+        private static void OnImageUrlChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if(bindable is ProfilePage profilePage)
+            {
+                if(newValue != null && newValue is string newStr && newStr != "")
+                {
+                    profilePage.HidePickPhotoButton();
+                }
+            }
+        }
+
+        public string ProfileImageUrl
+        {
+            get
+            {
+                return (string)GetValue(ProfileImageUrlProperty);
+            }
+            set
+            {
+                SetValue(ProfileImageUrlProperty, value);
+            }
+        }
+
+        public void HidePickPhotoButton()
+        {
+            FrmImageProfile.IsVisible = false;
         }
 
         async void OnPickImageTapped(System.Object sender, System.EventArgs e)
@@ -66,10 +98,6 @@ namespace q5id.guardian.Views
                 Console.WriteLine($"PickPhotoAsync THREW: {ex.Message}");
                 return null;
             }
-        }
-
-        void AppButton_Clicked(System.Object sender, System.EventArgs e)
-        {
         }
     }
 }

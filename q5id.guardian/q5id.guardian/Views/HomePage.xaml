@@ -161,9 +161,9 @@
                                 Style="{StaticResource lbSubheadSm}">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="Amy J"/>
+                                        <Span Text="{Binding User.NickName}"/>
                                         <Span Text=" Guardian member since " FontSize="12" FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"/>
-                                        <Span Text="Feb 2021" FontSize="12" FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"/>
+                                        <Span Text="{Binding User.CreatedOn}" FontSize="12" FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"/>
                                     </FormattedString>
                                 </Label.FormattedText>    
                             </Label>
@@ -186,7 +186,9 @@
                                 FontSize="16"
                                 Text="Profile"
                                 Style="{StaticResource lbBodyNormalLg}">
-                            
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowProfileCommand}" />
+                                </Label.GestureRecognizers>
                             </Label>
                             <Label
                                 Margin="0,10,0,0"

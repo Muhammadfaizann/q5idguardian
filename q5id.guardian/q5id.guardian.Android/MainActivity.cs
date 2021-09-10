@@ -10,6 +10,8 @@ using AndroidX.Core.Content;
 using AndroidX.Core.App;
 using Plugin.CurrentActivity;
 using MvvmCross.Forms.Platforms.Android.Views;
+using Android.Content;
+using Plugin.InAppBilling;
 
 namespace q5id.guardian.Droid
 {
@@ -64,7 +66,6 @@ namespace q5id.guardian.Droid
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             foreach (Android.Content.PM.Permission grantResult in grantResults)
             {

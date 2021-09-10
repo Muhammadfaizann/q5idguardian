@@ -68,6 +68,15 @@
                     NormalLabelColor="White"
                     PressedLabelColor="LightGray"
                     WidthRequest="200" />
+                <app:AppButton
+                    ButtonTitle="Billing"
+                    Command="{Binding BillingCommand}"
+                    CornerRadius="20"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    NormalLabelColor="White"
+                    PressedLabelColor="LightGray"
+                    WidthRequest="200" />
                 <!--<app:ToggleView
                     HorizontalOptions="Center"
                     WidthRequest="50"

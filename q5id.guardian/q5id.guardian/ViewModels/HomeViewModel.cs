@@ -5,6 +5,8 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using q5id.guardian.Models;
+using q5id.guardian.Services;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -28,15 +30,75 @@ namespace q5id.guardian.ViewModels
         public LovedOnesViewModel LovedOnesVm { get; private set; }
         public AlertsViewModel AlertsVm { get; private set; }
 
+        private User mUser;
+        public User User
+        {
+            get => mUser;
+            set
+            {
+                mUser = value;
+                RaisePropertyChanged(nameof(User));
+            }
+        }
+
         public Command OpenAlertCommand { get; }
 
         public MvxAsyncCommand OpenSettingCommand { get; }
+
+        public Command ShowProfileCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    var profileViewModel = new ProfileViewModel(this.NavigationService, this.LoggerFactory)
+                    {
+                        User = User
+                    };
+                    await NavigationService.Navigate(profileViewModel);
+                });
+            }
+        }
 
         public override void Prepare(User parameter)
         {
             HomeVm.User = parameter;
             LovedOnesVm.User = parameter;
             AlertsVm.User = parameter;
+            User = parameter;
+        }
+
+        public override Task Initialize()
+        {
+            GetAccountEntity();
+            return Task.CompletedTask;
+        }
+
+        private void GetAccountEntity()
+        {
+            var settings = Utils.Utils.GetSettings();
+            if (settings != null)
+            {
+                ContactEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
+                {
+                    return entity.EntityName == Utils.Constansts.CONTACT_ENTITY_SETTING_KEY;
+                });
+            }
+        }
+
+        private async void GetProfile()
+        {
+            if(ContactEntity != null && User != null)
+            {
+                var currentUserResponse = await AppService.Instances.GetUserProfile(User.Id);
+                if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null)
+                {
+                    var entityUser = currentUserResponse.ResponseObject;
+                    var user = entityUser.Data;
+                    user.Id = entityUser.Id;
+                    User = user;
+                }
+            }
         }
 
         protected override void InitFromBundle(IMvxBundle parameters)
@@ -54,6 +116,7 @@ namespace q5id.guardian.ViewModels
         public override void ViewAppeared()
         {
             base.ViewAppeared();
+            GetProfile();
         }
 
         public Command OpenHomeTapCommand
@@ -88,5 +151,7 @@ namespace q5id.guardian.ViewModels
                 });
             }
         }
+
+        public StructureEntity ContactEntity { get; private set; }
     }
 }

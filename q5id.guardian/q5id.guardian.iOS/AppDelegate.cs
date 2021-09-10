@@ -7,6 +7,7 @@ using Foundation;
 using MvvmCross.Forms.Platforms.Ios.Core;
 using MvvmCross.Platforms.Ios.Core;
 using Plugin.Geolocator;
+using StoreKit;
 using UIKit;
 
 namespace q5id.guardian.iOS
@@ -34,8 +35,13 @@ namespace q5id.guardian.iOS
             CarouselViewRenderer.Init();
             Xamarin.Forms.Forms.Init();
             //Xamarin.FormsGoogleMaps.Init("AIzaSyANi77wVc7W33Z4UW_9_2dUCobRbQiB16E");
-
+            Plugin.InAppBilling.InAppBillingImplementation.OnShouldAddStorePayment = OnShouldAddStorePayment;
             return base.FinishedLaunching(application, launchOptions);
+        }
+
+        private bool OnShouldAddStorePayment(SKPaymentQueue arg1, SKPayment arg2, SKProduct arg3)
+        {
+            return true;
         }
     }
 }
