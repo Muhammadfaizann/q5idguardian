@@ -45,7 +45,7 @@
                             <Span Text="Creating alerts requires a" TextColor="{StaticResource lightCharcoal}" />
                             <Span Text=" subscription." TextColor="{StaticResource redVibrant}">
                                 <Span.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding TapCommand}" />
+                                    <TapGestureRecognizer Command="{Binding SubscriptionCommand}" />
                                 </Span.GestureRecognizers>
                             </Span>
                         </FormattedString>

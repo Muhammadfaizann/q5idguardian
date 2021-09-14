@@ -8,6 +8,7 @@ using q5id.guardian.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -16,22 +17,9 @@ namespace q5id.guardian.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        public Command LoginVolunteerCommand { get; }
-
-        public Command LoginSubscriberCommand { get; }
+        public Command LoginCommand { get; }
 
         public Command SignUpCommand { get; }
-
-        public Command BillingCommand
-        {
-            get
-            {
-                return new Command(async () =>
-                {
-                    await MakePurchase();
-                });
-            }
-        }
 
         private string mUserName = "";
         public string UserName
@@ -48,8 +36,7 @@ namespace q5id.guardian.ViewModels
 
         public LoginViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
-            LoginVolunteerCommand = new Command(OnLoginAsVolClicked);
-            LoginSubscriberCommand = new Command(OnLoginAsSubClicked);
+            LoginCommand = new Command(OnLoginClicked);
             SignUpCommand = new Command(OnSignUpClicked);
             GetAccountEntity();
         }
@@ -59,32 +46,12 @@ namespace q5id.guardian.ViewModels
             await NavigationService.Navigate<ProfileViewModel>();
         }
 
-        private async void OnLoginClicked(User user)
-        {
-            await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
-        }
-
-        private async void OnLoginAsSubClicked(object obj)
+        private async void OnLoginClicked(Object obj)
         {
             var user = await GetUser();
             if(user != null)
             {
-                user.Role = UserRole.Subscriber;
-                this.OnLoginClicked(user);
-            }
-            else
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "Login Failed", "OK");
-            }
-        }
-
-        private async void OnLoginAsVolClicked(object obj)
-        {
-            var user = await GetUser();
-            if (user != null)
-            {
-                user.Role = UserRole.Volunteer;
-                this.OnLoginClicked(user);
+                await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
             }
             else
             {
@@ -127,14 +94,14 @@ namespace q5id.guardian.ViewModels
             return null;
         }
 
-        private async Task OnSignUpClicked()
-        {
-            await NavigationService.Navigate<AuthenFaceViewModel>();
-        }
+        //private async Task OnSignUpClicked()
+        //{
+        //    await NavigationService.Navigate<AuthenFaceViewModel>();
+        //}
 
-        public async Task MakePurchase()
-        {
-            await NavigationService.Navigate<IAPViewModel>();
-        }
+        //public async Task MakePurchase()
+        //{
+        //    await NavigationService.Navigate<IAPViewModel>();
+        //}
     }
 }

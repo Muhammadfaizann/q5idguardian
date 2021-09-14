@@ -38,6 +38,9 @@ namespace q5id.guardian.ViewModels
             {
                 mUser = value;
                 RaisePropertyChanged(nameof(User));
+                HomeVm.User = mUser;
+                LovedOnesVm.User = mUser;
+                AlertsVm.User = mUser;
             }
         }
 
@@ -62,9 +65,6 @@ namespace q5id.guardian.ViewModels
 
         public override void Prepare(User parameter)
         {
-            HomeVm.User = parameter;
-            LovedOnesVm.User = parameter;
-            AlertsVm.User = parameter;
             User = parameter;
         }
 

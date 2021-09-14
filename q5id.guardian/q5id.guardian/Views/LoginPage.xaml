@@ -42,17 +42,8 @@
                     Style="{StaticResource etBodyNormalLg}"
                     TextColor="{StaticResource normalCharcoal}" />
                 <app:AppButton
-                    ButtonTitle="Login as Volunteer"
-                    Command="{Binding LoginVolunteerCommand}"
-                    CornerRadius="20"
-                    HeightRequest="40"
-                    HorizontalOptions="Center"
-                    NormalLabelColor="White"
-                    PressedLabelColor="LightGray"
-                    WidthRequest="200" />
-                <app:AppButton
-                    ButtonTitle="Login as Subscriber"
-                    Command="{Binding LoginSubscriberCommand}"
+                    ButtonTitle="Login"
+                    Command="{Binding LoginCommand}"
                     CornerRadius="20"
                     HeightRequest="40"
                     HorizontalOptions="Center"
@@ -68,7 +59,7 @@
                     NormalLabelColor="White"
                     PressedLabelColor="LightGray"
                     WidthRequest="200" />
-                <app:AppButton
+                <!--<app:AppButton
                     ButtonTitle="Billing"
                     Command="{Binding BillingCommand}"
                     CornerRadius="20"
@@ -76,7 +67,7 @@
                     HorizontalOptions="Center"
                     NormalLabelColor="White"
                     PressedLabelColor="LightGray"
-                    WidthRequest="200" />
+                    WidthRequest="200" />-->
                 <!--<app:ToggleView
                     HorizontalOptions="Center"
                     WidthRequest="50"

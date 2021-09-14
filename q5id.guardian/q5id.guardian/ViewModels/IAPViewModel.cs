@@ -6,15 +6,34 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using Plugin.InAppBilling;
+using q5id.guardian.Models;
+using q5id.guardian.Services;
+using q5id.guardian.Services.Bases;
 using q5id.guardian.ViewModels.ItemViewModels;
 
 namespace q5id.guardian.ViewModels
 {
-    public class IAPViewModel : BaseViewModel
+    public class IAPViewModel : BaseViewModel<User>
     {
         public IAPViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
-            
+            GetContactEntity();
+        }
+
+        private User mUser;
+        public User User
+        {
+            get => mUser;
+            set
+            {
+                mUser = value;
+                RaisePropertyChanged(nameof(User));
+            }
+        }
+
+        public override void Prepare(User parameter)
+        {
+            User = parameter;
         }
 
         private List<object> mProducts;
@@ -42,7 +61,10 @@ namespace q5id.guardian.ViewModels
             try
             {
                 IsLoading = true;
-                var productIds = new string[] { "guardian_iap_test", "guardian_iap_test_one" };
+                var productIds = new string[]
+                {
+                    "subscription_one_month",
+                };
 
                 var connected = await CrossInAppBilling.Current.ConnectAsync();
 
@@ -63,25 +85,22 @@ namespace q5id.guardian.ViewModels
                 else
                 {
                     //check purchases
-                    var purchases = await billing.GetPurchasesAsync(ItemType.InAppPurchase);
+                    //var purchases = await billing.GetPurchasesAsync(ItemType.InAppPurchase);
                     var listProduct = new List<object>();
 
                     //Purchased, save this information
                     foreach (InAppBillingProduct product in products)
                     {
                         //item info here.
-                        var isPaid = purchases?.Any(p => p.ProductId == product.ProductId) ?? false;
+                        //var isPaid = purchases?.Any(p => p.ProductId == product.ProductId) ?? false;
                         var item = new InAppBillingProductItemViewModel(product)
                         {
                             ItemClickCommand = new Xamarin.Forms.Command(async () =>
                             {
-                                if(isPaid == false)
-                                {
-                                    await MakePurchase(product.ProductId);
-                                }
-                                
+                                await MakePurchase(product.ProductId);
+
                             }),
-                            IsPaid = isPaid
+                            IsPaid = false
                         };
                         listProduct.Add(item);
                     }
@@ -130,7 +149,7 @@ namespace q5id.guardian.ViewModels
                     var id = purchase.Id;
                     var token = purchase.PurchaseToken;
                     var state = purchase.State;
-                    await App.Current.MainPage.DisplayAlert("Information", "Purchase successfully", "OK");
+                    await UpdateUserSubscription(id);
                 }
                 return true;
             }
@@ -144,6 +163,44 @@ namespace q5id.guardian.ViewModels
                 await billing.DisconnectAsync();
                 IsLoading = false;
             }
+        }
+
+        private StructureEntity ContactEntity = null;
+        private void GetContactEntity()
+        {
+            var settings = Utils.Utils.GetSettings();
+            if (settings != null)
+            {
+                ContactEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
+                {
+                    return entity.EntityName == Utils.Constansts.CONTACT_ENTITY_SETTING_KEY;
+                });
+            }
+        }
+
+        private async Task UpdateUserSubscription(string subscritionId)
+        {
+            if (ContactEntity == null)
+            {
+                return;
+            }
+            IsLoading = true;
+
+            var userToPost = User;
+            userToPost.SubscriptionId = subscritionId;
+            userToPost.SubscriptionExpiredDate = DateTime.UtcNow.AddDays(30).ToString();
+            ApiResponse<EntityResponse<User>> response;
+            response = await AppService.Instances.UpdateUser(ContactEntity.Id, userToPost);
+            IsLoading = false;
+            if (response.IsSuccess && response.ResponseObject != null)
+            {
+                await App.Current.MainPage.DisplayAlert("Updated Successfully", "", "OK");
+                if (User != null)
+                {
+                    await NavigationService.Close(this);
+                }
+            }
+
         }
     }
 }

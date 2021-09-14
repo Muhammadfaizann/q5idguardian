@@ -27,9 +27,35 @@ namespace q5id.guardian.Models
         public string Lastusedincampaign { get; set; }
         [JsonProperty("overriddencreatedon")]
         public string Overriddencreatedon { get; set; }
+        [JsonProperty("subscriptionid")]
+        public string SubscriptionId { get; set; }
+        [JsonProperty("subscriptionexpireddate")]
+        public string SubscriptionExpiredDate { get; set; }
+        [JsonIgnore]
+        public UserRole Role
+        {
+            get
+            {
+                if(SubscriptionExpiredDateTime != null)
+                {
+                    return SubscriptionExpiredDateTime.Value > DateTime.UtcNow ? UserRole.Subscriber : UserRole.Volunteer;
+                }
+                return UserRole.Volunteer;
+            }
+        }
 
         [JsonIgnore]
-        public UserRole Role { get; set; }
+        public DateTime? SubscriptionExpiredDateTime
+        {
+            get
+            {
+                if (SubscriptionExpiredDate != null && SubscriptionExpiredDate != "")
+                {
+                    return DateTime.Parse(SubscriptionExpiredDate);
+                }
+                return null;
+            }
+        }
 
         public User()
         {
@@ -53,6 +79,8 @@ namespace q5id.guardian.Models
                 statecode = Statecode,
                 lastusedincampaign = Lastusedincampaign,
                 overriddencreatedon = Overriddencreatedon,
+                subscriptionid = SubscriptionId,
+                subscriptionexpireddate = SubscriptionExpiredDate
             };
         }
     }

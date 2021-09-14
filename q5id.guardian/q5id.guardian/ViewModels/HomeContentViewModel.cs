@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
+using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
 namespace q5id.guardian.ViewModels
@@ -17,6 +18,18 @@ namespace q5id.guardian.ViewModels
         public HomeContentViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
         }
+
+        public Command SubscriptionCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await NavigationService.Navigate<IAPViewModel, User>(mUser);
+                });
+            }
+        }
+
         private User mUser = null;
         public User User
         {

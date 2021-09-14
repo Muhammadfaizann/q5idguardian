@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using q5id.guardian.Controls;
 using q5id.guardian.iOS.Renderers;
 using Xamarin.Forms;
@@ -12,6 +13,15 @@ namespace q5id.guardian.iOS.Renderers
         protected override void OnElementChanged(ElementChangedEventArgs<ListView> e)
         {
             base.OnElementChanged(e);
+        }
+
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == VisualElement.IsVisibleProperty.PropertyName)
+            {
+                return;
+            }
+            base.OnElementPropertyChanged(sender, e);
         }
     }
 

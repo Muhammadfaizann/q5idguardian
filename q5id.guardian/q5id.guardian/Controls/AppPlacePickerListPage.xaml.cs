@@ -15,6 +15,7 @@ namespace q5id.guardian.Controls
         private bool mIsCalling = false;
         private bool mIsNeedContinueCall = false;
         private bool mIsTextChanging = false;
+        private string mTextSearch = "";
         private GoogleMapsApiService mapsService;
         private List<GooglePlaceAutoCompletePrediction> mItemSource;
 
@@ -59,9 +60,11 @@ namespace q5id.guardian.Controls
             if (mIsTextChanging == false)
             {
                 mIsTextChanging = true;
-                await Task.Delay(1000);
+                int delayTimeToGetData = 2000;
+                await Task.Delay(delayTimeToGetData);
                 mIsTextChanging = false;
-                if(EntrySearch.Text != "" && EntrySearch.Text != null)
+                int minimumLengthForSearching = 2;
+                if(EntrySearch.Text != "" && EntrySearch.Text != null && EntrySearch.Text.Length > minimumLengthForSearching)
                 {
                     GetPlaces();
                 }
@@ -75,11 +78,13 @@ namespace q5id.guardian.Controls
                 if (mIsCalling == false)
                 {
                     mIsNeedContinueCall = false;
-                    var result = await mapsService.GetPlaces(EntrySearch.Text);
+                    mIsCalling = true;
+                    mTextSearch = EntrySearch.Text;
+                    var result = await mapsService.GetPlaces(mTextSearch);
                     mIsCalling = false;
                     mItemSource = result.AutoCompletePlaces;
                     ListPlaces.ItemsSource = mItemSource;
-                    if (mIsNeedContinueCall == true)
+                    if (mIsNeedContinueCall == true && EntrySearch.Text != mTextSearch)
                     {
                         GetPlaces();
                     }
