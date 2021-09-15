@@ -8,59 +8,62 @@
     x:Class="q5id.guardian.Views.ContentViews.LovedOnesChildContentViews.AddLovedDetailView">
     <ContentView.Content>
         <Grid>
-            <control:AppBoxView
-                Margin="-1,0,0,0"
-                BackgroundColor="#FD425E"
-                HorizontalOptions="Fill"
-                VerticalOptions="Start"
-                BottomHeight="45"
-                HeightRequest="120" />
-            <ScrollView Padding="0, 15, 0, 0" Orientation="Vertical">
+            
+            <ScrollView Orientation="Vertical">
                 <StackLayout Orientation="Vertical">
-                    <Frame Padding="5,20,5,20"
-                       HasShadow="False"
-                       Margin="25, 0, 25, 0"
-                       BorderColor="Transparent"
-                       CornerRadius="16"
-                       BackgroundColor="White"
-                       HorizontalOptions="Fill"
-                       VerticalOptions="Start">
-                        <StackLayout Orientation="Vertical" Spacing="0" Padding="15">
-                            <Label
-                                HorizontalOptions="Fill"
-                                LineBreakMode="WordWrap"
-                                Margin="0"
-                                HorizontalTextAlignment="Center"
-                                Text="Provide any additional detail that can help identify your loved one."
-                                TextColor="{StaticResource redNue}"
-                                Style="{StaticResource lbHeaderMd}">
-                            </Label>
-                            <Label
-                                Margin="0,20,0,0"
-                                HorizontalOptions="Fill"
-                                LineBreakMode="WordWrap"
-                                HorizontalTextAlignment="Center"
-                                Text="For example, birthmarks, tattoos, mannerisms, allergies or medical concerns, and how they might respond if found by a Guardian they don’t know."
-                                TextColor="{StaticResource normalCharcoal}"
-                                Style="{StaticResource lbBodyNormalMd}">
+                    <Grid>
+                        <control:AppBoxView
+                            BackgroundColor="#FD425E"
+                            HorizontalOptions="Fill"
+                            VerticalOptions="Start"
+                            BottomHeight="45"
+                            HeightRequest="120" />
+                        <Frame Padding="5,20,5,20"
+                           HasShadow="False"
+                           Margin="25, 15, 25, 0"
+                           BorderColor="Transparent"
+                           CornerRadius="16"
+                           BackgroundColor="White"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Start">
+                            <StackLayout Orientation="Vertical" Spacing="0" Padding="15">
+                                <Label
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    Margin="0"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Provide any additional detail that can help identify your loved one."
+                                    TextColor="{StaticResource redNue}"
+                                    Style="{StaticResource lbHeaderMd}">
+                                </Label>
+                                <Label
+                                    Margin="0,20,0,0"
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Center"
+                                    Text="For example, birthmarks, tattoos, mannerisms, allergies or medical concerns, and how they might respond if found by a Guardian they don’t know."
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    Style="{StaticResource lbBodyNormalMd}">
                             
-                            </Label>
-                            <control:AppEditor
-                                Margin="0,20,0,0"
-                                Padding="10"
-                                BorderThickness="2"
-                                FocusBorderColor="#696B7A"
-                                FontAttributes="Italic"
-                                FontFamily="PoppinsItalic"
-                                HeightRequest="165"
-                                NoramlBorderColor="#E8EAF2"
-                                Placeholder="Enter detail"
-                                Text="{Binding Detail}"
-                                PlaceholderColor="{StaticResource lightCharcoal}"
-                                Style="{StaticResource etBodyNormalLg}"
-                                TextColor="{StaticResource normalCharcoal}" />
-                        </StackLayout>
-                    </Frame>
+                                </Label>
+                                <control:AppEditor
+                                    Margin="0,20,0,0"
+                                    Padding="10"
+                                    BorderThickness="2"
+                                    FocusBorderColor="#696B7A"
+                                    FontAttributes="Italic"
+                                    FontFamily="PoppinsItalic"
+                                    HeightRequest="165"
+                                    NoramlBorderColor="#E8EAF2"
+                                    Placeholder="Enter detail"
+                                    Text="{Binding Detail}"
+                                    PlaceholderColor="{StaticResource lightCharcoal}"
+                                    Style="{StaticResource etBodyNormalLg}"
+                                    TextColor="{StaticResource normalCharcoal}" />
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
+                    
                     <control:AppButton
                         Margin="0,40,0,10"
                         ButtonTitle="REVIEW"

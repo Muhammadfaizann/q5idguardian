@@ -14,6 +14,12 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <control:AppBoxView HorizontalOptions="Fill"
+                                VerticalOptions="Start"
+                                HeightRequest="50"
+                                BottomHeight="45"
+                                Grid.Row="0"
+                                BackgroundColor="{StaticResource redNue}"/>
             <Label
                 Grid.Row="0"
                 Margin="0,80,0,0"

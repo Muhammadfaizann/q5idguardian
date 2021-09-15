@@ -44,6 +44,12 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <control:AppBoxView HorizontalOptions="Fill"
+                                VerticalOptions="Start"
+                                HeightRequest="50"
+                                BottomHeight="45"
+                                Grid.Row="0"
+                                BackgroundColor="{StaticResource redNue}"/>
             <StackLayout
                 Grid.Row="0"
                 Orientation="Vertical"
@@ -77,8 +83,8 @@
                         <FormattedString>
                             <Span Text="Creating alerts requires a" TextColor="{StaticResource lightCharcoal}" />
                             <Span Text=" subscription." TextColor="{StaticResource redVibrant}">
-                                <Span.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding TapCommand}" />
+                               <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SubscriptionCommand}" />
                                 </Span.GestureRecognizers>
                             </Span>
                         </FormattedString>

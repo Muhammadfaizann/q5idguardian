@@ -137,8 +137,18 @@ namespace q5id.guardian.Views.ContentViews
         {
             Binding contextBinding = new Binding(".", BindingMode.Default, null, null, null, this.BindingContext);
             view.SetBinding(BindingContextProperty, contextBinding);
-            var containerView = new Grid();
-            containerView.Children.Add(view);
+            var containerView = new Frame();
+            containerView.BackgroundColor = Color.Transparent;
+            containerView.HasShadow = false;
+            containerView.BorderColor = Color.Transparent;
+            containerView.HorizontalOptions = LayoutOptions.Fill;
+            containerView.VerticalOptions = LayoutOptions.Fill;
+            containerView.Padding = new Thickness(0);
+            containerView.Margin = new Thickness(0);
+            containerView.Content = view;
+            view.HorizontalOptions = LayoutOptions.Fill;
+            view.VerticalOptions = LayoutOptions.Fill;
+            view.Margin = new Thickness(0);
             return containerView;
         }
 

@@ -352,6 +352,17 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        public Command SubscriptionCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await NavigationService.Navigate<IAPViewModel, User>(mUser);
+                });
+            }
+        }
+
         public Command CreateUpdateCommand
         {
             get

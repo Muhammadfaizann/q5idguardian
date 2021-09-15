@@ -8,53 +8,57 @@
     x:Class="q5id.guardian.Views.ContentViews.LovedOnesChildContentViews.AddLovedIntroView">
     <ContentView.Content>
         <Grid Padding="0">
-            <control:AppBoxView
-                Margin="-1,0,0,0"
-                BackgroundColor="#FD425E"
-                HorizontalOptions="Fill"
-                VerticalOptions="Start"
-                BottomHeight="45"
-                HeightRequest="120" />
-            <ScrollView Padding="0, 15, 0, 0" Orientation="Vertical">
+            <ScrollView Orientation="Vertical">
                 <StackLayout Orientation="Vertical">
-                    <Frame Padding="20"
-                       HasShadow="False"
-                       Margin="25, 0, 25, 0"
-                       BorderColor="Transparent"
-                       CornerRadius="16"
-                       BackgroundColor="White"
-                       HorizontalOptions="Fill"
-                       VerticalOptions="Start">
-                        <StackLayout Orientation="Vertical" Spacing="15" Padding="20, 15, 20, 15">
-                            <Label
-                                HorizontalOptions="Fill"
-                                LineBreakMode="WordWrap"
-                                HorizontalTextAlignment="Center"
-                                Text="Let’s add a loved one to Guardian"
-                                TextColor="{StaticResource redNue}"
-                                Style="{StaticResource lbHeaderMd}">
+                    <Grid HorizontalOptions="Fill"
+                          VerticalOptions="Start">
+                        <control:AppBoxView
+                            Margin="0,0,0,0"
+                            BackgroundColor="#FD425E"
+                            HorizontalOptions="Fill"
+                            VerticalOptions="Start"
+                            BottomHeight="45"
+                            HeightRequest="120" />
+                        <Frame Padding="20"
+                           HasShadow="False"
+                           Margin="25, 15, 25, 0"
+                           BorderColor="Transparent"
+                           CornerRadius="16"
+                           BackgroundColor="White"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Start">
+                            <StackLayout Orientation="Vertical" Spacing="15" Padding="20, 15, 20, 15">
+                                <Label
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Let’s add a loved one to Guardian"
+                                    TextColor="{StaticResource redNue}"
+                                    Style="{StaticResource lbHeaderMd}">
                             
-                            </Label>
-                            <Label
-                                HorizontalOptions="Fill"
-                                LineBreakMode="WordWrap"
-                                HorizontalTextAlignment="Center"
-                                Text="Add some descriptive information, so you won’t need to think about it should you need to create an alert."
-                                TextColor="{StaticResource normalCharcoal}"
-                                Style="{StaticResource lbBodyNormalMd}">
+                                </Label>
+                                <Label
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Add some descriptive information, so you won’t need to think about it should you need to create an alert."
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    Style="{StaticResource lbBodyNormalMd}">
                             
-                            </Label>
-                            <Label
-                                HorizontalOptions="Fill"
-                                LineBreakMode="WordWrap"
-                                HorizontalTextAlignment="Center"
-                                Text="A photo is required, but we recommend adding as much information as possible:"
-                                TextColor="{StaticResource normalCharcoal}"
-                                Style="{StaticResource lbBodyNormalMd}">
+                                </Label>
+                                <Label
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Center"
+                                    Text="A photo is required, but we recommend adding as much information as possible:"
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    Style="{StaticResource lbBodyNormalMd}">
                             
-                            </Label>
-                        </StackLayout>
-                    </Frame>
+                                </Label>
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
+                    
                     <Grid HorizontalOptions="Fill"
                           Margin="0,40,0,30"
                           RowSpacing="10"
@@ -167,6 +171,7 @@
                         </Label>
                     </Grid>
                     <control:AppButton
+                        Margin="0,0,0,30"
                         ButtonTitle="GET STARTED"
                         CornerRadius="16"
                         HeightRequest="32"

@@ -8,12 +8,19 @@
     xmlns:itemViews="clr-namespace:q5id.guardian.Views.ItemViews"
     xmlns:utils="clr-namespace:q5id.guardian.Utils">
     <ContentView.Content>
-        <Grid Padding="0,15,0,0">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <control:AppBoxView HorizontalOptions="Fill"
+                                VerticalOptions="Start"
+                                HeightRequest="50"
+                                BottomHeight="45"
+                                Grid.Row="0"
+                                BackgroundColor="{StaticResource redNue}"/>
             <StackLayout
+                Padding="0,15,0,0"
                 Grid.Row="0"
                 Orientation="Vertical"
                 Spacing="0">

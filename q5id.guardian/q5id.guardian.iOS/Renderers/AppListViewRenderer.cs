@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using q5id.guardian.Controls;
 using q5id.guardian.iOS.Renderers;
+using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
@@ -13,6 +14,13 @@ namespace q5id.guardian.iOS.Renderers
         protected override void OnElementChanged(ElementChangedEventArgs<ListView> e)
         {
             base.OnElementChanged(e);
+            UpdateListView();
+        }
+
+        private void UpdateListView()
+        {
+            UITableView tableView = this.Control;
+            tableView.AlwaysBounceVertical = false;
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -21,6 +29,7 @@ namespace q5id.guardian.iOS.Renderers
             {
                 return;
             }
+            
             base.OnElementPropertyChanged(sender, e);
         }
     }

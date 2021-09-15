@@ -6,10 +6,11 @@
     xmlns:util="clr-namespace:q5id.guardian.Utils"
     x:Class="q5id.guardian.Views.ContentViews.LovedOnesContentView">
     <ContentView.Content>
-        <Grid>
-            <Grid>
+        <Grid Margin="0" Padding="0">
+            <Grid Margin="0" Padding="0">
                 <CarouselView HorizontalOptions="Fill"
                               x:Name="CarouselViewContent"
+                              Margin="0"
                               VerticalOptions="Fill"
                               IsSwipeEnabled="False"
                               IsScrollAnimated="False"

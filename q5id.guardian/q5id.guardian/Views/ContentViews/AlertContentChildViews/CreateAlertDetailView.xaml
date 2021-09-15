@@ -9,375 +9,322 @@
     x:Class="q5id.guardian.Views.ContentViews.AlertContentChildViews.CreateAlertDetailView">
     <ContentView.Content>
         <Grid>
-            <control:AppBoxView
-                Margin="-1,0,0,0"
-                BackgroundColor="#FD425E"
-                HorizontalOptions="Fill"
-                VerticalOptions="Start"
-                BottomHeight="45"
-                HeightRequest="80" />
-            <Grid Padding="0, 15, 0, 0">
+            <Grid>
                 <ScrollView Orientation="Vertical">
                     <StackLayout Orientation="Vertical"
-                                 Margin="20,0,20,0"
                                  Spacing="0">
-                       <Frame Padding="5,5,5,5"
-                           HasShadow="False"
-                           Margin="5, 0, 5, 0"
-                           BorderColor="Transparent"
-                           CornerRadius="16"
-                           BackgroundColor="White"
-                           HorizontalOptions="Fill"
-                           VerticalOptions="Start">
-                            <Grid VerticalOptions="Start" HorizontalOptions="Fill">
-                                <StackLayout Orientation="Vertical" Spacing="0" Padding="15">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Frame
-                                            Grid.Column="0"
-                                            HorizontalOptions="Start"
-                                            VerticalOptions="Center"
-                                            IsClippedToBounds="true"
-                                            Padding="0"
-                                            HasShadow="False"
-                                            WidthRequest="80"
-                                            HeightRequest="80"
-                                            CornerRadius="40"
-                                            BorderColor="Transparent"
-                                            >
-                                            <ffimageloading:CachedImage
-                                                HorizontalOptions="Fill"
-                                                VerticalOptions="Fill"
-                                                Aspect="AspectFill"
-			                                    DownsampleToViewSize="true"
-			                                    Source="{Binding CreatingLove.Image}">
-		                                    </ffimageloading:CachedImage>
-                                        </Frame>
-                                        <StackLayout Orientation="Vertical"
-                                                        Spacing="0"
-                                                        Margin="10,0,0,0"
-                                                        VerticalOptions="Center"
-                                                        Grid.Column="1">
-                                            <Label
-                                                HorizontalOptions="Fill"
-                                                LineBreakMode="WordWrap"
-                                                Text="{Binding CreatingLove.FullName}"
-                                                Style="{StaticResource lbSubheadSm}">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span FontSize="16" Text="{Binding CreatingLove.FullName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                        <Span FontSize="16" Text=" age " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
-                                                        <Span FontSize="16" Text="{Binding CreatingLove.Age}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
-                                                    </FormattedString>
-                                                </Label.FormattedText>    
-                                            </Label>
-                                            <Grid VerticalOptions="Start"
-                                                  RowSpacing="0"
-                                                  ColumnSpacing="5"
-                                                  HorizontalOptions="Fill">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="auto" />
-                                                    <RowDefinition Height="auto" />
-                                                </Grid.RowDefinitions>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                                <Label
-                                                    Grid.Row="0"
-                                                    Grid.Column="0"
-                                                    HorizontalOptions="Fill"
-                                                    LineBreakMode="WordWrap"
-                                                    FontSize="10"
-                                                    Style="{StaticResource lbSubheadSm}">
-                                                    <Label.FormattedText>
-                                                        <FormattedString>
-                                                            <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Eyes: "/>
-                                                            <Span FontSize="12" Text="{Binding CreatingLove.EyeColor}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                        </FormattedString>
-                                                    </Label.FormattedText>    
-                                                </Label>
-                                                <Label
-                                                    Grid.Row="0"
-                                                    Grid.Column="1"
-                                                    HorizontalOptions="Fill"
-                                                    LineBreakMode="WordWrap"
-                                                    FontSize="10"
-                                                    Style="{StaticResource lbSubheadSm}">
-                                                    <Label.FormattedText>
-                                                        <FormattedString>
-                                                            <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Height: "/>
-                                                            <Span FontSize="12" Text="{Binding CreatingLove.HeightFeet}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                            <Span FontSize="12" Text="’ " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                            <Span FontSize="12" Text="{Binding CreatingLove.HeightInches}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                            <Span FontSize="12" Text="”" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                        </FormattedString>
-                                                    </Label.FormattedText>    
-                                                </Label>
-                                                <Label
-                                                    Grid.Row="1"
-                                                    Grid.Column="0"
-                                                    HorizontalOptions="Fill"
-                                                    LineBreakMode="WordWrap"
-                                                    FontSize="10"
-                                                    Text="{Binding Model.Love.FullName}"
-                                                    Style="{StaticResource lbSubheadSm}">
-                                                    <Label.FormattedText>
-                                                        <FormattedString>
-                                                            <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Hair: "/>
-                                                            <Span FontSize="12" Text="{Binding CreatingLove.HairColor}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                        </FormattedString>
-                                                    </Label.FormattedText>    
-                                                </Label>
-                                                <Label
-                                                    Grid.Row="1"
-                                                    Grid.Column="1"
-                                                    HorizontalOptions="Fill"
-                                                    LineBreakMode="WordWrap"
-                                                    FontSize="10"
-                                                    Style="{StaticResource lbSubheadSm}">
-                                                    <Label.FormattedText>
-                                                        <FormattedString>
-                                                            <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Weight: "/>
-                                                            <Span FontSize="12" Text="{Binding CreatingLove.Weight}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                            <Span FontSize="12" Text=" lbs" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                        </FormattedString>
-                                                    </Label.FormattedText>    
-                                                </Label>
-                                            </Grid>
-                                        </StackLayout>
-                                    </Grid>
-                                    <Label
-                                        Margin="0,20,0,0"
-                                        HorizontalOptions="Fill"
-                                        LineBreakMode="WordWrap"
-                                        Text="Additional Information:"
-                                        Style="{StaticResource lbBodyBoldMd}">  
-                                    </Label>
-                                    <Label
-                                        HorizontalOptions="Fill"
-                                        LineBreakMode="WordWrap"
-                                        Text="{Binding CreatingLove.OtherInformation}"
-                                        Style="{StaticResource lbBodyNormalMd}">  
-                                    </Label>
-                                    <Grid Margin="0,15,0,0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <control:AppRatioGrid
-                                            Grid.Row="0"
-                                            Grid.Column="0"
-                                            HeightRequest="10"
-                                            RatioBase="Width"
-                                            RatioValue="1"
-                                            BackgroundColor="{StaticResource paleGray}"
-                                            HorizontalOptions="Fill">
-                                            <ffimageloading:CachedImage
-                                                HorizontalOptions="Fill"
-                                                VerticalOptions="Fill"
-                                                Aspect="AspectFill"
-			                                    DownsampleToViewSize="true"
-			                                    Source="{Binding CreatingLove.Image2}">
-		                                    </ffimageloading:CachedImage>
-                                        </control:AppRatioGrid>
-                                        <control:AppRatioGrid
-                                            Grid.Row="0"
-                                            Grid.Column="1"
-                                            HeightRequest="10"
-                                            RatioBase="Width"
-                                            RatioValue="1"
-                                            BackgroundColor="{StaticResource paleGray}"
-                                            HorizontalOptions="Fill">
-                                            <ffimageloading:CachedImage
-                                                HorizontalOptions="Fill"
-                                                VerticalOptions="Fill"
-                                                Aspect="AspectFill"
-			                                    DownsampleToViewSize="true"
-			                                    Source="{Binding CreatingLove.Image3}">
-		                                    </ffimageloading:CachedImage>
-                                        </control:AppRatioGrid>
-                                        <control:AppRatioGrid
-                                            Grid.Row="0"
-                                            Grid.Column="2"
-                                            HeightRequest="10"
-                                            RatioBase="Width"
-                                            RatioValue="1"
-                                            BackgroundColor="{StaticResource paleGray}"
-                                            HorizontalOptions="Fill">
-                                            <ffimageloading:CachedImage
-                                                HorizontalOptions="Fill"
-                                                VerticalOptions="Fill"
-                                                Aspect="AspectFill"
-			                                    DownsampleToViewSize="true"
-			                                    Source="{Binding CreatingLove.Image4}">
-		                                    </ffimageloading:CachedImage>
-                                        </control:AppRatioGrid>
-                                    </Grid>
-                                    <control:AppButton
-                                        Margin="0,25,0,5"
-                                        ButtonTitle="UPDATE INFORMATION"
-                                        CornerRadius="16"
-                                        HeightRequest="32"
-                                        HorizontalOptions="Center"
-                                        NormalBackgroundStartColor="{StaticResource lightCharcoal}"
-                                        NormalBackgroundEndColor="{StaticResource lightCharcoal}"
-                                        PressedBackgroundColor="{StaticResource normalCharcoal}"
-                                        NormalLabelColor="White"
-                                        PressedLabelColor="LightGray"
-                                        ButtonTitleSize="12"
-                                        WidthRequest="208" />
-                                </StackLayout>
-                            </Grid>
-                         </Frame>
-                        <Label
-                            Margin="0,20,0,5"
-                            Text="Add Current Details"
-                            HorizontalOptions="Center"
-                            LineBreakMode="WordWrap"
-                            Style="{StaticResource lbSubheadSm}">
-                    
-                        </Label>
-                        <Label
-                            Text="Where are you now?"
-                            HorizontalOptions="Center"
-                            LineBreakMode="WordWrap"
-                            Style="{StaticResource lbBodyNormalMd}">
-                    
-                        </Label>
-                        <Label
-                            Text="What is your loved one wearing?"
-                            HorizontalOptions="Center"
-                            LineBreakMode="WordWrap"
-                            Style="{StaticResource lbBodyNormalMd}">
-                    
-                        </Label>
-                        <Label
-                            Text="Where were they last seen?"
-                            HorizontalOptions="Center"
-                            LineBreakMode="WordWrap"
-                            Style="{StaticResource lbBodyNormalMd}">
-                    
-                        </Label>
-                        <Grid VerticalOptions="Start" Margin="0,10,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="32" />
-                            </Grid.ColumnDefinitions>
-                            <control:AppEntry
-                                Grid.Column="0"
-                                Padding="10"
-                                BorderThickness="2"
-                                FocusBorderColor="{StaticResource normalCharcoal}"
-                                FontAttributes="Italic"
-                                FontFamily="PoppinsItalic"
-                                HeightRequest="32"
+                        <Grid>
+                            <control:AppBoxView
+                                BackgroundColor="#FD425E"
                                 HorizontalOptions="Fill"
-                                NoramlBorderColor="{StaticResource paleGray}"
-                                BackgroundColor="White"
-                                Placeholder="Enter situation details…"
-                                Text="{Binding Detail}"
-                                PlaceholderColor="{StaticResource lightCharcoal}"
-                                Style="{StaticResource etBodyNormalLg}"
-                                TextColor="{StaticResource normalCharcoal}" />
-                            <control:AppFrame
-                                Grid.Column="1"
-                                WidthRequest="32"
-                                HeightRequest="32"
-                                HasShadow="False"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center"
-                                Padding="0"
-                                NormalBackgroundColorStart="#1A838699"
-                                NormalBackgroundColorEnd="#1A838699"
-                                PressedBackgroundColor="#33838699"  
-                                CornerRadius="16">
-                                <Image HorizontalOptions="Center"  VerticalOptions="Center">
-                                    <Image.Source>
-                                        <FontImageSource Size="18"
-                                                        FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
-                                                        Color="{StaticResource lightCharcoal}"
-                                                        Glyph="{x:Static util:FontAwesomeIcons.Microphone}"/>
-                                    </Image.Source>
-                                </Image>
-                            </control:AppFrame>
+                                VerticalOptions="Start"
+                                BottomHeight="45"
+                                HeightRequest="80" />
+                            <Frame Padding="5,5,5,5"
+                               HasShadow="False"
+                               Margin="25, 0, 25, 0"
+                               BorderColor="Transparent"
+                               CornerRadius="16"
+                               BackgroundColor="White"
+                               HorizontalOptions="Fill"
+                               VerticalOptions="Start">
+                                <Grid VerticalOptions="Start" HorizontalOptions="Fill">
+                                    <StackLayout Orientation="Vertical" Spacing="0" Padding="15">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Frame
+                                                Grid.Column="0"
+                                                HorizontalOptions="Start"
+                                                VerticalOptions="Center"
+                                                IsClippedToBounds="true"
+                                                Padding="0"
+                                                HasShadow="False"
+                                                WidthRequest="80"
+                                                HeightRequest="80"
+                                                CornerRadius="40"
+                                                BorderColor="Transparent"
+                                                >
+                                                <ffimageloading:CachedImage
+                                                    HorizontalOptions="Fill"
+                                                    VerticalOptions="Fill"
+                                                    Aspect="AspectFill"
+			                                        DownsampleToViewSize="true"
+			                                        Source="{Binding CreatingLove.Image}">
+		                                        </ffimageloading:CachedImage>
+                                            </Frame>
+                                            <StackLayout Orientation="Vertical"
+                                                            Spacing="0"
+                                                            Margin="10,0,0,0"
+                                                            VerticalOptions="Center"
+                                                            Grid.Column="1">
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="{Binding CreatingLove.FullName}"
+                                                    Style="{StaticResource lbSubheadSm}">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span FontSize="16" Text="{Binding CreatingLove.FullName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                            <Span FontSize="16" Text=" age " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                                            <Span FontSize="16" Text="{Binding CreatingLove.Age}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>    
+                                                </Label>
+                                                <Grid VerticalOptions="Start"
+                                                      RowSpacing="0"
+                                                      ColumnSpacing="5"
+                                                      HorizontalOptions="Fill">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="auto" />
+                                                        <RowDefinition Height="auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        HorizontalOptions="Fill"
+                                                        LineBreakMode="WordWrap"
+                                                        FontSize="10"
+                                                        Style="{StaticResource lbSubheadSm}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Eyes: "/>
+                                                                <Span FontSize="12" Text="{Binding CreatingLove.EyeColor}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>    
+                                                    </Label>
+                                                    <Label
+                                                        Grid.Row="0"
+                                                        Grid.Column="1"
+                                                        HorizontalOptions="Fill"
+                                                        LineBreakMode="WordWrap"
+                                                        FontSize="10"
+                                                        Style="{StaticResource lbSubheadSm}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Height: "/>
+                                                                <Span FontSize="12" Text="{Binding CreatingLove.HeightFeet}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                                <Span FontSize="12" Text="’ " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                                <Span FontSize="12" Text="{Binding CreatingLove.HeightInches}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                                <Span FontSize="12" Text="”" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>    
+                                                    </Label>
+                                                    <Label
+                                                        Grid.Row="1"
+                                                        Grid.Column="0"
+                                                        HorizontalOptions="Fill"
+                                                        LineBreakMode="WordWrap"
+                                                        FontSize="10"
+                                                        Text="{Binding Model.Love.FullName}"
+                                                        Style="{StaticResource lbSubheadSm}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Hair: "/>
+                                                                <Span FontSize="12" Text="{Binding CreatingLove.HairColor}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>    
+                                                    </Label>
+                                                    <Label
+                                                        Grid.Row="1"
+                                                        Grid.Column="1"
+                                                        HorizontalOptions="Fill"
+                                                        LineBreakMode="WordWrap"
+                                                        FontSize="10"
+                                                        Style="{StaticResource lbSubheadSm}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Weight: "/>
+                                                                <Span FontSize="12" Text="{Binding CreatingLove.Weight}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                                <Span FontSize="12" Text=" lbs" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>    
+                                                    </Label>
+                                                </Grid>
+                                            </StackLayout>
+                                        </Grid>
+                                        <Label
+                                            Margin="0,20,0,0"
+                                            HorizontalOptions="Fill"
+                                            LineBreakMode="WordWrap"
+                                            Text="Additional Information:"
+                                            Style="{StaticResource lbBodyBoldMd}">  
+                                        </Label>
+                                        <Label
+                                            HorizontalOptions="Fill"
+                                            LineBreakMode="WordWrap"
+                                            Text="{Binding CreatingLove.OtherInformation}"
+                                            Style="{StaticResource lbBodyNormalMd}">  
+                                        </Label>
+                                        <Grid Margin="0,15,0,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <control:AppRatioGrid
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                HeightRequest="10"
+                                                RatioBase="Width"
+                                                RatioValue="1"
+                                                BackgroundColor="{StaticResource paleGray}"
+                                                HorizontalOptions="Fill">
+                                                <ffimageloading:CachedImage
+                                                    HorizontalOptions="Fill"
+                                                    VerticalOptions="Fill"
+                                                    Aspect="AspectFill"
+			                                        DownsampleToViewSize="true"
+			                                        Source="{Binding CreatingLove.Image2}">
+		                                        </ffimageloading:CachedImage>
+                                            </control:AppRatioGrid>
+                                            <control:AppRatioGrid
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                HeightRequest="10"
+                                                RatioBase="Width"
+                                                RatioValue="1"
+                                                BackgroundColor="{StaticResource paleGray}"
+                                                HorizontalOptions="Fill">
+                                                <ffimageloading:CachedImage
+                                                    HorizontalOptions="Fill"
+                                                    VerticalOptions="Fill"
+                                                    Aspect="AspectFill"
+			                                        DownsampleToViewSize="true"
+			                                        Source="{Binding CreatingLove.Image3}">
+		                                        </ffimageloading:CachedImage>
+                                            </control:AppRatioGrid>
+                                            <control:AppRatioGrid
+                                                Grid.Row="0"
+                                                Grid.Column="2"
+                                                HeightRequest="10"
+                                                RatioBase="Width"
+                                                RatioValue="1"
+                                                BackgroundColor="{StaticResource paleGray}"
+                                                HorizontalOptions="Fill">
+                                                <ffimageloading:CachedImage
+                                                    HorizontalOptions="Fill"
+                                                    VerticalOptions="Fill"
+                                                    Aspect="AspectFill"
+			                                        DownsampleToViewSize="true"
+			                                        Source="{Binding CreatingLove.Image4}">
+		                                        </ffimageloading:CachedImage>
+                                            </control:AppRatioGrid>
+                                        </Grid>
+                                        <control:AppButton
+                                            Margin="0,25,0,5"
+                                            ButtonTitle="UPDATE INFORMATION"
+                                            CornerRadius="16"
+                                            HeightRequest="32"
+                                            HorizontalOptions="Center"
+                                            NormalBackgroundStartColor="{StaticResource lightCharcoal}"
+                                            NormalBackgroundEndColor="{StaticResource lightCharcoal}"
+                                            PressedBackgroundColor="{StaticResource normalCharcoal}"
+                                            NormalLabelColor="White"
+                                            PressedLabelColor="LightGray"
+                                            ButtonTitleSize="12"
+                                            WidthRequest="208" />
+                                    </StackLayout>
+                                </Grid>
+                             </Frame>
                         </Grid>
-                        <Label
-                            Margin="0,30,0,15"
-                            Text="Alert Location"
-                            HorizontalOptions="Center"
-                            LineBreakMode="WordWrap"
-                            Style="{StaticResource lbSubheadSm}">
+                        <StackLayout Orientation="Vertical" Margin="20,0,20,0">
+                            <Label
+                                Margin="0,20,0,5"
+                                Text="Add Current Details"
+                                HorizontalOptions="Center"
+                                LineBreakMode="WordWrap"
+                                Style="{StaticResource lbSubheadSm}">
                     
-                        </Label>
-                        <Frame
-                            x:Name="FrameCurrentLocation"
-                            BorderColor="Transparent"
-                            Padding="20,15,20,10"
-                            HasShadow="False"
-                            CornerRadius="12"
-                            BackgroundColor="White">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnCurrentMyLocationTapped" />
-                            </Frame.GestureRecognizers>
-                            <Grid VerticalOptions="Start" RowSpacing="0">
+                            </Label>
+                            <Label
+                                Text="Where are you now?"
+                                HorizontalOptions="Center"
+                                LineBreakMode="WordWrap"
+                                Style="{StaticResource lbBodyNormalMd}">
+                    
+                            </Label>
+                            <Label
+                                Text="What is your loved one wearing?"
+                                HorizontalOptions="Center"
+                                LineBreakMode="WordWrap"
+                                Style="{StaticResource lbBodyNormalMd}">
+                    
+                            </Label>
+                            <Label
+                                Text="Where were they last seen?"
+                                HorizontalOptions="Center"
+                                LineBreakMode="WordWrap"
+                                Style="{StaticResource lbBodyNormalMd}">
+                    
+                            </Label>
+                            <Grid VerticalOptions="Start" Margin="0,10,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="32" />
                                 </Grid.ColumnDefinitions>
-                                <Label
-                                    Grid.Row="0"
+                                <control:AppEntry
                                     Grid.Column="0"
-                                    Text="Use my current location"
-                                    HorizontalOptions="Start"
-                                    VerticalOptions="End"
-                                    LineBreakMode="WordWrap"
-                                    Style="{StaticResource lbBodyBoldLg}">
-                    
-                                </Label>
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="0"
-                                    Text="I was with them when they went missing"
-                                    HorizontalOptions="Start"
-                                    LineBreakMode="WordWrap"
-                                    VerticalOptions="Start"
-                                    Style="{StaticResource lbBodyNormalSm}">
-                    
-                                </Label>
-                                <Image
-                                    x:Name="ImageCurrentLocation"
+                                    Padding="10"
+                                    BorderThickness="2"
+                                    FocusBorderColor="{StaticResource normalCharcoal}"
+                                    FontAttributes="Italic"
+                                    FontFamily="PoppinsItalic"
+                                    HeightRequest="32"
+                                    HorizontalOptions="Fill"
+                                    NoramlBorderColor="{StaticResource paleGray}"
+                                    BackgroundColor="White"
+                                    Placeholder="Enter situation details…"
+                                    Text="{Binding Detail}"
+                                    PlaceholderColor="{StaticResource lightCharcoal}"
+                                    Style="{StaticResource etBodyNormalLg}"
+                                    TextColor="{StaticResource normalCharcoal}" />
+                                <control:AppFrame
                                     Grid.Column="1"
-                                    Grid.RowSpan="2"
-                                    WidthRequest="20"
-                                    HeightRequest="20"
+                                    WidthRequest="32"
+                                    HeightRequest="32"
+                                    HasShadow="False"
                                     HorizontalOptions="Center"
-                                    VerticalOptions="Center">
-                                    <Image.Source>
-                                        <FontImageSource Size="20"
-                                                        FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
-                                                        Color="{StaticResource redNue}"
-                                                        Glyph="{x:Static util:FontAwesomeIcons.Compass}"/>
-                                    </Image.Source>
-                                </Image>
+                                    VerticalOptions="Center"
+                                    Padding="0"
+                                    NormalBackgroundColorStart="#1A838699"
+                                    NormalBackgroundColorEnd="#1A838699"
+                                    PressedBackgroundColor="#33838699"  
+                                    CornerRadius="16">
+                                    <Image HorizontalOptions="Center"  VerticalOptions="Center">
+                                        <Image.Source>
+                                            <FontImageSource Size="18"
+                                                            FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                            Color="{StaticResource lightCharcoal}"
+                                                            Glyph="{x:Static util:FontAwesomeIcons.Microphone}"/>
+                                        </Image.Source>
+                                    </Image>
+                                </control:AppFrame>
                             </Grid>
-                        </Frame>
-                        <Frame
-                            x:Name="FrameDifferenceLocation"
-                            Margin="0,15,0,0"
-                            BorderColor="Transparent"
-                            Padding="20,15,20,10"
-                            HasShadow="False"
-                            CornerRadius="12"
-                            BackgroundColor="White">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnDifferenceLocationTapped" />
-                            </Frame.GestureRecognizers>
-                            <StackLayout Orientation="Vertical" Spacing="0">
+                            <Label
+                                Margin="0,30,0,15"
+                                Text="Alert Location"
+                                HorizontalOptions="Center"
+                                LineBreakMode="WordWrap"
+                                Style="{StaticResource lbSubheadSm}">
+                    
+                            </Label>
+                            <Frame
+                                x:Name="FrameCurrentLocation"
+                                BorderColor="Transparent"
+                                Padding="20,15,20,10"
+                                HasShadow="False"
+                                CornerRadius="12"
+                                BackgroundColor="White">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCurrentMyLocationTapped" />
+                                </Frame.GestureRecognizers>
                                 <Grid VerticalOptions="Start" RowSpacing="0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -386,7 +333,7 @@
                                     <Label
                                         Grid.Row="0"
                                         Grid.Column="0"
-                                        Text="Use a different location"
+                                        Text="Use my current location"
                                         HorizontalOptions="Start"
                                         VerticalOptions="End"
                                         LineBreakMode="WordWrap"
@@ -396,7 +343,7 @@
                                     <Label
                                         Grid.Row="1"
                                         Grid.Column="0"
-                                        Text="I was NOT with them when they went missing"
+                                        Text="I was with them when they went missing"
                                         HorizontalOptions="Start"
                                         LineBreakMode="WordWrap"
                                         VerticalOptions="Start"
@@ -404,7 +351,7 @@
                     
                                     </Label>
                                     <Image
-                                        x:Name="ImageSearchLocation"
+                                        x:Name="ImageCurrentLocation"
                                         Grid.Column="1"
                                         Grid.RowSpan="2"
                                         WidthRequest="20"
@@ -415,150 +362,206 @@
                                             <FontImageSource Size="20"
                                                             FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
                                                             Color="{StaticResource redNue}"
-                                                            Glyph="{x:Static util:FontAwesomeIcons.Search}"/>
+                                                            Glyph="{x:Static util:FontAwesomeIcons.Compass}"/>
                                         </Image.Source>
                                     </Image>
                                 </Grid>
-                                <control:AppPopupPlacePickerView
-                                    x:Name="EntrySearchMap"
-                                    ContentPadding="10"
-                                    Padding="0"
-                                    Margin="0,5,0,10"
-                                    BorderThickness="2"
-                                    FocusBorderColor="{StaticResource normalCharcoal}"
-                                    HeightRequest="32"
-                                    VerticalOptions="Start"
-                                    HorizontalOptions="Fill"
-                                    NoramlBorderColor="{StaticResource paleGray}"
-                                    BackgroundColor="White"
-                                    Placeholder="Search maps…"
-                                    ItemDisplayBindingPath="Name"
-                                    PlaceholderColor="{StaticResource lightCharcoal}"
-                                    TextColor="{StaticResource dimCharcoal}" />
-                            </StackLayout>
-                        </Frame>
-                        <Label
-                            Margin="0,30,0,10"
-                            Text="Choose Recipients to Alert"
-                            HorizontalOptions="Center"
-                            LineBreakMode="WordWrap"
-                            Style="{StaticResource lbSubheadSm}">
+                            </Frame>
+                            <Frame
+                                x:Name="FrameDifferenceLocation"
+                                Margin="0,15,0,0"
+                                BorderColor="Transparent"
+                                Padding="20,15,20,10"
+                                HasShadow="False"
+                                CornerRadius="12"
+                                BackgroundColor="White">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnDifferenceLocationTapped" />
+                                </Frame.GestureRecognizers>
+                                <StackLayout Orientation="Vertical" Spacing="0">
+                                    <Grid VerticalOptions="Start" RowSpacing="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="20" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Text="Use a different location"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="End"
+                                            LineBreakMode="WordWrap"
+                                            Style="{StaticResource lbBodyBoldLg}">
                     
-                        </Label>
-                        <Grid VerticalOptions="Start"
-                              RowSpacing="10"
-                              ColumnSpacing="8"
-                              HorizontalOptions="Center">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="20" />
-                                <RowDefinition Height="20" />
-                                <RowDefinition Height="20" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20" />
-                                <ColumnDefinition Width="auto" />
-                            </Grid.ColumnDefinitions>
-                            <Image
-                                Grid.Column="0"
-                                Grid.Row="0"
-                                WidthRequest="20"
-                                HeightRequest="20"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center">
-                                <Image.Source>
-                                    <FontImageSource Size="20"
-                                                    x:Name="ImageSourceYourPersonalNetwork"
-                                                    FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
-                                                    Color="{StaticResource redNue}"
-                                                    Glyph="{x:Static util:FontAwesomeIcons.CheckCircle}"/>
-                                </Image.Source>
-                            </Image>
-                            <Image
-                                Grid.Column="0"
-                                Grid.Row="1"
-                                WidthRequest="20"
-                                HeightRequest="20"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center">
-                                <Image.Source>
-                                    <FontImageSource Size="20"
-                                                     x:Name="ImageSourceGuardianNearby"
-                                                    FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
-                                                    Color="{StaticResource redNue}"
-                                                    Glyph="{x:Static util:FontAwesomeIcons.CheckCircle}"/>
-                                </Image.Source>
-                            </Image>
-                            <Image
-                                Grid.Column="0"
-                                Grid.Row="2"
-                                WidthRequest="20"
-                                HeightRequest="20"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center">
-                                <Image.Source>
-                                    <FontImageSource Size="20"
-                                                     x:Name="ImageSourceLowEnforcement"
-                                                    FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
-                                                    Color="{StaticResource redNue}"
-                                                    Glyph="{x:Static util:FontAwesomeIcons.CheckCircle}"/>
-                                </Image.Source>
-                            </Image>
+                                        </Label>
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            Text="I was NOT with them when they went missing"
+                                            HorizontalOptions="Start"
+                                            LineBreakMode="WordWrap"
+                                            VerticalOptions="Start"
+                                            Style="{StaticResource lbBodyNormalSm}">
+                    
+                                        </Label>
+                                        <Image
+                                            x:Name="ImageSearchLocation"
+                                            Grid.Column="1"
+                                            Grid.RowSpan="2"
+                                            WidthRequest="20"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center">
+                                            <Image.Source>
+                                                <FontImageSource Size="20"
+                                                                FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                                Color="{StaticResource redNue}"
+                                                                Glyph="{x:Static util:FontAwesomeIcons.Search}"/>
+                                            </Image.Source>
+                                        </Image>
+                                    </Grid>
+                                    <control:AppPopupPlacePickerView
+                                        x:Name="EntrySearchMap"
+                                        ContentPadding="10"
+                                        Padding="0"
+                                        Margin="0,5,0,10"
+                                        BorderThickness="2"
+                                        FocusBorderColor="{StaticResource normalCharcoal}"
+                                        HeightRequest="32"
+                                        VerticalOptions="Start"
+                                        HorizontalOptions="Fill"
+                                        NoramlBorderColor="{StaticResource paleGray}"
+                                        BackgroundColor="White"
+                                        Placeholder="Search maps…"
+                                        ItemDisplayBindingPath="Name"
+                                        PlaceholderColor="{StaticResource lightCharcoal}"
+                                        TextColor="{StaticResource dimCharcoal}" />
+                                </StackLayout>
+                            </Frame>
                             <Label
-                                Grid.Column="1"
-                                Grid.Row="0"
-                                VerticalOptions="Center"
-                                Text="Your personal network"
-                                HorizontalOptions="Start"
+                                Margin="0,30,0,10"
+                                Text="Choose Recipients to Alert"
+                                HorizontalOptions="Center"
                                 LineBreakMode="WordWrap"
-                                FontSize="12"
-                                Style="{StaticResource lbBodyBoldMd}">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="YourPersonalNetworkTapped" />
-                                </Label.GestureRecognizers>
+                                Style="{StaticResource lbSubheadSm}">
+                    
                             </Label>
-                            <Label
-                                Grid.Column="1"
-                                Grid.Row="1"
-                                VerticalOptions="Center"
-                                Text="Guardians nearby"
-                                HorizontalOptions="Start"
-                                LineBreakMode="WordWrap"
-                                FontSize="12"
-                                Style="{StaticResource lbBodyBoldMd}">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="GuardianNearbyTapped" />
-                                </Label.GestureRecognizers>
-                            </Label>
-                            <Label
-                                Grid.Column="1"
-                                Grid.Row="2"
-                                VerticalOptions="Center"
-                                HorizontalOptions="Start"
-                                LineBreakMode="WordWrap"
-                                Style="{StaticResource lbBodyBoldMd}">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span FontSize="12" Text="Low enforcement" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" />
-                                        <Span FontSize="12" Text=" (911 dispatch)" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="LowEnforcementTapped" />
-                                </Label.GestureRecognizers>
-                            </Label>
-                        </Grid>
-                        <control:AppButton
-                            Margin="0,30,0,20"
-                            ButtonTitle="Send Alert"
-                            CornerRadius="12"
-                            HeightRequest="60"
-                            HorizontalOptions="Fill"
-                            NormalBackgroundStartColor="{StaticResource redQ5}"
-                            NormalBackgroundEndColor="{StaticResource redNue}"
-                            PressedBackgroundColor="{StaticResource redQ5}"
-                            NormalLabelColor="White"
-                            Command="{Binding CreateAlertCommand}"
-                            PressedLabelColor="LightGray" />
+                            <Grid VerticalOptions="Start"
+                                  RowSpacing="10"
+                                  ColumnSpacing="8"
+                                  HorizontalOptions="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="20" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    WidthRequest="20"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                    <Image.Source>
+                                        <FontImageSource Size="20"
+                                                        x:Name="ImageSourceYourPersonalNetwork"
+                                                        FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                        Color="{StaticResource redNue}"
+                                                        Glyph="{x:Static util:FontAwesomeIcons.CheckCircle}"/>
+                                    </Image.Source>
+                                </Image>
+                                <Image
+                                    Grid.Column="0"
+                                    Grid.Row="1"
+                                    WidthRequest="20"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                    <Image.Source>
+                                        <FontImageSource Size="20"
+                                                         x:Name="ImageSourceGuardianNearby"
+                                                        FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                        Color="{StaticResource redNue}"
+                                                        Glyph="{x:Static util:FontAwesomeIcons.CheckCircle}"/>
+                                    </Image.Source>
+                                </Image>
+                                <Image
+                                    Grid.Column="0"
+                                    Grid.Row="2"
+                                    WidthRequest="20"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                    <Image.Source>
+                                        <FontImageSource Size="20"
+                                                         x:Name="ImageSourceLowEnforcement"
+                                                        FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
+                                                        Color="{StaticResource redNue}"
+                                                        Glyph="{x:Static util:FontAwesomeIcons.CheckCircle}"/>
+                                    </Image.Source>
+                                </Image>
+                                <Label
+                                    Grid.Column="1"
+                                    Grid.Row="0"
+                                    VerticalOptions="Center"
+                                    Text="Your personal network"
+                                    HorizontalOptions="Start"
+                                    LineBreakMode="WordWrap"
+                                    FontSize="12"
+                                    Style="{StaticResource lbBodyBoldMd}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="YourPersonalNetworkTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <Label
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    VerticalOptions="Center"
+                                    Text="Guardians nearby"
+                                    HorizontalOptions="Start"
+                                    LineBreakMode="WordWrap"
+                                    FontSize="12"
+                                    Style="{StaticResource lbBodyBoldMd}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="GuardianNearbyTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <Label
+                                    Grid.Column="1"
+                                    Grid.Row="2"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Start"
+                                    LineBreakMode="WordWrap"
+                                    Style="{StaticResource lbBodyBoldMd}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span FontSize="12" Text="Low enforcement" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" />
+                                            <Span FontSize="12" Text=" (911 dispatch)" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="LowEnforcementTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
+                            <control:AppButton
+                                Margin="0,30,0,20"
+                                ButtonTitle="Send Alert"
+                                CornerRadius="12"
+                                HeightRequest="60"
+                                HorizontalOptions="Fill"
+                                NormalBackgroundStartColor="{StaticResource redQ5}"
+                                NormalBackgroundEndColor="{StaticResource redNue}"
+                                PressedBackgroundColor="{StaticResource redQ5}"
+                                NormalLabelColor="White"
+                                Command="{Binding CreateAlertCommand}"
+                                PressedLabelColor="LightGray" />
+                        </StackLayout>
+                        
                     </StackLayout>
                     
                 </ScrollView>
