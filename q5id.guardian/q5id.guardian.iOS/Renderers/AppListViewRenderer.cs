@@ -20,7 +20,11 @@ namespace q5id.guardian.iOS.Renderers
         private void UpdateListView()
         {
             UITableView tableView = this.Control;
-            tableView.AlwaysBounceVertical = false;
+            if(tableView != null)
+            {
+                tableView.AlwaysBounceVertical = false;
+            }
+            
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
