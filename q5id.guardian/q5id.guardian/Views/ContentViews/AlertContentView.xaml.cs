@@ -11,6 +11,8 @@ namespace q5id.guardian.Views.ContentViews
 {
     public partial class AlertContentView : BaseContainerView
     {
+        public const int NAVIGATE_FROM_HOME = 0;
+        public const int NAVIGATE_FROM_LOVED_ONES = 1;
 
         public const int VIEW_LIST_INDEX = 0;
         public const int VIEW_DETAIL_INDEX = 1;
@@ -65,6 +67,8 @@ namespace q5id.guardian.Views.ContentViews
         public AlertDetailView AlertDetailView { get; private set; }
 
         public CreateAlertDetailView CreateAlertDetailView { get; private set; }
+        public bool IsFromHomeView { get; private set; }
+        public bool IsFromLovedOnesView { get; private set; }
 
         public AlertContentView(HomePage homePage) : base(homePage)
         {
@@ -165,6 +169,13 @@ namespace q5id.guardian.Views.ContentViews
             }
         }
 
+        public void ShowCreateAlert(int fromView)
+        {
+            ShowCreateAlertChooseLove();
+            IsFromHomeView = fromView == NAVIGATE_FROM_HOME ? true : false;
+            IsFromLovedOnesView = fromView == NAVIGATE_FROM_LOVED_ONES ? true : false;
+        }
+
         public void AddNewEventHandlerRightControlClicked(EventHandler eventHandler)
         {
             MainPage.RightControlClicked -= MainPage_RightControlClicked;
@@ -179,7 +190,17 @@ namespace q5id.guardian.Views.ContentViews
 
         private void MainPage_RightControlClicked(object sender, EventArgs e)
         {
-            if(CarouselViewContent.Position != VIEW_LIST_INDEX)
+            if (IsFromHomeView)
+            {
+                MainPage.ShowHomeView();
+                IsFromHomeView = false;
+            }
+            else if (IsFromLovedOnesView)
+            {
+                MainPage.ShowLovedOnesView();
+                IsFromLovedOnesView = false;
+            }
+            else if(CarouselViewContent.Position != VIEW_LIST_INDEX)
             {
                 CarouselViewContent.Position = VIEW_LIST_INDEX;
                 MainPage.UpdateRightControlVisibility(false);

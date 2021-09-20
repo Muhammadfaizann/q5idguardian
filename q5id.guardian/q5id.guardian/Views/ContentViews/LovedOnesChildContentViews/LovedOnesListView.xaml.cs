@@ -45,6 +45,11 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
 
         }
 
+        void CreateAlertTapped(System.Object sender, System.EventArgs e)
+        {
+            this.MainContentView.MainPage.ShowCreateAlertView(AlertContentView.NAVIGATE_FROM_LOVED_ONES);
+        }
+
         void OnItemFrameTapped(System.Object sender, System.EventArgs e)
         {
             if(e is TappedEventArgs tappedEventArgs)

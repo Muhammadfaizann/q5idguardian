@@ -13,11 +13,15 @@ namespace q5id.guardian.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage : BasePage<HomeViewModel>
     {
+        public const int HOME_INDEX = 0;
+        public const int LOVED_ONES_INDEX = 1;
+        public const int ALERT_INDEX = 2;
+
         private bool isInitPage = false;
 
         private ContentView HomeView = null;
-        private ContentView LovedOnesView = null;
-        private ContentView AlertsView = null;
+        private LovedOnesContentView LovedOnesView = null;
+        private AlertContentView AlertsView = null;
         private int mCurrentTap = -1;
         private bool mIsDrawerVisible = false;
         private bool mIsAnimation = false;
@@ -29,17 +33,13 @@ namespace q5id.guardian.Views
             InitializeComponent();
             GridDrawer.IsVisible = false;
             GridDrawer.TranslateTo(-320, 0, 0);
-            HomeView = new HomeContentView();
+            HomeView = new HomeContentView(this);
             ShowView(HomeView, "HomeVm");
-            SelectTab(0);
+            SelectTab(HOME_INDEX);
             var gridHomeTapGes = new TapGestureRecognizer();
             gridHomeTapGes.Tapped += (object sender, EventArgs e) =>
             {
-                HomeView = new HomeContentView();
-
-                ShowView(HomeView, "HomeVm");
-                SelectTab(0);
-                UpdateRightControlVisibility(false);
+                ShowHomeView();
             };
             gridHomeTapGes.SetBinding(TapGestureRecognizer.CommandProperty, "OpenHomeTapCommand");
             gridHome.GestureRecognizers.Add(gridHomeTapGes);
@@ -47,10 +47,7 @@ namespace q5id.guardian.Views
             var gridLoveTapGes = new TapGestureRecognizer();
             gridLoveTapGes.Tapped += (object sender, EventArgs e) =>
             {
-                LovedOnesView = new LovedOnesContentView(this);
-                ShowView(LovedOnesView, "LovedOnesVm");
-                SelectTab(1);
-                UpdateRightControlVisibility(false);
+                ShowLovedOnesView();
             };
             gridLoveTapGes.SetBinding(TapGestureRecognizer.CommandProperty, "OpenLovedOnesTapCommand");
             gridLove.GestureRecognizers.Add(gridLoveTapGes);
@@ -58,15 +55,45 @@ namespace q5id.guardian.Views
             var gridAlertTapGes = new TapGestureRecognizer();
             gridAlertTapGes.Tapped += (object sender, EventArgs e) =>
             {
-                AlertsView = new AlertContentView(this);
-                ShowView(AlertsView, "AlertsVm");
-                SelectTab(2);
-                UpdateRightControlVisibility(false);
+                ShowAlertView();
             };
             gridAlertTapGes.SetBinding(TapGestureRecognizer.CommandProperty, "OpenAlertTapCommand");
             gridAlert.GestureRecognizers.Add(gridAlertTapGes);
 
             frmRightControl.Clicked += FrmRightControl_Clicked;
+        }
+
+        public void ShowHomeView()
+        {
+            HomeView = new HomeContentView(this);
+
+            ShowView(HomeView, "HomeVm");
+            SelectTab(HOME_INDEX);
+            UpdateRightControlVisibility(false);
+        }
+
+        public void ShowLovedOnesView()
+        {
+            LovedOnesView = new LovedOnesContentView(this);
+            ShowView(LovedOnesView, "LovedOnesVm");
+            SelectTab(LOVED_ONES_INDEX);
+            UpdateRightControlVisibility(false);
+        }
+
+        public void ShowAlertView()
+        {
+            AlertsView = new AlertContentView(this);
+            ShowView(AlertsView, "AlertsVm");
+            SelectTab(ALERT_INDEX);
+            UpdateRightControlVisibility(false);
+        }
+
+        public void ShowCreateAlertView(int fromView)
+        {
+            ShowAlertView();
+            AlertsView.ShowCreateAlert(fromView);
+            UpdateRightControlVisibility(true);
+            UpdateRightControlImage(Utils.FontAwesomeIcons.Times);
         }
 
         private void FrmRightControl_Clicked(object sender, EventArgs e)
@@ -88,20 +115,20 @@ namespace q5id.guardian.Views
         {
             mCurrentTap = index;
 
-            imageSourceHome.Color = index == 0 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
-            imageSourceLove.Color = index == 1 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
-            imageSourceAlert.Color = index == 2 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
+            imageSourceHome.Color = index == HOME_INDEX ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
+            imageSourceLove.Color = index == LOVED_ONES_INDEX ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
+            imageSourceAlert.Color = index == ALERT_INDEX ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
 
-            labelHome.TextColor = index == 0 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
-            labelLove.TextColor = index == 1 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
-            labelAlert.TextColor = index == 2 ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
+            labelHome.TextColor = index == HOME_INDEX ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
+            labelLove.TextColor = index == LOVED_ONES_INDEX ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
+            labelAlert.TextColor = index == ALERT_INDEX ? ThemeConstanst.DimPink : ThemeConstanst.DimGray;
 
             string headerTitlePage = "Guardian";
-            if(index == 1)
+            if(index == LOVED_ONES_INDEX)
             {
                 headerTitlePage = "Loved Ones";
             }
-            else if(index == 2)
+            else if(index == ALERT_INDEX)
             {
                 headerTitlePage = "Alerts";
             }

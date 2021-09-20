@@ -6,6 +6,7 @@ using Plugin.Geolocator;
 using q5id.guardian.Controls;
 using q5id.guardian.Utils;
 using q5id.guardian.ViewModels;
+using q5id.guardian.Views.Base;
 using q5id.guardian.Views.ItemViews;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -15,7 +16,7 @@ using Map = Xamarin.Forms.Maps.Map;
 
 namespace q5id.guardian.Views.ContentViews
 {
-    public partial class HomeContentView : ContentView
+    public partial class HomeContentView : BaseContainerView
     {
         private bool isInitMap = false;
 
@@ -26,7 +27,7 @@ namespace q5id.guardian.Views.ContentViews
 
         private Plugin.Geolocator.Abstractions.Position userPosition;
 
-        public HomeContentView()
+        public HomeContentView(HomePage homePage) : base(homePage)
         {
             InitializeComponent();
             CheckAndGetLocalLocation();
@@ -162,6 +163,11 @@ namespace q5id.guardian.Views.ContentViews
                 // Other error has occurred.
                 Debug.WriteLine("Can not call number: " + ex.Message);
             }
+        }
+
+        void CreateAlertTapped(System.Object sender, System.EventArgs e)
+        {
+            MainPage.ShowCreateAlertView(AlertContentView.NAVIGATE_FROM_HOME);
         }
     }
 }

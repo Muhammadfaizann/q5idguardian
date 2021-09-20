@@ -36,7 +36,7 @@
                     HeightRequest="60"
                     HorizontalOptions="Center"
                     IsDisable="{Binding IsVolunteer}"
-                    Clicked="OnAddClicked"
+                    Clicked="CreateAlertTapped"
                     NormalBackgroundEndColor="White"
                     NormalBackgroundStartColor="White"
                     NormalLabelColor="{StaticResource redVibrant}"

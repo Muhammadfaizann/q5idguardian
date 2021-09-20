@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<ContentView
+<base:BaseContainerView
     x:Class="q5id.guardian.Views.ContentViews.HomeContentView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
     xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:base="clr-namespace:q5id.guardian.Views.Base"
     xmlns:itemViews="clr-namespace:q5id.guardian.Views.ItemViews"
     xmlns:utils="clr-namespace:q5id.guardian.Utils">
     <ContentView.Content>
@@ -29,6 +30,7 @@
                     ButtonTitle="Create Alert"
                     ButtonTitleSize="16"
                     CornerRadius="12"
+                    Clicked="CreateAlertTapped"
                     DeactiveBackgroundColor="White"
                     DeactiveLabelColor="{StaticResource paleGray}"
                     HasShadow="False"
@@ -336,4 +338,4 @@
             </Grid>
         </Grid>
     </ContentView.Content>
-</ContentView>
+</base:BaseContainerView>
