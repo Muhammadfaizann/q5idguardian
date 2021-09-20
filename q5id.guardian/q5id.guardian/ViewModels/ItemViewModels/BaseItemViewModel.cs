@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using Microsoft.Extensions.Logging;
 using MvvmCross;
 using MvvmCross.Navigation;
@@ -8,7 +9,21 @@ namespace q5id.guardian.ViewModels.ItemViewModels
 {
     public class BaseItemViewModel<T> : BaseViewModel where T : class
      {
-        public Command ItemClickCommand { get; set; }
+        public Action OnItemClicked { get; set; }
+
+        public ICommand ItemClickCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    if(OnItemClicked != null)
+                    {
+                        OnItemClicked.Invoke();
+                    }
+                });
+            }
+        }
 
         public T Model { get; set; }
 

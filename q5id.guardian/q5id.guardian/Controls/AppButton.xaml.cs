@@ -90,7 +90,43 @@ namespace q5id.guardian.Controls
 
         // BindableProperty implementation
         public static readonly BindableProperty CommandProperty =
-            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(AppButton), null);
+            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(AppButton), null, propertyChanging: OnCommandChanging, propertyChanged: OnCommandChanged);
+
+        static void OnCommandChanged(BindableObject bo, object o, object n)
+        {
+            AppButton button = (AppButton)bo;
+            if (n is ICommand newCommand)
+                newCommand.CanExecuteChanged += button.OnCommandCanExecuteChanged;
+
+            CommandChanged(button);
+        }
+
+        private void OnCommandCanExecuteChanged(object sender, EventArgs e)
+        {
+            CommandCanExecuteChanged(this, EventArgs.Empty);
+        }
+
+        static void OnCommandChanging(BindableObject bo, object o, object n)
+        {
+            AppButton button = (AppButton)bo;
+            if (o != null)
+            {
+                (o as ICommand).CanExecuteChanged -= button.OnCommandCanExecuteChanged;
+            }
+        }
+
+        public static void CommandChanged(AppButton sender)
+        {
+            if (sender.Command != null)
+            {
+                CommandCanExecuteChanged(sender, EventArgs.Empty);
+            }
+        }
+
+
+        public static void CommandCanExecuteChanged(object sender, EventArgs e)
+        {
+        }
 
         public ICommand Command
         {
@@ -100,6 +136,16 @@ namespace q5id.guardian.Controls
                 SetValue(CommandProperty, value);
             }
         }
+
+        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(AppButton), null);
+
+
+        public object CommandParameter
+        {
+            get { return GetValue(CommandParameterProperty); }
+            set { SetValue(CommandParameterProperty, value); }
+        }
+
 
         // BindableProperty implementation
         public static readonly BindableProperty IsDisableProperty =
@@ -216,8 +262,14 @@ namespace q5id.guardian.Controls
         {
             if(this.IsDisable == false)
             {
-                Clicked?.Invoke(sender, e);
-                Command?.Execute(sender);
+                if(Command != null && Command.CanExecute(CommandParameter))
+                {
+                    Command.Execute(CommandParameter);
+                }
+                if(Clicked != null)
+                {
+                    Clicked.Invoke(sender, new TappedEventArgs(CommandParameter));
+                }
             }
         }
 

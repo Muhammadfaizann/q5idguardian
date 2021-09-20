@@ -14,11 +14,6 @@ namespace q5id.guardian.Views.ContentViews
         public const int NAVIGATE_FROM_HOME = 0;
         public const int NAVIGATE_FROM_LOVED_ONES = 1;
 
-        public const int VIEW_LIST_INDEX = 0;
-        public const int VIEW_DETAIL_INDEX = 1;
-        public const int VIEW_CREATE_ALERT_CHOOSE_LOVE_INDEX = 2;
-        public const int VIEW_CREATE_ALERT_DETAIL_INDEX = 3;
-
         public static readonly BindableProperty ResetCommandProperty =
             BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(AlertContentView), null, defaultBindingMode: BindingMode.TwoWay);
 
@@ -48,8 +43,10 @@ namespace q5id.guardian.Views.ContentViews
 
         private void OnUpdateSuccess()
         {
-            CarouselViewContent.Position = VIEW_LIST_INDEX;
+            BackToTop();
             MainPage.UpdateRightControlVisibility(false);
+            IsFromHomeView = false;
+            IsFromLovedOnesView = false;
         }
 
         public Boolean IsUpdateSuccess
@@ -64,9 +61,6 @@ namespace q5id.guardian.Views.ContentViews
             }
         }
 
-        public AlertDetailView AlertDetailView { get; private set; }
-
-        public CreateAlertDetailView CreateAlertDetailView { get; private set; }
         public bool IsFromHomeView { get; private set; }
         public bool IsFromLovedOnesView { get; private set; }
 
@@ -82,78 +76,23 @@ namespace q5id.guardian.Views.ContentViews
 
         public void ShowDetail()
         {
-            CarouselViewContent.Position = VIEW_DETAIL_INDEX;
-            if(AlertDetailView != null)
-            {
-                AlertDetailView.InitView();
-            }
+            PushView(new AlertDetailView(this));
         }
 
         public void ShowCreateAlertChooseLove()
         {
-            ResetCommand?.Execute(null);
-            CarouselViewContent.Position = VIEW_CREATE_ALERT_CHOOSE_LOVE_INDEX;
+           ResetCommand?.Execute(null);
+           PushView(new CreateAlertChooseLoveView(this));
         }
 
         public void ShowCreateAlertDetail()
         {
-            CarouselViewContent.Position = VIEW_CREATE_ALERT_DETAIL_INDEX;
-            if(CreateAlertDetailView != null)
-            {
-                CreateAlertDetailView.InitView();
-            }
+            PushView(new CreateAlertDetailView(this));
         }
 
         private void SetupView()
-        { 
-            CarouselViewContent.ItemTemplate = new AlertPageSelector()
-            {
-                ListTemplate = new DataTemplate(() =>
-                {
-                    return GetContentView(new AlertListVew(this));
-                }),
-                DetailTemplate = new DataTemplate(() =>
-                {
-                    AlertDetailView = new AlertDetailView(this);
-                    return GetContentView(AlertDetailView);
-                }),
-                CreateAlertChooseLoveTemplate = new DataTemplate(() =>
-                {
-                    return GetContentView(new CreateAlertChooseLoveView(this));
-                }),
-                CreateAlertDetailTemplate = new DataTemplate(() =>
-                {
-                    CreateAlertDetailView = new CreateAlertDetailView(this);
-                    return GetContentView(CreateAlertDetailView);
-                }),
-            };
-
-            CarouselViewContent.ItemsSource = new List<int>
-            {
-                VIEW_LIST_INDEX,
-                VIEW_DETAIL_INDEX,
-                VIEW_CREATE_ALERT_CHOOSE_LOVE_INDEX,
-                VIEW_CREATE_ALERT_DETAIL_INDEX
-            };
-        }
-
-        public View GetContentView(ContentView view)
         {
-            Binding contextBinding = new Binding(".", BindingMode.Default, null, null, null, this.BindingContext);
-            view.SetBinding(BindingContextProperty, contextBinding);
-            var containerView = new Frame();
-            containerView.BackgroundColor = Color.Transparent;
-            containerView.HasShadow = false;
-            containerView.BorderColor = Color.Transparent;
-            containerView.HorizontalOptions = LayoutOptions.Fill;
-            containerView.VerticalOptions = LayoutOptions.Fill;
-            containerView.Padding = new Thickness(0);
-            containerView.Margin = new Thickness(0);
-            containerView.Content = view;
-            view.HorizontalOptions = LayoutOptions.Fill;
-            view.VerticalOptions = LayoutOptions.Fill;
-            view.Margin = new Thickness(0);
-            return containerView;
+            PushView(new AlertListVew(this));
         }
 
         protected override void OnParentSet()
@@ -200,12 +139,17 @@ namespace q5id.guardian.Views.ContentViews
                 MainPage.ShowLovedOnesView();
                 IsFromLovedOnesView = false;
             }
-            else if(CarouselViewContent.Position != VIEW_LIST_INDEX)
+            else
             {
-                CarouselViewContent.Position = VIEW_LIST_INDEX;
                 MainPage.UpdateRightControlVisibility(false);
                 ResetCommand?.Execute(null);
+                BackToTop();
             }
+        }
+
+        public override Grid GetContentView()
+        {
+            return this.GridContentView;
         }
     }
 }

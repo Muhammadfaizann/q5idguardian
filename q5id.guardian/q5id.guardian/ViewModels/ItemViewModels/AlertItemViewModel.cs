@@ -10,6 +10,8 @@ namespace q5id.guardian.ViewModels.ItemViewModels
     {
 
         public Action<AlertItemViewModel> OnUpdateExpanded;
+
+        public Action OnOpenAlert;
         
         private Boolean mIsExpanded = false;
         public Boolean IsExpanded
@@ -31,6 +33,20 @@ namespace q5id.guardian.ViewModels.ItemViewModels
                     if(OnUpdateExpanded != null)
                     {
                         OnUpdateExpanded(this);
+                    }
+                });
+            }
+        }
+
+        public ICommand OpenAlertCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    if (OnOpenAlert != null)
+                    {
+                        OnOpenAlert.Invoke();
                     }
                 });
             }

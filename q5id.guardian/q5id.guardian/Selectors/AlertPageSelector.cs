@@ -17,14 +17,14 @@ namespace q5id.guardian.Selectors
             {
                 switch (intValue)
                 {
-                    case AlertContentView.VIEW_LIST_INDEX:
-                        return ListTemplate;
-                    case AlertContentView.VIEW_DETAIL_INDEX:
-                        return DetailTemplate;
-                    case AlertContentView.VIEW_CREATE_ALERT_CHOOSE_LOVE_INDEX:
-                        return CreateAlertChooseLoveTemplate;
-                    case AlertContentView.VIEW_CREATE_ALERT_DETAIL_INDEX:
-                        return CreateAlertDetailTemplate;
+                    //case AlertContentView.VIEW_LIST_INDEX:
+                    //    return ListTemplate;
+                    //case AlertContentView.VIEW_DETAIL_INDEX:
+                    //    return DetailTemplate;
+                    //case AlertContentView.VIEW_CREATE_ALERT_CHOOSE_LOVE_INDEX:
+                    //    return CreateAlertChooseLoveTemplate;
+                    //case AlertContentView.VIEW_CREATE_ALERT_DETAIL_INDEX:
+                    //    return CreateAlertDetailTemplate;
                     default:
                         return ListTemplate;
                 }

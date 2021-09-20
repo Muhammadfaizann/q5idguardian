@@ -68,10 +68,12 @@ namespace q5id.guardian.ViewModels
             User = parameter;
         }
 
-        public override Task Initialize()
+        public override async Task Initialize()
         {
             GetAccountEntity();
-            return Task.CompletedTask;
+            await HomeVm.Initialize();
+            await LovedOnesVm.Initialize();
+            await AlertsVm.Initialize();
         }
 
         private void GetAccountEntity()
@@ -125,7 +127,7 @@ namespace q5id.guardian.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await HomeVm.Initialize();
+                    HomeVm.GetAlerts();
                 });
             }
         }
@@ -134,9 +136,9 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                return new Command(async () =>
+                return new Command(() =>
                 {
-                    await LovedOnesVm.Initialize();
+                    LovedOnesVm.GetLoves();
                 });
             }
         }
@@ -147,7 +149,8 @@ namespace q5id.guardian.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await AlertsVm.Initialize();
+                    await AlertsVm.GetLoves();
+                    AlertsVm.GetAlerts();
                 });
             }
         }

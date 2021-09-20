@@ -169,5 +169,10 @@ namespace q5id.guardian.Views.ContentViews
         {
             MainPage.ShowCreateAlertView(AlertContentView.NAVIGATE_FROM_HOME);
         }
+
+        public override Grid GetContentView()
+        {
+            return new Grid();
+        }
     }
 }

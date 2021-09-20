@@ -158,7 +158,7 @@
                         HeightRequest="32"
                         HorizontalOptions="Center"
                         Clicked="OnOpenAlertClicked"
-                        Command="{Binding ItemClickCommand}"
+                        Command="{Binding OpenAlertCommand}"
                         NormalBackgroundStartColor="{StaticResource redQ5}"
                         NormalBackgroundEndColor="{StaticResource redVibrant}"
                         PressedBackgroundColor="{StaticResource redQ5}"

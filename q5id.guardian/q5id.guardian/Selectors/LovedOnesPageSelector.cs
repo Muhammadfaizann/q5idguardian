@@ -22,22 +22,22 @@ namespace q5id.guardian.Selectors
             {
                 switch (intValue)
                 {
-                    case LovedOnesContentView.VIEW_LIST_INDEX:
-                        return ListTemplate;
-                    case LovedOnesContentView.VIEW_INTRO_INDEX:
-                        return IntroTemplate;
-                    case LovedOnesContentView.VIEW_PROFILE_INFO_INDEX:
-                        return ProfileInfoTemplate;
-                    case LovedOnesContentView.VIEW_PHYSIC_INFO_INDEX:
-                        return PhysicalInfoTemplate;
-                    case LovedOnesContentView.VIEW_IMAGE_INFO_INDEX:
-                        return ImageInfoTemplate;
-                    case LovedOnesContentView.VIEW_DETAIL_INFO_INDEX:
-                        return DetailInfoTemplate;
-                    case LovedOnesContentView.VIEW_REVIEW_INDEX:
-                        return ReviewTemplate;
-                    case LovedOnesContentView.VIEW_EDIT_INDEX:
-                        return EditTemplate;
+                    //case LovedOnesContentView.VIEW_LIST_INDEX:
+                    //    return ListTemplate;
+                    //case LovedOnesContentView.VIEW_INTRO_INDEX:
+                    //    return IntroTemplate;
+                    //case LovedOnesContentView.VIEW_PROFILE_INFO_INDEX:
+                    //    return ProfileInfoTemplate;
+                    //case LovedOnesContentView.VIEW_PHYSIC_INFO_INDEX:
+                    //    return PhysicalInfoTemplate;
+                    //case LovedOnesContentView.VIEW_IMAGE_INFO_INDEX:
+                    //    return ImageInfoTemplate;
+                    //case LovedOnesContentView.VIEW_DETAIL_INFO_INDEX:
+                    //    return DetailInfoTemplate;
+                    //case LovedOnesContentView.VIEW_REVIEW_INDEX:
+                    //    return ReviewTemplate;
+                    //case LovedOnesContentView.VIEW_EDIT_INDEX:
+                    //    return EditTemplate;
                     default:
                         return ListTemplate;
                 }

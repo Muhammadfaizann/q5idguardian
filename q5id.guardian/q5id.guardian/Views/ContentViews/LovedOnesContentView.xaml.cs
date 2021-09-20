@@ -14,15 +14,7 @@ namespace q5id.guardian.Views.ContentViews
 {
     public partial class LovedOnesContentView : BaseContainerView
     {
-        public const int VIEW_LIST_INDEX = 0;
-        public const int VIEW_INTRO_INDEX = 1;
-        public const int VIEW_PROFILE_INFO_INDEX = 2;
-        public const int VIEW_PHYSIC_INFO_INDEX = 3;
-        public const int VIEW_IMAGE_INFO_INDEX = 4;
-        public const int VIEW_DETAIL_INFO_INDEX = 5;
-        public const int VIEW_REVIEW_INDEX = 6;
-        public const int VIEW_EDIT_INDEX = 7;
-
+        
         public static readonly BindableProperty IsUpdateSuccessProperty =
             BindableProperty.Create(nameof(IsUpdateSuccess), typeof(Boolean), typeof(LovedOnesContentView), false, defaultBindingMode: BindingMode.TwoWay, propertyChanged: OnIsUpdateSuccessChanged);
 
@@ -101,9 +93,6 @@ namespace q5id.guardian.Views.ContentViews
             }
         }
 
-        public AddLovedEditView AddLovedEditView { get; private set; }
-        public Boolean IsUpdateFlow { get; private set; } = false;
-
         public LovedOnesContentView(HomePage homePage) : base(homePage)
         {
             InitializeComponent();
@@ -120,117 +109,49 @@ namespace q5id.guardian.Views.ContentViews
         private void SetupView()
         {
             ClearImages();
-            CarouselViewContent.ItemTemplate = new LovedOnesPageSelector()
-            {
-                ListTemplate = new DataTemplate(() =>
-                {
-                    return GetContentView(new LovedOnesListView(this));
-                }),
-                IntroTemplate = new DataTemplate(() =>
-                {
-                    return GetContentView(new AddLovedIntroView(this));
-                }),
-                ProfileInfoTemplate = new DataTemplate(() =>
-                {
-                    return GetContentView(new AddLovedProfileInfoView(this));
-                }),
-                PhysicalInfoTemplate = new DataTemplate(() =>
-                {
-                    return GetContentView(new AddLovedPhysicalInfoView(this));
-                }),
-                ImageInfoTemplate = new DataTemplate(() =>
-                {
-                    return GetContentView(new AddLovedImageView(this));
-                }),
-                DetailInfoTemplate = new DataTemplate(() =>
-                {
-                    return GetContentView(new AddLovedDetailView(this));
-                }),
-                ReviewTemplate = new DataTemplate(() =>
-                {
-                    return GetContentView(new AddLovedReviewView(this));
-                }),
-                EditTemplate = new DataTemplate(() =>
-                {
-                    AddLovedEditView = new AddLovedEditView(this);
-                    AddLovedEditView.UpdateImage(IsUpdateFlow);
-                    return GetContentView(AddLovedEditView);
-                }),
-            };
-
-            CarouselViewContent.ItemsSource = new List<int>
-            {
-                VIEW_LIST_INDEX,
-                VIEW_INTRO_INDEX,
-                VIEW_PROFILE_INFO_INDEX,
-                VIEW_PHYSIC_INFO_INDEX,
-                VIEW_IMAGE_INFO_INDEX,
-                VIEW_DETAIL_INFO_INDEX,
-                VIEW_REVIEW_INDEX,
-                VIEW_EDIT_INDEX
-            };
+            PushView(new LovedOnesListView(this));
         }
+
+        
 
         public void ShowIntroView()
         {
-            CarouselViewContent.Position = VIEW_INTRO_INDEX;
+            PushView(new AddLovedIntroView(this));
             MainPage.UpdateRightControlVisibility(true);
             MainPage.UpdateRightControlImage(FontAwesomeIcons.Times);
         }
 
         public void ShowProfileInfoView()
         {
-            CarouselViewContent.Position = VIEW_PROFILE_INFO_INDEX;
+            PushView(new AddLovedProfileInfoView(this));
         }
 
         public void ShowPhysicalInfoView()
         {
-            CarouselViewContent.Position = VIEW_PHYSIC_INFO_INDEX;
+            PushView(new AddLovedPhysicalInfoView(this));
         }
 
         public void ShowImageInfoView()
         {
-            CarouselViewContent.Position = VIEW_IMAGE_INFO_INDEX;
+            PushView(new AddLovedImageView(this));
         }
 
         public void ShowDetailInfoView()
         {
-            CarouselViewContent.Position = VIEW_DETAIL_INFO_INDEX;
+            PushView(new AddLovedDetailView(this));
         }
 
         public void ShowReviewView()
         {
-            CarouselViewContent.Position = VIEW_REVIEW_INDEX;
+            PushView(new AddLovedReviewView(this));
         }
 
         public void ShowEditView(bool isUpdate)
         {
-            CarouselViewContent.Position = VIEW_EDIT_INDEX;
-            IsUpdateFlow = isUpdate;
             MainPage.UpdateRightControlVisibility(true);
-            if(AddLovedEditView != null)
-            {
-                AddLovedEditView.UpdateImage(IsUpdateFlow);
-            }
-        }
-
-        public View GetContentView(ContentView view)
-        {
-            Binding contextBinding = new Binding(".", BindingMode.Default, null, null, null, this.BindingContext);
-            view.SetBinding(BindingContextProperty, contextBinding);
-            var containerView = new Frame();
-            containerView.BackgroundColor = Color.Transparent;
-            containerView.HasShadow = false;
-            containerView.BorderColor = Color.Transparent;
-            containerView.HorizontalOptions = LayoutOptions.Fill;
-            containerView.VerticalOptions = LayoutOptions.Fill;
-            containerView.Padding = new Thickness(0);
-            containerView.Margin = new Thickness(0);
-            containerView.Content = view;
-            view.HorizontalOptions = LayoutOptions.Fill;
-            view.VerticalOptions = LayoutOptions.Fill;
-            view.Margin = new Thickness(0);
-            return containerView;
+            var addLovedEditView = new AddLovedEditView(this);
+            PushView(addLovedEditView);
+            addLovedEditView.UpdateImage(isUpdate);
         }
 
         public void OnUpdateSuccess()
@@ -239,7 +160,7 @@ namespace q5id.guardian.Views.ContentViews
             MainPage.UpdateRightControlImage(FontAwesomeIcons.Times);
             ClearImages();
             ResetCommand?.Execute(null);
-            CarouselViewContent.Position = VIEW_LIST_INDEX;
+            BackToTop();
         }
 
         public void ClearImages()
@@ -269,13 +190,15 @@ namespace q5id.guardian.Views.ContentViews
 
         public void OnHomeRightControlClick(object sender, EventArgs e)
         {
-            if(CarouselViewContent.Position != 0)
-            {
-                CarouselViewContent.Position = 0;
-                ClearImages();
-                ResetCommand?.Execute(null);
-                MainPage.UpdateRightControlVisibility(false);
-            }
+            BackToTop();
+            ClearImages();
+            ResetCommand?.Execute(null);
+            MainPage.UpdateRightControlVisibility(false);
+        }
+
+        public override Grid GetContentView()
+        {
+            return this.GridContentView;
         }
     }
 }

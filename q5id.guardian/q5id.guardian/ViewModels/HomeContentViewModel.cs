@@ -121,7 +121,7 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private async void GetAlerts()
+        public async void GetAlerts()
         {
             if (AlertEntity != null)
             {

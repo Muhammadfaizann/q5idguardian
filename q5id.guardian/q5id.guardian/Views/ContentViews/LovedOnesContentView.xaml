@@ -7,16 +7,8 @@
     x:Class="q5id.guardian.Views.ContentViews.LovedOnesContentView">
     <ContentView.Content>
         <Grid Margin="0" Padding="0">
-            <Grid Margin="0" Padding="0">
-                <CarouselView HorizontalOptions="Fill"
-                              x:Name="CarouselViewContent"
-                              Margin="0"
-                              VerticalOptions="Fill"
-                              IsSwipeEnabled="False"
-                              IsScrollAnimated="False"
-                              IsBounceEnabled="False">
-
-                </CarouselView>
+            <Grid Margin="0" Padding="0" x:Name="GridContentView">
+                
                               
             </Grid>
             <Grid IsVisible="{Binding IsLoading}" BackgroundColor="{StaticResource lightCharcoal10}">

@@ -25,7 +25,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
                 VerticalOptions = LayoutOptions.Start
             };
             cardInfoView.BindingContext = this.BindingContext;
-            ShowList();
+            InitView();
         }
 
         public void InitView()

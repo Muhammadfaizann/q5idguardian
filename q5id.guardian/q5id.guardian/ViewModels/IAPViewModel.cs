@@ -95,11 +95,11 @@ namespace q5id.guardian.ViewModels
                         //var isPaid = purchases?.Any(p => p.ProductId == product.ProductId) ?? false;
                         var item = new InAppBillingProductItemViewModel(product)
                         {
-                            ItemClickCommand = new Xamarin.Forms.Command(async () =>
+                            OnItemClicked = async () =>
                             {
                                 await MakePurchase(product.ProductId);
 
-                            }),
+                            },
                             IsPaid = false
                         };
                         listProduct.Add(item);

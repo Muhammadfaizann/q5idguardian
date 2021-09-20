@@ -303,7 +303,6 @@ namespace q5id.guardian.ViewModels
             GetAlertEntity();
             GetFeedEntity();
             await GetLoves();
-            GetAlerts();
             await Task.CompletedTask;
         }
 
@@ -343,7 +342,7 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private async Task GetLoves()
+        public async Task GetLoves()
         {
             IsLoading = true;
             if (LovedOnesEntity != null)
@@ -355,10 +354,10 @@ namespace q5id.guardian.ViewModels
                     {
                         return new LoveItemViewModel(love)
                         {
-                            ItemClickCommand = new Command(() =>
+                            OnItemClicked = () =>
                             {
                                 CreatingLove = love;
-                            })
+                            }
                         };
                     }).ToList();
                 }
@@ -637,7 +636,7 @@ namespace q5id.guardian.ViewModels
             Feeds = result;
         }
 
-        private async void GetAlerts()
+        public async void GetAlerts()
         {
             var alerts = new ObservableCollection<object>();
             
@@ -659,10 +658,10 @@ namespace q5id.guardian.ViewModels
                             
                         };
                         item.Model.DistanceFromUser = Alert.GetDistanceFrom(item.Model, userLocation);
-                        item.ItemClickCommand = new Command(() =>
+                        item.OnOpenAlert = () =>
                         {
                             AlertDetail = item.Model;
-                        });
+                        };
                         if(this.Loves != null)
                         {
                             var selectedLoveItemViewModel = this.Loves.Find((LoveItemViewModel loveItemViewModel) =>

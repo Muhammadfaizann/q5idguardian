@@ -6,15 +6,8 @@
     x:Class="q5id.guardian.Views.ContentViews.AlertContentView">
     <ContentView.Content>
         <Grid>
-            <Grid>
-                <CarouselView HorizontalOptions="Fill"
-                              x:Name="CarouselViewContent"
-                              VerticalOptions="Fill"
-                              IsSwipeEnabled="False"
-                              IsScrollAnimated="False"
-                              IsBounceEnabled="False">
-
-                </CarouselView>
+            <Grid Margin="0" Padding="0" x:Name="GridContentView">
+                
                               
             </Grid>
             <Grid IsVisible="{Binding IsLoading}" BackgroundColor="{StaticResource lightCharcoal10}">

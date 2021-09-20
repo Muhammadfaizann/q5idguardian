@@ -518,7 +518,6 @@ namespace q5id.guardian.ViewModels
         public override async Task Initialize()
         {
             GetLovedOnesEntity();
-            GetLoves();
             GetChoices();
             await Task.CompletedTask;
         }
@@ -535,7 +534,7 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private async void GetLoves()
+        public async void GetLoves()
         {
             IsLoading = true;
             if (LovedOnesEntity != null)

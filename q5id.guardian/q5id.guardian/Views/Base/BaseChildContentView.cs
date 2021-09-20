@@ -7,6 +7,8 @@ namespace q5id.guardian.Views.Base
     {
         public string ViewTitle = "";
 
+        public BaseChildContentView PreviousView { get; set; }
+
         public BaseContainerView MainContentView { get; set; }
 
         public BaseChildContentView(BaseContainerView MainContentView)
