@@ -61,6 +61,13 @@ namespace q5id.guardian.Views
             gridAlert.GestureRecognizers.Add(gridAlertTapGes);
 
             frmRightControl.Clicked += FrmRightControl_Clicked;
+            KeyboardView.OnKeyBoardUpdate += KeyboardView_OnKeyBoardUpdate;
+            MainContainer = GridTop;
+        }
+
+        private void KeyboardView_OnKeyBoardUpdate(object sender, bool isShow)
+        {
+            GridBottom.IsVisible = !isShow;
         }
 
         public void ShowHomeView()

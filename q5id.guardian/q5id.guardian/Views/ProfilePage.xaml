@@ -14,7 +14,7 @@
     BackgroundColor="#FD425E"
     x:Class="q5id.guardian.Views.ProfilePage">
     <views:BasePage.Content>
-        <Grid BackgroundColor="{StaticResource paleGray}" RowSpacing="0">
+        <Grid BackgroundColor="{StaticResource redNue}" RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
                 <RowDefinition Height="*" />
@@ -45,7 +45,7 @@
                     </Image>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" BackgroundColor="{StaticResource paleGray}">
                 <control:AppBoxView
                 Margin="-1,0,0,0"
                 BackgroundColor="#FD425E"

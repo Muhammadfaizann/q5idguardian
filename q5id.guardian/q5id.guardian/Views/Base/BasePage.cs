@@ -81,7 +81,7 @@ namespace q5id.guardian.Views
             if (Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.iOS)
             {
                 var padding = SafeAreaInsets;
-                (MainContainer ?? this.Content as Layout).Margin = new Thickness(padding.Left,padding.Top,padding.Right,0);
+                (MainContainer ?? this.Content as Layout).Padding = new Thickness(padding.Left,padding.Top,padding.Right,0);
                 await Task.Delay(100);
                 //var safeInsets = On<iOS>().SetUseSafeArea(false);
             }

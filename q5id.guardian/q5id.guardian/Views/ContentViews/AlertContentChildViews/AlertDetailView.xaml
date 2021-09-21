@@ -29,7 +29,6 @@
     </ContentView.Resources>
     <ContentView.Content>
         <Grid>
-            
             <Grid>
                 <ScrollView x:Name="ViewMap" IsVisible="False"  Orientation="Vertical">
                     <StackLayout Orientation="Vertical" >

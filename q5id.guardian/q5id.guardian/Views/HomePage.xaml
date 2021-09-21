@@ -11,77 +11,80 @@
     xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:DataType="vm:HomeViewModel"
-    x:TypeArguments="vm:HomeViewModel"
-    BackgroundColor="#FD425E">
+    x:TypeArguments="vm:HomeViewModel">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#f19ca4</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid BackgroundColor="{StaticResource paleGray}" RowSpacing="0">
+    <control:KeyboardView x:Name="KeyboardView" BackgroundColor="{StaticResource paleGray}" RowSpacing="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
-            <RowDefinition>
-                <RowDefinition.Height>
-                    <OnPlatform x:TypeArguments="GridLength">
-                        <On Platform="Android">60</On>
-                        <On Platform="iOS">70</On>
-                    </OnPlatform>
-                </RowDefinition.Height>
-            </RowDefinition>
+            <RowDefinition Height="auto" />
+            <!--<RowDefinition.Height>
+                <OnPlatform x:TypeArguments="GridLength">
+                    <On Platform="Android">60</On>
+                    <On Platform="iOS">70</On>
+                </OnPlatform>
+            </RowDefinition.Height>-->
+
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
+              x:Name="GridTop"
+               HorizontalOptions="Fill"
                 BackgroundColor="{StaticResource redNue}"
-                VerticalOptions="Fill">
-            <Label
-                x:Name="lbNavigation"
-                FontAttributes="Bold"
-                FontSize="Medium"
-                HorizontalOptions="Center"
-                Text="guardian"
-                TextColor="White"
-                VerticalOptions="Center" />
-            <Grid Margin="20,0,0,0" HorizontalOptions="Start">
-                <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnDrawerTapped" />
-                </Grid.GestureRecognizers>
-                <Image HorizontalOptions="Center" IsEnabled="False">
-                    <Image.Source>
-                        <FontImageSource
-                            FontFamily="FontAwesome5Solid"
-                            Glyph="{x:Static utils:FontAwesomeIcons.Bars}"
-                            Size="Large"
-                            Color="White" />
-                    </Image.Source>
-                </Image>
+                VerticalOptions="Start">
+            <Grid HorizontalOptions="Fill" HeightRequest="50" VerticalOptions="Start">
+                <Label
+                    x:Name="lbNavigation"
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    HorizontalOptions="Center"
+                    Text="guardian"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <Grid Margin="20,0,0,0" HorizontalOptions="Start">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnDrawerTapped" />
+                    </Grid.GestureRecognizers>
+                    <Image HorizontalOptions="Center" IsEnabled="False">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="FontAwesome5Solid"
+                                Glyph="{x:Static utils:FontAwesomeIcons.Bars}"
+                                Size="Large"
+                                Color="White" />
+                        </Image.Source>
+                    </Image>
+                </Grid>
+                <control:AppFrame
+                    x:Name="frmRightControl"
+                    Margin="0,0,10,0"
+                    Padding="0"
+                    CornerRadius="18"
+                    HasShadow="False"
+                    HeightRequest="36"
+                    HorizontalOptions="End"
+                    IsVisible="False"
+                    NormalBackgroundColorEnd="{StaticResource redQ5}"
+                    NormalBackgroundColorStart="{StaticResource redQ5}"
+                    PressedBackgroundColor="{StaticResource redNue}"
+                    VerticalOptions="Center"
+                    WidthRequest="36">
+                    <Image HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource
+                                x:Name="imgSourceRightControl"
+                                FontFamily="{x:Static utils:ThemeConstanst.FontAwesomeSolid}"
+                                Glyph="{x:Static utils:FontAwesomeIcons.Times}"
+                                Size="Large"
+                                Color="White" />
+                        </Image.Source>
+                    </Image>
+                </control:AppFrame>
             </Grid>
-            <control:AppFrame
-                x:Name="frmRightControl"
-                Margin="0,0,10,0"
-                Padding="0"
-                CornerRadius="18"
-                HasShadow="False"
-                HeightRequest="36"
-                HorizontalOptions="End"
-                IsVisible="False"
-                NormalBackgroundColorEnd="{StaticResource redQ5}"
-                NormalBackgroundColorStart="{StaticResource redQ5}"
-                PressedBackgroundColor="{StaticResource redNue}"
-                VerticalOptions="Center"
-                WidthRequest="36">
-                <Image HorizontalOptions="Center" VerticalOptions="Center">
-                    <Image.Source>
-                        <FontImageSource
-                            x:Name="imgSourceRightControl"
-                            FontFamily="{x:Static utils:ThemeConstanst.FontAwesomeSolid}"
-                            Glyph="{x:Static utils:FontAwesomeIcons.Times}"
-                            Size="Large"
-                            Color="White" />
-                    </Image.Source>
-                </Image>
-            </control:AppFrame>
         </Grid>
         <Grid
             
@@ -91,6 +94,7 @@
             VerticalOptions="Fill">
             
             <Grid HorizontalOptions="Fill"
+                  BackgroundColor="{StaticResource paleGray}"
                   x:Name="gridContentView"
                   VerticalOptions="Fill">
 
@@ -204,6 +208,18 @@
                                 Style="{StaticResource lbBodyNormalLg}">
                             
                             </Label>
+                            <Label
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Fill"
+                                LineBreakMode="WordWrap"
+                                TextColor="{StaticResource paleGray}"
+                                FontSize="16"
+                                Text="Logout"
+                                Style="{StaticResource lbBodyNormalLg}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding LogOutCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
                             <BoxView Margin="0,10,0,0" HeightRequest="1" BackgroundColor="{StaticResource lightCharcoal40}" />
                             <Label
                                 Margin="0,10,0,0"
@@ -298,7 +314,13 @@
                 </Frame>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2" BackgroundColor="White">
+        <Grid Grid.Row="2" BackgroundColor="White" x:Name="GridBottom">
+            <Grid.HeightRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="iOS" Value="70" />
+                    <On Platform="Android" Value="60" />
+                </OnPlatform>
+            </Grid.HeightRequest>
             <Grid.Padding>
                 <OnPlatform x:TypeArguments="Thickness">
                     <On Platform="iOS" Value="0, 8, 0, 15" />
@@ -400,7 +422,7 @@
             </Grid>
         </Grid>
 
-    </Grid>
+    </control:KeyboardView>
 
 
 </views:BasePage>

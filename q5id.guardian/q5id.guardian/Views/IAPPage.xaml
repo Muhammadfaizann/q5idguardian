@@ -12,7 +12,7 @@
     x:TypeArguments="vm:IAPViewModel"
     NavigationPage.HasNavigationBar="False"
     x:Class="q5id.guardian.Views.IAPPage">
-    <Grid BackgroundColor="{StaticResource paleGray}" RowSpacing="0">
+    <Grid BackgroundColor="{StaticResource redNue}" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
@@ -43,7 +43,7 @@
                 </Image>
             </Grid>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" BackgroundColor="{StaticResource paleGray}">
             <control:AppListView
                 ItemsSource="{Binding Products}"
                 SeparatorVisibility="Default"

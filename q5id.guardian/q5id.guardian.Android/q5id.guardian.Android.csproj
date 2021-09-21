@@ -118,6 +118,7 @@
     <Compile Include="Renderers\AppEditorRenderer.cs" />
     <Compile Include="Renderers\AppDatePickerRenderer.cs" />
     <Compile Include="Renderers\AppMediaElementRenderer.cs" />
+    <Compile Include="Renderers\KeyboardViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

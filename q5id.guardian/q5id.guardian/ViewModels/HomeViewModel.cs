@@ -63,6 +63,17 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        public Command LogOutCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await ClearStackAndNavigateToPage<LoginViewModel>();
+                });
+            }
+        }
+
         public override void Prepare(User parameter)
         {
             User = parameter;

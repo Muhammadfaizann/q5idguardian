@@ -32,7 +32,12 @@ namespace q5id.guardian.Droid
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
             Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 229, 59, 85));
-            
+            UpdateSoftInput();
+        }
+
+        private void UpdateSoftInput()
+        {
+            Window.SetSoftInputMode(Android.Views.SoftInput.StateHidden|Android.Views.SoftInput.AdjustResize);
         }
 
         protected override void OnStart()
