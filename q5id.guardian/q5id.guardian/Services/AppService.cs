@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using q5id.guardian.Models;
 using q5id.guardian.Services.Bases;
@@ -20,7 +21,7 @@ namespace q5id.guardian.Services
         {
             get
             {
-                if(mInstances == null)
+                if (mInstances == null)
                 {
                     mInstances = new AppService();
                 }
@@ -33,16 +34,16 @@ namespace q5id.guardian.Services
             Preferences.Set(SUBSCRIPTION_KEY, token);
         }
 
-        public async Task<ApiResponse<List<Choice>>> GetChoices()
+        public async Task<ApiResponse<AppServiceResponse<List<Choice>>>> GetChoices()
         {
             string url = $"{BASE_URL}/datavaultmanagement/choice/instances/{INSTANCES_ID}/datavault/{DATAVAULT_ID}";
-            return await Get<List<Choice>>(url);
+            return await Get<AppServiceResponse<List<Choice>>>(url);
         }
 
-        public async Task<ApiResponse<List<Structure>>> GetSettings()
+        public async Task<ApiResponse<AppServiceResponse<List<Structure>>>> GetSettings()
         {
             string url = $"{BASE_URL}/datavaultmanagement/datavault/instances/{INSTANCES_ID}";
-            return await Get<List<Structure>>(url);
+            return await Get<AppServiceResponse<List<Structure>>>(url);
         }
 
         public async Task<ApiResponse<ImageResponse>> UploadImage(string entityId, ImageData image)
@@ -68,9 +69,9 @@ namespace q5id.guardian.Services
             return await Post<EntityResponse<T>>(url, body);
         }
 
-        private async Task<ApiResponse<EntityResponse<T>>> UpdateEntity<T>(string entityId, T entity) where T : BaseEntity
+        private async Task<ApiResponse<EntityResponse<T>>> UpdateEntity<T>(string entityId, T entity, string primaryId) where T : BaseEntity
         {
-            string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}/{entity.Id}";
+            string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}/{primaryId}";
             var body = new
             {
                 datavaultId = DATAVAULT_ID,
@@ -87,19 +88,19 @@ namespace q5id.guardian.Services
 
         public async Task<ApiResponse<EntityResponse<Love>>> UpdateLovedOnes(string entityId, Love love)
         {
-            return await UpdateEntity(entityId, love);
+            return await UpdateEntity(entityId, love, love.ProfileId);
         }
 
-        public async Task<ApiResponse<EntityResponse<Love>>> DeleteLovedOnes(string lovedonesId)
+        public async Task<ApiResponse<EntityResponse<Love>>> DeleteLovedOnes(string entityId, string lovedonesId)
         {
-            string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}/{lovedonesId}";
+            string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}/{entityId}/{lovedonesId}";
             return await Delete<EntityResponse<Love>>(url);
         }
 
         public async Task<ApiResponse<EntityListResponse<Love>>> GetListLovedOnes(string entityId, string userId)
         {
             string query = userId != null ? $"?$filter=ContactId eq '{userId}'" : "";
-            string url = $"{BASE_URL}/datavaultdata/instances/{INSTANCES_ID}/entitydata/{entityId}"+query;
+            string url = $"{BASE_URL}/datavaultdata/instances/{INSTANCES_ID}/entitydata/{entityId}" + query;
             return await Get<EntityListResponse<Love>>(url);
         }
 
@@ -110,7 +111,7 @@ namespace q5id.guardian.Services
 
         public async Task<ApiResponse<EntityResponse<Alert>>> UpdateAlert(string entityId, Alert alert)
         {
-            return await UpdateEntity(entityId, alert);
+            return await UpdateEntity(entityId, alert, alert.AlertId);
         }
 
         public async Task<ApiResponse<EntityListResponse<Alert>>> GetListAlert(string entityId)
@@ -123,15 +124,15 @@ namespace q5id.guardian.Services
         public async Task<ApiResponse<EntityListResponse<User>>> GetUsers(string entityId, string accountName)
         {
             string url = $"{BASE_URL}/datavaultdata/instances/{INSTANCES_ID}/entitydata/{entityId}?$filter=nickname eq '{accountName}'";
-            
+
             return await Get<EntityListResponse<User>>(url);
         }
 
-        public async Task<ApiResponse<Entity<User>>> GetUserProfile(string userId)
+        public async Task<ApiResponse<AppServiceResponse<Entity<User>>>> GetUserProfile(string entityId, string userId)
         {
-            string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}/{userId}";
+            string url = $"{BASE_URL}/datavaultdata/entitydata/instances/{INSTANCES_ID}/{entityId}/{userId}";
 
-            return await Get<Entity<User>>(url);
+            return await Get<AppServiceResponse<Entity<User>>>(url);
         }
 
         public async Task<ApiResponse<EntityResponse<User>>> CreateUser(string entityId, User user)
@@ -148,7 +149,7 @@ namespace q5id.guardian.Services
 
         public async Task<ApiResponse<EntityResponse<User>>> UpdateUser(string entityId, User user)
         {
-            return await UpdateEntity(entityId, user);
+            return await UpdateEntity(entityId, user, user.ContactId);
         }
 
         public async Task<ApiResponse<EntityResponse<Feed>>> CreateFeed(string entityId, Feed feed)

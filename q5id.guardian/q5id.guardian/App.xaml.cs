@@ -22,9 +22,9 @@ namespace q5id.guardian
         private async void GetSettings()
         {
             var response = await AppService.Instances.GetSettings();
-            if (response.IsSuccess)
+            if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Result != null)
             {
-                var strutures = response.ResponseObject;
+                var strutures = response.ResponseObject.Result;
                 if(strutures.Count > 0)
                 {
                     Utils.Utils.SaveSetting(strutures[0].Entities);

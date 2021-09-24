@@ -103,10 +103,10 @@ namespace q5id.guardian.ViewModels
         {
             if(ContactEntity != null && User != null)
             {
-                var currentUserResponse = await AppService.Instances.GetUserProfile(User.Id);
-                if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null)
+                var currentUserResponse = await AppService.Instances.GetUserProfile(ContactEntity.Id, User.ContactId);
+                if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject?.Result != null)
                 {
-                    var entityUser = currentUserResponse.ResponseObject;
+                    var entityUser = currentUserResponse.ResponseObject.Result;
                     var user = entityUser.Data;
                     user.Id = entityUser.Id;
                     User = user;

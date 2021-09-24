@@ -471,9 +471,9 @@ namespace q5id.guardian.ViewModels
         private async void GetChoices()
         {
             var response = await AppService.Instances.GetChoices();
-            if (response.IsSuccess)
+            if (response.IsSuccess && response.ResponseObject?.Result != null)
             {
-                List<Choice> choices = response.ResponseObject;
+                List<Choice> choices = response.ResponseObject.Result;
                 Choice hairColorChoice = choices.Find((Choice obj) =>
                 {
                     return obj.Name == Utils.Constansts.HAIR_COLORS_SETTING_KEY;
@@ -669,11 +669,11 @@ namespace q5id.guardian.ViewModels
 
         private async void DeleteLove()
         {
-            if (mSelectedLovedOnes != null)
+            if (mSelectedLovedOnes != null && LovedOnesEntity != null)
             {
                 IsLoading = true;
                 var selectedLovedOnes = mSelectedLovedOnes;
-                var response = await AppService.Instances.DeleteLovedOnes(selectedLovedOnes.PrimaryId);
+                var response = await AppService.Instances.DeleteLovedOnes(LovedOnesEntity.Id, selectedLovedOnes.ProfileId);
                 IsLoading = false;
                 if (response.IsSuccess)
                 {
