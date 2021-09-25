@@ -23,6 +23,8 @@
     <None Remove="Flurl" />
     <None Remove="Flurl.Http" />
     <None Remove="Plugin.InAppBilling" />
+    <None Remove="Microsoft.AppCenter.Crashes" />
+    <None Remove="Microsoft.AppCenter.Analytics" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +42,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Flurl.Http" Version="3.2.0" />
     <PackageReference Include="Plugin.InAppBilling" Version="4.0.2" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.4.0" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.4.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,6 +53,8 @@
     <Compile Include="Services\AppService.cs" />
     <Compile Include="Services\Bases\EntityListResponse.cs" />
     <Compile Include="Services\Bases\AppServiceResponse.cs" />
+    <Compile Include="Services\PermissionService.cs" />
+    <Compile Include="Services\CrashLogService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\AlertsPage.xaml.cs">

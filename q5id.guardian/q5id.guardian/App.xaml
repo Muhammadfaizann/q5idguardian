@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:app="clr-namespace:q5id.guardian.Controls"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:converters="clr-namespace:q5id.guardian.Converters">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
@@ -85,10 +86,10 @@
                 <Setter Property="PressedBackgroundColor" Value="{StaticResource dimCharcoal}" />
                 <Setter Property="DeactiveBackgroundColor" Value="{StaticResource lightCharcoal}" />
             </Style>
-            <converters:ReverseBooleanConverter x:Key="reverseBooleanConverter" />
+            <xct:InvertedBoolConverter x:Key="reverseBooleanConverter" />
             <converters:DateToStringConverter x:Key="dateToStringConverter" />
             <converters:ColorToSolidColorBrushConverter x:Key="colorToSolidColorBrushConverter" />
-            <converters:StringToBoolConverter x:Key="stringToBoolConverter" />
+            <xct:IsNullOrEmptyConverter x:Key="stringToBoolConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

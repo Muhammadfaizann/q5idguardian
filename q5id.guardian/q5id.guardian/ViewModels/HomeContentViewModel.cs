@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AppCenter.Crashes;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using q5id.guardian.Models;

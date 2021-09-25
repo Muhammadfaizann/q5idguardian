@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using q5id.guardian.Models;
+using q5id.guardian.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using static Xamarin.Essentials.Permissions;
@@ -68,32 +69,13 @@ namespace q5id.guardian.Utils
             }
         }
 
-        public static async Task<PermissionStatus> CheckAndRequestPermissionAsync<T>(T permission)
-            where T : BasePermission
-        {
-            try
-            {
-                var status = await permission.CheckStatusAsync();
-                if (status != PermissionStatus.Granted)
-                {
-                    status = await permission.RequestAsync();
-                }
-                return status;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Cannot check permission: " + ex.Message);
-            }
-            return PermissionStatus.Denied;
-        }
-
         public static async Task<PermissionStatus> CheckAndRequestLocationPermission()
         {
-            var status = await CheckAndRequestPermissionAsync<Permissions.LocationAlways>(new LocationAlways());
-            if (status == PermissionStatus.Granted)
-                return status;
+            var isGranted = await PermissionService.RequestPermissionAsync<Permissions.LocationAlways>(new LocationAlways());
+            if (isGranted == true)
+                return PermissionStatus.Granted;
             else
-                return await CheckAndRequestLocationPermission();
+                return PermissionStatus.Denied;
         }
 
         public static Color GetColorFromResource(String key, Color defaultColor)
