@@ -28,7 +28,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mUserName = value;
-                RaisePropertyChanged(nameof(UserName));
             }
         }
 

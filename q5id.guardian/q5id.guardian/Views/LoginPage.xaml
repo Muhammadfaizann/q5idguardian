@@ -14,72 +14,75 @@
     mc:Ignorable="d">
     <ContentPage.Content>
         <Grid BackgroundColor="White">
-            <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-                <app:AppEntry
-                    Padding="10"
-                    BorderThickness="2"
-                    FocusBorderColor="#696B7A"
-                    FontAttributes="Italic"
-                    FontFamily="PoppinsItalic"
-                    HeightRequest="32"
-                    NoramlBorderColor="#E8EAF2"
-                    Placeholder="Username"
-                    Text="{Binding UserName}"
-                    PlaceholderColor="{StaticResource lightCharcoal}"
-                    Style="{StaticResource etBodyNormalLg}"
-                    TextColor="{StaticResource normalCharcoal}" />
-                <app:AppEntry
-                    Padding="10"
-                    BorderThickness="2"
-                    FocusBorderColor="#696B7A"
-                    FontAttributes="Italic"
-                    FontFamily="PoppinsItalic"
-                    HeightRequest="32"
-                    IsPassword="True"
-                    NoramlBorderColor="#E8EAF2"
-                    Placeholder="Password"
-                    PlaceholderColor="{StaticResource lightCharcoal}"
-                    Style="{StaticResource etBodyNormalLg}"
-                    TextColor="{StaticResource normalCharcoal}" />
-                <app:AppButton
-                    ButtonTitle="Login"
-                    Command="{Binding LoginCommand}"
-                    CornerRadius="20"
-                    HeightRequest="40"
-                    HorizontalOptions="Center"
-                    NormalLabelColor="White"
-                    PressedLabelColor="LightGray"
-                    WidthRequest="200" />
-                <app:AppButton
-                    ButtonTitle="Sign Up"
-                    Command="{Binding SignUpCommand}"
-                    CornerRadius="20"
-                    HeightRequest="40"
-                    HorizontalOptions="Center"
-                    NormalLabelColor="White"
-                    PressedLabelColor="LightGray"
-                    WidthRequest="200" />
-                <!--<app:AppButton
-                    ButtonTitle="Billing"
-                    Command="{Binding BillingCommand}"
-                    CornerRadius="20"
-                    HeightRequest="40"
-                    HorizontalOptions="Center"
-                    NormalLabelColor="White"
-                    PressedLabelColor="LightGray"
-                    WidthRequest="200" />-->
-                <!--<app:ToggleView
-                    HorizontalOptions="Center"
-                    WidthRequest="50"
-                    HeightRequest="50"
-                    CornerRadius="25"
-                    NormalBackgroundColor="LightGray"
-                    ActiveBackgroundColor="DeepPink"
-                    NormalIconColor="DimGray"
-                    ActiveIconColor="White"
-                    ImageGlyph="{x:Static utils:FontAwesomeIcons.AddressBook}"
-                    ImageSize="25"/>-->
-            </StackLayout>
+            <ScrollView Orientation="Vertical">
+                <StackLayout Padding="10,250,10,0" Orientation="Vertical" VerticalOptions="Start">
+                    <app:AppEntry
+                        Padding="10"
+                        BorderThickness="2"
+                        FocusBorderColor="#696B7A"
+                        FontAttributes="Italic"
+                        FontFamily="PoppinsItalic"
+                        HeightRequest="32"
+                        NoramlBorderColor="#E8EAF2"
+                        Placeholder="Username"
+                        Text="{Binding UserName}"
+                        PlaceholderColor="{StaticResource lightCharcoal}"
+                        Style="{StaticResource etBodyNormalLg}"
+                        TextColor="{StaticResource normalCharcoal}" />
+                    <app:AppEntry
+                        Padding="10"
+                        BorderThickness="2"
+                        FocusBorderColor="#696B7A"
+                        FontAttributes="Italic"
+                        FontFamily="PoppinsItalic"
+                        HeightRequest="32"
+                        IsPassword="True"
+                        NoramlBorderColor="#E8EAF2"
+                        Placeholder="Password"
+                        PlaceholderColor="{StaticResource lightCharcoal}"
+                        Style="{StaticResource etBodyNormalLg}"
+                        TextColor="{StaticResource normalCharcoal}" />
+                    <app:AppButton
+                        ButtonTitle="Login"
+                        Command="{Binding LoginCommand}"
+                        CornerRadius="20"
+                        HeightRequest="40"
+                        HorizontalOptions="Center"
+                        NormalLabelColor="White"
+                        PressedLabelColor="LightGray"
+                        WidthRequest="200" />
+                    <app:AppButton
+                        ButtonTitle="Sign Up"
+                        Command="{Binding SignUpCommand}"
+                        CornerRadius="20"
+                        HeightRequest="40"
+                        HorizontalOptions="Center"
+                        NormalLabelColor="White"
+                        PressedLabelColor="LightGray"
+                        WidthRequest="200" />
+                    <!--<app:AppButton
+                        ButtonTitle="Billing"
+                        Command="{Binding BillingCommand}"
+                        CornerRadius="20"
+                        HeightRequest="40"
+                        HorizontalOptions="Center"
+                        NormalLabelColor="White"
+                        PressedLabelColor="LightGray"
+                        WidthRequest="200" />-->
+                    <!--<app:ToggleView
+                        HorizontalOptions="Center"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        CornerRadius="25"
+                        NormalBackgroundColor="LightGray"
+                        ActiveBackgroundColor="DeepPink"
+                        NormalIconColor="DimGray"
+                        ActiveIconColor="White"
+                        ImageGlyph="{x:Static utils:FontAwesomeIcons.AddressBook}"
+                        ImageSize="25"/>-->
+                </StackLayout>
+            </ScrollView>
+            
             <Grid IsVisible="{Binding IsLoading}" BackgroundColor="{StaticResource lightCharcoal10}">
                 <ActivityIndicator
                     IsRunning="true"

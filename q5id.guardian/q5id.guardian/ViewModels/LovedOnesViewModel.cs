@@ -25,7 +25,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mSelectedLovedOnes = value;
-                RaisePropertyChanged(nameof(SelectedLovedOnes));
                 UpdateProperties();
             }
         }
@@ -92,7 +91,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mIsUpdateSuccess = value;
-                RaisePropertyChanged(nameof(IsUpdateSuccess));
             }
         }
 
@@ -103,8 +101,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mUser = value;
-                RaisePropertyChanged(nameof(User));
-                RaisePropertyChanged(nameof(IsVolunteer));
             }
         }
 
@@ -112,7 +108,7 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                return this.mUser != null && this.mUser.Role == UserRole.Volunteer;
+                return this.User != null && this.User.Role == UserRole.Volunteer;
             }
         }
 
@@ -122,9 +118,7 @@ namespace q5id.guardian.ViewModels
             get => mLoves;
             set
             {
-                mLoves = value;
-                RaisePropertyChanged(nameof(Loves));
-                RaisePropertyChanged(nameof(IsHasNoLove));
+                mLoves = value;;
             }
         }
 
@@ -132,7 +126,7 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                return mLoves == null || mLoves.Count == 0;
+                return Loves == null || Loves.Count == 0;
             }
         }
 
@@ -143,8 +137,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mFirstName = value;
-                RaisePropertyChanged(nameof(FirstName));
-                RaisePropertyChanged(nameof(FullName));
             }
         }
 
@@ -155,8 +147,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mLastName = value;
-                RaisePropertyChanged(nameof(LastName));
-                RaisePropertyChanged(nameof(FullName));
             }
         }
 
@@ -164,7 +154,7 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                return mFirstName + " " + mLastName;
+                return FirstName + " " + LastName;
             }
             
         }
@@ -179,7 +169,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mImage = value;
-                RaisePropertyChanged(nameof(Image));
             }
         }
 
@@ -190,7 +179,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mImage2 = value;
-                RaisePropertyChanged(nameof(Image2));
             }
         }
 
@@ -201,7 +189,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mImage3 = value;
-                RaisePropertyChanged(nameof(Image3));
             }
         }
 
@@ -212,7 +199,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mImage4 = value;
-                RaisePropertyChanged(nameof(Image4));
             }
         }
 
@@ -223,7 +209,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mImage5 = value;
-                RaisePropertyChanged(nameof(Image5));
             }
         }
 
@@ -234,7 +219,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mBirthDay = value;
-                RaisePropertyChanged(nameof(BirthDay));
             }
         }
 
@@ -245,8 +229,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mHeightFeet = value;
-                RaisePropertyChanged(nameof(HeightFeet));
-                RaisePropertyChanged(nameof(Height));
             }
         }
 
@@ -257,8 +239,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mHeightInches = value;
-                RaisePropertyChanged(nameof(HeightInches));
-                RaisePropertyChanged(nameof(Height));
             }
         }
 
@@ -266,11 +246,11 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                if(mHeightFeet == null || mHeightInches == null)
+                if(HeightFeet == null || HeightInches == null)
                 {
                     return "0";
                 }
-                return mHeightFeet.Name + "’ " + mHeightInches.Name + "”";
+                return HeightFeet.Name + "’ " + HeightInches.Name + "”";
             }
         }
 
@@ -281,7 +261,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mWeight = value;
-                RaisePropertyChanged(nameof(Weight));
             }
         }
 
@@ -292,7 +271,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mDetail = value;
-                RaisePropertyChanged(nameof(Detail));
             }
         }
 
@@ -306,7 +284,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mHairColor = value;
-                RaisePropertyChanged(nameof(HairColor));
             }
         }
 
@@ -320,7 +297,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mEyeColor = value;
-                RaisePropertyChanged(nameof(EyeColor));
             }
         }
 
@@ -334,7 +310,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mPrimaryImage = value;
-                RaisePropertyChanged(nameof(PrimaryImage));
             }
         }
 
@@ -348,7 +323,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mSecondaryImages = value;
-                RaisePropertyChanged(nameof(SecondaryImages));
             }
         }
 
@@ -431,7 +405,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mHairColors = value;
-                RaisePropertyChanged(nameof(HairColors));
             }
         }
 
@@ -442,7 +415,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mEyeColors = value;
-                RaisePropertyChanged(nameof(EyeColors));
             }
         }
 
@@ -453,7 +425,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mHeightFeets = value;
-                RaisePropertyChanged(nameof(HeightFeets));
             }
         }
 
@@ -625,7 +596,7 @@ namespace q5id.guardian.ViewModels
                         }
                     }
                 }
-                ApiResponse<EntityResponse<Love>> response;
+                ApiResponse<AppServiceResponse<EntityResponse<Love>>> response;
                 if(lovedOnesToUpdate != null)
                 {
                     //Update flow
@@ -640,7 +611,7 @@ namespace q5id.guardian.ViewModels
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
-                    if (response.ResponseObject.IsSuccessful)
+                    if (response.ResponseObject.IsError == false)
                     {
                         IsUpdateSuccess = true;
                         SelectedLovedOnes = null;

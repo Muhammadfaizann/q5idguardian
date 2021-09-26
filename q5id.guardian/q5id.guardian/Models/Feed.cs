@@ -30,7 +30,7 @@ namespace q5id.guardian.Models
                 modifiedon = ModifiedOn,
                 createdby = CreatedBy,
                 AlertFeedId = AlertFeedId,
-                AlertId = AlertId,
+                alertid = AlertId,
                 VolunteerName = VolunteerName,
                 Comment = Comment,
                 Timestamp = Timestamp,

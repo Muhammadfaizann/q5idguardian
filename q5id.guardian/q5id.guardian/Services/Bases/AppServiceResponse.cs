@@ -10,6 +10,12 @@ namespace q5id.guardian.Services.Bases
 
         [JsonProperty("result")]
         public T Result { get; set; }
+
+        [JsonProperty("isError")]
+        public Boolean IsError { get; set; }
+
+        [JsonProperty("message")]
+        public String Message { get; set; }
     }
 
     public class AppServiceResponse
@@ -19,5 +25,11 @@ namespace q5id.guardian.Services.Bases
 
         [JsonProperty("result")]
         public string Result { get; set; }
+
+        [JsonProperty("isError")]
+        public Boolean IsError { get; set; }
+
+        [JsonProperty("message")]
+        public String Message { get; set; }
     }
 }

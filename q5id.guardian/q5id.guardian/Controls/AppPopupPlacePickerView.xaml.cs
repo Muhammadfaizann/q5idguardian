@@ -9,6 +9,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms.Platform;
+using System.Diagnostics;
 
 namespace q5id.guardian.Controls
 {
@@ -210,7 +211,15 @@ namespace q5id.guardian.Controls
                 mListPopupPage = new AppPlacePickerListPage(this);
             }
             mListPopupPage.ResetView();
-            await Navigation.PushPopupAsync(mListPopupPage);
+            
+            try
+            {
+                await Navigation.PushPopupAsync(mListPopupPage);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Can not open popup: " + ex.Message);
+            }
         }
 
         public AppPopupPlacePickerView()

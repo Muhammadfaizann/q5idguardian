@@ -25,6 +25,7 @@
     <None Remove="Plugin.InAppBilling" />
     <None Remove="Microsoft.AppCenter.Crashes" />
     <None Remove="Microsoft.AppCenter.Analytics" />
+    <None Remove="PropertyChanged.Fody" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,6 +45,7 @@
     <PackageReference Include="Plugin.InAppBilling" Version="4.0.2" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.4.0" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.4.0" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,7 +56,7 @@
     <Compile Include="Services\Bases\EntityListResponse.cs" />
     <Compile Include="Services\Bases\AppServiceResponse.cs" />
     <Compile Include="Services\PermissionService.cs" />
-    <Compile Include="Services\CrashLogService.cs" />
+    <Compile Include="Services\AppCenterService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\AlertsPage.xaml.cs">

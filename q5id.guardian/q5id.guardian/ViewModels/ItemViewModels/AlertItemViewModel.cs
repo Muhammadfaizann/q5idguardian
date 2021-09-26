@@ -20,7 +20,6 @@ namespace q5id.guardian.ViewModels.ItemViewModels
             set
             {
                 mIsExpanded = value;
-                RaisePropertyChanged(nameof(IsExpanded));
             }
         }
 

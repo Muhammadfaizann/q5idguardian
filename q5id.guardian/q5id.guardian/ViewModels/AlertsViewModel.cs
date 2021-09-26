@@ -25,7 +25,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mIsUpdateSuccess = value;
-                RaisePropertyChanged(nameof(IsUpdateSuccess));
             }
         }
 
@@ -36,7 +35,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mIsYourPersonalNetwork = value;
-                RaisePropertyChanged(nameof(IsYourPersonalNetwork));
             }
         }
 
@@ -47,7 +45,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mIsGuardianNearby = value;
-                RaisePropertyChanged(nameof(IsGuardianNearby));
             }
         }
 
@@ -58,7 +55,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mIsLowEnforcement = value;
-                RaisePropertyChanged(nameof(IsLowEnforcement));
             }
         }
 
@@ -66,9 +62,9 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                if(mUser != null && mAlertDetail != null)
+                if(User != null && AlertDetail != null)
                 {
-                    return mUser.Id == mAlertDetail.CreatedBy;
+                    return User.Id == AlertDetail.CreatedBy;
                 }
                 return false;
             }
@@ -78,7 +74,7 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                if (mAlertDetail != null && mAlertDetail.IsEnded == false)
+                if (AlertDetail != null && AlertDetail.IsEnded == false)
                 {
                     if (IsOwner)
                     {
@@ -109,7 +105,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mIsCanEndAlert = value;
-                RaisePropertyChanged(nameof(IsCanEndAlert));
             }
         }
 
@@ -117,7 +112,7 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                if(mAlertDetail != null && mAlertDetail.IsEnded == false && IsOwner == false)
+                if(AlertDetail != null && AlertDetail.IsEnded == false && IsOwner == false)
                 {
                     if(this.Feeds == null)
                     {
@@ -145,7 +140,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mAlertPosition = value;
-                RaisePropertyChanged(nameof(AlertPosition));
             }
         }
 
@@ -156,9 +150,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mUser = value;
-                RaisePropertyChanged(nameof(User));
-                RaisePropertyChanged(nameof(IsVolunteer));
-                RaisePropertyChanged(nameof(IsOwner));
             }
         }
 
@@ -166,7 +157,7 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                return this.mUser != null && this.mUser.Role == UserRole.Volunteer;
+                return this.User != null && this.User.Role == UserRole.Volunteer;
             }
         }
 
@@ -177,7 +168,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mAlerts = value;
-                RaisePropertyChanged(nameof(Alerts));
             }
         }
 
@@ -191,10 +181,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mAlertDetail = value;
-                RaisePropertyChanged(nameof(AlertDetail));
-                RaisePropertyChanged(nameof(AlertPositions));
-                RaisePropertyChanged(nameof(IsOwner));
-                RaisePropertyChanged(nameof(IsCanJoinLooking));
                 UpdateIsEndAlert();
                 GetFeeds();
             }
@@ -236,7 +222,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mCreatingLove = value;
-                RaisePropertyChanged(nameof(CreatingLove));
             }
         }
 
@@ -247,7 +232,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mDetail = value;
-                RaisePropertyChanged(nameof(Detail));
             }
         }
 
@@ -258,9 +242,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mFeeds = value;
-                RaisePropertyChanged(nameof(Feeds));
-                RaisePropertyChanged(nameof(IsCanJoinLooking));
-                RaisePropertyChanged(nameof(IsShowAlertComment));
             }
         }
 
@@ -271,8 +252,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mLoves = value;
-                RaisePropertyChanged(nameof(Loves));
-                RaisePropertyChanged(nameof(MyLoves));
             }
         }
 
@@ -280,9 +259,9 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                if (mLoves != null)
+                if(Loves != null)
                 {
-                    return mLoves.Where((LoveItemViewModel item) =>
+                    return Loves.Where((LoveItemViewModel item) =>
                     {
                         return item.Model.CreatedBy == User.Id;
                     }).ToList();
@@ -420,12 +399,12 @@ namespace q5id.guardian.ViewModels
                         alertToPost.Address = placeJson.Name;
                     }
                 }
-                ApiResponse<EntityResponse<Alert>> response = await AppService.Instances.CreateAlert(AlertEntity.Id, alertToPost);
+                ApiResponse<AppServiceResponse<EntityResponse<Alert>>> response = await AppService.Instances.CreateAlert(AlertEntity.Id, alertToPost);
 
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
-                    if (response.ResponseObject.IsSuccessful)
+                    if (response.ResponseObject.IsError == false)
                     {
                         IsUpdateSuccess = true;
                         ResetData();
@@ -469,11 +448,11 @@ namespace q5id.guardian.ViewModels
                 IsLoading = true;
                 var alertToPost = AlertDetail;
                 alertToPost.IsClosed = Utils.Constansts.YES_KEY;
-                ApiResponse<EntityResponse<Alert>> response = await AppService.Instances.UpdateAlert(AlertEntity.Id, alertToPost);
+                ApiResponse<AppServiceResponse<EntityResponse<Alert>>> response = await AppService.Instances.UpdateAlert(AlertEntity.Id, alertToPost);
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
-                    if (response.ResponseObject.IsSuccessful)
+                    if (response.ResponseObject.IsError == false)
                     {
                         IsUpdateSuccess = true;
                         ResetData();
@@ -517,11 +496,11 @@ namespace q5id.guardian.ViewModels
                     Lognitude = userPosition != null ? userPosition.Longitude + "" : "",
                     Action = "is looking",
                 };
-                ApiResponse<EntityResponse<Feed>> response = await AppService.Instances.CreateFeed(FeedEntity.Id, feedToPost);
+                ApiResponse<AppServiceResponse<EntityResponse<Feed>>> response = await AppService.Instances.CreateFeed(FeedEntity.Id, feedToPost);
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
-                    if (response.ResponseObject.IsSuccessful)
+                    if (response.ResponseObject.IsError == false)
                     {
                         GetFeeds();
                     }
@@ -544,7 +523,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mFeedMessage = value;
-                RaisePropertyChanged(nameof(FeedMessage));
             }
         }
 
@@ -575,11 +553,11 @@ namespace q5id.guardian.ViewModels
                     Action = "posted ",
                     Comment = FeedMessage
                 };
-                ApiResponse<EntityResponse<Feed>> response = await AppService.Instances.CreateFeed(FeedEntity.Id, feedToPost);
+                ApiResponse<AppServiceResponse<EntityResponse<Feed>>> response = await AppService.Instances.CreateFeed(FeedEntity.Id, feedToPost);
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
-                    if (response.ResponseObject.IsSuccessful)
+                    if (response.ResponseObject.IsError == false)
                     {
                         FeedMessage = "";
                         GetFeeds();

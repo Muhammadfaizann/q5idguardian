@@ -37,7 +37,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mUser = value;
-                RaisePropertyChanged(nameof(User));
                 HomeVm.User = mUser;
                 LovedOnesVm.User = mUser;
                 AlertsVm.User = mUser;

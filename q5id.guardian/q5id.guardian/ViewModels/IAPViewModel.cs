@@ -27,7 +27,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mUser = value;
-                RaisePropertyChanged(nameof(User));
             }
         }
 
@@ -43,7 +42,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mProducts = value;
-                RaisePropertyChanged(nameof(Products));
             }
         }
 
@@ -189,7 +187,7 @@ namespace q5id.guardian.ViewModels
             var userToPost = User;
             userToPost.SubscriptionId = subscritionId;
             userToPost.SubscriptionExpiredDate = DateTime.UtcNow.AddDays(30).ToString();
-            ApiResponse<EntityResponse<User>> response;
+            ApiResponse<AppServiceResponse<EntityResponse<User>>> response;
             response = await AppService.Instances.UpdateUser(ContactEntity.Id, userToPost);
             IsLoading = false;
             if (response.IsSuccess && response.ResponseObject != null)

@@ -15,7 +15,7 @@ namespace q5id.guardian.Views.ItemViews
         public HomeCarouselItemView()
         {
             InitializeComponent();
-            frmPlayBtn.IsVisible = true;
+            frmPlayBtn.IsVisible = false;
             isPlaying = false;
             isStop = true;
         }
@@ -34,6 +34,7 @@ namespace q5id.guardian.Views.ItemViews
             if (this.BindingContext is UserPage userPage)
             {
                 videoUrl = userPage.VideoUrl;
+                frmPlayBtn.IsVisible = true;
             }
         }
 

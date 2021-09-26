@@ -7,39 +7,42 @@ namespace q5id.guardian.Views.Base
     public abstract class BaseContainerView : ContentView
     {
         public HomePage MainPage;
-        private BaseChildContentView CurrentView { get; set; }
+        private List<BaseChildContentView> StackViews { get; set; }
+        private BaseChildContentView CurrentView;
 
         public BaseContainerView(HomePage homePage)
         {
             MainPage = homePage;
+            StackViews = new List<BaseChildContentView>();
         }
 
         public void PushView(BaseChildContentView view)
         {
             if (this.CurrentView != null)
             {
-                view.PreviousView = this.CurrentView;
                 this.CurrentView.IsVisible = false;
             }
             this.GetContentView().Children.Add(view);
+            StackViews.Add(view);
             view.BindingContext = this.BindingContext;
             this.CurrentView = view;
         }
 
         public void BackView()
         {
-            if (this.CurrentView != null && this.CurrentView.PreviousView != null)
+            if (StackViews.Count > 1)
             {
-                this.CurrentView.PreviousView.IsVisible = true;
-                this.GetContentView().Children.Remove(this.CurrentView);
-                this.CurrentView = this.CurrentView.PreviousView;
+                this.GetContentView().Children.RemoveAt(StackViews.Count - 1);
+                StackViews.RemoveAt(StackViews.Count - 1);
+                this.CurrentView = StackViews[StackViews.Count - 1];
+                this.CurrentView.IsVisible = true;
                 this.CurrentView.BindingContext = this.BindingContext;
             }
         }
 
         public void BackToTop()
         {
-            while (this.CurrentView != null && this.CurrentView.PreviousView != null)
+            while (StackViews.Count > 1)
             {
                 BackView();
             }

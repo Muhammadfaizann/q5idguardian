@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using Rg.Plugins.Popup.Extensions;
 using System.Collections;
+using System.Diagnostics;
 
 namespace q5id.guardian.Controls
 {
@@ -238,7 +239,14 @@ namespace q5id.guardian.Controls
                 mListPopupPage = new AppPickerListPage(this);
             }
             mListPopupPage.UpdateList(ItemsSource, ItemTemplate);
-            await Navigation.PushPopupAsync(mListPopupPage);
+            try
+            {
+                await Navigation.PushPopupAsync(mListPopupPage);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("Can not open popup: " + ex.Message);
+            }          
         }
     }
 }

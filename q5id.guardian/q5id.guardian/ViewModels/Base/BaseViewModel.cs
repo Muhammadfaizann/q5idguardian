@@ -7,6 +7,7 @@ using q5id.guardian.Models;
 using q5id.guardian.Presenter;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,7 +22,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mIsLoading = value;
-                RaisePropertyChanged(nameof(IsLoading));
             }
         }
 

@@ -38,8 +38,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mUser = value;
-                RaisePropertyChanged(nameof(User));
-                RaisePropertyChanged(nameof(IsVolunteer));
             }
         }
 
@@ -47,7 +45,7 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                return this.mUser != null && this.mUser.Role == UserRole.Volunteer;
+                return this.User != null && this.User.Role == UserRole.Volunteer;
             }
         }
 
@@ -72,9 +70,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 this.mAlerts = value;
-                RaisePropertyChanged(nameof(Alerts));
-                RaisePropertyChanged(nameof(IsHaveAlerts));
-                RaisePropertyChanged(nameof(AlertPositions));
             }
         }
 

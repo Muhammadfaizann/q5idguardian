@@ -46,7 +46,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mUser = value;
-                RaisePropertyChanged(nameof(User));
                 UpdateProperties();
             }
         }
@@ -58,7 +57,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mNickName = value;
-                RaisePropertyChanged(nameof(NickName));
             }
         }
 
@@ -69,8 +67,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mFirstName = value;
-                RaisePropertyChanged(nameof(FirstName));
-                RaisePropertyChanged(nameof(FullName));
             }
         }
 
@@ -81,8 +77,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mLastName = value;
-                RaisePropertyChanged(nameof(LastName));
-                RaisePropertyChanged(nameof(FullName));
             }
         }
 
@@ -90,7 +84,7 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                return mFirstName + " " + mLastName;
+                return FirstName + " " + LastName;
             }
 
         }
@@ -105,7 +99,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mProfileImage = value;
-                RaisePropertyChanged(nameof(ProfileImage));
             }
         }
 
@@ -119,7 +112,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mImage = value;
-                RaisePropertyChanged(nameof(Image));
             }
         }
 
@@ -130,7 +122,6 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mBirthDay = value;
-                RaisePropertyChanged(nameof(BirthDay));
             }
         }
 
@@ -236,7 +227,7 @@ namespace q5id.guardian.ViewModels
                 }
             }
 
-            ApiResponse<EntityResponse<User>> response;
+            ApiResponse<AppServiceResponse<EntityResponse<User>>> response;
             if (User != null)
             {
                 //Update flow
