@@ -441,7 +441,7 @@ namespace q5id.guardian.ViewModels
 
         private async void GetChoices()
         {
-            var response = await AppService.Instances.GetChoices();
+            var response = await AppApiManager.Instances.GetChoices();
             if (response.IsSuccess && response.ResponseObject?.Result != null)
             {
                 List<Choice> choices = response.ResponseObject.Result;
@@ -510,7 +510,7 @@ namespace q5id.guardian.ViewModels
             IsLoading = true;
             if (LovedOnesEntity != null)
             {
-                var response = await AppService.Instances.GetListLovedOnes(LovedOnesEntity.Id, User.ContactId);
+                var response = await AppApiManager.Instances.GetListLovedOnes(LovedOnesEntity.Id, User.ContactId);
                 if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Value != null)
                 {
                     Loves = response.ResponseObject.Value;
@@ -555,7 +555,7 @@ namespace q5id.guardian.ViewModels
                 };
                 if(PrimaryImage != null)
                 {
-                    var responseUploadImageOne = await AppService.Instances.UploadImage(LovedOnesEntity.Id, PrimaryImage);
+                    var responseUploadImageOne = await AppApiManager.Instances.UploadImage(LovedOnesEntity.Id, PrimaryImage);
                     if (responseUploadImageOne.IsSuccess)
                     {
                         lovedOnesToPost.Image = responseUploadImageOne.ResponseObject.Path;
@@ -565,7 +565,7 @@ namespace q5id.guardian.ViewModels
                 {
                     if (SecondaryImages[0] != null)
                     {
-                        var responseUploadImageTwo = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[0]);
+                        var responseUploadImageTwo = await AppApiManager.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[0]);
                         if (responseUploadImageTwo.IsSuccess)
                         {
                             lovedOnesToPost.Image2 = responseUploadImageTwo.ResponseObject.Path;
@@ -573,7 +573,7 @@ namespace q5id.guardian.ViewModels
                     }
                     if (SecondaryImages[1] != null)
                     {
-                        var responseUploadImageThree = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[1]);
+                        var responseUploadImageThree = await AppApiManager.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[1]);
                         if (responseUploadImageThree.IsSuccess)
                         {
                             lovedOnesToPost.Image3 = responseUploadImageThree.ResponseObject.Path;
@@ -581,7 +581,7 @@ namespace q5id.guardian.ViewModels
                     }
                     if (SecondaryImages[2] != null)
                     {
-                        var responseUploadImageFour = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[2]);
+                        var responseUploadImageFour = await AppApiManager.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[2]);
                         if (responseUploadImageFour.IsSuccess)
                         {
                             lovedOnesToPost.Image4 = responseUploadImageFour.ResponseObject.Path;
@@ -589,7 +589,7 @@ namespace q5id.guardian.ViewModels
                     }
                     if (SecondaryImages[3] != null)
                     {
-                        var responseUploadImageFive = await AppService.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[3]);
+                        var responseUploadImageFive = await AppApiManager.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[3]);
                         if (responseUploadImageFive.IsSuccess)
                         {
                             lovedOnesToPost.Image5 = responseUploadImageFive.ResponseObject.Path;
@@ -600,12 +600,12 @@ namespace q5id.guardian.ViewModels
                 if(lovedOnesToUpdate != null)
                 {
                     //Update flow
-                    response = await AppService.Instances.UpdateLovedOnes(LovedOnesEntity.Id, lovedOnesToPost);
+                    response = await AppApiManager.Instances.UpdateLovedOnes(LovedOnesEntity.Id, lovedOnesToPost);
                 }
                 else
                 {
                     //Create flow
-                    response = await AppService.Instances.CreateLovedOnes(LovedOnesEntity.Id, lovedOnesToPost);
+                    response = await AppApiManager.Instances.CreateLovedOnes(LovedOnesEntity.Id, lovedOnesToPost);
                 }
                 
                 IsLoading = false;
@@ -644,7 +644,7 @@ namespace q5id.guardian.ViewModels
             {
                 IsLoading = true;
                 var selectedLovedOnes = mSelectedLovedOnes;
-                var response = await AppService.Instances.DeleteLovedOnes(LovedOnesEntity.Id, selectedLovedOnes.ProfileId);
+                var response = await AppApiManager.Instances.DeleteLovedOnes(LovedOnesEntity.Id, selectedLovedOnes.ProfileId);
                 IsLoading = false;
                 if (response.IsSuccess)
                 {

@@ -220,7 +220,7 @@ namespace q5id.guardian.ViewModels
             };
             if (ProfileImage != null)
             {
-                var responseUploadImageOne = await AppService.Instances.UploadImage(ContactEntity.Id, ProfileImage);
+                var responseUploadImageOne = await AppApiManager.Instances.UploadImage(ContactEntity.Id, ProfileImage);
                 if (responseUploadImageOne.IsSuccess)
                 {
                     userToPost.ImageUrl = responseUploadImageOne.ResponseObject.Path;
@@ -231,12 +231,12 @@ namespace q5id.guardian.ViewModels
             if (User != null)
             {
                 //Update flow
-                response = await AppService.Instances.UpdateUser(ContactEntity.Id, userToPost);
+                response = await AppApiManager.Instances.UpdateUser(ContactEntity.Id, userToPost);
             }
             else
             {
                 //Create flow
-                response = await AppService.Instances.CreateUser(ContactEntity.Id, userToPost);
+                response = await AppApiManager.Instances.CreateUser(ContactEntity.Id, userToPost);
             }
             IsLoading = false;
             if (response.IsSuccess && response.ResponseObject != null)

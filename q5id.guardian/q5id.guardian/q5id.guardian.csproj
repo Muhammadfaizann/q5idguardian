@@ -26,6 +26,12 @@
     <None Remove="Microsoft.AppCenter.Crashes" />
     <None Remove="Microsoft.AppCenter.Analytics" />
     <None Remove="PropertyChanged.Fody" />
+    <None Remove="Refit" />
+    <None Remove="Refit.Newtonsoft.Json" />
+    <None Remove="Xam.Plugin.Connectivity" />
+    <None Remove="Acr.UserDialogs" />
+    <None Remove="Polly" />
+    <None Remove="fusillade" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +52,11 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.4.0" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.4.0" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
+    <PackageReference Include="Refit" Version="6.0.94" />
+    <PackageReference Include="Refit.Newtonsoft.Json" Version="6.0.94" />
+    <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
+    <PackageReference Include="Polly" Version="7.2.2" />
+    <PackageReference Include="fusillade" Version="2.3.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +68,10 @@
     <Compile Include="Services\Bases\AppServiceResponse.cs" />
     <Compile Include="Services\PermissionService.cs" />
     <Compile Include="Services\AppCenterService.cs" />
+    <Compile Include="Services\AppApiManager.cs" />
+    <Compile Include="Services\Bases\IGuardianApi.cs" />
+    <Compile Include="Services\Bases\IApiService.cs" />
+    <Compile Include="Services\ApiService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\AlertsPage.xaml.cs">

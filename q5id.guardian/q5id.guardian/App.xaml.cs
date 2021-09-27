@@ -18,13 +18,14 @@ namespace q5id.guardian
         {
             GoogleMapsApiService.Initialize("AIzaSyBfmbh-Rv6aVh4QP7DR41o-_RwPQKZgMDY");
             AppService.Init("7e83fc21dcb44d1db06b8284b0c0fb89");
+            AppApiManager.Init("7e83fc21dcb44d1db06b8284b0c0fb89");
             InitializeComponent();
             GetSettings();
         }
 
         private async void GetSettings()
         {
-            var response = await AppService.Instances.GetSettings();
+            var response = await AppApiManager.Instances.GetSettings();
             if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Result != null)
             {
                 var strutures = response.ResponseObject.Result;

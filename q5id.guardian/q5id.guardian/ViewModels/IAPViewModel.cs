@@ -188,7 +188,7 @@ namespace q5id.guardian.ViewModels
             userToPost.SubscriptionId = subscritionId;
             userToPost.SubscriptionExpiredDate = DateTime.UtcNow.AddDays(30).ToString();
             ApiResponse<AppServiceResponse<EntityResponse<User>>> response;
-            response = await AppService.Instances.UpdateUser(ContactEntity.Id, userToPost);
+            response = await AppApiManager.Instances.UpdateUser(ContactEntity.Id, userToPost);
             IsLoading = false;
             if (response.IsSuccess && response.ResponseObject != null)
             {

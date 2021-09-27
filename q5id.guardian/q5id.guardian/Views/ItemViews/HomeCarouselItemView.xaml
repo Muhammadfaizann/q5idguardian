@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:utils="clr-namespace:q5id.guardian.Utils"
     xmlns:control="clr-namespace:q5id.guardian.Controls"
-    xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <ContentView.Content>
         <Grid>
             <Frame
@@ -33,6 +33,9 @@
                     HorizontalOptions="Fill"
                     IsEnabled="False"
                     VerticalOptions="Fill">
+                    <Frame.Effects>
+                        <xct:LifecycleEffect Loaded="LifecycleEffect_Loaded"/>
+                    </Frame.Effects>
                     <Frame
                         Padding="0"
                         BackgroundColor="#80FFFFFF"

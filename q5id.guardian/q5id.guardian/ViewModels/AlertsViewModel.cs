@@ -326,7 +326,7 @@ namespace q5id.guardian.ViewModels
             IsLoading = true;
             if (LovedOnesEntity != null)
             {
-                var response = await AppService.Instances.GetListLovedOnes(LovedOnesEntity.Id, null);
+                var response = await AppApiManager.Instances.GetListLovedOnes(LovedOnesEntity.Id, null);
                 if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Value != null)
                 {
                     Loves = response.ResponseObject.Value.Select((Love love) =>
@@ -399,7 +399,7 @@ namespace q5id.guardian.ViewModels
                         alertToPost.Address = placeJson.Name;
                     }
                 }
-                ApiResponse<AppServiceResponse<EntityResponse<Alert>>> response = await AppService.Instances.CreateAlert(AlertEntity.Id, alertToPost);
+                ApiResponse<AppServiceResponse<EntityResponse<Alert>>> response = await AppApiManager.Instances.CreateAlert(AlertEntity.Id, alertToPost);
 
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
@@ -448,7 +448,7 @@ namespace q5id.guardian.ViewModels
                 IsLoading = true;
                 var alertToPost = AlertDetail;
                 alertToPost.IsClosed = Utils.Constansts.YES_KEY;
-                ApiResponse<AppServiceResponse<EntityResponse<Alert>>> response = await AppService.Instances.UpdateAlert(AlertEntity.Id, alertToPost);
+                ApiResponse<AppServiceResponse<EntityResponse<Alert>>> response = await AppApiManager.Instances.UpdateAlert(AlertEntity.Id, alertToPost);
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
@@ -496,7 +496,7 @@ namespace q5id.guardian.ViewModels
                     Lognitude = userPosition != null ? userPosition.Longitude + "" : "",
                     Action = "is looking",
                 };
-                ApiResponse<AppServiceResponse<EntityResponse<Feed>>> response = await AppService.Instances.CreateFeed(FeedEntity.Id, feedToPost);
+                ApiResponse<AppServiceResponse<EntityResponse<Feed>>> response = await AppApiManager.Instances.CreateFeed(FeedEntity.Id, feedToPost);
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
@@ -553,7 +553,7 @@ namespace q5id.guardian.ViewModels
                     Action = "posted ",
                     Comment = FeedMessage
                 };
-                ApiResponse<AppServiceResponse<EntityResponse<Feed>>> response = await AppService.Instances.CreateFeed(FeedEntity.Id, feedToPost);
+                ApiResponse<AppServiceResponse<EntityResponse<Feed>>> response = await AppApiManager.Instances.CreateFeed(FeedEntity.Id, feedToPost);
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
@@ -581,7 +581,7 @@ namespace q5id.guardian.ViewModels
             if (FeedEntity != null && mAlertDetail != null)
             {
                 
-                var response = await AppService.Instances.GetFeeds(FeedEntity.Id, mAlertDetail.AlertId);
+                var response = await AppApiManager.Instances.GetFeeds(FeedEntity.Id, mAlertDetail.AlertId);
                 if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Value != null)
                 {
                     
@@ -624,7 +624,7 @@ namespace q5id.guardian.ViewModels
             var userLocation = userPosition != null ? new Location(userPosition.Latitude, userPosition.Longitude) : null;
             if (AlertEntity != null)
             {
-                var response = await AppService.Instances.GetListAlert(AlertEntity.Id);
+                var response = await AppApiManager.Instances.GetListAlert(AlertEntity.Id);
                 if (response.IsSuccess && response.ResponseObject.Value != null)
                 {
                     listAlertItem = response.ResponseObject.Value.Select((Alert alert) =>

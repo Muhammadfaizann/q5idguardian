@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using q5id.guardian.Models;
 using Xamarin.CommunityToolkit.Core;
 using Xamarin.Forms;
@@ -76,6 +77,11 @@ namespace q5id.guardian.Views.ItemViews
 
             }
             isPlaying = !isPlaying;
+        }
+
+        void LifecycleEffect_Loaded(System.Object sender, System.EventArgs e)
+        {
+            ShowPlayerControl();
         }
     }
 }

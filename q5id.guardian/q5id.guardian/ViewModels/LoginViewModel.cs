@@ -75,7 +75,7 @@ namespace q5id.guardian.ViewModels
             if(mUserName != "" && ContactEntity != null)
             {
                 IsLoading = true;
-                var currentUserResponse = await AppService.Instances.GetUsers(ContactEntity.Id, mUserName);
+                var currentUserResponse = await AppApiManager.Instances.GetUsers(ContactEntity.Id, mUserName);
                 if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject.Value.Count > 0)
                 {
                     var validUser = currentUserResponse.ResponseObject.Value.Find((User user) =>

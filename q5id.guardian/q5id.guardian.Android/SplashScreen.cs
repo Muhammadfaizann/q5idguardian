@@ -5,6 +5,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using MvvmCross;
 using MvvmCross.Forms.Platforms.Android.Views;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,11 @@ namespace q5id.guardian.Droid
             await base.RunAppStartAsync(bundle);
 
             StartActivity(typeof(MainActivity));
+        }
+
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
         }
 
         //protected override void RunAppStart(Bundle bundle)

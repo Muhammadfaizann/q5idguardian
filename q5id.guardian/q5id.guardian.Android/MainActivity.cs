@@ -22,7 +22,6 @@ namespace q5id.guardian.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 
             Rg.Plugins.Popup.Popup.Init(this);
