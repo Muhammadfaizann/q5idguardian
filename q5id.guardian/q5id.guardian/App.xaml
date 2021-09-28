@@ -89,7 +89,7 @@
             <xct:InvertedBoolConverter x:Key="reverseBooleanConverter" />
             <converters:DateToStringConverter x:Key="dateToStringConverter" />
             <converters:ColorToSolidColorBrushConverter x:Key="colorToSolidColorBrushConverter" />
-            <xct:IsNullOrEmptyConverter x:Key="stringToBoolConverter" />
+            <xct:IsNotNullOrEmptyConverter x:Key="stringToBoolConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

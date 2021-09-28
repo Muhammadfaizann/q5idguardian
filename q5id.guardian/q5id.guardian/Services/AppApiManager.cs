@@ -24,8 +24,6 @@ namespace q5id.guardian.Services
         public bool IsReachable { get; set; }
         IApiService<IGuardianApi> guardianApi;
         Dictionary<int, CancellationTokenSource> runningTasks = new Dictionary<int, CancellationTokenSource>();
-        Dictionary<string, Task<HttpResponseMessage>> taskContainer = new Dictionary<string, Task<HttpResponseMessage>>();
-
         public static string SUBSCRIPTION_KEY = "Ocp-Apim-Subscription-Key";
         private static string INSTANCES_ID = "df5fc5c2-990a-4c1b-b8cd-fe4301312e2e";
         private static string DATAVAULT_ID = "746cd9c1-3ca3-419e-b100-f16ba8aead57";
@@ -116,15 +114,14 @@ namespace q5id.guardian.Services
         private async Task<ApiResponse<AppServiceResponse<EntityResponse<T>>>> CreateEntity<T>(string entityId, T entity) where T : BaseEntity
         {
             var cts = new CancellationTokenSource();
-            var body = new
+            object body = new
             {
                 datavaultId = DATAVAULT_ID,
                 entityId = entityId,
                 data = entity.GetParam()
             };
             var task = RemoteRequestAsync<AppServiceResponse<EntityResponse<T>>>(guardianApi.GetApi(Priority.UserInitiated).CreateEntity<T>(INSTANCES_ID, body, cts.Token));
-            runningTasks.Add(task.Id, cts);
-
+            //return await task;
             return await task;
         }
 

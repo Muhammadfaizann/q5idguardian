@@ -12,7 +12,7 @@ namespace q5id.guardian.Services
 {
     public class ApiService<T> : IApiService<T>
     {
-        public static RefitSettings GetNewtonsoftJsonRefitSettings() => new RefitSettings(new NewtonsoftJsonContentSerializer(new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() }));
+        public static RefitSettings GetNewtonsoftJsonRefitSettings() => new RefitSettings(new NewtonsoftJsonContentSerializer());
 
         Func<HttpMessageHandler, T> createClient;
         public ApiService(string apiBaseAddress, Dictionary<String, String> headers = null)

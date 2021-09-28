@@ -56,7 +56,7 @@ namespace q5id.guardian.Models
                 createdon = CreatedOn,
                 modifiedon = ModifiedOn,
                 createdby = CreatedBy,
-                ProfileId = ProfileId,
+                profileid = ProfileId,
                 AlertId = AlertId,
                 FirstName = FirstName,
                 Description = Description,
