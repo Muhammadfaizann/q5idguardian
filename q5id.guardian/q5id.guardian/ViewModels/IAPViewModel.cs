@@ -20,6 +20,16 @@ namespace q5id.guardian.ViewModels
             GetContactEntity();
         }
 
+        private bool mIsSuccessPurchase = false;
+        public bool IsSuccessPurchase
+        {
+            get => mIsSuccessPurchase;
+            set
+            {
+                mIsSuccessPurchase = value;
+            }
+        }
+
         private User mUser;
         public User User
         {
@@ -192,11 +202,7 @@ namespace q5id.guardian.ViewModels
             IsLoading = false;
             if (response.IsSuccess && response.ResponseObject != null)
             {
-                await App.Current.MainPage.DisplayAlert("Updated Successfully", "", "OK");
-                if (User != null)
-                {
-                    await NavigationService.Close(this);
-                }
+                IsSuccessPurchase = true;
             }
 
         }

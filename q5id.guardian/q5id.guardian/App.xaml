@@ -90,6 +90,7 @@
             <converters:DateToStringConverter x:Key="dateToStringConverter" />
             <converters:ColorToSolidColorBrushConverter x:Key="colorToSolidColorBrushConverter" />
             <xct:IsNotNullOrEmptyConverter x:Key="stringToBoolConverter" />
+            <xct:VariableMultiValueConverter x:Key="allTrueConverter" ConditionType="All" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

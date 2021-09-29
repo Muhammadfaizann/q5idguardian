@@ -62,7 +62,25 @@
                 </Label>
             </StackLayout>
             <Grid Grid.Row="1">
-               <Grid IsVisible="{Binding IsHasNoLove}">
+               <Grid IsVisible="{Binding IsVolunteer}">
+                   <Label
+                        Margin="50,0,50,0"
+                        HorizontalOptions="Fill"
+                        LineBreakMode="WordWrap"
+                        HorizontalTextAlignment="Center"
+                        VerticalOptions="Center"
+                        Text="Please subscribe to add your loved one"
+                        Style="{StaticResource lbBodyNormalLg}">
+                            
+                    </Label>
+               </Grid> 
+               <Grid>
+                   <Grid.IsVisible>
+                       <MultiBinding Converter="{StaticResource allTrueConverter}">
+                           <Binding Path="IsHasNoLove" />
+                           <Binding Path="IsVolunteer" Converter="{StaticResource reverseBooleanConverter}" />
+                       </MultiBinding>
+                   </Grid.IsVisible>
                    <!--Empty layout-->
                    <Grid.RowDefinitions>
                        <RowDefinition Height="*"/>
@@ -112,8 +130,14 @@
                    </StackLayout>
                    
                </Grid>
-                <Grid IsVisible="{Binding IsHasNoLove, Converter={StaticResource reverseBooleanConverter}}">
+                <Grid>
                    <!--Has item layout-->
+                    <Grid.IsVisible>
+                       <MultiBinding Converter="{StaticResource allTrueConverter}">
+                           <Binding Path="IsHasNoLove" Converter="{StaticResource reverseBooleanConverter}"/>
+                           <Binding Path="IsVolunteer" Converter="{StaticResource reverseBooleanConverter}" />
+                       </MultiBinding>
+                   </Grid.IsVisible>
                     <control:AppListView ItemsSource="{Binding Loves}"
                               SeparatorVisibility="None"
                               BackgroundColor="Transparent"

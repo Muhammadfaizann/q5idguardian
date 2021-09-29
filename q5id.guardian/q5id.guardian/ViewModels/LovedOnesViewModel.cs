@@ -507,16 +507,19 @@ namespace q5id.guardian.ViewModels
 
         public async void GetLoves()
         {
-            IsLoading = true;
-            if (LovedOnesEntity != null)
+            if(IsVolunteer == false)
             {
-                var response = await AppApiManager.Instances.GetListLovedOnes(LovedOnesEntity.Id, User.ContactId);
-                if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Value != null)
+                IsLoading = true;
+                if (LovedOnesEntity != null)
                 {
-                    Loves = response.ResponseObject.Value;
+                    var response = await AppApiManager.Instances.GetListLovedOnes(LovedOnesEntity.Id, User.ContactId);
+                    if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Value != null)
+                    {
+                        Loves = response.ResponseObject.Value;
+                    }
                 }
+                IsLoading = false;
             }
-            IsLoading = false;
         }
 
         private async void CreateUpdateLove()
