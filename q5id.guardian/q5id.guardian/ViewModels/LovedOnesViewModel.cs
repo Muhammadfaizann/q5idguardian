@@ -561,7 +561,7 @@ namespace q5id.guardian.ViewModels
                     var responseUploadImageOne = await AppApiManager.Instances.UploadImage(LovedOnesEntity.Id, PrimaryImage);
                     if (responseUploadImageOne.IsSuccess)
                     {
-                        lovedOnesToPost.Image = responseUploadImageOne.ResponseObject.Path;
+                        lovedOnesToPost.Image = responseUploadImageOne.ResponseObject.Result;
                     }
                 }
                 if(SecondaryImages != null)
@@ -571,7 +571,7 @@ namespace q5id.guardian.ViewModels
                         var responseUploadImageTwo = await AppApiManager.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[0]);
                         if (responseUploadImageTwo.IsSuccess)
                         {
-                            lovedOnesToPost.Image2 = responseUploadImageTwo.ResponseObject.Path;
+                            lovedOnesToPost.Image2 = responseUploadImageTwo.ResponseObject.Result;
                         }
                     }
                     if (SecondaryImages[1] != null)
@@ -579,7 +579,7 @@ namespace q5id.guardian.ViewModels
                         var responseUploadImageThree = await AppApiManager.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[1]);
                         if (responseUploadImageThree.IsSuccess)
                         {
-                            lovedOnesToPost.Image3 = responseUploadImageThree.ResponseObject.Path;
+                            lovedOnesToPost.Image3 = responseUploadImageThree.ResponseObject.Result;
                         }
                     }
                     if (SecondaryImages[2] != null)
@@ -587,7 +587,7 @@ namespace q5id.guardian.ViewModels
                         var responseUploadImageFour = await AppApiManager.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[2]);
                         if (responseUploadImageFour.IsSuccess)
                         {
-                            lovedOnesToPost.Image4 = responseUploadImageFour.ResponseObject.Path;
+                            lovedOnesToPost.Image4 = responseUploadImageFour.ResponseObject.Result;
                         }
                     }
                     if (SecondaryImages[3] != null)
@@ -595,7 +595,7 @@ namespace q5id.guardian.ViewModels
                         var responseUploadImageFive = await AppApiManager.Instances.UploadImage(LovedOnesEntity.Id, SecondaryImages[3]);
                         if (responseUploadImageFive.IsSuccess)
                         {
-                            lovedOnesToPost.Image5 = responseUploadImageFive.ResponseObject.Path;
+                            lovedOnesToPost.Image5 = responseUploadImageFive.ResponseObject.Result;
                         }
                     }
                 }

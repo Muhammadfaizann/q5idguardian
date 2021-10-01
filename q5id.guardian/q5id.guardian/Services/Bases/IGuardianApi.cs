@@ -18,7 +18,7 @@ namespace q5id.guardian.Services.Bases
         Task<AppServiceResponse<List<Structure>>> GetSettings(string instancesId, CancellationToken cancellationToken);
         
         [Post("/datavaultdata/entitydata/instances/{instancesId}/upload/{dataVaultId}/{entityId}")]
-        Task<ImageResponse> UploadImage(string instancesId, string dataVaultId, string entityId, [Body] object body, CancellationToken cancellationToken);
+        Task<AppServiceResponse> UploadImage(string instancesId, string dataVaultId, string entityId, [Body] object body, CancellationToken cancellationToken);
 
         [Post("/datavaultdata/entitydata/instances/{instancesId}")]
         Task<AppServiceResponse<EntityResponse<T>>> CreateEntity<T>(string instancesId, [Body] Object body, CancellationToken cancellationToken) where T : BaseEntity;

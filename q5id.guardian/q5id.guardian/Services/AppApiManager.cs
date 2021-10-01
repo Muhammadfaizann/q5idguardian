@@ -97,7 +97,7 @@ namespace q5id.guardian.Services
             return await task;
         }
 
-        public async Task<ApiResponse<ImageResponse>> UploadImage(string entityId, ImageData image)
+        public async Task<ApiResponse<AppServiceResponse>> UploadImage(string entityId, ImageData image)
         {
             var cts = new CancellationTokenSource();
             var body = new
@@ -105,7 +105,7 @@ namespace q5id.guardian.Services
                 File = image.GetBase64Data(),
                 Extension = image.Extension
             };
-            var task = RemoteRequestAsync<ImageResponse>(guardianApi.GetApi(Priority.UserInitiated).UploadImage( INSTANCES_ID, DATAVAULT_ID, entityId, body, cts.Token));
+            var task = RemoteRequestAsync<AppServiceResponse>(guardianApi.GetApi(Priority.UserInitiated).UploadImage( INSTANCES_ID, DATAVAULT_ID, entityId, body, cts.Token));
             runningTasks.Add(task.Id, cts);
 
             return await task;

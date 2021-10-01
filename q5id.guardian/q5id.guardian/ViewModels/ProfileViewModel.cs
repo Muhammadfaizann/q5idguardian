@@ -223,7 +223,7 @@ namespace q5id.guardian.ViewModels
                 var responseUploadImageOne = await AppApiManager.Instances.UploadImage(ContactEntity.Id, ProfileImage);
                 if (responseUploadImageOne.IsSuccess)
                 {
-                    userToPost.ImageUrl = responseUploadImageOne.ResponseObject.Path;
+                    userToPost.ImageUrl = responseUploadImageOne.ResponseObject.Result;
                 }
             }
 
