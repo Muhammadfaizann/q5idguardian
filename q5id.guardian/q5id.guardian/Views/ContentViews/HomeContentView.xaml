@@ -79,6 +79,7 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
+                    
                     <ScrollView Grid.Row="1" Orientation="Vertical">
                         <StackLayout Padding="40,30,40,0" Orientation="Vertical">
                             <Grid HorizontalOptions="Fill" VerticalOptions="Start">
@@ -114,22 +115,13 @@
                                 CornerRadius="16"
                                 HasShadow="False"
                                 IsClippedToBounds="True">
-                                <carousel:CarouselViewControl
-                                    x:Name="carouselView"
-                                    CurrentPageIndicatorTintColor="#FD425E"
-                                    HeightRequest="160"
-                                    ItemsSource="{Binding Pages}"
-                                    PositionSelected="CarouselViewControl_PositionSelected"
-                                    ShowIndicators="True">
-                                    <carousel:CarouselViewControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <itemViews:HomeCarouselItemView BindingContextChanged="MediaElement_BindingContextChanged" />
-                                        </DataTemplate>
-                                    </carousel:CarouselViewControl.ItemTemplate>
-                                </carousel:CarouselViewControl>
+                                <control:AppWebView x:Name="Webview"
+                                        Source="https://q5idtest.site.work/"
+                                        HeightRequest="160"
+                                        VerticalOptions="FillAndExpand"
+                                        IsEnabled="True"
+                                        HorizontalOptions="Fill" />  
                             </Frame>
-
-
                             <Grid
                                 Margin="0,20,0,0"
                                 HorizontalOptions="Fill"
