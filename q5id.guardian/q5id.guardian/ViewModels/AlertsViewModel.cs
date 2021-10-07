@@ -393,11 +393,8 @@ namespace q5id.guardian.ViewModels
 
                 if (AlertPosition != null)
                 {
-                    GooglePlace placeJson = await GoogleMapsApiService.Instances.FindPlaceByPosition(AlertPosition.Value);
-                    if(placeJson != null)
-                    {
-                        alertToPost.Address = placeJson.Name;
-                    }
+                    string address = await GoogleMapsApiService.Instances.FindPlaceByPosition(AlertPosition.Value);
+                    alertToPost.Address = address;
                 }
                 ApiResponse<AppServiceResponse<EntityResponse<Alert>>> response = await AppApiManager.Instances.CreateAlert(AlertEntity.Id, alertToPost);
 

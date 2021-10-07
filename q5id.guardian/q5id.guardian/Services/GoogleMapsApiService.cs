@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -27,7 +29,7 @@ namespace q5id.guardian.Services
             }
         }
 
-        private const string ApiBaseAddress = "https://maps.googleapis.com/maps/";
+        private const string ApiBaseAddress = "https://q5idtest.site.work/api/GooglePlaces/";
         private HttpClient CreateClient()
         {
             var httpClient = new HttpClient
@@ -52,7 +54,7 @@ namespace q5id.guardian.Services
 
             using (var httpClient = CreateClient())
             {
-                var response = await httpClient.GetAsync($"api/place/autocomplete/json?input={Uri.EscapeUriString(text)}&key={_googleMapsKey}").ConfigureAwait(false);
+                var response = await httpClient.GetAsync($"/autocomplete?address={Uri.EscapeUriString(text)}").ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -74,7 +76,7 @@ namespace q5id.guardian.Services
             GooglePlace result = null;
             using (var httpClient = CreateClient())
             {
-                var response = await httpClient.GetAsync($"api/place/details/json?placeid={Uri.EscapeUriString(placeId)}&key={_googleMapsKey}").ConfigureAwait(false);
+                var response = await httpClient.GetAsync($"/details?placeid={Uri.EscapeUriString(placeId)}").ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -88,28 +90,12 @@ namespace q5id.guardian.Services
             return result;
         }
 
-        public async Task<GooglePlace> FindPlaceByPosition(Position position)
+        public async Task<string> FindPlaceByPosition(Position position)
         {
-            using (var httpClient = CreateClient())
-            {
-                var response = await httpClient.GetAsync($"api/place/nearbysearch/json?location={position.Latitude},{position.Longitude}&radius=100&key={_googleMapsKey}").ConfigureAwait(false);
-                if (response.IsSuccessStatusCode)
-                {
-                    var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    
-                    if (!string.IsNullOrWhiteSpace(json) && json != "ERROR")
-                    {
-                        var jsonObj = JObject.Parse(json);
-                        if(jsonObj["results"] is JArray jArrayResults && jArrayResults.Count > 0)
-                        {
-                            JObject firstResult = new JObject();
-                            firstResult["result"] = jArrayResults[0];
-                            return new GooglePlace(firstResult);
-                        }
-                    }
-                }
-            }
-            return null;
+            Geocoder geoCoder = new Geocoder();
+            IEnumerable<string> possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
+            string address = possibleAddresses.FirstOrDefault();
+            return address;
         }
     }
 }
