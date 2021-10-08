@@ -159,7 +159,9 @@
                                 Style="{StaticResource lbSubheadSm}">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding User.NickName}"/>
+                                        <Span Text="{Binding User.FirstName}"/>
+                                        <Span Text=" "/>
+                                        <Span Text="{Binding User.LastName}"/>
                                         <Span Text=" Guardian member since " FontSize="12" FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"/>
                                         <Span Text="{Binding User.CreatedOn}" FontSize="12" FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"/>
                                     </FormattedString>

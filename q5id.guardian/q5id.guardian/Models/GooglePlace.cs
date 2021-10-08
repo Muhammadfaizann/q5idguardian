@@ -13,23 +13,23 @@ namespace q5id.guardian.Models
         [JsonProperty("id")]
         public string Id { get; set; }
 
-        [JsonProperty("place_id")]
+        [JsonProperty("placeId")]
         public string PlaceId { get; set; }
 
         [JsonProperty("reference")]
         public string Reference { get; set; }
 
-        [JsonProperty("structured_formatting")]
+        [JsonProperty("structuredFormatting")]
         public StructuredFormatting StructuredFormatting { get; set; }
 
     }
 
     public class StructuredFormatting
     {
-        [JsonProperty("main_text")]
+        [JsonProperty("mainText")]
         public string MainText { get; set; }
 
-        [JsonProperty("secondary_text")]
+        [JsonProperty("secondaryText")]
         public string SecondaryText { get; set; }
     }
 
@@ -52,8 +52,8 @@ namespace q5id.guardian.Models
         public GooglePlace(JObject jsonObject)
         {
             Name = (string)jsonObject["result"]["name"];
-            Latitude = (double)jsonObject["result"]["geometry"]["location"]["lat"];
-            Longitude = (double)jsonObject["result"]["geometry"]["location"]["lng"];
+            Latitude = (double)jsonObject["result"]["geometry"]["location"]["latitude"];
+            Longitude = (double)jsonObject["result"]["geometry"]["location"]["longitude"];
             Raw = jsonObject.ToString();
         }
     }

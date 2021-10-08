@@ -52,7 +52,7 @@ namespace q5id.guardian.ViewModels
 
         public IMvxAsyncCommand CloseCommand => new MvxAsyncCommand(ClosePage);
 
-        protected async Task ClosePage()
+        protected virtual async Task ClosePage()
         {
             await this.NavigationService.Close(this);
         }
@@ -79,6 +79,22 @@ namespace q5id.guardian.ViewModels
         public BaseViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
 
+        }
+
+        public abstract void Prepare(TParameter parameter);
+    }
+
+    public abstract class BaseViewModel<TParameter, TResult> : BaseViewModel, IMvxViewModel<TParameter, TResult>, IMvxViewModel where TParameter : class where TResult : class
+    {
+        public BaseViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
+        {
+
+        }
+
+        public TaskCompletionSource<object> CloseCompletionSource
+        {
+            get;
+            set;
         }
 
         public abstract void Prepare(TParameter parameter);

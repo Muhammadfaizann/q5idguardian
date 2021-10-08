@@ -61,6 +61,7 @@ namespace q5id.guardian.iOS.Renderers
             {
                 return;
             }
+            
             mBackgroundLayer?.RemoveFromSuperLayer();
             mBackgroundLayer = new CAGradientLayer();
             ((CAGradientLayer)mBackgroundLayer).Colors = new[] { this.mAppFrame.NormalBackgroundColorStart.ToCGColor(), this.mAppFrame.NormalBackgroundColorEnd.ToCGColor() };
@@ -107,10 +108,10 @@ namespace q5id.guardian.iOS.Renderers
             {
                 var control = this.GetControl();
                 UIView childFrameView = null;
-                if(control.Subviews.Length > 0)
+                if (control.Subviews.Length > 0)
                 {
                     mCardView = control.Subviews[0];
-                    if(mCardView.Subviews.Length > 0)
+                    if (mCardView.Subviews.Length > 0)
                     {
                         childFrameView = mCardView.Subviews[0];
                     }

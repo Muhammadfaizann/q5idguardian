@@ -149,7 +149,7 @@ namespace q5id.guardian.Services
 
         public async Task<ApiResponse<AppServiceResponse<EntityResponse<User>>>> UpdateUser(string entityId, User user)
         {
-            return await UpdateEntity(entityId, user, user.ContactId);
+            return await UpdateEntity(entityId, user, user.UserId);
         }
 
         public async Task<ApiResponse<AppServiceResponse<EntityResponse<Feed>>>> CreateFeed(string entityId, Feed feed)

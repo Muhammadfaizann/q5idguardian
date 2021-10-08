@@ -53,11 +53,8 @@ namespace q5id.guardian.ViewModels
             {
                 return new Command(async () =>
                 {
-                    var profileViewModel = new ProfileViewModel(this.NavigationService, this.LoggerFactory)
-                    {
-                        User = User
-                    };
-                    await NavigationService.Navigate(profileViewModel);
+                    var result = await NavigationService.Navigate<ProfileViewModel, User, User>(User);
+                    User = result;
                 });
             }
         }
@@ -91,18 +88,18 @@ namespace q5id.guardian.ViewModels
             var settings = Utils.Utils.GetSettings();
             if (settings != null)
             {
-                ContactEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
+                UserEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
                 {
-                    return entity.EntityName == Utils.Constansts.CONTACT_ENTITY_SETTING_KEY;
+                    return entity.EntityName == Utils.Constansts.USER_ENTITY_SETTING_KEY;
                 });
             }
         }
 
         private async void GetProfile()
         {
-            if(ContactEntity != null && User != null)
+            if(UserEntity != null && User != null)
             {
-                var currentUserResponse = await AppApiManager.Instances.GetUserProfile(ContactEntity.Id, User.ContactId);
+                var currentUserResponse = await AppApiManager.Instances.GetUserProfile(UserEntity.Id, User.UserId);
                 if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject?.Result != null)
                 {
                     var entityUser = currentUserResponse.ResponseObject.Result;
@@ -165,6 +162,6 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        public StructureEntity ContactEntity { get; private set; }
+        public StructureEntity UserEntity { get; private set; }
     }
 }

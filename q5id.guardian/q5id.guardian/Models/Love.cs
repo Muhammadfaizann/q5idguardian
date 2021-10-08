@@ -11,6 +11,8 @@ namespace q5id.guardian.Models
         public string ProfileId { get; set; }
         [JsonProperty("ContactId")]
         public string ContactId { get; set; }
+        [JsonProperty("UserId")]
+        public string UserId { get; set; }
         [JsonProperty("FirstName")]
         public string FirstName { get; set; }
         [JsonProperty("LastName")]
@@ -53,7 +55,7 @@ namespace q5id.guardian.Models
                 modifiedon = ModifiedOn,
                 createdby = CreatedBy,
                 ProfileId = ProfileId,
-                ContactId = ContactId,
+                UserId = UserId,
                 FirstName = FirstName,
                 LastName = LastName,
                 DateofBirth = DateofBirth,

@@ -26,11 +26,11 @@ namespace q5id.guardian.Models
         {
             return new
             {
-                createdon = CreatedOn,
-                modifiedon = ModifiedOn,
-                createdby = CreatedBy,
+                CreatedOn = CreatedOn,
+                ModifiedOn = ModifiedOn,
+                CreatedBy = CreatedBy,
                 AlertFeedId = AlertFeedId,
-                alertid = AlertId,
+                AlertId = AlertId,
                 VolunteerName = VolunteerName,
                 Comment = Comment,
                 Timestamp = Timestamp,

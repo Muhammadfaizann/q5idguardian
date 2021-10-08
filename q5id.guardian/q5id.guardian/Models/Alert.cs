@@ -53,10 +53,10 @@ namespace q5id.guardian.Models
         {
             return new
             {
-                createdon = CreatedOn,
-                modifiedon = ModifiedOn,
-                createdby = CreatedBy,
-                profileid = ProfileId,
+                CreatedOn = CreatedOn,
+                ModifiedOn = ModifiedOn,
+                CreatedBy = CreatedBy,
+                ProfileId = ProfileId,
                 AlertId = AlertId,
                 FirstName = FirstName,
                 Description = Description,

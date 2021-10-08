@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace q5id.guardian.ViewModels
 {
-    public class ProfileViewModel : BaseViewModel
+    public class ProfileViewModel : BaseViewModel<User, User>
     {
         public string TitlePage
         {
@@ -27,10 +27,9 @@ namespace q5id.guardian.ViewModels
         {
             if (User != null)
             {
-                NickName = User.NickName;
+                Email = User.Email;
                 FirstName = User.FirstName;
-                LastName = User.LastName;
-                BirthDay = DateTime.Parse(User.BirthDate);
+                LastName = User.LastName;;
                 Image = User.ImageUrl;
             }
             else
@@ -50,13 +49,13 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private string mNickName = null;
-        public string NickName
+        private string mEmail = null;
+        public string Email
         {
-            get => mNickName;
+            get => mEmail;
             set
             {
-                mNickName = value;
+                mEmail = value;
             }
         }
 
@@ -115,16 +114,6 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private DateTime? mBirthDay = null;
-        public DateTime? BirthDay
-        {
-            get => mBirthDay;
-            set
-            {
-                mBirthDay = value;
-            }
-        }
-
         public Command CreateUpdateCommand
         {
             get
@@ -157,7 +146,7 @@ namespace q5id.guardian.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await ClosePage();
+                    await NavigationService.Close(this, User);
                 });
             }
         }
@@ -168,38 +157,37 @@ namespace q5id.guardian.ViewModels
 
         private void OnResetData(object obj)
         {
-            this.NickName = "";
+            this.Email = "";
             this.FirstName = "";
             this.LastName = "";
-            this.BirthDay = null;
             this.ProfileImage = null;
             this.Image = "";
         }
 
-        private StructureEntity ContactEntity = null;
+        private StructureEntity UserEntity = null;
         private bool isInitData = false;
 
         public override async Task Initialize()
         {
-            GetContactEntity();
+            GetUserEntity();
             await Task.CompletedTask;
         }
 
-        private void GetContactEntity()
+        private void GetUserEntity()
         {
             var settings = Utils.Utils.GetSettings();
             if (settings != null)
             {
-                ContactEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
+                UserEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
                 {
-                    return entity.EntityName == Utils.Constansts.CONTACT_ENTITY_SETTING_KEY;
+                    return entity.EntityName == Utils.Constansts.USER_ENTITY_SETTING_KEY;
                 });
             }
         }
 
         private async void CreateUpdateUser()
         {
-            if(ContactEntity == null)
+            if(UserEntity == null)
             {
                 return;
             }
@@ -208,57 +196,57 @@ namespace q5id.guardian.ViewModels
             var userToPost = new User()
             {
                 Id = User != null ? User.Id : null,
-                ContactId = User != null ? User.ContactId : System.Guid.NewGuid().ToString(),
-                NickName = NickName,
+                UserId = User != null ? User.UserId : System.Guid.NewGuid().ToString(),
+                Email = Email,
                 FirstName = FirstName,
                 LastName = LastName,
                 FullName = FullName,
-                BirthDate = GetStrDateOfBirth(),
                 CreatedOn = User != null ? User.CreatedOn : DateTime.UtcNow.ToString(),
                 ModifiedOn = User != null ? DateTime.UtcNow.ToString() : "",
                 ImageUrl = User != null ? User.ImageUrl : "",
             };
             if (ProfileImage != null)
             {
-                var responseUploadImageOne = await AppApiManager.Instances.UploadImage(ContactEntity.Id, ProfileImage);
+                var responseUploadImageOne = await AppApiManager.Instances.UploadImage(UserEntity.Id, ProfileImage);
                 if (responseUploadImageOne.IsSuccess)
                 {
                     userToPost.ImageUrl = responseUploadImageOne.ResponseObject.Result;
                 }
             }
 
-            ApiResponse<AppServiceResponse<EntityResponse<User>>> response;
+            ApiResponse<AppServiceResponse<Entity<User>>> response;
             if (User != null)
             {
                 //Update flow
-                response = await AppApiManager.Instances.UpdateUser(ContactEntity.Id, userToPost);
+                response = await AppApiManager.Instances.UpdateUser(UserEntity.Id, userToPost);
             }
             else
             {
                 //Create flow
-                response = await AppApiManager.Instances.CreateUser(ContactEntity.Id, userToPost);
+                response = await AppApiManager.Instances.CreateUser(UserEntity.Id, userToPost);
             }
             IsLoading = false;
             if (response.IsSuccess && response.ResponseObject != null)
             {
                 Image = userToPost.ImageUrl;
                 ProfileImage = null;
+                
                 await App.Current.MainPage.DisplayAlert("Updated Successfully", "", "OK");
                 if(User == null)
                 {
-                    await NavigationService.Close(this);
+                    await NavigationService.Close(this, User);
+                }
+                else
+                {
+                    User = userToPost;
                 }
             }
             
         }
 
-        private string GetStrDateOfBirth()
+        public override void Prepare(User parameter)
         {
-            if (BirthDay != null)
-            {
-                return BirthDay.Value.ToString(Utils.Constansts.BIRTHDAY_DATE_FORMAT);
-            }
-            return "";
+            User = parameter;
         }
     }
 }

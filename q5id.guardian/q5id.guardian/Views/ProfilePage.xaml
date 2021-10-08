@@ -110,7 +110,7 @@
                                     HorizontalOptions="Fill"
                                     LineBreakMode="WordWrap"
                                     HorizontalTextAlignment="Start"
-                                    Text="Nick Name"
+                                    Text="Email"
                                     TextColor="{StaticResource normalCharcoal}"
                                     Style="{StaticResource lbBodyBoldMd}">
                             
@@ -124,7 +124,8 @@
                                         HeightRequest="32"
                                         NoramlBorderColor="#E8EAF2"
                                         Placeholder=""
-                                        Text="{Binding NickName}"
+                                        Text="{Binding Email}"
+                                        Keyboard="Email"
                                         PlaceholderColor="{StaticResource lightCharcoal}"
                                         Style="{StaticResource etBodyNormalLg}"
                                         TextColor="{StaticResource normalCharcoal}" />
@@ -174,31 +175,6 @@
                                         PlaceholderColor="{StaticResource lightCharcoal}"
                                         Style="{StaticResource etBodyNormalLg}"
                                         TextColor="{StaticResource normalCharcoal}" />
-                                <Label
-                                    Margin="0,10,0,5"
-                                    HorizontalOptions="Fill"
-                                    LineBreakMode="WordWrap"
-                                    HorizontalTextAlignment="Start"
-                                    Text="Date of Birth:"
-                                    TextColor="{StaticResource normalCharcoal}"
-                                    Style="{StaticResource lbBodyBoldMd}">
-                            
-                                </Label>
-                                <control:AppDatePicker
-                                    Padding="10"
-                                    BorderThickness="2"
-                                    FocusBorderColor="#696B7A"
-                                    FontAttributes="Italic"
-                                    FontFamily="PoppinsItalic"
-                                    HeightRequest="32"
-                                    NoramlBorderColor="#E8EAF2"
-                                    Placeholder=""
-                                    NullableDate="{Binding BirthDay}"
-                                    Style="{StaticResource etBodyNormalLg}"
-                                    TextColor="{StaticResource normalCharcoal}"
-                                    Format="MM/dd/yyyy"
-                                    />
-                                
                             </StackLayout>
                         </Frame>
                         <StackLayout Orientation="Horizontal"

@@ -31,13 +31,13 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        public StructureEntity ContactEntity { get; private set; }
+        public StructureEntity UserEntity { get; private set; }
 
         public LoginViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
             LoginCommand = new Command(OnLoginClicked);
             SignUpCommand = new Command(OnSignUpClicked);
-            GetAccountEntity();
+            GetUserEntity();
         }
 
         private async void OnSignUpClicked(object obj)
@@ -58,29 +58,29 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private void GetAccountEntity()
+        private void GetUserEntity()
         {
             var settings = Utils.Utils.GetSettings();
             if (settings != null)
             {
-                ContactEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
+                UserEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
                 {
-                    return entity.EntityName == Utils.Constansts.CONTACT_ENTITY_SETTING_KEY;
+                    return entity.EntityName == Utils.Constansts.USER_ENTITY_SETTING_KEY;
                 });
             }
         }
 
         private async Task<User> GetUser()
         {
-            if(mUserName != "" && ContactEntity != null)
+            if(mUserName != "" && UserEntity != null)
             {
                 IsLoading = true;
-                var currentUserResponse = await AppApiManager.Instances.GetUsers(ContactEntity.Id, mUserName);
+                var currentUserResponse = await AppApiManager.Instances.GetUsers(UserEntity.Id, mUserName);
                 if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject.Value.Count > 0)
                 {
                     var validUser = currentUserResponse.ResponseObject.Value.Find((User user) =>
                     {
-                        return user.NickName == mUserName;
+                        return user.Email == mUserName;
                     });
                     if(validUser != null)
                     {

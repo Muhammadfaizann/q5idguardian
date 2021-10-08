@@ -8,11 +8,11 @@ namespace q5id.guardian.Models
     {
         [JsonProperty("id")]
         public string Id { get; set; }
-        [JsonProperty("createdon")]
+        [JsonProperty("CreatedOn")]
         public string CreatedOn { get; set; }
-        [JsonProperty("modifiedon")]
+        [JsonProperty("ModifiedOn")]
         public string ModifiedOn { get; set; }
-        [JsonProperty("createdby")]
+        [JsonProperty("CreatedBy")]
         public string CreatedBy { get; set; }
 
         public DateTime? AddedTime

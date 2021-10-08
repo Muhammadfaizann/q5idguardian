@@ -10,10 +10,12 @@
                           Padding="0"
                           HasShadow="False"
                           Style="{StaticResource frmButton}">
-            <Label HorizontalOptions="Center"
+                <Label HorizontalOptions="Center"
                    x:Name="labelContent"
+                   IsEnabled="False"
                    Style="{StaticResource lbButton}"
                    VerticalOptions="Center"/>
-        </control:AppFrame>
+            </control:AppFrame>
+        
     </ContentView.Content>
 </ContentView>

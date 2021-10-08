@@ -29,7 +29,7 @@ namespace q5id.guardian.Services
             }
         }
 
-        private const string ApiBaseAddress = "https://q5idtest.site.work/api/GooglePlaces/";
+        private const string ApiBaseAddress = "https://q5idtest.site.work";
         private HttpClient CreateClient()
         {
             var httpClient = new HttpClient
@@ -54,7 +54,7 @@ namespace q5id.guardian.Services
 
             using (var httpClient = CreateClient())
             {
-                var response = await httpClient.GetAsync($"/autocomplete?address={Uri.EscapeUriString(text)}").ConfigureAwait(false);
+                var response = await httpClient.GetAsync($"/api/GooglePlaces/autocomplete?address={Uri.EscapeUriString(text)}").ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -76,7 +76,7 @@ namespace q5id.guardian.Services
             GooglePlace result = null;
             using (var httpClient = CreateClient())
             {
-                var response = await httpClient.GetAsync($"/details?placeid={Uri.EscapeUriString(placeId)}").ConfigureAwait(false);
+                var response = await httpClient.GetAsync($"/api/GooglePlaces/details?placeid={Uri.EscapeUriString(placeId)}").ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);

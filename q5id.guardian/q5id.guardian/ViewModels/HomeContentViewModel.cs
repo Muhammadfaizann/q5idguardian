@@ -26,7 +26,8 @@ namespace q5id.guardian.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await NavigationService.Navigate<IAPViewModel, User>(mUser);
+                    var result = await NavigationService.Navigate<IAPViewModel, User, User>(mUser);
+                    User = result;
                 });
             }
         }

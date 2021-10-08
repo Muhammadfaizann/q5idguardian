@@ -214,7 +214,7 @@ namespace q5id.guardian.Controls
         }
 
         public static BindableProperty ButtonTitleSizeProperty =
-            BindableProperty.Create(nameof(ButtonTitleSize), typeof(double), typeof(AppButton), Label.FontSizeProperty.DefaultValue);
+            BindableProperty.Create(nameof(ButtonTitleSize), typeof(double), typeof(AppButton), 14D);
 
         public double ButtonTitleSize
         {

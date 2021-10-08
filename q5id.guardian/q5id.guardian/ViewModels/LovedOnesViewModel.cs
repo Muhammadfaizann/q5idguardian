@@ -512,7 +512,7 @@ namespace q5id.guardian.ViewModels
                 IsLoading = true;
                 if (LovedOnesEntity != null)
                 {
-                    var response = await AppApiManager.Instances.GetListLovedOnes(LovedOnesEntity.Id, User.ContactId);
+                    var response = await AppApiManager.Instances.GetListLovedOnes(LovedOnesEntity.Id, User.UserId);
                     if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Value != null)
                     {
                         Loves = response.ResponseObject.Value;
@@ -536,7 +536,7 @@ namespace q5id.guardian.ViewModels
                 var lovedOnesToPost = new Love()
                 {
                     Id = lovedOnesToUpdate != null ? lovedOnesToUpdate.PrimaryId : null,
-                    ContactId = lovedOnesToUpdate != null ? lovedOnesToUpdate.ContactId : User.ContactId,
+                    UserId = lovedOnesToUpdate != null ? lovedOnesToUpdate.UserId : User.UserId,
                     CreatedBy = lovedOnesToUpdate != null ? lovedOnesToUpdate.CreatedBy : User.Id,
                     FirstName = FirstName,
                     LastName = LastName,
@@ -599,7 +599,7 @@ namespace q5id.guardian.ViewModels
                         }
                     }
                 }
-                ApiResponse<AppServiceResponse<EntityResponse<Love>>> response;
+                ApiResponse<AppServiceResponse<Entity<Love>>> response;
                 if(lovedOnesToUpdate != null)
                 {
                     //Update flow

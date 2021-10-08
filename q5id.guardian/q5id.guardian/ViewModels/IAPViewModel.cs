@@ -13,11 +13,11 @@ using q5id.guardian.ViewModels.ItemViewModels;
 
 namespace q5id.guardian.ViewModels
 {
-    public class IAPViewModel : BaseViewModel<User>
+    public class IAPViewModel : BaseViewModel<User, User>
     {
         public IAPViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
-            GetContactEntity();
+            GetUserEntity();
         }
 
         private bool mIsSuccessPurchase = false;
@@ -43,6 +43,11 @@ namespace q5id.guardian.ViewModels
         public override void Prepare(User parameter)
         {
             User = parameter;
+        }
+
+        protected override async Task ClosePage()
+        {
+            await NavigationService.Close(this, User);
         }
 
         private List<object> mProducts;
@@ -173,35 +178,35 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private StructureEntity ContactEntity = null;
-        private void GetContactEntity()
+        private StructureEntity UserEntity = null;
+        private void GetUserEntity()
         {
             var settings = Utils.Utils.GetSettings();
             if (settings != null)
             {
-                ContactEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
+                UserEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
                 {
-                    return entity.EntityName == Utils.Constansts.CONTACT_ENTITY_SETTING_KEY;
+                    return entity.EntityName == Utils.Constansts.USER_ENTITY_SETTING_KEY;
                 });
             }
         }
 
         private async Task UpdateUserSubscription(string subscritionId)
         {
-            if (ContactEntity == null)
+            if (UserEntity == null)
             {
                 return;
             }
             IsLoading = true;
 
             var userToPost = User;
-            userToPost.SubscriptionId = subscritionId;
             userToPost.SubscriptionExpiredDate = DateTime.UtcNow.AddDays(30).ToString();
-            ApiResponse<AppServiceResponse<EntityResponse<User>>> response;
-            response = await AppApiManager.Instances.UpdateUser(ContactEntity.Id, userToPost);
+            ApiResponse<AppServiceResponse<Entity<User>>> response;
+            response = await AppApiManager.Instances.UpdateUser(UserEntity.Id, userToPost);
             IsLoading = false;
             if (response.IsSuccess && response.ResponseObject != null)
             {
+                User = response.ResponseObject.Result.Data;
                 IsSuccessPurchase = true;
             }
 
