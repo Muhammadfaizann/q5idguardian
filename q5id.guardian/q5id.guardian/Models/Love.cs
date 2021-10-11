@@ -5,41 +5,41 @@ namespace q5id.guardian.Models
 {
     public class Love : BaseEntity
     {
-        [JsonProperty("Id")]
+        [JsonProperty("id")]
         public string PrimaryId { get; set; }
-        [JsonProperty("ProfileId")]
+        [JsonProperty("profileId")]
         public string ProfileId { get; set; }
-        [JsonProperty("ContactId")]
+        [JsonProperty("contactId")]
         public string ContactId { get; set; }
-        [JsonProperty("UserId")]
+        [JsonProperty("userId")]
         public string UserId { get; set; }
-        [JsonProperty("FirstName")]
+        [JsonProperty("firstName")]
         public string FirstName { get; set; }
-        [JsonProperty("LastName")]
+        [JsonProperty("lastName")]
         public string LastName { get; set; }
-        [JsonProperty("DateofBirth")]
+        [JsonProperty("dateofBirth")]
         public string DateofBirth { get; set; }
-        [JsonProperty("HairColor")]
+        [JsonProperty("hairColor")]
         public string HairColor { get; set; }
-        [JsonProperty("EyeColor")]
+        [JsonProperty("eyeColor")]
         public string EyeColor { get; set; }
-        [JsonProperty("Weight")]
+        [JsonProperty("weight")]
         public string Weight { get; set; }
-        [JsonProperty("HeightFeet")]
+        [JsonProperty("heightFeet")]
         public string HeightFeet { get; set; }
-        [JsonProperty("HeightInches")]
+        [JsonProperty("heightInches")]
         public string HeightInches { get; set; }
-        [JsonProperty("OtherInformation")]
+        [JsonProperty("otherInformation")]
         public string OtherInformation { get; set; }
-        [JsonProperty("Image")]
+        [JsonProperty("image")]
         public string Image { get; set; }
-        [JsonProperty("Image2")]
+        [JsonProperty("image2")]
         public string Image2 { get; set; }
-        [JsonProperty("Image3")]
+        [JsonProperty("image3")]
         public string Image3 { get; set; }
-        [JsonProperty("Image4")]
+        [JsonProperty("image4")]
         public string Image4 { get; set; }
-        [JsonProperty("Image5")]
+        [JsonProperty("image5")]
         public string Image5 { get; set; }
 
         public Love()

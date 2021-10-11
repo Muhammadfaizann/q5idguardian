@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using Xamarin.Essentials;
@@ -26,6 +27,8 @@ namespace q5id.guardian.Models
         public string Address { get; set; }
         [JsonProperty("IsClosed")]
         public string IsClosed { get; set; }
+        [JsonProperty("alertFeeds")]
+        public List<Feed> AlertFeeds { get; set; }
 
         [JsonIgnore]
         public string DistanceFromUser { get; set; }

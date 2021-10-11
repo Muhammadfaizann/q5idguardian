@@ -255,18 +255,13 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        private List<LoveItemViewModel> mMyLoves = null;
         public List<LoveItemViewModel> MyLoves
         {
-            get
+            get => mMyLoves;
+            set
             {
-                if(Loves != null)
-                {
-                    return Loves.Where((LoveItemViewModel item) =>
-                    {
-                        return item.Model.UserId == User.UserId;
-                    }).ToList();
-                }
-                return new List<LoveItemViewModel>();
+                mMyLoves = value;
             }
         }
 
@@ -281,7 +276,8 @@ namespace q5id.guardian.ViewModels
             GetLovedOnesEntity();
             GetAlertEntity();
             GetFeedEntity();
-            await GetLoves();
+            GetMyLoves();
+            GetLoves();
             await Task.CompletedTask;
         }
 
@@ -321,15 +317,15 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        public async Task GetLoves()
+        public async void GetLoves()
         {
             IsLoading = true;
             if (LovedOnesEntity != null)
             {
                 var response = await AppApiManager.Instances.GetListLovedOnes(LovedOnesEntity.Id, null);
-                if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Value != null)
+                if (response.IsSuccess && response.ResponseObject != null)
                 {
-                    Loves = response.ResponseObject.Value.Select((Love love) =>
+                    Loves = response.ResponseObject.Select((Love love) =>
                     {
                         return new LoveItemViewModel(love)
                         {
@@ -342,6 +338,27 @@ namespace q5id.guardian.ViewModels
                 }
             }
             IsLoading = false;
+        }
+
+        public async void GetMyLoves()
+        {
+            if (LovedOnesEntity != null)
+            {
+                var response = await AppApiManager.Instances.GetListLovedOnes(LovedOnesEntity.Id, User.UserId);
+                if (response.IsSuccess && response.ResponseObject != null)
+                {
+                    MyLoves = response.ResponseObject.Select((Love love) =>
+                    {
+                        return new LoveItemViewModel(love)
+                        {
+                            OnItemClicked = () =>
+                            {
+                                CreatingLove = love;
+                            }
+                        };
+                    }).ToList();
+                }
+            }
         }
 
         public Command ResetCommand
@@ -577,25 +594,28 @@ namespace q5id.guardian.ViewModels
             IsLoading = true;
             if (FeedEntity != null && mAlertDetail != null)
             {
-                
-                var response = await AppApiManager.Instances.GetFeeds(FeedEntity.Id, mAlertDetail.AlertId);
-                if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Value != null)
+                var response = await AppApiManager.Instances.GetAlertDetail(mAlertDetail.AlertId);
+                if(response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Count > 0)
                 {
-                    
-                    response.ResponseObject.Value.ForEach((Feed feed) =>
+                    var alert = response.ResponseObject.First();
+                    if(alert.AlertFeeds != null)
                     {
-                        var item = new FeedItemViewModel(feed)
+                        alert.AlertFeeds.ForEach((Feed feed) =>
                         {
-                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyX16xukQ-ZF5Obira-CMZqamIbFPfaMeB557mzjZjsbZ3h97l3LlXihU5VGiDtegDvo0",
-                            Name = feed.CreatedBy == User.Id ? "You" : feed.VolunteerName,
-                            Action = " "+feed.Action,
-                            UpdatedTime = feed.AddedTime != null ? feed.AddedTime.Value.ToString("MM/dd/yyyy HH:mm") : "",
-                            IsParent = false,
-                            Detail = feed.Comment != "" && feed.Comment != null ? $"“{feed.Comment}”" : null,
-                        };
-                        result.Add(item);
-                    });
+                            var item = new FeedItemViewModel(feed)
+                            {
+                                ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyX16xukQ-ZF5Obira-CMZqamIbFPfaMeB557mzjZjsbZ3h97l3LlXihU5VGiDtegDvo0",
+                                Name = feed.CreatedBy == User.Id ? "You" : feed.VolunteerName,
+                                Action = " " + feed.Action,
+                                UpdatedTime = feed.AddedTime != null ? feed.AddedTime.Value.ToString("MM/dd/yyyy HH:mm") : "",
+                                IsParent = false,
+                                Detail = feed.Comment != "" && feed.Comment != null ? $"“{feed.Comment}”" : null,
+                            };
+                            result.Add(item);
+                        });
+                    }
                 }
+                
                 result.Reverse();
                 result.Add(new FeedItemViewModel(new Feed())
                 {
@@ -622,9 +642,9 @@ namespace q5id.guardian.ViewModels
             if (AlertEntity != null)
             {
                 var response = await AppApiManager.Instances.GetListAlert(AlertEntity.Id);
-                if (response.IsSuccess && response.ResponseObject.Value != null)
+                if (response.IsSuccess && response.ResponseObject != null)
                 {
-                    listAlertItem = response.ResponseObject.Value.Select((Alert alert) =>
+                    listAlertItem = response.ResponseObject.Select((Alert alert) =>
                     {
                         AlertItemViewModel item = new AlertItemViewModel(alert)
                         {

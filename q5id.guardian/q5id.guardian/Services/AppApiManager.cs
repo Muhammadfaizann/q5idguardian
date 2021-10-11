@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Fusillade;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Plugin.Connectivity;
 using Plugin.Connectivity.Abstractions;
 using Polly;
@@ -23,11 +24,13 @@ namespace q5id.guardian.Services
         public bool IsConnected { get; set; }
         public bool IsReachable { get; set; }
         IApiService<IGuardianApi> guardianApi;
+        IApiService<IQ5idApi> q5idApi;
         Dictionary<int, CancellationTokenSource> runningTasks = new Dictionary<int, CancellationTokenSource>();
         public static string SUBSCRIPTION_KEY = "Ocp-Apim-Subscription-Key";
         private static string INSTANCES_ID = "df5fc5c2-990a-4c1b-b8cd-fe4301312e2e";
         private static string DATAVAULT_ID = "746cd9c1-3ca3-419e-b100-f16ba8aead57";
         private static string GUARDIAN_BASE_URL = "https://gw.skypointcloud.com";
+        private static string Q5ID_BASE_URL = "https://q5idtest.site.work/api";
 
 
         public AppApiManager(string guardianBaseUrl)
@@ -37,6 +40,7 @@ namespace q5id.guardian.Services
             {
                 { SUBSCRIPTION_KEY, GetSubScriptionKey() }
             });
+            q5idApi = new ApiService<IQ5idApi>(Q5ID_BASE_URL);
             _connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
 
@@ -80,13 +84,12 @@ namespace q5id.guardian.Services
             return Preferences.Get(SUBSCRIPTION_KEY, "");
         }
 
-        public async Task<ApiResponse<AppServiceResponse<List<Choice>>>> GetChoices()
+        public async Task<ApiResponse<List<Choice>>> GetChoices()
         {
             var cts = new CancellationTokenSource();
-            var task = RemoteRequestAsync<AppServiceResponse<List<Choice>>>(guardianApi.GetApi(Priority.UserInitiated).GetChoices( INSTANCES_ID, DATAVAULT_ID, cts.Token));
-            runningTasks.Add(task.Id, cts);
-
-            return await task;
+            var taskGetChoices = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).GetChoices(cts.Token));
+            runningTasks.Add(taskGetChoices.Id, cts);
+            return await taskGetChoices;
         }
 
         public async Task<ApiResponse<AppServiceResponse<List<Structure>>>> GetSettings()
@@ -140,63 +143,124 @@ namespace q5id.guardian.Services
 
         public async Task<ApiResponse<AppServiceResponse<Entity<Love>>>> CreateLovedOnes(string entityId, Love love)
         {
-            return await CreateEntity(entityId, love);
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).CreateLovedOne(love.GetParam(), cts.Token));
+            runningTasks.Add(task.Id, cts);
+            var response = await task;
+
+            var fakeResponse = new ApiResponse<AppServiceResponse<Entity<Love>>>();
+            fakeResponse.IsSuccess = false;
+            fakeResponse.Message = "";
+            fakeResponse.ResponseObject = null;
+            fakeResponse.ResponseStatusCode = 200;
+            return fakeResponse;
         }
 
         public async Task<ApiResponse<AppServiceResponse<Entity<Love>>>> UpdateLovedOnes(string entityId, Love love)
         {
-            return await UpdateEntity(entityId, love, love.ProfileId);
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).UpdateLovedOne(love.GetParam(), cts.Token));
+            runningTasks.Add(task.Id, cts);
+            var response = await task;
+
+            var fakeResponse = new ApiResponse<AppServiceResponse<Entity<Love>>>();
+            fakeResponse.IsSuccess = false;
+            fakeResponse.Message = "";
+            fakeResponse.ResponseObject = null;
+            fakeResponse.ResponseStatusCode = 200;
+            return fakeResponse;
         }
 
         public async Task<ApiResponse<EntityResponse<Love>>> DeleteLovedOnes(string entityId, string lovedonesId)
         {
             var cts = new CancellationTokenSource();
-            var task = RemoteRequestAsync<EntityResponse<Love>>(guardianApi.GetApi(Priority.UserInitiated).DeleteEntity<Love>(INSTANCES_ID, entityId, lovedonesId, cts.Token));
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).DeleteLovedOne(lovedonesId, cts.Token));
             runningTasks.Add(task.Id, cts);
-            return await task;
+            var response = await task;
+
+            var fakeResponse = new ApiResponse<EntityResponse<Love>>();
+            fakeResponse.IsSuccess = false;
+            fakeResponse.Message = "";
+            fakeResponse.ResponseObject = null;
+            fakeResponse.ResponseStatusCode = 200;
+            return fakeResponse;
         }
 
-        public async Task<ApiResponse<EntityListResponse<Love>>> GetListLovedOnes(string entityId, string userId)
+        public async Task<ApiResponse<List<Love>>> GetListLovedOnes(string entityId, string userId)
         {
             var cts = new CancellationTokenSource();
-            string filter = userId != null ? $"UserId eq '{userId}'" : null;
-            var task = RemoteRequestAsync<EntityListResponse<Love>>(guardianApi.GetApi(Priority.UserInitiated).GetEntities<Love>(INSTANCES_ID, entityId, filter, cts.Token));
+            Task<ApiResponse<List<Love>>> task = null;
+            if(userId != null)
+            {
+                task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).GetUserLovedOnes(userId, cts.Token));
+            }
+            else
+            {
+                task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).GetAllLovedOnes(cts.Token));
+            }
             runningTasks.Add(task.Id, cts);
             return await task;
         }
 
         public async Task<ApiResponse<AppServiceResponse<Entity<Alert>>>> CreateAlert(string entityId, Alert alert)
         {
-            return await CreateEntity(entityId, alert);
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).CreateAlert(alert.GetParam(), cts.Token));
+            runningTasks.Add(task.Id, cts);
+            var response = await task;
+
+            var fakeResponse = new ApiResponse<AppServiceResponse<Entity<Alert>>>();
+            fakeResponse.IsSuccess = false;
+            fakeResponse.Message = "";
+            fakeResponse.ResponseObject = null;
+            fakeResponse.ResponseStatusCode = 200;
+            return fakeResponse;
         }
 
         public async Task<ApiResponse<AppServiceResponse<Entity<Alert>>>> UpdateAlert(string entityId, Alert alert)
         {
-            return await UpdateEntity(entityId, alert, alert.AlertId);
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).UpdateAlert(alert.GetParam(), cts.Token));
+            runningTasks.Add(task.Id, cts);
+            var response = await task;
+
+            var fakeResponse = new ApiResponse<AppServiceResponse<Entity<Alert>>>();
+            fakeResponse.IsSuccess = false;
+            fakeResponse.Message = "";
+            fakeResponse.ResponseObject = null;
+            fakeResponse.ResponseStatusCode = 200;
+            return fakeResponse;
         }
 
-        public async Task<ApiResponse<EntityListResponse<Alert>>> GetListAlert(string entityId)
+        public async Task<ApiResponse<List<Alert>>> GetListAlert(string entityId)
         {
             var cts = new CancellationTokenSource();
-            var task = RemoteRequestAsync<EntityListResponse<Alert>>(guardianApi.GetApi(Priority.UserInitiated).GetEntities<Alert>(INSTANCES_ID, entityId, null, cts.Token));
+            var task = RemoteRequestAsync<List<Alert>>(q5idApi.GetApi(Priority.UserInitiated).GetAllAlerts(cts.Token));
+            runningTasks.Add(task.Id, cts);
+            return await task;
+        }
+
+        public async Task<ApiResponse<List<Alert>>> GetAlertDetail(string alertId)
+        {
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync<List<Alert>>(q5idApi.GetApi(Priority.UserInitiated).GetAlertDetail(alertId, cts.Token));
             runningTasks.Add(task.Id, cts);
             return await task;
         }
 
 
-        public async Task<ApiResponse<EntityListResponse<User>>> GetUsers(string entityId, string accountName)
+        public async Task<ApiResponse<List<User>>> GetUsers(string entityId, string email)
         {
             var cts = new CancellationTokenSource();
-            string filter = accountName != null ? $"Email eq '{accountName}'" : null;
-            var task = RemoteRequestAsync<EntityListResponse<User>>(guardianApi.GetApi(Priority.UserInitiated).GetEntities<User>(INSTANCES_ID, entityId, filter, cts.Token));
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).GetUserByEmail(email, cts.Token));
             runningTasks.Add(task.Id, cts);
             return await task;
         }
 
-        public async Task<ApiResponse<AppServiceResponse<Entity<User>>>> GetUserProfile(string entityId, string userId)
+        public async Task<ApiResponse<List<User>>> GetUserProfile(string entityId, string userId)
         {
             var cts = new CancellationTokenSource();
-            var task = RemoteRequestAsync<AppServiceResponse<Entity<User>>>(guardianApi.GetApi(Priority.UserInitiated).GetEntityDetail<User>(INSTANCES_ID, entityId, userId, cts.Token));
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).GetUserDetail(userId, cts.Token));
             runningTasks.Add(task.Id, cts);
             return await task;
         }

@@ -76,9 +76,9 @@ namespace q5id.guardian.ViewModels
             {
                 IsLoading = true;
                 var currentUserResponse = await AppApiManager.Instances.GetUsers(UserEntity.Id, mUserName);
-                if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject.Value.Count > 0)
+                if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject.Count > 0)
                 {
-                    var validUser = currentUserResponse.ResponseObject.Value.Find((User user) =>
+                    var validUser = currentUserResponse.ResponseObject.Find((User user) =>
                     {
                         return user.Email == mUserName;
                     });

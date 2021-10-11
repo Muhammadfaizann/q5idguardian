@@ -442,9 +442,9 @@ namespace q5id.guardian.ViewModels
         private async void GetChoices()
         {
             var response = await AppApiManager.Instances.GetChoices();
-            if (response.IsSuccess && response.ResponseObject?.Result != null)
+            if (response.IsSuccess && response.ResponseObject != null)
             {
-                List<Choice> choices = response.ResponseObject.Result;
+                List<Choice> choices = response.ResponseObject;
                 Choice hairColorChoice = choices.Find((Choice obj) =>
                 {
                     return obj.Name == Utils.Constansts.HAIR_COLORS_SETTING_KEY;
@@ -513,9 +513,9 @@ namespace q5id.guardian.ViewModels
                 if (LovedOnesEntity != null)
                 {
                     var response = await AppApiManager.Instances.GetListLovedOnes(LovedOnesEntity.Id, User.UserId);
-                    if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Value != null)
+                    if (response.IsSuccess && response.ResponseObject != null)
                     {
-                        Loves = response.ResponseObject.Value;
+                        Loves = response.ResponseObject;
                     }
                 }
                 IsLoading = false;

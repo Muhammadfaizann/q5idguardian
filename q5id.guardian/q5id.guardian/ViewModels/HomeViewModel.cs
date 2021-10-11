@@ -100,12 +100,9 @@ namespace q5id.guardian.ViewModels
             if(UserEntity != null && User != null)
             {
                 var currentUserResponse = await AppApiManager.Instances.GetUserProfile(UserEntity.Id, User.UserId);
-                if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject?.Result != null)
+                if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null && currentUserResponse.ResponseObject.Count > 0)
                 {
-                    var entityUser = currentUserResponse.ResponseObject.Result;
-                    var user = entityUser.Data;
-                    user.Id = entityUser.Id;
-                    User = user;
+                    User = currentUserResponse.ResponseObject[0];
                 }
             }
         }
@@ -156,7 +153,8 @@ namespace q5id.guardian.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await AlertsVm.GetLoves();
+                    AlertsVm.GetLoves();
+                    AlertsVm.GetMyLoves();
                     AlertsVm.GetAlerts();
                 });
             }
