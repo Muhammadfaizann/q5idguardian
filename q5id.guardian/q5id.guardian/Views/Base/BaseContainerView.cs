@@ -7,8 +7,8 @@ namespace q5id.guardian.Views.Base
     public abstract class BaseContainerView : ContentView
     {
         public HomePage MainPage;
-        private List<BaseChildContentView> StackViews { get; set; }
-        private BaseChildContentView CurrentView;
+        protected List<BaseChildContentView> StackViews { get; set; }
+        protected BaseChildContentView CurrentView;
 
         public BaseContainerView(HomePage homePage)
         {
