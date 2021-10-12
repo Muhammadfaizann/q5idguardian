@@ -14,7 +14,7 @@ namespace q5id.guardian.Services.Bases
         Task<List<Choice>> GetChoices(CancellationToken cancellationToken);
 
         [Post("/Profile")]
-        Task<JObject> CreateLovedOne([Body] Object body, CancellationToken cancellationToken);
+        Task<AppServiceResponse<Entity<Love>>> CreateLovedOne([Body] Object body, CancellationToken cancellationToken);
 
         [Put("/Profile")]
         Task<JObject> UpdateLovedOne([Body] Object body, CancellationToken cancellationToken);
