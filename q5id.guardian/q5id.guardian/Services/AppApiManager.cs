@@ -238,16 +238,16 @@ namespace q5id.guardian.Services
                 return data;
             }
 
-            IsReachable = await _connectivity.IsRemoteReachable(GUARDIAN_BASE_URL);
+            //IsReachable = await _connectivity.IsRemoteReachable(GUARDIAN_BASE_URL);
 
-            if (!IsReachable)
-            {
-                var strngResponse = "There's not an internet connection";
-                data.ResponseStatusCode = (int)HttpStatusCode.BadRequest;
-                data.ResponseObject = default(T);
-                data.Message = strngResponse;
-                return data;
-            }
+            //if (!IsReachable)
+            //{
+            //    var strngResponse = "There's not an internet connection";
+            //    data.ResponseStatusCode = (int)HttpStatusCode.BadRequest;
+            //    data.ResponseObject = default(T);
+            //    data.Message = strngResponse;
+            //    return data;
+            //}
 
             data = await Policy
             .Handle<WebException>()

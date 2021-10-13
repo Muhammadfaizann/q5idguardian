@@ -25,7 +25,7 @@ namespace q5id.guardian.Models
         [JsonProperty("Address")]
         public string Address { get; set; }
         [JsonProperty("IsClosed")]
-        public string IsClosed { get; set; }
+        public bool IsClosed { get; set; }
 
         [JsonIgnore]
         public string DistanceFromUser { get; set; }
@@ -111,7 +111,7 @@ namespace q5id.guardian.Models
         {
             get
             {
-                return this.IsClosed == Utils.Constansts.YES_KEY;
+                return this.IsClosed;
             }
         }
 

@@ -242,7 +242,6 @@ namespace q5id.guardian.ViewModels
                     User = userToPost;
                 }
             }
-            
         }
 
         public override void Prepare(User parameter)
