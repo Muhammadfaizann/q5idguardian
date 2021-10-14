@@ -190,7 +190,7 @@ namespace q5id.guardian.ViewModels
         {
             if(mAlertDetail != null && IsOwner)
             {
-                IsCanEndAlert = mAlertDetail.IsClosed != Utils.Constansts.YES_KEY;
+                IsCanEndAlert = !mAlertDetail.IsClosed;
             }
             else
             {
@@ -405,7 +405,7 @@ namespace q5id.guardian.ViewModels
                     Description = Detail,
                     Latitude = AlertPosition != null ? AlertPosition.Value.Latitude+"" : "",
                     Lognitude = AlertPosition != null ? AlertPosition.Value.Longitude + "" : "",
-                    IsClosed = Utils.Constansts.NO_KEY
+                    IsClosed = false
                 };
 
                 if (AlertPosition != null)
@@ -461,7 +461,7 @@ namespace q5id.guardian.ViewModels
             {
                 IsLoading = true;
                 var alertToPost = AlertDetail;
-                alertToPost.IsClosed = Utils.Constansts.YES_KEY;
+                alertToPost.IsClosed = true;
                 ApiResponse<AppServiceResponse<Entity<Alert>>> response = await AppApiManager.Instances.UpdateAlert(AlertEntity.Id, alertToPost);
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
@@ -674,7 +674,7 @@ namespace q5id.guardian.ViewModels
             }
             List<AlertItemViewModel> listLiveItem = listAlertItem.Where((AlertItemViewModel item) =>
             {
-                return item.Model.IsClosed != Utils.Constansts.YES_KEY;
+                return item.Model.IsClosed != true;
             }).ToList();
             var liveHeaderItem = new GroupHeaderItemViewModel()
             {
@@ -685,7 +685,7 @@ namespace q5id.guardian.ViewModels
             liveHeaderItem.IsEmptyList = listLiveItem.Count == 0;
             List<AlertItemViewModel> listHistoryItem = listAlertItem.Where((AlertItemViewModel item) =>
             {
-                return item.Model.IsClosed == Utils.Constansts.YES_KEY;
+                return item.Model.IsClosed == true;
             }).ToList();
             var historyHeaderItem = new GroupHeaderItemViewModel()
             {

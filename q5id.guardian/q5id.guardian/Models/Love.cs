@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace q5id.guardian.Models
@@ -19,17 +20,49 @@ namespace q5id.guardian.Models
         public string LastName { get; set; }
         [JsonProperty("dateofBirth")]
         public string DateofBirth { get; set; }
-        [JsonProperty("hairColor")]
-        public string HairColor { get; set; }
-        [JsonProperty("eyeColor")]
-        public string EyeColor { get; set; }
-        [JsonProperty("weight")]
+        [JsonProperty("HairColor")]
+        public string HairColorId { get; set; }
+        [JsonIgnore]
+        public string HairColorName
+        {
+            get
+            {
+                return GetChoiceNameById(Utils.Constansts.HAIR_COLORS_SETTING_KEY, HairColorId);
+            }
+        }
+        [JsonProperty("EyeColor")]
+        public string EyeColorId { get; set; }
+        [JsonIgnore]
+        public string EyeColorName
+        {
+            get
+            {
+                return GetChoiceNameById(Utils.Constansts.EYE_COLORS_SETTING_KEY, EyeColorId);
+            }
+        }
+        [JsonProperty("Weight")]
         public string Weight { get; set; }
-        [JsonProperty("heightFeet")]
-        public string HeightFeet { get; set; }
-        [JsonProperty("heightInches")]
-        public string HeightInches { get; set; }
-        [JsonProperty("otherInformation")]
+        [JsonProperty("HeightFeet")]
+        public string HeightFeetId { get; set; }
+        [JsonIgnore]
+        public string HeightFeetName
+        {
+            get
+            {
+                return GetChoiceNameById(Utils.Constansts.HEIGHT_FEETS_SETTING_KEY, HeightFeetId);
+            }
+        }
+        [JsonProperty("HeightInches")]
+        public string HeightInchesId { get; set; }
+        [JsonIgnore]
+        public string HeightInchesName
+        {
+            get
+            {
+                return GetChoiceNameById(Utils.Constansts.HEIGHT_LIST_INCHES_SETTING_KEY, HeightInchesId);
+            }
+        }
+        [JsonProperty("OtherInformation")]
         public string OtherInformation { get; set; }
         [JsonProperty("image")]
         public string Image { get; set; }
@@ -42,9 +75,43 @@ namespace q5id.guardian.Models
         [JsonProperty("image5")]
         public string Image5 { get; set; }
 
+        private static List<Choice> mChoices = null;
+        public static List<Choice> Choices
+        {
+            get
+            {
+                if(mChoices == null)
+                {
+                    mChoices = Utils.Utils.GetChoices();
+                }
+                return mChoices;
+            }
+        }
+
         public Love()
         {
            
+        }
+
+        private string GetChoiceNameById(string choiceKey, string choiceId)
+        {
+            Choice elementChoice = Choices.Find((Choice obj) =>
+            {
+                return obj.Name == choiceKey;
+            });
+            if (elementChoice != null)
+            {
+                var listChoice = elementChoice.Items;
+                var itemChoice = listChoice.Find((ItemChoice item) =>
+                {
+                    return item.Id == choiceId;
+                });
+                if(itemChoice != null)
+                {
+                    return itemChoice.Name;
+                }
+            }
+            return "";
         }
 
         public override object GetParam()
@@ -59,11 +126,11 @@ namespace q5id.guardian.Models
                 FirstName = FirstName,
                 LastName = LastName,
                 DateofBirth = DateofBirth,
-                HairColor = HairColor,
-                EyeColor = EyeColor,
+                HairColor = HairColorId,
+                EyeColor = EyeColorId,
                 Weight = Weight,
-                HeightFeet = HeightFeet,
-                HeightInches = HeightInches,
+                HeightFeet = HeightFeetId,
+                HeightInches = HeightInchesId,
                 OtherInformation = OtherInformation,
                 Image = Image,
                 Image2 = Image2,

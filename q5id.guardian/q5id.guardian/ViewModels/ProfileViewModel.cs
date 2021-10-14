@@ -204,6 +204,7 @@ namespace q5id.guardian.ViewModels
                 CreatedOn = User != null ? User.CreatedOn : DateTime.UtcNow.ToString(),
                 ModifiedOn = User != null ? DateTime.UtcNow.ToString() : "",
                 ImageUrl = User != null ? User.ImageUrl : "",
+                SubscriptionExpiredDate = User != null ? User.SubscriptionExpiredDate : null,
             };
             if (ProfileImage != null)
             {
@@ -241,7 +242,6 @@ namespace q5id.guardian.ViewModels
                     User = userToPost;
                 }
             }
-            
         }
 
         public override void Prepare(User parameter)

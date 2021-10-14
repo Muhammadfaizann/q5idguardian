@@ -82,7 +82,7 @@
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Eyes: "/>
-                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.EyeColor}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.EyeColorName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>    
                                             </Label>
@@ -96,9 +96,9 @@
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Height: "/>
-                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.HeightFeet}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.HeightFeetName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                         <Span FontSize="12" Text="’ " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.HeightInches}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.HeightInchesName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                         <Span FontSize="12" Text="”" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>    
@@ -114,7 +114,7 @@
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Hair: "/>
-                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.HairColor}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.HairColorName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>    
                                             </Label>

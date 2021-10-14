@@ -41,28 +41,28 @@ namespace q5id.guardian.ViewModels
                 {
                     HairColor = HairColors.Find((ItemChoice choice) =>
                     {
-                        return choice.Name == selectedLovedOnes.HairColor;
+                        return choice.Id == selectedLovedOnes.HairColorId;
                     });
                 }
                 if(EyeColors != null)
                 {
                     EyeColor = EyeColors.Find((ItemChoice choice) =>
                     {
-                        return choice.Name == selectedLovedOnes.EyeColor;
+                        return choice.Id == selectedLovedOnes.EyeColorId;
                     });
                 }
                 if(HeightFeets != null)
                 {
                     HeightFeet = HeightFeets.Find((ItemChoice choice) =>
                     {
-                        return choice.Name == selectedLovedOnes.HeightFeet;
+                        return choice.Id == selectedLovedOnes.HeightFeetId;
                     });
                 }
                 if(ListHeightInches != null)
                 {
                     HeightInches = ListHeightInches.Find((ItemChoice choice) =>
                     {
-                        return choice.Name == selectedLovedOnes.HeightInches;
+                        return choice.Id == selectedLovedOnes.HeightInchesId;
                     });
                 }
                 Weight = selectedLovedOnes.Weight;
@@ -439,47 +439,43 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private async void GetChoices()
+        private void GetChoices()
         {
-            var response = await AppApiManager.Instances.GetChoices();
-            if (response.IsSuccess && response.ResponseObject != null)
+            List<Choice> choices = Utils.Utils.GetChoices();
+            Choice hairColorChoice = choices.Find((Choice obj) =>
             {
-                List<Choice> choices = response.ResponseObject;
-                Choice hairColorChoice = choices.Find((Choice obj) =>
-                {
-                    return obj.Name == Utils.Constansts.HAIR_COLORS_SETTING_KEY;
-                });
-                if (hairColorChoice != null)
-                {
-                    HairColors = hairColorChoice.Items;
-                }
+                return obj.Name == Utils.Constansts.HAIR_COLORS_SETTING_KEY;
+            });
+            if (hairColorChoice != null)
+            {
+                HairColors = hairColorChoice.Items;
+            }
 
-                Choice eyeColorChoice = choices.Find((Choice obj) =>
-                {
-                    return obj.Name == Utils.Constansts.EYE_COLORS_SETTING_KEY;
-                });
-                if (eyeColorChoice != null)
-                {
-                    EyeColors = eyeColorChoice.Items;
-                }
+            Choice eyeColorChoice = choices.Find((Choice obj) =>
+            {
+                return obj.Name == Utils.Constansts.EYE_COLORS_SETTING_KEY;
+            });
+            if (eyeColorChoice != null)
+            {
+                EyeColors = eyeColorChoice.Items;
+            }
 
-                Choice heightFeetChoice = choices.Find((Choice obj) =>
-                {
-                    return obj.Name == Utils.Constansts.HEIGHT_FEETS_SETTING_KEY;
-                });
-                if (heightFeetChoice != null)
-                {
-                    HeightFeets = heightFeetChoice.Items;
-                }
+            Choice heightFeetChoice = choices.Find((Choice obj) =>
+            {
+                return obj.Name == Utils.Constansts.HEIGHT_FEETS_SETTING_KEY;
+            });
+            if (heightFeetChoice != null)
+            {
+                HeightFeets = heightFeetChoice.Items;
+            }
 
-                Choice heightInchesChoice = choices.Find((Choice obj) =>
-                {
-                    return obj.Name == Utils.Constansts.HEIGHT_LIST_INCHES_SETTING_KEY;
-                });
-                if (heightInchesChoice != null)
-                {
-                    ListHeightInches = heightInchesChoice.Items;
-                }
+            Choice heightInchesChoice = choices.Find((Choice obj) =>
+            {
+                return obj.Name == Utils.Constansts.HEIGHT_LIST_INCHES_SETTING_KEY;
+            });
+            if (heightInchesChoice != null)
+            {
+                ListHeightInches = heightInchesChoice.Items;
             }
         }
 
@@ -541,10 +537,10 @@ namespace q5id.guardian.ViewModels
                     FirstName = FirstName,
                     LastName = LastName,
                     DateofBirth = GetStrDateOfBirth(),
-                    HairColor = HairColor == null ? "" : HairColor.Name,
-                    EyeColor = EyeColor == null ? "" : EyeColor.Name,
-                    HeightFeet = HeightFeet == null ? "" : HeightFeet.Name,
-                    HeightInches = HeightInches == null ? "" : HeightInches.Name,
+                    HairColorId = HairColor == null ? "" : HairColor.Id,
+                    EyeColorId = EyeColor == null ? "" : EyeColor.Id,
+                    HeightFeetId = HeightFeet == null ? "" : HeightFeet.Id,
+                    HeightInchesId = HeightInches == null ? "" : HeightInches.Id,
                     Weight = Weight,
                     OtherInformation = Detail,
                     ModifiedOn = lovedOnesToUpdate != null ? DateTime.UtcNow.ToString() : "",

@@ -63,7 +63,6 @@
     <Compile Include="Services\GoogleMapsApiService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\Bases\ApiResponse.cs" />
-    <Compile Include="Services\AppService.cs" />
     <Compile Include="Services\Bases\EntityListResponse.cs" />
     <Compile Include="Services\Bases\AppServiceResponse.cs" />
     <Compile Include="Services\PermissionService.cs" />
