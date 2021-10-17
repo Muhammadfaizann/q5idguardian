@@ -122,10 +122,18 @@ namespace q5id.guardian.ViewModels
         {
             if (AlertEntity != null)
             {
-                var response = await AppApiManager.Instances.GetListAlert(AlertEntity.Id);
-                if (response.IsSuccess && response.ResponseObject != null)
+                var currentLocation = await Utils.Utils.GetLocalLocation();
+                if(currentLocation != null)
                 {
-                    Alerts = response.ResponseObject;
+                    var response = await AppApiManager.Instances.GetListAlert(AlertEntity.Id);
+                    if (response.IsSuccess && response.ResponseObject != null)
+                    {
+                        Alerts = response.ResponseObject;
+                    }
+                }
+                else
+                {
+                    Alerts = new List<Alert>();
                 }
             }
         }

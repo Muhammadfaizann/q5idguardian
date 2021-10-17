@@ -19,12 +19,13 @@ namespace q5id.guardian.Services
         {
             createClient = messageHandler =>
             {
-                var client = new HttpClient(messageHandler)
+                //var client = new HttpClient(messageHandler)
+                var client = new HttpClient(new LoggingHttpHandler(new HttpClientHandler()))
                 {
                     BaseAddress = new Uri(apiBaseAddress)
                     
                 };
-                if(headers != null)
+                if (headers != null)
                 {
                     foreach (KeyValuePair<string, string> entry in headers)
                     {

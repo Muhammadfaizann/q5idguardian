@@ -44,9 +44,9 @@ namespace q5id.guardian
         private async void GetChoices()
         {
             var response = await AppApiManager.Instances.GetChoices();
-            if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Result != null)
+            if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject != null)
             {
-                var choices = response.ResponseObject.Result;
+                var choices = response.ResponseObject;
                 if (choices.Count > 0)
                 {
                     Utils.Utils.SaveChoices(choices);

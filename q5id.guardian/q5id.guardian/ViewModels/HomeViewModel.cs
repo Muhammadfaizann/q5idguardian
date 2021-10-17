@@ -99,10 +99,12 @@ namespace q5id.guardian.ViewModels
         {
             if(UserEntity != null && User != null)
             {
-                var currentUserResponse = await AppApiManager.Instances.GetUserProfile(UserEntity.Id, User.UserId);
+                var currentUserResponse = await AppApiManager.Instances.GetUserProfile(UserEntity.Id, User);
                 if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null && currentUserResponse.ResponseObject.Count > 0)
                 {
-                    User = currentUserResponse.ResponseObject[0];
+                    var result = currentUserResponse.ResponseObject[0];
+                    result.SubscriptionExpiredDate = DateTime.UtcNow.AddDays(30).ToString();
+                    User = result;
                 }
             }
         }

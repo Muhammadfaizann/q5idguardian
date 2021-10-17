@@ -7,7 +7,7 @@ namespace q5id.guardian.Utils
     public static class Constansts
     {
         public static int SEC_TIMEOUT_LOAD_LOCATION = 10;
-        public static int MILES_DEFAULT_MAP_ZOOM_DISTANCT = 10;
+        public static int KM_DEFAULT_MAP_ZOOM_DISTANCT = 10;
 
         public static string DEFAULT_DATE_FORMAT = "MM/dd/yyyy";
         public static string BIRTHDAY_DATE_FORMAT = "yyyy-MM-dd";

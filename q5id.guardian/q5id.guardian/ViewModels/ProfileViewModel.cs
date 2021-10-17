@@ -208,7 +208,7 @@ namespace q5id.guardian.ViewModels
             };
             if (ProfileImage != null)
             {
-                var responseUploadImageOne = await AppApiManager.Instances.UploadImage(UserEntity.Id, ProfileImage);
+                var responseUploadImageOne = await AppApiManager.Instances.UploadImage(UserEntity.EntityName, ProfileImage);
                 if (responseUploadImageOne.IsSuccess)
                 {
                     userToPost.ImageUrl = responseUploadImageOne.ResponseObject.Result;

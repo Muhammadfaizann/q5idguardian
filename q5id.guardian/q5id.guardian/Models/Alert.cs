@@ -20,9 +20,9 @@ namespace q5id.guardian.Models
         [JsonProperty("Comments")]
         public string Comments { get; set; }
         [JsonProperty("Latitude")]
-        public string Latitude { get; set; }
+        public double Latitude { get; set; }
         [JsonProperty("Lognitude")]
-        public string Lognitude { get; set; }
+        public double Lognitude { get; set; }
         [JsonProperty("Address")]
         public string Address { get; set; }
         [JsonProperty("IsClosed")]
@@ -35,11 +35,11 @@ namespace q5id.guardian.Models
 
         public static string GetDistanceFrom(Alert alert, Location sourceCoordinates)
         {
-            if(sourceCoordinates != null && alert.Lognitude != "" && alert.Latitude != "")
+            if(sourceCoordinates != null)
             {
                 try
                 {
-                    Location destinationCoordinates = new Location(double.Parse(alert.Latitude), double.Parse(alert.Lognitude));
+                    Location destinationCoordinates = new Location(alert.Latitude, alert.Lognitude);
                     double distance = Location.CalculateDistance(sourceCoordinates, destinationCoordinates, DistanceUnits.Miles);
                     return String.Format("{0:0.00} miles", distance);
                 }
@@ -76,18 +76,7 @@ namespace q5id.guardian.Models
         {
             get
             {
-                if(Latitude != "" && Lognitude != "")
-                {
-                    try
-                    {
-                        return new Position(double.Parse(Latitude), double.Parse(Lognitude));
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine("Cannot get alert location: ", ex);
-                    }
-                }
-                return new Position(0, 0);
+                return new Position(Latitude, Lognitude);
             }
         }
 

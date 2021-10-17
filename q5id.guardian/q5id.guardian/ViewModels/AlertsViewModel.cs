@@ -403,8 +403,8 @@ namespace q5id.guardian.ViewModels
                     ProfileId = mCreatingLove.ProfileId,
                     CreatedOn = DateTime.UtcNow.ToString(),
                     Description = Detail,
-                    Latitude = AlertPosition != null ? AlertPosition.Value.Latitude+"" : "",
-                    Lognitude = AlertPosition != null ? AlertPosition.Value.Longitude + "" : "",
+                    Latitude = AlertPosition != null ? AlertPosition.Value.Latitude : 0,
+                    Lognitude = AlertPosition != null ? AlertPosition.Value.Longitude : 0,
                     IsClosed = false
                 };
 
@@ -413,7 +413,7 @@ namespace q5id.guardian.ViewModels
                     string address = await GoogleMapsApiService.Instances.FindPlaceByPosition(AlertPosition.Value);
                     alertToPost.Address = address;
                 }
-                ApiResponse<AppServiceResponse<Entity<Alert>>> response = await AppApiManager.Instances.CreateAlert(AlertEntity.Id, alertToPost);
+                ApiResponse<AppServiceResponse<Alert>> response = await AppApiManager.Instances.CreateAlert(AlertEntity.Id, alertToPost);
 
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
@@ -462,7 +462,7 @@ namespace q5id.guardian.ViewModels
                 IsLoading = true;
                 var alertToPost = AlertDetail;
                 alertToPost.IsClosed = true;
-                ApiResponse<AppServiceResponse<Entity<Alert>>> response = await AppApiManager.Instances.UpdateAlert(AlertEntity.Id, alertToPost);
+                ApiResponse<AppServiceResponse<Alert>> response = await AppApiManager.Instances.UpdateAlert(AlertEntity.Id, alertToPost);
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
@@ -510,7 +510,7 @@ namespace q5id.guardian.ViewModels
                     Lognitude = userPosition != null ? userPosition.Longitude + "" : "",
                     Action = "is looking",
                 };
-                ApiResponse<AppServiceResponse<Entity<Feed>>> response = await AppApiManager.Instances.CreateFeed(FeedEntity.Id, feedToPost);
+                ApiResponse<AppServiceResponse<Feed>> response = await AppApiManager.Instances.CreateFeed(FeedEntity.Id, feedToPost);
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
@@ -567,7 +567,7 @@ namespace q5id.guardian.ViewModels
                     Action = "posted ",
                     Comment = FeedMessage
                 };
-                ApiResponse<AppServiceResponse<Entity<Feed>>> response = await AppApiManager.Instances.CreateFeed(FeedEntity.Id, feedToPost);
+                ApiResponse<AppServiceResponse<Feed>> response = await AppApiManager.Instances.CreateFeed(FeedEntity.Id, feedToPost);
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
                 {

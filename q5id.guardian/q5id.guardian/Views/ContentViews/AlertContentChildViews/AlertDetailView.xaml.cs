@@ -74,7 +74,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             if(userPosition != null)
             {
                 map?.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(userPosition.Latitude, userPosition.Longitude),
-                                                 Distance.FromMiles(Constansts.MILES_DEFAULT_MAP_ZOOM_DISTANCT)));
+                                                 Distance.FromKilometers(Constansts.KM_DEFAULT_MAP_ZOOM_DISTANCT)));
             }
         }
 
