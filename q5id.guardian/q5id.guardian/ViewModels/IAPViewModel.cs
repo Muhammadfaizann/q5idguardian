@@ -17,7 +17,6 @@ namespace q5id.guardian.ViewModels
     {
         public IAPViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
-            GetUserEntity();
         }
 
         private bool mIsSuccessPurchase = false;
@@ -178,35 +177,18 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private StructureEntity UserEntity = null;
-        private void GetUserEntity()
-        {
-            var settings = Utils.Utils.GetSettings();
-            if (settings != null)
-            {
-                UserEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
-                {
-                    return entity.EntityName == Utils.Constansts.USER_ENTITY_SETTING_KEY;
-                });
-            }
-        }
-
         private async Task UpdateUserSubscription(string subscritionId)
         {
-            if (UserEntity == null)
-            {
-                return;
-            }
             IsLoading = true;
 
             var userToPost = User;
             userToPost.SubscriptionExpiredDate = DateTime.UtcNow.AddDays(30).ToString();
-            ApiResponse<AppServiceResponse<Entity<User>>> response;
-            response = await AppApiManager.Instances.UpdateUser(UserEntity.Id, userToPost);
+            ApiResponse<AppServiceResponse<User>> response;
+            response = await AppApiManager.Instances.UpdateUser(userToPost);
             IsLoading = false;
             if (response.IsSuccess && response.ResponseObject != null)
             {
-                User = response.ResponseObject.Result.Data;
+                User = response.ResponseObject.Result;
                 IsSuccessPurchase = true;
             }
 

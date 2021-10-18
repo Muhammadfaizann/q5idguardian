@@ -31,13 +31,10 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        public StructureEntity UserEntity { get; private set; }
-
         public LoginViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
             LoginCommand = new Command(OnLoginClicked);
             SignUpCommand = new Command(OnSignUpClicked);
-            GetUserEntity();
         }
 
         private async void OnSignUpClicked(object obj)
@@ -58,24 +55,12 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private void GetUserEntity()
-        {
-            var settings = Utils.Utils.GetSettings();
-            if (settings != null)
-            {
-                UserEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
-                {
-                    return entity.EntityName == Utils.Constansts.USER_ENTITY_SETTING_KEY;
-                });
-            }
-        }
-
         private async Task<User> GetUser()
         {
-            if(mUserName != "" && UserEntity != null)
+            if(mUserName != "")
             {
                 IsLoading = true;
-                var currentUserResponse = await AppApiManager.Instances.GetUsers(UserEntity.Id, mUserName);
+                var currentUserResponse = await AppApiManager.Instances.GetUsers(mUserName);
                 if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject.Count > 0)
                 {
                     var validUser = currentUserResponse.ResponseObject.Find((User user) =>

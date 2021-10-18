@@ -97,44 +97,27 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        public StructureEntity AlertEntity { get; private set; }
-
+        
         public override async Task Initialize()
         {
             GetUserPages();
-            GetAlertEntity();
             GetAlerts();
-        }
-
-        private void GetAlertEntity()
-        {
-            var settings = Utils.Utils.GetSettings();
-            if (settings != null)
-            {
-                AlertEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
-                {
-                    return entity.EntityName == Utils.Constansts.ALERT_ENTITY_SETTING_KEY;
-                });
-            }
         }
 
         public async void GetAlerts()
         {
-            if (AlertEntity != null)
+            var currentLocation = await Utils.Utils.GetLocalLocation();
+            if (currentLocation != null)
             {
-                var currentLocation = await Utils.Utils.GetLocalLocation();
-                if(currentLocation != null)
+                var response = await AppApiManager.Instances.GetListAlert();
+                if (response.IsSuccess && response.ResponseObject != null)
                 {
-                    var response = await AppApiManager.Instances.GetListAlert(AlertEntity.Id);
-                    if (response.IsSuccess && response.ResponseObject != null)
-                    {
-                        Alerts = response.ResponseObject;
-                    }
+                    Alerts = response.ResponseObject;
                 }
-                else
-                {
-                    Alerts = new List<Alert>();
-                }
+            }
+            else
+            {
+                Alerts = new List<Alert>();
             }
         }
 

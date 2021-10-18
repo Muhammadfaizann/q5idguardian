@@ -47,10 +47,10 @@ namespace q5id.guardian.Services.Bases
         Task<List<Alert>> GetAlertDetail([Refit.AliasAs("id")] string id, CancellationToken cancellationToken);
 
         [Post("/User")]
-        Task<JObject> CreateUser([Body] Object body, CancellationToken cancellationToken);
+        Task<AppServiceResponse<User>> CreateUser([Body] Object body, CancellationToken cancellationToken);
 
         [Put("/User")]
-        Task<JObject> UpdateUser([Body] Object body, CancellationToken cancellationToken);
+        Task<AppServiceResponse<User>> UpdateUser([Body] Object body, CancellationToken cancellationToken);
 
         [Get("/User/Email")]
         Task<List<User>> GetUserByEmail([Refit.AliasAs("email")] string email, CancellationToken cancellationToken);

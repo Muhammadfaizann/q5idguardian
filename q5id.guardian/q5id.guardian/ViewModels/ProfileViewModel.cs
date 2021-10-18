@@ -164,33 +164,15 @@ namespace q5id.guardian.ViewModels
             this.Image = "";
         }
 
-        private StructureEntity UserEntity = null;
         private bool isInitData = false;
 
         public override async Task Initialize()
         {
-            GetUserEntity();
             await Task.CompletedTask;
-        }
-
-        private void GetUserEntity()
-        {
-            var settings = Utils.Utils.GetSettings();
-            if (settings != null)
-            {
-                UserEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
-                {
-                    return entity.EntityName == Utils.Constansts.USER_ENTITY_SETTING_KEY;
-                });
-            }
         }
 
         private async void CreateUpdateUser()
         {
-            if(UserEntity == null)
-            {
-                return;
-            }
             IsLoading = true;
             
             var userToPost = new User()
@@ -208,23 +190,23 @@ namespace q5id.guardian.ViewModels
             };
             if (ProfileImage != null)
             {
-                var responseUploadImageOne = await AppApiManager.Instances.UploadImage(UserEntity.EntityName, ProfileImage);
+                var responseUploadImageOne = await AppApiManager.Instances.UploadImage(Utils.Constansts.USER_ENTITY_SETTING_KEY, ProfileImage);
                 if (responseUploadImageOne.IsSuccess)
                 {
                     userToPost.ImageUrl = responseUploadImageOne.ResponseObject.Result;
                 }
             }
 
-            ApiResponse<AppServiceResponse<Entity<User>>> response;
+            ApiResponse<AppServiceResponse<User>> response;
             if (User != null)
             {
                 //Update flow
-                response = await AppApiManager.Instances.UpdateUser(UserEntity.Id, userToPost);
+                response = await AppApiManager.Instances.UpdateUser(userToPost);
             }
             else
             {
                 //Create flow
-                response = await AppApiManager.Instances.CreateUser(UserEntity.Id, userToPost);
+                response = await AppApiManager.Instances.CreateUser(userToPost);
             }
             IsLoading = false;
             if (response.IsSuccess && response.ResponseObject != null)

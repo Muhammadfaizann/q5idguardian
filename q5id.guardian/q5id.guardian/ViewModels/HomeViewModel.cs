@@ -77,29 +77,16 @@ namespace q5id.guardian.ViewModels
 
         public override async Task Initialize()
         {
-            GetAccountEntity();
             await HomeVm.Initialize();
             await LovedOnesVm.Initialize();
             await AlertsVm.Initialize();
         }
 
-        private void GetAccountEntity()
-        {
-            var settings = Utils.Utils.GetSettings();
-            if (settings != null)
-            {
-                UserEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
-                {
-                    return entity.EntityName == Utils.Constansts.USER_ENTITY_SETTING_KEY;
-                });
-            }
-        }
-
         private async void GetProfile()
         {
-            if(UserEntity != null && User != null)
+            if(User != null)
             {
-                var currentUserResponse = await AppApiManager.Instances.GetUserProfile(UserEntity.Id, User);
+                var currentUserResponse = await AppApiManager.Instances.GetUserProfile(User);
                 if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null && currentUserResponse.ResponseObject.Count > 0)
                 {
                     var result = currentUserResponse.ResponseObject[0];
@@ -161,7 +148,5 @@ namespace q5id.guardian.ViewModels
                 });
             }
         }
-
-        public StructureEntity UserEntity { get; private set; }
     }
 }

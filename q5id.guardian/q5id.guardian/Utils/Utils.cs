@@ -15,7 +15,6 @@ namespace q5id.guardian.Utils
 {
     public static class Utils
     {
-        private static string SETTING_KEY = "settings";
         private static string CHOICES_KEY = "choices";
 
         public static byte[] ConvertStreamToByteArray(System.IO.Stream stream)
@@ -88,25 +87,6 @@ namespace q5id.guardian.Utils
                 return color;
             }
             return defaultColor;
-        }
-
-        public static void SaveSetting(List<StructureEntity> settings)
-        {
-            Preferences.Set(SETTING_KEY, JsonConvert.SerializeObject(settings));
-        }
-
-        public static List<StructureEntity> GetSettings()
-        {
-            try
-            {
-                var strSettings = Preferences.Get(SETTING_KEY, "");
-                return JsonConvert.DeserializeObject<List<StructureEntity>>(strSettings);
-            }
-            catch(Exception ex)
-            {
-                Debug.WriteLine("Cannot get settings: " + ex.Message);
-            }
-            return new List<StructureEntity>();
         }
 
         public static void SaveChoices(List<Choice> choices)
