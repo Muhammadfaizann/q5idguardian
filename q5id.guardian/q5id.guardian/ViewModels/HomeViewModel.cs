@@ -90,7 +90,6 @@ namespace q5id.guardian.ViewModels
                 if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null && currentUserResponse.ResponseObject.Count > 0)
                 {
                     var result = currentUserResponse.ResponseObject[0];
-                    result.SubscriptionExpiredDate = DateTime.UtcNow.AddDays(30).ToString();
                     User = result;
                 }
             }
