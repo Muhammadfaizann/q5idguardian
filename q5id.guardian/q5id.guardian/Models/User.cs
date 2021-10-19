@@ -19,7 +19,7 @@ namespace q5id.guardian.Models
         public string FullName { get; set; }
         [JsonProperty("UserId")]
         public string UserId { get; set; }
-        [JsonProperty("Subscriptionexpireddate")]
+        [JsonProperty("SubscriptionExpiredDate")]
         public string SubscriptionExpiredDate { get; set; }
         [JsonIgnore]
         public UserRole Role
@@ -61,7 +61,7 @@ namespace q5id.guardian.Models
                 FirstName = FirstName,
                 LastName = LastName,
                 UserId = UserId,
-                Subscriptionexpireddate = SubscriptionExpiredDate
+                SubscriptionExpiredDate = SubscriptionExpiredDate
             };
         }
     }
