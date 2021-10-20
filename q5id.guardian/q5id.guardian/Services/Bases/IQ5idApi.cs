@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
@@ -51,6 +52,12 @@ namespace q5id.guardian.Services.Bases
 
         [Put("/User")]
         Task<AppServiceResponse<User>> UpdateUser([Body] Object body, CancellationToken cancellationToken);
+
+        [Post("/Authentication/CreateUser")]
+        Task<AppServiceResponse<Entity<User>>> CreateAccount([Body] Object body, CancellationToken cancellationToken);
+
+        [Post("/Authentication")]
+        Task<JObject> Login([Body] Object body, CancellationToken cancellationToken);
 
         [Get("/User/Email")]
         Task<List<User>> GetUserByEmail([Refit.AliasAs("email")] string email, CancellationToken cancellationToken);

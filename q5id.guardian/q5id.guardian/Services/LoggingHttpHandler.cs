@@ -14,9 +14,7 @@ namespace q5id.guardian.Services
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            Console.WriteLine("==================");
-            Console.WriteLine("Request:");
-            Console.WriteLine(request.ToString());
+            
             if (request.Content != null)
             {
                 Console.WriteLine(await request.Content.ReadAsStringAsync());
@@ -24,7 +22,9 @@ namespace q5id.guardian.Services
             Console.WriteLine();
 
             HttpResponseMessage response = await base.SendAsync(request, cancellationToken);
-
+            Console.WriteLine("==================");
+            Console.WriteLine("Request:");
+            Console.WriteLine(request.ToString());
             Console.WriteLine("Response:");
             Console.WriteLine(response.ToString());
             if (response.Content != null)

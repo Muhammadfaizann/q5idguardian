@@ -31,6 +31,16 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        private string mPassword = "";
+        public string Password
+        {
+            get => mPassword;
+            set
+            {
+                mPassword = value;
+            }
+        }
+
         public LoginViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
             LoginCommand = new Command(OnLoginClicked);
@@ -57,24 +67,19 @@ namespace q5id.guardian.ViewModels
 
         private async Task<User> GetUser()
         {
-            if(mUserName != "")
+            if(mUserName != "" && mPassword != "")
             {
                 IsLoading = true;
-                var currentUserResponse = await AppApiManager.Instances.GetUsers(mUserName);
-                if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject.Count > 0)
+                var currentUserResponse = await AppApiManager.Instances.Login(mUserName, mPassword);
+                IsLoading = false;
+                if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null)
                 {
-                    var validUser = currentUserResponse.ResponseObject.Find((User user) =>
-                    {
-                        return user.Email == mUserName;
-                    });
-                    if(validUser != null)
-                    {
-                        IsLoading = false;
-                        return validUser;
-                    }
+                    var user = currentUserResponse.ResponseObject;
+                    Utils.Utils.SaveToken(user.Email, user.SessionToken);
+                    return user;
                 }
             }
-            IsLoading = false;
+            
             return null;
         }
 

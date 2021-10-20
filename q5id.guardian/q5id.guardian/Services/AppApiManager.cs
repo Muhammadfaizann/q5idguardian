@@ -184,10 +184,17 @@ namespace q5id.guardian.Services
             return await task;
         }
 
-        public async Task<ApiResponse<AppServiceResponse<User>>> CreateUser(User user)
+        public async Task<ApiResponse<AppServiceResponse<Entity<User>>>> CreateAccount(User user)
         {
             var cts = new CancellationTokenSource();
-            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).CreateUser(user.GetParam(), cts.Token));
+            var param = new
+            {
+                username = user.Email,
+                password = user.Password,
+                firstName = user.FirstName,
+                lastName = user.LastName
+            };
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).CreateAccount(param, cts.Token));
             runningTasks.Add(task.Id, cts);
             return await task;
         }
@@ -198,6 +205,47 @@ namespace q5id.guardian.Services
             var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).UpdateUser(user.GetParam(), cts.Token));
             runningTasks.Add(task.Id, cts);
             return await task;
+        }
+
+        public async Task<ApiResponse<User>> Login(string username, string password)
+        {
+            var cts = new CancellationTokenSource();
+            var param = new
+            {
+                username = username,
+                password = password
+            };
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).Login(param, cts.Token));
+            runningTasks.Add(task.Id, cts);
+            var response = await task;
+            var result = new ApiResponse<User>();
+            result.IsSuccess = response.IsSuccess;
+            result.Message = response.Message;
+            result.ResponseStatusCode = response.ResponseStatusCode;
+            if (response.ResponseObject != null)
+            {
+                var jObject = response.ResponseObject;
+                if(jObject["error"] != null)
+                {
+                    var error = jObject["error"].Value<String>();
+                    result.IsSuccess = false;
+                    result.Message = error;
+                }
+                else
+                {
+                    try
+                    {
+                        User user = jObject.ToObject<User>();
+                        result.ResponseObject = user;
+                    }
+                    catch(Exception ex)
+                    {
+                        Debug.WriteLine("Can not parse user: " + ex.ToMessage());
+                        result.ResponseObject = null;
+                    }
+                }
+            }
+            return result;
         }
 
         public async Task<ApiResponse<AppServiceResponse<Feed>>> CreateFeed(Feed feed)

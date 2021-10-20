@@ -19,6 +19,10 @@ namespace q5id.guardian.Models
         public string FullName { get; set; }
         [JsonProperty("UserId")]
         public string UserId { get; set; }
+        [JsonProperty("sessionToken")]
+        public string SessionToken { get; set; }
+        [JsonIgnore]
+        public string Password { get; set; }
         [JsonProperty("Subscriptionexpireddate")]
         public string SubscriptionExpiredDate { get; set; }
         [JsonIgnore]

@@ -26,5 +26,7 @@ namespace q5id.guardian.Utils
 
         public static string YES_KEY = "Yes";
         public static string NO_KEY = "No";
+
+        public static string API_TOKEN_TYPE = "Bearer";
     }
 }

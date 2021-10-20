@@ -33,7 +33,7 @@ namespace q5id.guardian.Services
                         client.DefaultRequestHeaders.Add(entry.Key, entry.Value);
                     }
                 }
-                
+                client.DefaultRequestHeaders.Add("Authorization", $"{Utils.Constansts.API_TOKEN_TYPE} {Utils.Utils.GetToken()}");
                 return RestService.For<T>(client, GetNewtonsoftJsonRefitSettings());
             };
         }

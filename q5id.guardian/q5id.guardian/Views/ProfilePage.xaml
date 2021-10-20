@@ -13,6 +13,11 @@
     x:TypeArguments="vm:ProfileViewModel"
     BackgroundColor="#FD425E"
     x:Class="q5id.guardian.Views.ProfilePage">
+    <views:BasePage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="control:AppEntry">
+            <Setter Property="TextColor" Value="{StaticResource redNue}" />
+        </Style>
+    </views:BasePage.Resources>
     <views:BasePage.Content>
         <Grid BackgroundColor="{StaticResource redNue}" RowSpacing="0">
             <Grid.RowDefinitions>
@@ -124,11 +129,45 @@
                                         HeightRequest="32"
                                         NoramlBorderColor="#E8EAF2"
                                         Placeholder=""
+                                        IsEnabled="{Binding IsUpdate, Converter={StaticResource reverseBooleanConverter}}"
                                         Text="{Binding Email}"
                                         Keyboard="Email"
                                         PlaceholderColor="{StaticResource lightCharcoal}"
                                         Style="{StaticResource etBodyNormalLg}"
-                                        TextColor="{StaticResource normalCharcoal}" />
+                                        TextColor="{StaticResource normalCharcoal}" >
+                                        <control:AppEntry.Behaviors>
+                                            
+                                        </control:AppEntry.Behaviors>
+                                </control:AppEntry>
+                                <StackLayout
+                                    IsVisible="{Binding IsUpdate, Converter={StaticResource reverseBooleanConverter}}"
+                                    Orientation="Vertical">
+                                    <Label
+                                        Margin="0,10,0,5"
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        HorizontalTextAlignment="Start"
+                                        Text="Password"
+                                        TextColor="{StaticResource normalCharcoal}"
+                                        Style="{StaticResource lbBodyBoldMd}">
+                            
+                                    </Label>
+                                    <control:AppEntry
+                                            Padding="10"
+                                            BorderThickness="2"
+                                            FocusBorderColor="#696B7A"
+                                            FontAttributes="Italic"
+                                            FontFamily="PoppinsItalic"
+                                            HeightRequest="32"
+                                            NoramlBorderColor="#E8EAF2"
+                                            Placeholder=""
+                                            IsPassword="True"
+                                            Text="{Binding Password}"
+                                            PlaceholderColor="{StaticResource lightCharcoal}"
+                                            Style="{StaticResource etBodyNormalLg}"
+                                            TextColor="{StaticResource normalCharcoal}" />
+                                </StackLayout>
+                                
                                 <Label
                                     Margin="0,10,0,5"
                                     HorizontalOptions="Fill"

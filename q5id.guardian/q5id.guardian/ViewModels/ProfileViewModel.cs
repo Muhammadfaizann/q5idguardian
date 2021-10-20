@@ -49,6 +49,14 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        public bool IsUpdate
+        {
+            get
+            {
+                return User != null;
+            }
+        }
+
         private string mEmail = null;
         public string Email
         {
@@ -56,6 +64,16 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mEmail = value;
+            }
+        }
+
+        private string mPassword = null;
+        public string Password
+        {
+            get => mPassword;
+            set
+            {
+                mPassword = value;
             }
         }
 
@@ -173,6 +191,10 @@ namespace q5id.guardian.ViewModels
 
         private async void CreateUpdateUser()
         {
+            if(await CheckFormAsync() == false)
+            {
+                return;
+            }
             IsLoading = true;
             
             var userToPost = new User()
@@ -180,6 +202,7 @@ namespace q5id.guardian.ViewModels
                 Id = User != null ? User.Id : null,
                 UserId = User != null ? User.UserId : System.Guid.NewGuid().ToString(),
                 Email = Email,
+                Password = Password,
                 FirstName = FirstName,
                 LastName = LastName,
                 FullName = FullName,
@@ -197,19 +220,36 @@ namespace q5id.guardian.ViewModels
                 }
             }
 
-            ApiResponse<AppServiceResponse<User>> response;
+            ApiResponse<AppServiceResponse<User>> response = new ApiResponse<AppServiceResponse<User>>();
             if (User != null)
             {
                 //Update flow
-                response = await AppApiManager.Instances.UpdateUser(userToPost);
+                var responseUpdate = await AppApiManager.Instances.UpdateUser(userToPost);
+                response.IsSuccess = responseUpdate.IsSuccess;
+                response.Errors = responseUpdate.Errors;
+                response.Message = responseUpdate.Message;
+                response.ResponseStatusCode = responseUpdate.ResponseStatusCode;
+                response.ResponseObject = responseUpdate.ResponseObject;
             }
             else
             {
                 //Create flow
-                response = await AppApiManager.Instances.CreateUser(userToPost);
+                var responseCreate = await AppApiManager.Instances.CreateAccount(userToPost);
+                response.IsSuccess = responseCreate.IsSuccess;
+                response.Errors = responseCreate.Errors;
+                response.Message = responseCreate.Message;
+                response.ResponseStatusCode = responseCreate.ResponseStatusCode;
+                response.ResponseObject = new AppServiceResponse<User>()
+                {
+                    IsError = false,
+                    StatusCode = responseCreate.ResponseStatusCode,
+                    Result = responseCreate.ResponseObject?.Result?.Data,
+                    Error = responseCreate.ResponseObject.Error
+                };
             }
             IsLoading = false;
-            if (response.IsSuccess && response.ResponseObject != null)
+            
+            if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Result != null)
             {
                 Image = userToPost.ImageUrl;
                 ProfileImage = null;
@@ -224,6 +264,36 @@ namespace q5id.guardian.ViewModels
                     User = userToPost;
                 }
             }
+            else if(response.ResponseObject != null)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", response.ResponseObject.Error, "OK");
+            }
+
+        }
+
+        private async Task<bool> CheckFormAsync()
+        {
+            if(Email == null || Email == "")
+            {
+                await App.Current.MainPage.DisplayAlert("Email is required", "", "OK");
+                return false;
+            }
+            if (IsUpdate == false && (Password == null || Password == ""))
+            {
+                await App.Current.MainPage.DisplayAlert("Password is required", "", "OK");
+                return false;
+            }
+            if (FirstName == null || FirstName == "")
+            {
+                await App.Current.MainPage.DisplayAlert("Firstname is required", "", "OK");
+                return false;
+            }
+            if (LastName == null || LastName == "")
+            {
+                await App.Current.MainPage.DisplayAlert("Lastname is required", "", "OK");
+                return false;
+            }
+            return true;
         }
 
         public override void Prepare(User parameter)

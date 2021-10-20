@@ -22,6 +22,9 @@ namespace q5id.guardian.Services.Bases
 
         [JsonProperty("message")]
         public String Message { get; set; }
+
+        [JsonProperty("error")]
+        public string Error { get; set; }
     }
 
     public class AppServiceResponse
@@ -43,5 +46,8 @@ namespace q5id.guardian.Services.Bases
 
         [JsonProperty("message")]
         public String Message { get; set; }
+
+        [JsonProperty("error")]
+        public String Error { get; set; }
     }
 }

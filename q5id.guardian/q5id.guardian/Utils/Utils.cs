@@ -16,6 +16,7 @@ namespace q5id.guardian.Utils
     public static class Utils
     {
         private static string CHOICES_KEY = "choices";
+        private static string TOKEN_KEY = "token";
 
         public static byte[] ConvertStreamToByteArray(System.IO.Stream stream)
         {
@@ -106,6 +107,27 @@ namespace q5id.guardian.Utils
                 Debug.WriteLine("Cannot get choices: " + ex.Message);
             }
             return new List<Choice>();
+        }
+
+        public static void SaveToken(string email, string sessionToken)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes($"{email}:{sessionToken}");
+            var token = System.Convert.ToBase64String(plainTextBytes);
+            Preferences.Set(TOKEN_KEY, token);
+        }
+
+        public static string GetToken()
+        {
+            try
+            {
+                var token = Preferences.Get(TOKEN_KEY, "");
+                return token;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Cannot get token: " + ex.Message);
+            }
+            return "";
         }
 
         public static string GetTimeAgoFrom(DateTime dateTime)
