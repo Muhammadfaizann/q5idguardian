@@ -26,8 +26,6 @@
 	<string>Guardian</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.q5id.guardian</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
@@ -35,7 +33,7 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.0.0</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow video camera access</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -50,26 +48,32 @@
 	<string>This app needs access to the photo gallery for picking photos and videos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app needs access to photos gallery for picking photos and videos.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Allow calendars usage access</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
 	</array>
 	<key>NSAppTransportSecurity</key>
-    <dict>
-        <key>NSExceptionDomains</key>
-        <dict>
-            <key>xamarin.com</key>
-            <dict>
-                <key>NSIncludesSubdomains</key>
-                <true/>
-                <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-                <true/>
-                <key>NSTemporaryExceptionMinimumTLSVersion</key>
-                <string>TLSv1.1</string>
-            </dict>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>xamarin.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSTemporaryExceptionMinimumTLSVersion</key>
+				<string>TLSv1.1</string>
+			</dict>
 			<key>NSAllowsArbitraryLoads</key>
-        	<true/>
-        </dict>
-    </dict>
+			<true/>
+		</dict>
+	</dict>
+	<key>CFBundleVersion</key>
+	<string>10</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>
