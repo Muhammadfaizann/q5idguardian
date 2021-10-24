@@ -168,6 +168,7 @@ namespace q5id.guardian.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine("Error: " + ex.Message);
+                await UpdateUserSubscription("213213");
                 return false;
             }
             finally

@@ -27,6 +27,7 @@ namespace q5id.guardian.Services
         Dictionary<int, CancellationTokenSource> runningTasks = new Dictionary<int, CancellationTokenSource>();
         private static string Q5ID_BASE_URL = "https://q5idtest.site.work/api";
 
+        public event EventHandler OnUnauthorized;
 
         public AppApiManager()
         {
@@ -286,6 +287,22 @@ namespace q5id.guardian.Services
                     data.ResponseStatusCode = (int)HttpStatusCode.OK;
                     data.IsSuccess = true;
                     data.ResponseObject = result;
+                }
+                catch(Refit.ValidationApiException apiEx)
+                {
+                    data.ResponseStatusCode = (int)apiEx.StatusCode;
+                    data.ResponseObject = default(T);
+                    data.Message = apiEx.Message;
+                    data.Errors = new List<string>()
+                    {
+                        apiEx.Message
+                    };
+                    Debug.WriteLine("API Exception: ");
+                    Debug.WriteLine(apiEx);
+                    if (apiEx.StatusCode == HttpStatusCode.Unauthorized)
+                    {
+                        OnUnauthorized?.Invoke(this, null);
+                    }
                 }
                 catch(Exception ex)
                 {

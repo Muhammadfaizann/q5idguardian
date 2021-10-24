@@ -75,6 +75,25 @@ namespace q5id.guardian.ViewModels
             User = parameter;
         }
 
+        public override void ViewCreated()
+        {
+            base.ViewCreated();
+            AppApiManager.Instances.OnUnauthorized += OnServiceUnauthorized;
+        }
+
+        private async void OnServiceUnauthorized(object sender, EventArgs e)
+        {
+            Utils.Utils.SaveToken("", "");
+            await App.Current.MainPage.DisplayAlert("Unauthorized", "Expired Session", "OK");
+            await ClearStackAndNavigateToPage<LoginViewModel>();
+        }
+
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            AppApiManager.Instances.OnUnauthorized -= OnServiceUnauthorized;
+            base.ViewDestroy(viewFinishing);
+        }
+
         public override async Task Initialize()
         {
             await HomeVm.Initialize();

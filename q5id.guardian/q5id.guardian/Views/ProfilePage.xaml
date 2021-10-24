@@ -58,7 +58,7 @@
                 VerticalOptions="Start"
                 BottomHeight="45"
                 HeightRequest="120" />
-                <ScrollView Padding="0, 15, 0, 0" Orientation="Vertical">
+                <ScrollView Padding="0, 0, 0, 0" Orientation="Vertical">
                     <StackLayout Orientation="Vertical">
                         <Frame Padding="5,20,5,20"
                            HasShadow="False"
@@ -71,6 +71,7 @@
                             <StackLayout Orientation="Vertical" Spacing="0" Padding="15">
                                 <Grid  WidthRequest="128"
                                     HeightRequest="128"
+                                    IsVisible="{Binding IsUpdate}"
                                     HorizontalOptions="Center"
                                     VerticalOptions="Center">
                                     <Frame

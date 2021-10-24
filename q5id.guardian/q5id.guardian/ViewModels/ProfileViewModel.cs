@@ -244,7 +244,7 @@ namespace q5id.guardian.ViewModels
                     IsError = false,
                     StatusCode = responseCreate.ResponseStatusCode,
                     Result = responseCreate.ResponseObject?.Result?.Data,
-                    Error = responseCreate.ResponseObject.Error
+                    Error = responseCreate.ResponseObject?.Error
                 };
             }
             IsLoading = false;
@@ -254,13 +254,16 @@ namespace q5id.guardian.ViewModels
                 Image = userToPost.ImageUrl;
                 ProfileImage = null;
                 
-                await App.Current.MainPage.DisplayAlert("Updated Successfully", "", "OK");
                 if(User == null)
                 {
-                    await NavigationService.Close(this, User);
+                    await App.Current.MainPage.DisplayAlert("SignUp Successfully", "", "OK");
+                    var user = response.ResponseObject.Result;
+                    Utils.Utils.SaveToken(user.Email, user.SessionToken);
+                    await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
                 }
                 else
                 {
+                    await App.Current.MainPage.DisplayAlert("Updated Successfully", "", "OK");
                     User = userToPost;
                 }
             }

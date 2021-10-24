@@ -58,7 +58,6 @@
                 <Button
                     Margin="0,10,0,0"
                     BackgroundColor="{StaticResource Primary}"
-                    
                     Text="Learn more"
                     TextColor="White" />
             </StackLayout>

@@ -38,7 +38,7 @@ namespace q5id.guardian.Services.Bases
         [Put("/Alert")]
         Task<AppServiceResponse<Alert>> UpdateAlert([Body] Object body, CancellationToken cancellationToken);
 
-        [Get("/Alert/All")]
+        [Get("/Alert/All/AllUsers")]
         Task<List<Alert>> GetAllAlerts(CancellationToken cancellationToken);
 
         [Get("/Alert/Nearby")]
