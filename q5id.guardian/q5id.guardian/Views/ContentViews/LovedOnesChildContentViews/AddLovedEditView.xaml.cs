@@ -140,7 +140,6 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
             if (MainContentView is LovedOnesContentView lovedOnesContentView)
             {
                 ImageData imageData = await PickPhotoAsync();
-
                 if (imageData != null)
                 {
                     var listSecondImageDatas = lovedOnesContentView.SecondaryImageDatas;
