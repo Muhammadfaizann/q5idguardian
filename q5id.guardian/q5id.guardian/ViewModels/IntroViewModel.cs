@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using q5id.guardian.Models;
+using q5id.guardian.Services;
 using Xamarin.Forms;
 
 namespace q5id.guardian.ViewModels
@@ -33,7 +35,31 @@ namespace q5id.guardian.ViewModels
 
         private async void OnLoginClicked(object obj)
         {
-            await NavigationService.Navigate<LoginViewModel>();
+            var user = await GetProfile();
+            if (user != null)
+            {
+                await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
+            }
+            else
+            {
+                await NavigationService.Navigate<LoginViewModel>();
+            }
+            
+        }
+
+        private async Task<User> GetProfile()
+        {
+            UserSession userSession = Utils.Utils.GetToken();
+            if (userSession != null)
+            {
+                var currentUserResponse = await AppApiManager.Instances.GetUserProfile(userSession.UserId);
+                if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null && currentUserResponse.ResponseObject.Count > 0)
+                {
+                    var result = currentUserResponse.ResponseObject[0];
+                    return result;
+                }
+            }
+            return null;
         }
     }
 }

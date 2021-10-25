@@ -223,13 +223,9 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             MainContentView.MainPage.UpdateRightControlImage(Utils.FontAwesomeIcons.ChevronLeft);
         }
 
-        private async void CheckAndGetLocalLocation()
+        private void CheckAndGetLocalLocation()
         {
-            var result = await Utils.Utils.CheckAndRequestLocationPermission();
-            if (result == PermissionStatus.Granted)
-            {
-                GetLocalLocation();
-            }
+            GetLocalLocation();
         }
 
         private async void GetLocalLocation()
@@ -245,6 +241,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
                 catch (Exception ex)
                 {
                     Debug.WriteLine("Cannot get local location: " + ex.Message);
+                    AlertPosition = null;
                 }
             }
         }

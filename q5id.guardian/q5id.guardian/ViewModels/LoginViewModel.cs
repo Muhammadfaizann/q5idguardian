@@ -75,7 +75,7 @@ namespace q5id.guardian.ViewModels
                 if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null)
                 {
                     var user = currentUserResponse.ResponseObject;
-                    Utils.Utils.SaveToken(user.Email, user.SessionToken);
+                    Utils.Utils.SaveToken(user);
                     return user;
                 }
             }

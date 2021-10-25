@@ -16,7 +16,6 @@ namespace q5id.guardian
                 .EndingWith("Service")
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
-
             RegisterAppStart<IntroViewModel>();
         }
 

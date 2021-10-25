@@ -38,8 +38,11 @@ namespace q5id.guardian.Services.Bases
         [Put("/Alert")]
         Task<AppServiceResponse<Alert>> UpdateAlert([Body] Object body, CancellationToken cancellationToken);
 
-        [Get("/Alert/All/AllUsers")]
+        [Get("/Alert/All")]
         Task<List<Alert>> GetAllAlerts(CancellationToken cancellationToken);
+
+        [Get("/Alert/FeedHistory")]
+        Task<List<Alert>> GetFeedHistoryAlerts(CancellationToken cancellationToken);
 
         [Get("/Alert/Nearby")]
         Task<List<Alert>> GetNearbyAlerts([Refit.AliasAs("latitude")] double latitude, [Refit.AliasAs("longitude")] double longitude, [Refit.AliasAs("radiusInKilometers")] double radiusInKilometers, CancellationToken cancellationToken);
@@ -63,7 +66,7 @@ namespace q5id.guardian.Services.Bases
         Task<List<User>> GetUserByEmail([Refit.AliasAs("email")] string email, CancellationToken cancellationToken);
 
         [Get("/User")]
-        Task<List<User>> GetUserDetail([Refit.AliasAs("id")] string id, [Refit.AliasAs("objectId")] string objectId, CancellationToken cancellationToken);
+        Task<List<User>> GetUserDetail([Refit.AliasAs("id")] string id, CancellationToken cancellationToken);
 
         [Post("/AlertFeed")]
         Task<AppServiceResponse<Feed>> CreateAlertFeed([Body] Object body, CancellationToken cancellationToken);

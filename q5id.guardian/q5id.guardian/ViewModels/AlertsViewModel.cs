@@ -353,6 +353,7 @@ namespace q5id.guardian.ViewModels
                     FirstName = mCreatingLove.FullName,
                     AlertId = System.Guid.NewGuid().ToString(),
                     ProfileId = mCreatingLove.ProfileId,
+                    UserId = User.UserId,
                     CreatedOn = DateTime.UtcNow.ToString(),
                     Description = Detail,
                     Latitude = AlertPosition != null ? AlertPosition.Value.Latitude : 0,
@@ -593,36 +594,38 @@ namespace q5id.guardian.ViewModels
             IsLoading = true;
             var userPosition = await Utils.Utils.GetLocalLocation();
             var userLocation = userPosition != null ? new Location(userPosition.Latitude, userPosition.Longitude) : null;
-            var response = await AppApiManager.Instances.GetListAlert();
-            if (response.IsSuccess && response.ResponseObject != null)
+            var listNearbyAlert = await GetNearbyAlerts();
+            var listMyAlert = await GetMyAlerts();
+            var listFeedHistoryAlert = await GetHistoryFeedAlerts();
+            List<Alert> listAllAlert = new List<Alert>();
+            listAllAlert = listNearbyAlert.Union(listMyAlert, new AlertComparer()).ToList();
+            listAllAlert = listAllAlert.Union(listFeedHistoryAlert, new AlertComparer()).ToList();
+            listAlertItem = listAllAlert.Select((Alert alert) =>
             {
-                listAlertItem = response.ResponseObject.Select((Alert alert) =>
+                AlertItemViewModel item = new AlertItemViewModel(alert)
                 {
-                    AlertItemViewModel item = new AlertItemViewModel(alert)
-                    {
-                        OnUpdateItemAction = OnUpdateItemList,
-                        OnUpdateExpanded = OnItemExpandedUpdate,
+                    OnUpdateItemAction = OnUpdateItemList,
+                    OnUpdateExpanded = OnItemExpandedUpdate,
 
-                    };
-                    item.Model.DistanceFromUser = Alert.GetDistanceFrom(item.Model, userLocation);
-                    item.OnOpenAlert = () =>
+                };
+                item.Model.DistanceFromUser = Alert.GetDistanceFrom(item.Model, userLocation);
+                item.OnOpenAlert = () =>
+                {
+                    AlertDetail = item.Model;
+                };
+                if (this.Loves != null)
+                {
+                    var selectedLoveItemViewModel = this.Loves.Find((LoveItemViewModel loveItemViewModel) =>
                     {
-                        AlertDetail = item.Model;
-                    };
-                    if (this.Loves != null)
+                        return loveItemViewModel.Model.ProfileId == item.Model.ProfileId;
+                    });
+                    if (selectedLoveItemViewModel != null)
                     {
-                        var selectedLoveItemViewModel = this.Loves.Find((LoveItemViewModel loveItemViewModel) =>
-                        {
-                            return loveItemViewModel.Model.ProfileId == item.Model.ProfileId;
-                        });
-                        if (selectedLoveItemViewModel != null)
-                        {
-                            item.Model.Love = selectedLoveItemViewModel.Model;
-                        }
+                        item.Model.Love = selectedLoveItemViewModel.Model;
                     }
-                    return item;
-                }).ToList();
-            }
+                }
+                return item;
+            }).ToList();
             List<AlertItemViewModel> listLiveItem = listAlertItem.Where((AlertItemViewModel item) =>
             {
                 return item.Model.IsClosed != true;
@@ -657,6 +660,40 @@ namespace q5id.guardian.ViewModels
             }
             Alerts = alerts;
             IsLoading = false;
+        }
+
+        private async Task<List<Alert>> GetNearbyAlerts()
+        {
+            var currentUserPosition = await Utils.Utils.GetLocalLocation();
+            if(currentUserPosition != null)
+            {
+                var response = await AppApiManager.Instances.GetNearbyListAlert(currentUserPosition.Latitude, currentUserPosition.Longitude, Utils.Constansts.KM_DEFAULT_MAP_ZOOM_DISTANCT);
+                if(response.IsSuccess && response.ResponseObject != null)
+                {
+                    return response.ResponseObject;
+                }
+            }
+            return new List<Alert>();
+        }
+
+        private async Task<List<Alert>> GetMyAlerts()
+        {
+            var response = await AppApiManager.Instances.GetListAlert();
+            if (response.IsSuccess && response.ResponseObject != null)
+            {
+                return response.ResponseObject;
+            }
+            return new List<Alert>();
+        }
+
+        private async Task<List<Alert>> GetHistoryFeedAlerts()
+        {
+            var response = await AppApiManager.Instances.GetListFeedHistoryAlert();
+            if (response.IsSuccess && response.ResponseObject != null)
+            {
+                return response.ResponseObject;
+            }
+            return new List<Alert>();
         }
 
         private void OnItemExpandedUpdate(AlertItemViewModel item)

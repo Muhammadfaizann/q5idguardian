@@ -152,6 +152,14 @@ namespace q5id.guardian.Services
             return await task;
         }
 
+        public async Task<ApiResponse<List<Alert>>> GetListFeedHistoryAlert()
+        {
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync<List<Alert>>(q5idApi.GetApi(Priority.UserInitiated).GetFeedHistoryAlerts(cts.Token));
+            runningTasks.Add(task.Id, cts);
+            return await task;
+        }
+
         public async Task<ApiResponse<List<Alert>>> GetNearbyListAlert(double lat, double lng, double radiusInKm)
         {
             var cts = new CancellationTokenSource();
@@ -177,10 +185,10 @@ namespace q5id.guardian.Services
             return await task;
         }
 
-        public async Task<ApiResponse<List<User>>> GetUserProfile(User user)
+        public async Task<ApiResponse<List<User>>> GetUserProfile(string userId)
         {
             var cts = new CancellationTokenSource();
-            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).GetUserDetail(user.UserId, user.ObjectId, cts.Token));
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).GetUserDetail(userId, cts.Token));
             runningTasks.Add(task.Id, cts);
             return await task;
         }

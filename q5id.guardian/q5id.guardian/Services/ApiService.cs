@@ -4,6 +4,7 @@ using System.Net.Http;
 using Fusillade;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using q5id.guardian.Models;
 using q5id.guardian.Services.Bases;
 using Refit;
 using Xamarin.Essentials;
@@ -19,8 +20,8 @@ namespace q5id.guardian.Services
         {
             createClient = messageHandler =>
             {
-                // var client = new HttpClient(messageHandler)
-                var client = new HttpClient(new LoggingHttpHandler(new HttpClientHandler()))
+                var client = new HttpClient(messageHandler)
+                //var client = new HttpClient(new LoggingHttpHandler(new HttpClientHandler()))
                 {
                     BaseAddress = new Uri(apiBaseAddress)
                     
@@ -33,7 +34,12 @@ namespace q5id.guardian.Services
                         client.DefaultRequestHeaders.Add(entry.Key, entry.Value);
                     }
                 }
-                client.DefaultRequestHeaders.Add("Authorization", $"{Utils.Constansts.API_TOKEN_TYPE} {Utils.Utils.GetToken()}");
+                UserSession userSession = Utils.Utils.GetToken();
+                if(userSession != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", $"{Utils.Constansts.API_TOKEN_TYPE} {userSession.Session}");
+                }
+                
                 return RestService.For<T>(client, GetNewtonsoftJsonRefitSettings());
             };
         }

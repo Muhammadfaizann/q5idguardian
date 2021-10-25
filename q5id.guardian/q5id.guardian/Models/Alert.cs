@@ -11,6 +11,8 @@ namespace q5id.guardian.Models
     {
         [JsonProperty("ProfileId")]
         public string ProfileId { get; set; }
+        [JsonProperty("UserId")]
+        public string UserId { get; set; }
         [JsonProperty("AlertId")]
         public string AlertId { get; set; }
         [JsonProperty("FirstName")]
@@ -61,6 +63,7 @@ namespace q5id.guardian.Models
                 CreatedBy = CreatedBy,
                 ProfileId = ProfileId,
                 AlertId = AlertId,
+                UserId = UserId,
                 FirstName = FirstName,
                 Description = Description,
                 Comments = Comments,
@@ -107,5 +110,21 @@ namespace q5id.guardian.Models
             }
         }
 
+    }
+
+    class AlertComparer : IEqualityComparer<Alert>
+    {
+        public bool Equals(Alert x, Alert y)
+        {
+            if (x.Id == y.Id)
+                return true;
+
+            return false;
+        }
+
+        public int GetHashCode(Alert obj)
+        {
+            return obj.Id.GetHashCode();
+        }
     }
 }

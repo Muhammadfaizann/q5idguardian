@@ -258,7 +258,7 @@ namespace q5id.guardian.ViewModels
                 {
                     await App.Current.MainPage.DisplayAlert("SignUp Successfully", "", "OK");
                     var user = response.ResponseObject.Result;
-                    Utils.Utils.SaveToken(user.Email, user.SessionToken);
+                    Utils.Utils.SaveToken(user);
                     await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
                 }
                 else

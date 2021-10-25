@@ -109,25 +109,42 @@ namespace q5id.guardian.Utils
             return new List<Choice>();
         }
 
-        public static void SaveToken(string email, string sessionToken)
+        public static void SaveToken(User user)
         {
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes($"{email}:{sessionToken}");
-            var token = System.Convert.ToBase64String(plainTextBytes);
-            Preferences.Set(TOKEN_KEY, token);
+            if(user != null)
+            {
+                var plainTextBytes = System.Text.Encoding.UTF8.GetBytes($"{user.Email}:{user.SessionToken}");
+                var session = System.Convert.ToBase64String(plainTextBytes);
+                var userSession = new UserSession()
+                {
+                    UserId = user.UserId,
+                    Session = session,
+                    SessionExpiredDate = user.UpdatedTime.ToString(),
+                };
+                Preferences.Set(TOKEN_KEY, JsonConvert.SerializeObject(userSession));
+            }
+            else
+            {
+                Preferences.Set(TOKEN_KEY, "");
+            }
         }
 
-        public static string GetToken()
+        public static UserSession GetToken()
         {
             try
             {
-                var token = Preferences.Get(TOKEN_KEY, "");
-                return token;
+                var userSessionJson = Preferences.Get(TOKEN_KEY, "");
+                if(userSessionJson != "")
+                {
+                    UserSession userSession = JsonConvert.DeserializeObject<UserSession>(userSessionJson);
+                    return userSession;
+                }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Cannot get token: " + ex.Message);
             }
-            return "";
+            return null;
         }
 
         public static string GetTimeAgoFrom(DateTime dateTime)

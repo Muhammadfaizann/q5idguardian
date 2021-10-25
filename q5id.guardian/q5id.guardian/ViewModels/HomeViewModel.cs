@@ -83,7 +83,7 @@ namespace q5id.guardian.ViewModels
 
         private async void OnServiceUnauthorized(object sender, EventArgs e)
         {
-            Utils.Utils.SaveToken("", "");
+            Utils.Utils.SaveToken(null);
             await App.Current.MainPage.DisplayAlert("Unauthorized", "Expired Session", "OK");
             await ClearStackAndNavigateToPage<LoginViewModel>();
         }
@@ -105,7 +105,7 @@ namespace q5id.guardian.ViewModels
         {
             if(User != null)
             {
-                var currentUserResponse = await AppApiManager.Instances.GetUserProfile(User);
+                var currentUserResponse = await AppApiManager.Instances.GetUserProfile(User.UserId);
                 if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null && currentUserResponse.ResponseObject.Count > 0)
                 {
                     var result = currentUserResponse.ResponseObject[0];
