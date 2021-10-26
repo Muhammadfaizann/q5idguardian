@@ -109,7 +109,7 @@ namespace q5id.guardian.ViewModels
             var currentLocation = await Utils.Utils.GetLocalLocation();
             if (currentLocation != null)
             {
-                var response = await AppApiManager.Instances.GetListAlert();
+                var response = await AppApiManager.Instances.GetNearbyListAlert(currentLocation.Latitude, currentLocation.Longitude, Utils.Constansts.KM_DEFAULT_MAP_ZOOM_DISTANCT);
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
                     Alerts = response.ResponseObject;
