@@ -39,7 +39,11 @@ namespace q5id.guardian.Services
 
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+            UserSession userSession = Utils.Utils.GetToken();
+            if (userSession != null)
+            {
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"{Utils.Constansts.API_TOKEN_TYPE} {userSession.Session}");
+            }
             return httpClient;
         }
         public static void Initialize(string googleMapsKey)

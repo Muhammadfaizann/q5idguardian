@@ -31,6 +31,8 @@ namespace q5id.guardian.Models
         public bool IsClosed { get; set; }
         [JsonProperty("alertFeeds")]
         public List<Feed> AlertFeeds { get; set; }
+        [JsonProperty("profile")]
+        public Love Love { get; set; }
 
         [JsonIgnore]
         public string DistanceFromUser { get; set; }
@@ -82,9 +84,6 @@ namespace q5id.guardian.Models
                 return new Position(Latitude, Lognitude);
             }
         }
-
-        [JsonIgnore]
-        public Love Love { get; set; }
 
         [JsonIgnore]
         public string UpdatedTimeDescription

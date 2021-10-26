@@ -245,16 +245,6 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private List<LoveItemViewModel> mLoves = null;
-        public List<LoveItemViewModel> Loves
-        {
-            get => mLoves;
-            set
-            {
-                mLoves = value;
-            }
-        }
-
         private List<LoveItemViewModel> mMyLoves = null;
         public List<LoveItemViewModel> MyLoves
         {
@@ -271,28 +261,7 @@ namespace q5id.guardian.ViewModels
         {
 
             GetMyLoves();
-            GetLoves();
             await Task.CompletedTask;
-        }
-
-        public async void GetLoves()
-        {
-            IsLoading = true;
-            var response = await AppApiManager.Instances.GetListLovedOnes(null);
-            if (response.IsSuccess && response.ResponseObject != null)
-            {
-                Loves = response.ResponseObject.Select((Love love) =>
-                {
-                    return new LoveItemViewModel(love)
-                    {
-                        OnItemClicked = () =>
-                        {
-                            CreatingLove = love;
-                        }
-                    };
-                }).ToList();
-            }
-            IsLoading = false;
         }
 
         public async void GetMyLoves()
@@ -613,17 +582,6 @@ namespace q5id.guardian.ViewModels
                 {
                     AlertDetail = item.Model;
                 };
-                if (this.Loves != null)
-                {
-                    var selectedLoveItemViewModel = this.Loves.Find((LoveItemViewModel loveItemViewModel) =>
-                    {
-                        return loveItemViewModel.Model.ProfileId == item.Model.ProfileId;
-                    });
-                    if (selectedLoveItemViewModel != null)
-                    {
-                        item.Model.Love = selectedLoveItemViewModel.Model;
-                    }
-                }
                 return item;
             }).ToList();
             List<AlertItemViewModel> listLiveItem = listAlertItem.Where((AlertItemViewModel item) =>

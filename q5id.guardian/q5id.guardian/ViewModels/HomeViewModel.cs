@@ -160,7 +160,6 @@ namespace q5id.guardian.ViewModels
             {
                 return new Command(async () =>
                 {
-                    AlertsVm.GetLoves();
                     AlertsVm.GetMyLoves();
                     AlertsVm.GetAlerts();
                 });
