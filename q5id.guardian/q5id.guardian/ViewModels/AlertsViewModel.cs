@@ -423,7 +423,7 @@ namespace q5id.guardian.ViewModels
                 var feedToPost = new Feed()
                 {
                     AlertFeedId = System.Guid.NewGuid().ToString(),
-                    VolunteerName = User.FullName,
+                    VolunteerName = User.FirstName + " " + User.LastName,
                     CreatedBy = User.Id,
                     UserId = User.UserId,
                     AlertId = AlertDetail.AlertId,
@@ -480,7 +480,7 @@ namespace q5id.guardian.ViewModels
                 var feedToPost = new Feed()
                 {
                     AlertFeedId = System.Guid.NewGuid().ToString(),
-                    VolunteerName = User.FullName,
+                    VolunteerName = User.FirstName + " " + User.LastName,
                     CreatedBy = User.Id,
                     UserId = User.UserId,
                     AlertId = AlertDetail.AlertId,
