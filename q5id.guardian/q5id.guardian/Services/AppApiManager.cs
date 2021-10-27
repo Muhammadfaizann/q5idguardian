@@ -193,11 +193,13 @@ namespace q5id.guardian.Services
             return await task;
         }
 
-        public async Task<ApiResponse<AppServiceResponse<Entity<User>>>> CreateAccount(User user)
+        public async Task<ApiResponse<Entity<User>>> CreateAccount(User user)
         {
             var cts = new CancellationTokenSource();
             var param = new
             {
+                email = user.Email,
+                phone = user.Phone,
                 username = user.Email,
                 password = user.Password,
                 firstName = user.FirstName,

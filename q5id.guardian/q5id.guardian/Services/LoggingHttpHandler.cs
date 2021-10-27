@@ -22,16 +22,23 @@ namespace q5id.guardian.Services
             Console.WriteLine();
 
             HttpResponseMessage response = await base.SendAsync(request, cancellationToken);
+            string requestcontent = "";
+            string responseContent = "";
+            if (request.Content != null)
+            {
+                requestcontent = await request.Content.ReadAsStringAsync();
+            }
+            if (response.Content != null)
+            {
+                responseContent = await response.Content.ReadAsStringAsync();
+            }
             Console.WriteLine("==================");
             Console.WriteLine("Request:");
             Console.WriteLine(request.ToString());
+            Console.WriteLine("Request Content: "+ requestcontent);
             Console.WriteLine("Response:");
             Console.WriteLine(response.ToString());
-            if (response.Content != null)
-            {
-                string content = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("Content: "+content);
-            }
+            Console.WriteLine("Response Content: " + responseContent);
             Console.WriteLine();
 
             return response;

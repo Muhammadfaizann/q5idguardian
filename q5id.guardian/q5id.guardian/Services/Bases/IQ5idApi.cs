@@ -57,7 +57,7 @@ namespace q5id.guardian.Services.Bases
         Task<AppServiceResponse<User>> UpdateUser([Body] Object body, CancellationToken cancellationToken);
 
         [Post("/Authentication/CreateUser")]
-        Task<AppServiceResponse<Entity<User>>> CreateAccount([Body] Object body, CancellationToken cancellationToken);
+        Task<Entity<User>> CreateAccount([Body] Object body, CancellationToken cancellationToken);
 
         [Post("/Authentication")]
         Task<JObject> Login([Body] Object body, CancellationToken cancellationToken);
@@ -65,8 +65,8 @@ namespace q5id.guardian.Services.Bases
         [Get("/User/Email")]
         Task<List<User>> GetUserByEmail([Refit.AliasAs("email")] string email, CancellationToken cancellationToken);
 
-        [Get("/User")]
-        Task<List<User>> GetUserDetail([Refit.AliasAs("id")] string id, CancellationToken cancellationToken);
+        [Get("/User/UserId")]
+        Task<List<User>> GetUserDetail([Refit.AliasAs("userId")] string id, CancellationToken cancellationToken);
 
         [Post("/AlertFeed")]
         Task<AppServiceResponse<Feed>> CreateAlertFeed([Body] Object body, CancellationToken cancellationToken);

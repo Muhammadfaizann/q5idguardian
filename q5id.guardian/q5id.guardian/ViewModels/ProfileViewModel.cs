@@ -30,6 +30,7 @@ namespace q5id.guardian.ViewModels
                 Email = User.Email;
                 FirstName = User.FirstName;
                 LastName = User.LastName;;
+                Phone = User.Phone;
                 Image = User.ImageUrl;
             }
             else
@@ -64,6 +65,16 @@ namespace q5id.guardian.ViewModels
             set
             {
                 mEmail = value;
+            }
+        }
+
+        private string mPhone = null;
+        public string Phone
+        {
+            get => mPhone;
+            set
+            {
+                mPhone = value;
             }
         }
 
@@ -180,6 +191,7 @@ namespace q5id.guardian.ViewModels
             this.LastName = "";
             this.ProfileImage = null;
             this.Image = "";
+            this.Phone = "";
         }
 
         private bool isInitData = false;
@@ -201,7 +213,9 @@ namespace q5id.guardian.ViewModels
             {
                 Id = User != null ? User.Id : null,
                 UserId = User != null ? User.UserId : System.Guid.NewGuid().ToString(),
+                RoleId = User != null ? User.RoleId : "",
                 Email = Email,
+                Phone = Phone,
                 Password = Password,
                 FirstName = FirstName,
                 LastName = LastName,
@@ -243,8 +257,7 @@ namespace q5id.guardian.ViewModels
                 {
                     IsError = false,
                     StatusCode = responseCreate.ResponseStatusCode,
-                    Result = responseCreate.ResponseObject?.Result?.Data,
-                    Error = responseCreate.ResponseObject?.Error
+                    Result = responseCreate.ResponseObject?.Data
                 };
             }
             IsLoading = false;

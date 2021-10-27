@@ -180,9 +180,21 @@ namespace q5id.guardian.ViewModels
         private async Task UpdateUserSubscription(string subscritionId)
         {
             IsLoading = true;
-
+            var choices = Utils.Utils.GetChoices();
+            Choice userRoleChoice = choices.Find((Choice obj) =>
+            {
+                return obj.Name == Utils.Constansts.USER_ROLE_SETTING_KEY;
+            });
+            ItemChoice subscriptionChoice = userRoleChoice.Items.Find(item =>
+            {
+                return item.Name == Utils.Constansts.USER_ROLE_SUBSCRIBER_KEY;
+            });
             var userToPost = User;
             userToPost.SubscriptionExpiredDate = DateTime.UtcNow.AddDays(30).ToString();
+            if(subscriptionChoice != null)
+            {
+                userToPost.RoleId = subscriptionChoice.Id;
+            }
             ApiResponse<AppServiceResponse<User>> response;
             response = await AppApiManager.Instances.UpdateUser(userToPost);
             IsLoading = false;

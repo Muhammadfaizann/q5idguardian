@@ -78,7 +78,12 @@ namespace q5id.guardian.ViewModels
         public override void ViewCreated()
         {
             base.ViewCreated();
-            AppApiManager.Instances.OnUnauthorized += OnServiceUnauthorized;
+            
+        }
+
+        public override void Start()
+        {
+            base.Start();
         }
 
         private async void OnServiceUnauthorized(object sender, EventArgs e)
@@ -90,7 +95,7 @@ namespace q5id.guardian.ViewModels
 
         public override void ViewDestroy(bool viewFinishing = true)
         {
-            AppApiManager.Instances.OnUnauthorized -= OnServiceUnauthorized;
+            
             base.ViewDestroy(viewFinishing);
         }
 
@@ -130,6 +135,13 @@ namespace q5id.guardian.ViewModels
         {
             base.ViewAppeared();
             GetProfile();
+            AppApiManager.Instances.OnUnauthorized += OnServiceUnauthorized;
+        }
+
+        public override void ViewDisappeared()
+        {
+            AppApiManager.Instances.OnUnauthorized -= OnServiceUnauthorized;
+            base.ViewDisappeared();
         }
 
         public Command OpenHomeTapCommand
