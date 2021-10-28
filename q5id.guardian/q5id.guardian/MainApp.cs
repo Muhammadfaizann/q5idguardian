@@ -1,5 +1,6 @@
 ﻿using MvvmCross.IoC;
 using MvvmCross.ViewModels;
+using q5id.guardian.Models;
 using q5id.guardian.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,16 @@ namespace q5id.guardian
                 .EndingWith("Service")
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
-            RegisterAppStart<IntroViewModel>();
+            UserSession userSession = Utils.Utils.GetToken();
+            if (userSession != null)
+            {
+                RegisterAppStart<HomeViewModel>();
+            }
+            else
+            {
+                RegisterAppStart<IntroViewModel>();
+            }
+           
         }
 
         /// <summary>

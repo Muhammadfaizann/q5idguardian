@@ -65,6 +65,7 @@ namespace q5id.guardian.ViewModels
             {
                 return new Command(async () =>
                 {
+                    Utils.Utils.SaveToken(null);
                     await ClearStackAndNavigateToPage<LoginViewModel>();
                 });
             }
@@ -108,14 +109,19 @@ namespace q5id.guardian.ViewModels
 
         private async void GetProfile()
         {
-            if(User != null)
+            UserSession userSession = Utils.Utils.GetToken();
+            if(userSession != null)
             {
-                var currentUserResponse = await AppApiManager.Instances.GetUserProfile(User.UserId);
+                var currentUserResponse = await AppApiManager.Instances.GetUserProfile(userSession.UserId);
                 if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null && currentUserResponse.ResponseObject.Count > 0)
                 {
                     var result = currentUserResponse.ResponseObject[0];
                     User = result;
                 }
+            }
+            else
+            {
+                await ClearStackAndNavigateToPage<LoginViewModel>();
             }
         }
 

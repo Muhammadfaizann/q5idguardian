@@ -16,7 +16,6 @@ namespace q5id.guardian
     {
         public App()
         {
-            GoogleMapsApiService.Initialize("AIzaSyBfmbh-Rv6aVh4QP7DR41o-_RwPQKZgMDY");
             InitializeComponent();
             GetInitData();
         }

@@ -267,6 +267,45 @@ namespace q5id.guardian.Services
             return await task;
         }
 
+        public async Task<GooglePlaceAutoCompleteResult> GetPlaces(string text)
+        {
+            GooglePlaceAutoCompleteResult results = null;
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).GetPlaces(text, cts.Token));
+            runningTasks.Add(task.Id, cts);
+            var response = await task;
+            if (response.IsSuccess && response.ResponseObject.IsSuccessStatusCode)
+            {
+                var json = await response.ResponseObject.Content.ReadAsStringAsync().ConfigureAwait(false);
+                if (!string.IsNullOrWhiteSpace(json) && json != "ERROR")
+                {
+                    results = await Task.Run(() =>
+                       JsonConvert.DeserializeObject<GooglePlaceAutoCompleteResult>(json)
+                    ).ConfigureAwait(false);
+
+                }
+            }
+            return results;
+        }
+
+        public async Task<GooglePlace> GetPlaceDetails(string placeId)
+        {
+            GooglePlace result = null;
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).GetPlaceDetails(placeId, cts.Token));
+            runningTasks.Add(task.Id, cts);
+            var response = await task;
+            if (response.IsSuccess && response.ResponseObject.IsSuccessStatusCode)
+            {
+                var json = await response.ResponseObject.Content.ReadAsStringAsync().ConfigureAwait(false);
+                if (!string.IsNullOrWhiteSpace(json) && json != "ERROR")
+                {
+                    result = new GooglePlace(JObject.Parse(json));
+                }
+            }
+            return result;
+        }
+
         protected async Task<ApiResponse<T>> RemoteRequestAsync<T>(Task<T> task)
         {
             ApiResponse<T> data = new ApiResponse<T>();

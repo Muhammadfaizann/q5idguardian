@@ -60,7 +60,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Services\GoogleMapsApiService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\Bases\ApiResponse.cs" />
     <Compile Include="Services\Bases\EntityListResponse.cs" />

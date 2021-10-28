@@ -35,16 +35,8 @@ namespace q5id.guardian.ViewModels
 
         private async void OnLoginClicked(object obj)
         {
-            var user = await GetProfile();
-            if (user != null)
-            {
-                await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
-            }
-            else
-            {
-                await NavigationService.Navigate<LoginViewModel>();
-            }
             
+            await NavigationService.Navigate<LoginViewModel>();
         }
 
         private async Task<User> GetProfile()

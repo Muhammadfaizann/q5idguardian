@@ -269,10 +269,13 @@ namespace q5id.guardian.ViewModels
                 
                 if(User == null)
                 {
-                    await App.Current.MainPage.DisplayAlert("SignUp Successfully", "", "OK");
-                    var user = response.ResponseObject.Result;
-                    Utils.Utils.SaveToken(user);
-                    await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
+                    var user = await GetUser(userToPost.Email, userToPost.Password);
+                    if(user != null)
+                    {
+                        await App.Current.MainPage.DisplayAlert("SignUp Successfully", "", "OK");
+                        Utils.Utils.SaveToken(user);
+                        await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
+                    }
                 }
                 else
                 {
@@ -285,6 +288,21 @@ namespace q5id.guardian.ViewModels
                 await App.Current.MainPage.DisplayAlert("Error", response.ResponseObject.Error, "OK");
             }
 
+        }
+
+        private async Task<User> GetUser(string username, string password)
+        {
+            IsLoading = true;
+            var currentUserResponse = await AppApiManager.Instances.Login(username, password);
+            IsLoading = false;
+            if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null)
+            {
+                var user = currentUserResponse.ResponseObject;
+                Utils.Utils.SaveToken(user);
+                return user;
+            }
+
+            return null;
         }
 
         private async Task<bool> CheckFormAsync()

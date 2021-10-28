@@ -266,6 +266,10 @@ namespace q5id.guardian.ViewModels
 
         public async void GetMyLoves()
         {
+            if(User == null)
+            {
+                return;
+            }
             var response = await AppApiManager.Instances.GetListLovedOnes(User.UserId);
             if (response.IsSuccess && response.ResponseObject != null)
             {
@@ -332,7 +336,7 @@ namespace q5id.guardian.ViewModels
 
                 if (AlertPosition != null)
                 {
-                    string address = await GoogleMapsApiService.Instances.FindPlaceByPosition(AlertPosition.Value);
+                    string address = await Utils.Utils.FindPlaceByPosition(AlertPosition.Value);
                     alertToPost.Address = address;
                 }
                 ApiResponse<AppServiceResponse<Alert>> response = await AppApiManager.Instances.CreateAlert(alertToPost);
@@ -563,12 +567,12 @@ namespace q5id.guardian.ViewModels
             IsLoading = true;
             var userPosition = await Utils.Utils.GetLocalLocation();
             var userLocation = userPosition != null ? new Location(userPosition.Latitude, userPosition.Longitude) : null;
-            var listNearbyAlert = await GetNearbyAlerts();
-            var listMyAlert = await GetMyAlerts();
-            var listFeedHistoryAlert = await GetHistoryFeedAlerts();
+            var alertsResponse = await Task.WhenAll<List<Alert>>(GetNearbyAlerts(), GetMyAlerts(), GetHistoryFeedAlerts());
             List<Alert> listAllAlert = new List<Alert>();
-            listAllAlert = listNearbyAlert.Union(listMyAlert, new AlertComparer()).ToList();
-            listAllAlert = listAllAlert.Union(listFeedHistoryAlert, new AlertComparer()).ToList();
+            for(int i = 0; i < alertsResponse.Length; i++)
+            {
+                listAllAlert = listAllAlert.Union(alertsResponse[i], new AlertComparer()).ToList();
+            }
             listAlertItem = listAllAlert.Select((Alert alert) =>
             {
                 AlertItemViewModel item = new AlertItemViewModel(alert)

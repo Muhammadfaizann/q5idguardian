@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Plugin.Geolocator;
@@ -9,6 +10,7 @@ using q5id.guardian.Models;
 using q5id.guardian.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 using static Xamarin.Essentials.Permissions;
 
 namespace q5id.guardian.Utils
@@ -191,7 +193,7 @@ namespace q5id.guardian.Utils
             }
         }
 
-        public static async Task<Position> GetLocalLocation()
+        public static async Task<Plugin.Geolocator.Abstractions.Position> GetLocalLocation()
         {
             if (IsLocationAvailable())
             {
@@ -213,6 +215,14 @@ namespace q5id.guardian.Utils
             if (!CrossGeolocator.IsSupported)
                 return false;
             return CrossGeolocator.Current.IsGeolocationAvailable;
+        }
+
+        public static async Task<string> FindPlaceByPosition(Xamarin.Forms.Maps.Position position)
+        {
+            Geocoder geoCoder = new Geocoder();
+            IEnumerable<string> possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
+            string address = possibleAddresses.FirstOrDefault();
+            return address;
         }
     }
 }

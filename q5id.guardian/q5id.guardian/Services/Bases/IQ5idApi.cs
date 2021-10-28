@@ -70,5 +70,11 @@ namespace q5id.guardian.Services.Bases
 
         [Post("/AlertFeed")]
         Task<AppServiceResponse<Feed>> CreateAlertFeed([Body] Object body, CancellationToken cancellationToken);
+
+        [Get("/GooglePlaces/autocomplete")]
+        Task<HttpResponseMessage> GetPlaces([Refit.AliasAs("address")] string address, CancellationToken cancellationToken);
+
+        [Get("/GooglePlaces/details")]
+        Task<HttpResponseMessage> GetPlaceDetails([Refit.AliasAs("placeid")] string placeId, CancellationToken cancellationToken);
     }
 }
