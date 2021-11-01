@@ -22,21 +22,9 @@ namespace q5id.guardian
 
         private void GetInitData()
         {
-            GetChoices();
         }
 
-        private async void GetChoices()
-        {
-            var response = await AppApiManager.Instances.GetChoices();
-            if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject != null)
-            {
-                var choices = response.ResponseObject;
-                if (choices.Count > 0)
-                {
-                    Utils.Utils.SaveChoices(choices);
-                }
-            }
-        }
+        
 
         protected override void OnStart()
         {

@@ -94,6 +94,7 @@
                                     HeightRequest="32"
                                     NoramlBorderColor="#E8EAF2"
                                     Placeholder="MM/DD/YYYY"
+                                    MaximumDate="{Binding CurrentDate}"
                                     x:Name="EntryBirthDay"
                                     NullableDate="{Binding BirthDay}"
                                     Style="{StaticResource etBodyNormalLg}"

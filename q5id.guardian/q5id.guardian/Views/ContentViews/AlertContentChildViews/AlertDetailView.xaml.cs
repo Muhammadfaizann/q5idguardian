@@ -81,7 +81,10 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
-            cardInfoView.BindingContext = this.BindingContext;
+            if(cardInfoView != null)
+            {
+                cardInfoView.BindingContext = this.BindingContext;
+            }
         }
 
         void OnShowMapTapped(System.Object sender, System.EventArgs e)

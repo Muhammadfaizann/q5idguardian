@@ -212,6 +212,11 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        public DateTime CurrentDate
+        {
+            get => DateTime.Now;
+        }
+
         private DateTime? mBirthDay = null;
         public DateTime? BirthDay
         {
@@ -439,9 +444,26 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private void GetChoices()
+
+        private async void GetChoices()
         {
             List<Choice> choices = Utils.Utils.GetChoices();
+            if(choices.Count == 0)
+            {
+                var response = await AppApiManager.Instances.GetChoices();
+                if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject != null)
+                {
+                    choices = response.ResponseObject;
+                    if (choices.Count > 0)
+                    {
+                        Utils.Utils.SaveChoices(choices);
+                    }
+                }
+            }
+            if(choices.Count == 0)
+            {
+                return;
+            }
             Choice hairColorChoice = choices.Find((Choice obj) =>
             {
                 return obj.Name == Utils.Constansts.HAIR_COLORS_SETTING_KEY;
@@ -489,10 +511,11 @@ namespace q5id.guardian.ViewModels
 
         public async void GetLoves()
         {
-            if(IsVolunteer == false)
+            var userSession = Utils.Utils.GetToken();
+            if(IsVolunteer == false && userSession != null) 
             {
                 IsLoading = true;
-                var response = await AppApiManager.Instances.GetListLovedOnes(User.UserId);
+                var response = await AppApiManager.Instances.GetListLovedOnes(userSession.UserId);
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
                     Loves = response.ResponseObject;

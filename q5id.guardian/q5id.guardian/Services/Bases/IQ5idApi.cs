@@ -11,7 +11,7 @@ namespace q5id.guardian.Services.Bases
 {
     public interface IQ5idApi
     {
-        [Get("/Choice")]
+        [Get("/Choice/All")]
         Task<List<Choice>> GetChoices(CancellationToken cancellationToken);
 
         [Post("/{entityName}/Upload")]

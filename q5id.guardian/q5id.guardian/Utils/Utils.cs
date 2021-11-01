@@ -102,7 +102,10 @@ namespace q5id.guardian.Utils
             try
             {
                 var strChoices = Preferences.Get(CHOICES_KEY, "");
-                return JsonConvert.DeserializeObject<List<Choice>>(strChoices);
+                if(strChoices != "")
+                {
+                    return JsonConvert.DeserializeObject<List<Choice>>(strChoices);
+                }
             }
             catch (Exception ex)
             {

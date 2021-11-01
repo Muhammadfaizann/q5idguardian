@@ -128,8 +128,8 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
 
             ImageSourceGuardianNearby.Color = Utils.Utils.GetColorFromResource("lightCharcoal40", Color.LightGray);
             ImageSourceGuardianNearby.FontFamily = Utils.ThemeConstanst.FontAwesomeRegular;
-            ImageSourceYourPersonalNetwork.Color = Utils.Utils.GetColorFromResource("lightCharcoal40", Color.LightGray);
-            ImageSourceYourPersonalNetwork.FontFamily = Utils.ThemeConstanst.FontAwesomeRegular;
+            //ImageSourceYourPersonalNetwork.Color = Utils.Utils.GetColorFromResource("lightCharcoal40", Color.LightGray);
+            //ImageSourceYourPersonalNetwork.FontFamily = Utils.ThemeConstanst.FontAwesomeRegular;
             ImageSourceLowEnforcement.Color = Utils.Utils.GetColorFromResource("lightCharcoal40", Color.LightGray);
             ImageSourceLowEnforcement.FontFamily = Utils.ThemeConstanst.FontAwesomeRegular;
 
@@ -184,8 +184,8 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
         private void UpdateYourPersonalNetwork()
         {
             String colorResource = IsYourPersonalNetwork ? "redNue" : "lightCharcoal40";
-            ImageSourceYourPersonalNetwork.Color = Utils.Utils.GetColorFromResource(colorResource, Color.LightGray);
-            ImageSourceYourPersonalNetwork.FontFamily = IsYourPersonalNetwork ? Utils.ThemeConstanst.FontAwesomeSolid : Utils.ThemeConstanst.FontAwesomeRegular;
+            //ImageSourceYourPersonalNetwork.Color = Utils.Utils.GetColorFromResource(colorResource, Color.LightGray);
+            //ImageSourceYourPersonalNetwork.FontFamily = IsYourPersonalNetwork ? Utils.ThemeConstanst.FontAwesomeSolid : Utils.ThemeConstanst.FontAwesomeRegular;
         }
 
         void GuardianNearbyTapped(System.Object sender, System.EventArgs e)

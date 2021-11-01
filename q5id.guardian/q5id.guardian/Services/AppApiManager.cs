@@ -337,7 +337,7 @@ namespace q5id.guardian.Services
                     data.IsSuccess = true;
                     data.ResponseObject = result;
                 }
-                catch(Refit.ValidationApiException apiEx)
+                catch (Refit.ApiException apiEx)
                 {
                     data.ResponseStatusCode = (int)apiEx.StatusCode;
                     data.ResponseObject = default(T);
@@ -353,7 +353,7 @@ namespace q5id.guardian.Services
                         OnUnauthorized?.Invoke(this, null);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     data.ResponseStatusCode = (int)HttpStatusCode.InternalServerError;
                     data.ResponseObject = default(T);

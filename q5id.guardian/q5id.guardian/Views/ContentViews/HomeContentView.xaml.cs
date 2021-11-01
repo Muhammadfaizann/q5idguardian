@@ -174,5 +174,10 @@ namespace q5id.guardian.Views.ContentViews
         {
             return new Grid();
         }
+
+        void OnViewAllAlertTapped(System.Object sender, System.EventArgs e)
+        {
+            MainPage.ShowAlertView();
+        }
     }
 }

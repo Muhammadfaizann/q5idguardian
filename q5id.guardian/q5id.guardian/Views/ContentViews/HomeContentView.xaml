@@ -100,7 +100,11 @@
                                     FontSize="11"
                                     Style="{StaticResource lbSubheadLg}"
                                     Text="VIEW ALL"
-                                    TextColor="{StaticResource normalCharcoal}" />
+                                    TextColor="{StaticResource normalCharcoal}" >
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnViewAllAlertTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
                             </Grid>
                             <Label
                                 Margin="0,4,0,0"
@@ -136,14 +140,14 @@
                                     Style="{StaticResource lbSubheadSm}"
                                     Text="My Emergency Numbers"
                                     TextColor="{StaticResource lightCharcoal}" />
-                                <Label
+                                <!--<Label
                                     Grid.Column="1"
                                     Margin="0,4,0,0"
                                     FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"
                                     FontSize="11"
                                     Style="{StaticResource lbSubheadLg}"
                                     Text="EDIT"
-                                    TextColor="{StaticResource normalCharcoal}" />
+                                    TextColor="{StaticResource normalCharcoal}" />-->
                             </Grid>
                             <Label
                                 Margin="0,4,0,10"
