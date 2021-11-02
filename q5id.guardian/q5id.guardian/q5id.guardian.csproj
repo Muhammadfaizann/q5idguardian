@@ -72,6 +72,7 @@
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\Bases\IQ5idApi.cs" />
     <Compile Include="Services\LoggingHttpHandler.cs" />
+    <Compile Include="Services\InAppBillingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\AlertsPage.xaml.cs">

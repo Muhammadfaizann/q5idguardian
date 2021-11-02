@@ -104,11 +104,21 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        private Boolean mIsSubcriber = false;
+        public Boolean IsSubcriber
+        {
+            get => mIsSubcriber;
+            set
+            {
+                mIsSubcriber = value;
+            }
+        }
+
         public Boolean IsVolunteer
         {
             get
             {
-                return this.User != null && this.User.Role == UserRole.Volunteer;
+                return !IsSubcriber;
             }
         }
 
@@ -337,7 +347,10 @@ namespace q5id.guardian.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await NavigationService.Navigate<IAPViewModel, User>(mUser);
+                    IsLoading = true;
+                    var result = await InAppBillingService.Instances.MakePurchase();
+                    IsLoading = false;
+                    IsSubcriber = result != null;
                 });
             }
         }

@@ -32,10 +32,10 @@ namespace q5id.guardian.Models
         {
             get
             {
-                if(SubscriptionExpiredDateTime != null)
-                {
-                    return SubscriptionExpiredDateTime.Value > DateTime.UtcNow ? UserRole.Subscriber : UserRole.Volunteer;
-                }
+                //if(SubscriptionExpiredDateTime != null)
+                //{
+                //    return SubscriptionExpiredDateTime.Value > DateTime.UtcNow ? UserRole.Subscriber : UserRole.Volunteer;
+                //}
                 return UserRole.Volunteer;
             }
         }

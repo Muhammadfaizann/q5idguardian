@@ -66,115 +66,35 @@ namespace q5id.guardian.ViewModels
 
         public async Task GetProducts()
         {
-            if (!CrossInAppBilling.IsSupported)
-                return;
-
-            var billing = CrossInAppBilling.Current;
-            try
+            IsLoading = true;
+            var products = await InAppBillingService.Instances.GetProducts();
+            IsLoading = false;
+            if (products != null)
             {
-                IsLoading = true;
-                var productIds = new string[]
+                var listProduct = new List<object>();
+                foreach (InAppBillingProduct product in products)
                 {
-                    "subscription_one_month",
-                };
-
-                var connected = await CrossInAppBilling.Current.ConnectAsync();
-
-                if (!connected)
-                {
-                    //Couldn't connect to billing, could be offline, alert user
-                    return;
-                }
-
-                //try to purchase item
-
-                var products = await CrossInAppBilling.Current.GetProductInfoAsync(ItemType.InAppPurchase, productIds);
-                if (products == null)
-                {
-                    //Not purchased, alert the user
-
-                }
-                else
-                {
-                    //check purchases
-                    //var purchases = await billing.GetPurchasesAsync(ItemType.InAppPurchase);
-                    var listProduct = new List<object>();
-
-                    //Purchased, save this information
-                    foreach (InAppBillingProduct product in products)
+                    //item info here.
+                    var item = new InAppBillingProductItemViewModel(product)
                     {
-                        //item info here.
-                        //var isPaid = purchases?.Any(p => p.ProductId == product.ProductId) ?? false;
-                        var item = new InAppBillingProductItemViewModel(product)
+                        OnItemClicked = async () =>
                         {
-                            OnItemClicked = async () =>
-                            {
-                                await MakePurchase(product.ProductId);
-
-                            },
-                            IsPaid = false
-                        };
-                        listProduct.Add(item);
-                    }
-                    Products = listProduct;
+                            await MakePurchase();
+                        },
+                        IsPaid = false
+                    };
+                    listProduct.Add(item);
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Error: " + ex.Message);
-            }
-            finally
-            {
-                await billing.DisconnectAsync();
-                IsLoading = false;
+                Products = listProduct;
             }
         }
 
-        public async Task<bool> MakePurchase(string productId)
+        public async Task<bool> MakePurchase()
         {
-            if (!CrossInAppBilling.IsSupported)
-                return false;
-
-            var billing = CrossInAppBilling.Current;
-            try
-            {
-                IsLoading = true;
-                var connected = await CrossInAppBilling.Current.ConnectAsync();
-
-                if (!connected)
-                {
-                    //Couldn't connect to billing, could be offline, alert user
-                    return false;
-                }
-
-                //try to purchase item
-
-                //try to purchase item
-                var purchase = await CrossInAppBilling.Current.PurchaseAsync(productId, ItemType.InAppPurchase);
-                if (purchase == null)
-                {
-                    //Not purchased, alert the user
-                }
-                else
-                {
-                    //Purchased, save this information
-                    var id = purchase.Id;
-                    var token = purchase.PurchaseToken;
-                    var state = purchase.State;
-                    await UpdateUserSubscription(id);
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Error: " + ex.Message);
-                return false;
-            }
-            finally
-            {
-                await billing.DisconnectAsync();
-                IsLoading = false;
-            }
+            IsLoading = true;
+            var makePurchaseResponse = await InAppBillingService.Instances.MakePurchase();
+            IsLoading = false;
+            return makePurchaseResponse != null;
         }
 
         private async Task UpdateUserSubscription(string subscritionId)

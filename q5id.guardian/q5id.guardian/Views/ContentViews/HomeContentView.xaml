@@ -10,327 +10,338 @@
     xmlns:utils="clr-namespace:q5id.guardian.Utils">
     <ContentView.Content>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <control:AppBoxView HorizontalOptions="Fill"
-                                VerticalOptions="Start"
-                                HeightRequest="50"
-                                BottomHeight="45"
-                                Grid.Row="0"
-                                BackgroundColor="{StaticResource redNue}"/>
-            <StackLayout
-                Padding="0,15,0,0"
-                Grid.Row="0"
-                Orientation="Vertical"
-                Spacing="0">
-                <control:AppButton
-                    BorderColor="Transparent"
-                    ButtonTitle="Create Alert"
-                    ButtonTitleSize="16"
-                    CornerRadius="12"
-                    Clicked="CreateAlertTapped"
-                    DeactiveBackgroundColor="White"
-                    DeactiveLabelColor="{StaticResource paleGray}"
-                    HasShadow="False"
-                    HeightRequest="60"
-                    HorizontalOptions="Center"
-                    IsDisable="{Binding IsVolunteer}"
-                    NormalBackgroundEndColor="White"
-                    NormalBackgroundStartColor="White"
-                    NormalLabelColor="{StaticResource redVibrant}"
-                    PressedBackgroundColor="{StaticResource redVibrant}"
-                    PressedLabelColor="White"
-                    WidthRequest="256" />
-                <Label
-                    Margin="0,10,0,0"
-                    HorizontalOptions="Center"
-                    IsVisible="{Binding IsVolunteer}"
-                    LineBreakMode="WordWrap"
-                    Style="{StaticResource lbBodyNormalMd}">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="Creating alerts requires a" TextColor="{StaticResource lightCharcoal}" />
-                            <Span Text=" subscription." TextColor="{StaticResource redVibrant}">
-                                <Span.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SubscriptionCommand}" />
-                                </Span.GestureRecognizers>
-                            </Span>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-            </StackLayout>
-            <Grid Grid.Row="1">
-                <Grid x:Name="gridContent">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <control:AppBoxView HorizontalOptions="Fill"
+                                    VerticalOptions="Start"
+                                    HeightRequest="50"
+                                    BottomHeight="45"
+                                    Grid.Row="0"
+                                    BackgroundColor="{StaticResource redNue}"/>
+                <StackLayout
+                    Padding="0,15,0,0"
+                    Grid.Row="0"
+                    Orientation="Vertical"
+                    Spacing="0">
+                    <control:AppButton
+                        BorderColor="Transparent"
+                        ButtonTitle="Create Alert"
+                        ButtonTitleSize="16"
+                        CornerRadius="12"
+                        Clicked="CreateAlertTapped"
+                        DeactiveBackgroundColor="White"
+                        DeactiveLabelColor="{StaticResource paleGray}"
+                        HasShadow="False"
+                        HeightRequest="60"
+                        HorizontalOptions="Center"
+                        IsDisable="{Binding IsVolunteer}"
+                        NormalBackgroundEndColor="White"
+                        NormalBackgroundStartColor="White"
+                        NormalLabelColor="{StaticResource redVibrant}"
+                        PressedBackgroundColor="{StaticResource redVibrant}"
+                        PressedLabelColor="White"
+                        WidthRequest="256" />
                     <Label
-                        Margin="40,20,90,0"
-                        HorizontalOptions="Fill"
-                        Style="{StaticResource lbSubheadLg}"
-                        TextColor="{StaticResource normalCharcoal}">
+                        Margin="0,10,0,0"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding IsVolunteer}"
+                        LineBreakMode="WordWrap"
+                        Style="{StaticResource lbBodyNormalMd}">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Welcome back, " />
-                                <Span Text="{Binding User.FirstName}" />
+                                <Span Text="Creating alerts requires a" TextColor="{StaticResource lightCharcoal}" />
+                                <Span Text=" subscription." TextColor="{StaticResource redVibrant}">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SubscriptionCommand}" />
+                                    </Span.GestureRecognizers>
+                                </Span>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
+                </StackLayout>
+                <Grid Grid.Row="1">
+                    <Grid x:Name="gridContent">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Label
+                            Margin="40,20,90,0"
+                            HorizontalOptions="Fill"
+                            Style="{StaticResource lbSubheadLg}"
+                            TextColor="{StaticResource normalCharcoal}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Welcome back, " />
+                                    <Span Text="{Binding User.FirstName}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
                     
-                    <ScrollView Grid.Row="1" Orientation="Vertical">
-                        <StackLayout Padding="40,30,40,0" Orientation="Vertical">
-                            <Grid HorizontalOptions="Fill" VerticalOptions="Start">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
+                        <ScrollView Grid.Row="1" Orientation="Vertical">
+                            <StackLayout Padding="40,30,40,0" Orientation="Vertical">
+                                <Grid HorizontalOptions="Fill" VerticalOptions="Start">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Grid.Column="0"
+                                        HorizontalOptions="Fill"
+                                        Style="{StaticResource lbSubheadSm}"
+                                        Text="Progress Report"
+                                        TextColor="{StaticResource lightCharcoal}" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Margin="0,4,0,0"
+                                        FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"
+                                        FontSize="11"
+                                        Style="{StaticResource lbSubheadLg}"
+                                        Text="VIEW ALL"
+                                        TextColor="{StaticResource normalCharcoal}" >
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnViewAllAlertTapped" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </Grid>
                                 <Label
-                                    Grid.Column="0"
-                                    HorizontalOptions="Fill"
-                                    Style="{StaticResource lbSubheadSm}"
-                                    Text="Progress Report"
-                                    TextColor="{StaticResource lightCharcoal}" />
-                                <Label
-                                    Grid.Column="1"
                                     Margin="0,4,0,0"
-                                    FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"
-                                    FontSize="11"
-                                    Style="{StaticResource lbSubheadLg}"
-                                    Text="VIEW ALL"
-                                    TextColor="{StaticResource normalCharcoal}" >
-                                    <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="OnViewAllAlertTapped" />
-                                    </Label.GestureRecognizers>
+                                    Style="{StaticResource lbBodyNormalMd}"
+                                    Text="Good news about child safety and recovery."
+                                    TextColor="{StaticResource lightCharcoal}" />
+                                <Frame
+                                    Margin="0,8,0,10"
+                                    Padding="0"
+                                    BackgroundColor="Black"
+                                    BorderColor="Transparent"
+                                    CornerRadius="16"
+                                    HasShadow="False"
+                                    IsClippedToBounds="True">
+                                    <control:AppWebView x:Name="Webview"
+                                            Source="https://q5idtest.site.work/"
+                                            HeightRequest="160"
+                                            VerticalOptions="FillAndExpand"
+                                            IsEnabled="True"
+                                            HorizontalOptions="Fill" />  
+                                </Frame>
+                                <Grid
+                                    Margin="0,20,0,0"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Start">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Grid.Column="0"
+                                        HorizontalOptions="Fill"
+                                        Style="{StaticResource lbSubheadSm}"
+                                        Text="My Emergency Numbers"
+                                        TextColor="{StaticResource lightCharcoal}" />
+                                    <!--<Label
+                                        Grid.Column="1"
+                                        Margin="0,4,0,0"
+                                        FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"
+                                        FontSize="11"
+                                        Style="{StaticResource lbSubheadLg}"
+                                        Text="EDIT"
+                                        TextColor="{StaticResource normalCharcoal}" />-->
+                                </Grid>
+                                <Label
+                                    Margin="0,4,0,10"
+                                    Style="{StaticResource lbBodyNormalMd}"
+                                    Text="In case of emergency, you’ll be ready to help."
+                                    TextColor="{StaticResource lightCharcoal}" />
+                                <Frame HeightRequest="60"
+                                        CornerRadius="12"
+                                        BackgroundColor="White"
+                                        BorderColor="Transparent"
+                                        Padding="20,0,20,0"
+                                        IsClippedToBounds="True"
+                                        HorizontalOptions="Fill"
+                                        HasShadow="False">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnEmergencyTapped" />
+                                    </Frame.GestureRecognizers>
+                                    <Grid VerticalOptions="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label
+                                            Grid.Column="0"
+                                            HorizontalOptions="Fill"
+                                            VerticalOptions="Center"
+                                            LineBreakMode="WordWrap"
+                                            Text="Police Emergency"
+                                            FontSize="14"
+                                            Style="{StaticResource lbBodyBoldLg}">
+                            
+                                        </Label>
+                                        <Label
+                                            Grid.Column="1"
+                                            HorizontalOptions="Fill"
+                                            VerticalOptions="Center"
+                                            LineBreakMode="WordWrap"
+                                            Text="Call 911"
+                                            FontSize="14"
+                                            TextColor="{StaticResource redNue}"
+                                            Style="{StaticResource lbBodyBoldLg}">
+                            
+                                        </Label>
+                                    
+                                    </Grid>
+                                </Frame>
+                                <Frame HeightRequest="60"
+                                        CornerRadius="12"
+                                        Margin="0,5,0,20"
+                                        BackgroundColor="White"
+                                        BorderColor="Transparent"
+                                        Padding="20,0,20,0"
+                                        IsClippedToBounds="True"
+                                        HorizontalOptions="Fill"
+                                        HasShadow="False">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnNonEmergencyTapped" />
+                                    </Frame.GestureRecognizers>
+                                    <Grid VerticalOptions="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label
+                                            Grid.Column="0"
+                                            HorizontalOptions="Fill"
+                                            VerticalOptions="Center"
+                                            LineBreakMode="WordWrap"
+                                            Text="Police Non-Emergency"
+                                            FontSize="14"
+                                            Style="{StaticResource lbBodyBoldLg}">
+                            
+                                        </Label>
+                                        <Label
+                                            Grid.Column="1"
+                                            HorizontalOptions="Fill"
+                                            VerticalOptions="Center"
+                                            LineBreakMode="WordWrap"
+                                            Text="Call 311"
+                                            FontSize="14"
+                                            TextColor="{StaticResource redNue}"
+                                            Style="{StaticResource lbBodyBoldLg}">
+                            
+                                        </Label>
+                                    
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
+
+                        </ScrollView>
+                    </Grid>
+                    <Grid
+                        x:Name="gridMap"
+                        Padding="30,10,30,60"
+                        IsVisible="False">
+                        <Frame
+                            Padding="0"
+                            BackgroundColor="LightGray"
+                            BorderColor="Transparent"
+                            CornerRadius="20"
+                            HasShadow="False"
+                            IsClippedToBounds="True">
+                            <Grid>
+                                <Frame
+                                    x:Name="frmContentMap"
+                                    Padding="0"
+                                    BorderColor="Transparent"
+                                    CornerRadius="0"
+                                    HasShadow="False"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill" />
+                                <BoxView
+                                    HeightRequest="100"
+                                    HorizontalOptions="Fill"
+                                    InputTransparent="True"
+                                    IsEnabled="False"
+                                    VerticalOptions="Start">
+                                    <BoxView.Background>
+                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                            <GradientStop Offset="0.0" Color="White" />
+                                            <GradientStop Offset="1.0" Color="Transparent" />
+                                        </LinearGradientBrush>
+                                    </BoxView.Background>
+                                </BoxView>
+                                <Label
+                                    Margin="30,20,60,0"
+                                    HorizontalOptions="Fill"
+                                    IsVisible="{Binding IsHaveAlerts}"
+                                    Style="{StaticResource lbBodyNormalLg}"
+                                    TextColor="{StaticResource redVibrant}"
+                                    VerticalOptions="Start">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="There are " />
+                                            <Span Text="{Binding Alerts.Count}" />
+                                            <Span Text=" live alerts in your area" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
                                 </Label>
-                            </Grid>
-                            <Label
-                                Margin="0,4,0,0"
-                                Style="{StaticResource lbBodyNormalMd}"
-                                Text="Good news about child safety and recovery."
-                                TextColor="{StaticResource lightCharcoal}" />
-                            <Frame
-                                Margin="0,8,0,10"
-                                Padding="0"
-                                BackgroundColor="Black"
-                                BorderColor="Transparent"
-                                CornerRadius="16"
-                                HasShadow="False"
-                                IsClippedToBounds="True">
-                                <control:AppWebView x:Name="Webview"
-                                        Source="https://q5idtest.site.work/"
-                                        HeightRequest="160"
-                                        VerticalOptions="FillAndExpand"
-                                        IsEnabled="True"
-                                        HorizontalOptions="Fill" />  
-                            </Frame>
-                            <Grid
-                                Margin="0,20,0,0"
-                                HorizontalOptions="Fill"
-                                VerticalOptions="Start">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
                                 <Label
-                                    Grid.Column="0"
+                                    Margin="30,20,60,0"
                                     HorizontalOptions="Fill"
-                                    Style="{StaticResource lbSubheadSm}"
-                                    Text="My Emergency Numbers"
-                                    TextColor="{StaticResource lightCharcoal}" />
-                                <!--<Label
-                                    Grid.Column="1"
-                                    Margin="0,4,0,0"
-                                    FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"
-                                    FontSize="11"
-                                    Style="{StaticResource lbSubheadLg}"
-                                    Text="EDIT"
-                                    TextColor="{StaticResource normalCharcoal}" />-->
+                                    IsVisible="{Binding IsHaveAlerts, Converter={StaticResource reverseBooleanConverter}}"
+                                    Style="{StaticResource lbBodyNormalLg}"
+                                    Text="There are no live alerts in your area"
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    VerticalOptions="Start" />
                             </Grid>
-                            <Label
-                                Margin="0,4,0,10"
-                                Style="{StaticResource lbBodyNormalMd}"
-                                Text="In case of emergency, you’ll be ready to help."
-                                TextColor="{StaticResource lightCharcoal}" />
-                            <Frame HeightRequest="60"
-                                    CornerRadius="12"
-                                    BackgroundColor="White"
-                                    BorderColor="Transparent"
-                                    Padding="20,0,20,0"
-                                    IsClippedToBounds="True"
-                                    HorizontalOptions="Fill"
-                                    HasShadow="False">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnEmergencyTapped" />
-                                </Frame.GestureRecognizers>
-                                <Grid VerticalOptions="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Label
-                                        Grid.Column="0"
-                                        HorizontalOptions="Fill"
-                                        VerticalOptions="Center"
-                                        LineBreakMode="WordWrap"
-                                        Text="Police Emergency"
-                                        FontSize="14"
-                                        Style="{StaticResource lbBodyBoldLg}">
-                            
-                                    </Label>
-                                    <Label
-                                        Grid.Column="1"
-                                        HorizontalOptions="Fill"
-                                        VerticalOptions="Center"
-                                        LineBreakMode="WordWrap"
-                                        Text="Call 911"
-                                        FontSize="14"
-                                        TextColor="{StaticResource redNue}"
-                                        Style="{StaticResource lbBodyBoldLg}">
-                            
-                                    </Label>
-                                    
-                                </Grid>
-                            </Frame>
-                            <Frame HeightRequest="60"
-                                    CornerRadius="12"
-                                    Margin="0,5,0,20"
-                                    BackgroundColor="White"
-                                    BorderColor="Transparent"
-                                    Padding="20,0,20,0"
-                                    IsClippedToBounds="True"
-                                    HorizontalOptions="Fill"
-                                    HasShadow="False">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnNonEmergencyTapped" />
-                                </Frame.GestureRecognizers>
-                                <Grid VerticalOptions="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Label
-                                        Grid.Column="0"
-                                        HorizontalOptions="Fill"
-                                        VerticalOptions="Center"
-                                        LineBreakMode="WordWrap"
-                                        Text="Police Non-Emergency"
-                                        FontSize="14"
-                                        Style="{StaticResource lbBodyBoldLg}">
-                            
-                                    </Label>
-                                    <Label
-                                        Grid.Column="1"
-                                        HorizontalOptions="Fill"
-                                        VerticalOptions="Center"
-                                        LineBreakMode="WordWrap"
-                                        Text="Call 311"
-                                        FontSize="14"
-                                        TextColor="{StaticResource redNue}"
-                                        Style="{StaticResource lbBodyBoldLg}">
-                            
-                                    </Label>
-                                    
-                                </Grid>
-                            </Frame>
-                        </StackLayout>
 
-                    </ScrollView>
-                </Grid>
-                <Grid
-                    x:Name="gridMap"
-                    Padding="30,10,30,60"
-                    IsVisible="False">
-                    <Frame
-                        Padding="0"
-                        BackgroundColor="LightGray"
-                        BorderColor="Transparent"
+                        </Frame>
+                    </Grid>
+                    <control:ToggleView
+                        Margin="0,20,40,0"
+                        ActiveBackgroundColor="{StaticResource redVibrant}"
+                        ActiveIconColor="White"
+                        BackgroundColor="Transparent"
+                        Changed="ToggleView_Changed"
                         CornerRadius="20"
-                        HasShadow="False"
-                        IsClippedToBounds="True">
-                        <Grid>
-                            <Frame
-                                x:Name="frmContentMap"
-                                Padding="0"
-                                BorderColor="Transparent"
-                                CornerRadius="0"
-                                HasShadow="False"
-                                HorizontalOptions="Fill"
-                                VerticalOptions="Fill" />
-                            <BoxView
-                                HeightRequest="100"
-                                HorizontalOptions="Fill"
-                                InputTransparent="True"
-                                IsEnabled="False"
-                                VerticalOptions="Start">
-                                <BoxView.Background>
-                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                        <GradientStop Offset="0.0" Color="White" />
-                                        <GradientStop Offset="1.0" Color="Transparent" />
-                                    </LinearGradientBrush>
-                                </BoxView.Background>
-                            </BoxView>
-                            <Label
-                                Margin="30,20,60,0"
-                                HorizontalOptions="Fill"
-                                IsVisible="{Binding IsHaveAlerts}"
-                                Style="{StaticResource lbBodyNormalLg}"
-                                TextColor="{StaticResource redVibrant}"
-                                VerticalOptions="Start">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="There are " />
-                                        <Span Text="{Binding Alerts.Count}" />
-                                        <Span Text=" live alerts in your area" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                            <Label
-                                Margin="30,20,60,0"
-                                HorizontalOptions="Fill"
-                                IsVisible="{Binding IsHaveAlerts, Converter={StaticResource reverseBooleanConverter}}"
-                                Style="{StaticResource lbBodyNormalLg}"
-                                Text="There are no live alerts in your area"
-                                TextColor="{StaticResource normalCharcoal}"
-                                VerticalOptions="Start" />
-                        </Grid>
-
-                    </Frame>
+                        HeightRequest="40"
+                        HorizontalOptions="End"
+                        ImageGlyph="{x:Static utils:FontAwesomeIcons.MapMarkedAlt}"
+                        ImageSize="20"
+                        IsVisible="{Binding IsVolunteer}"
+                        NormalBackgroundColor="#1A838699"
+                        NormalIconColor="{StaticResource redVibrant}"
+                        VerticalOptions="Start"
+                        WidthRequest="40" />
+                    <control:ToggleView
+                        Margin="0,20,40,0"
+                        ActiveBackgroundColor="{StaticResource lightCharcoal}"
+                        ActiveIconColor="White"
+                        BackgroundColor="Transparent"
+                        Changed="ToggleView_Changed"
+                        CornerRadius="20"
+                        HeightRequest="40"
+                        HorizontalOptions="End"
+                        ImageGlyph="{x:Static utils:FontAwesomeIcons.MapMarkedAlt}"
+                        ImageSize="20"
+                        IsVisible="{Binding IsVolunteer, Converter={StaticResource reverseBooleanConverter}}"
+                        NormalBackgroundColor="#1A838699"
+                        NormalIconColor="{StaticResource lightCharcoal}"
+                        VerticalOptions="Start"
+                        WidthRequest="40" />
                 </Grid>
-                <control:ToggleView
-                    Margin="0,20,40,0"
-                    ActiveBackgroundColor="{StaticResource redVibrant}"
-                    ActiveIconColor="White"
-                    BackgroundColor="Transparent"
-                    Changed="ToggleView_Changed"
-                    CornerRadius="20"
-                    HeightRequest="40"
-                    HorizontalOptions="End"
-                    ImageGlyph="{x:Static utils:FontAwesomeIcons.MapMarkedAlt}"
-                    ImageSize="20"
-                    IsVisible="{Binding IsVolunteer}"
-                    NormalBackgroundColor="#1A838699"
-                    NormalIconColor="{StaticResource redVibrant}"
-                    VerticalOptions="Start"
-                    WidthRequest="40" />
-                <control:ToggleView
-                    Margin="0,20,40,0"
-                    ActiveBackgroundColor="{StaticResource lightCharcoal}"
-                    ActiveIconColor="White"
-                    BackgroundColor="Transparent"
-                    Changed="ToggleView_Changed"
-                    CornerRadius="20"
-                    HeightRequest="40"
-                    HorizontalOptions="End"
-                    ImageGlyph="{x:Static utils:FontAwesomeIcons.MapMarkedAlt}"
-                    ImageSize="20"
-                    IsVisible="{Binding IsVolunteer, Converter={StaticResource reverseBooleanConverter}}"
-                    NormalBackgroundColor="#1A838699"
-                    NormalIconColor="{StaticResource lightCharcoal}"
-                    VerticalOptions="Start"
-                    WidthRequest="40" />
+            </Grid>
+            <Grid IsVisible="{Binding IsLoading}" BackgroundColor="{StaticResource lightCharcoal10}">
+                <ActivityIndicator
+                    IsRunning="true"
+                    WidthRequest="100"
+                    HeightRequest="100"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Color="{StaticResource redNue}" />
             </Grid>
         </Grid>
     </ContentView.Content>

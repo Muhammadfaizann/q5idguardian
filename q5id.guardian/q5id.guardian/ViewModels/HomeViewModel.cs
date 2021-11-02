@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using Plugin.InAppBilling;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
 using System;
@@ -141,7 +142,29 @@ namespace q5id.guardian.ViewModels
         {
             base.ViewAppeared();
             GetProfile();
+            GetSubscriptionStatus();
             AppApiManager.Instances.OnUnauthorized += OnServiceUnauthorized;
+        }
+
+        private async void GetSubscriptionStatus()
+        {
+            Boolean isSubscriptionRole = false;
+            var purchases = await InAppBillingService.Instances.GetProductPurchases();
+            if(purchases != null)
+            {
+                int numberOfSubscriptionDay = 30;
+                foreach(InAppBillingPurchase purchase in purchases)
+                {
+                    if(purchase.State == PurchaseState.Purchased && purchase.TransactionDateUtc.AddDays(numberOfSubscriptionDay).Ticks > DateTime.UtcNow.Ticks)
+                    {
+                        isSubscriptionRole = true;
+                        break;
+                    }
+                }
+            }
+            HomeVm.IsSubcriber = isSubscriptionRole;
+            LovedOnesVm.IsSubcriber = isSubscriptionRole;
+            AlertsVm.IsSubcriber = isSubscriptionRole;
         }
 
         public override void ViewDisappeared()

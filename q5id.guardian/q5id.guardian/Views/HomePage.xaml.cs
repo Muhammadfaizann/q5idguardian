@@ -26,6 +26,10 @@ namespace q5id.guardian.Views
         private bool mIsDrawerVisible = false;
         private bool mIsAnimation = false;
 
+        public TapGestureRecognizer GridHomeTapGes { get; }
+        public TapGestureRecognizer GridLoveTapGes { get; }
+        public TapGestureRecognizer GridAlertTapGes { get; }
+
         public event EventHandler RightControlClicked;
 
         public HomePage()
@@ -36,29 +40,29 @@ namespace q5id.guardian.Views
             HomeView = new HomeContentView(this);
             ShowView(HomeView, "HomeVm");
             SelectTab(HOME_INDEX);
-            var gridHomeTapGes = new TapGestureRecognizer();
-            gridHomeTapGes.Tapped += (object sender, EventArgs e) =>
+            GridHomeTapGes = new TapGestureRecognizer();
+            GridHomeTapGes.Tapped += (object sender, EventArgs e) =>
             {
                 ShowHomeView();
             };
-            gridHomeTapGes.SetBinding(TapGestureRecognizer.CommandProperty, "OpenHomeTapCommand");
-            gridHome.GestureRecognizers.Add(gridHomeTapGes);
+            GridHomeTapGes.SetBinding(TapGestureRecognizer.CommandProperty, "OpenHomeTapCommand");
+            gridHome.GestureRecognizers.Add(GridHomeTapGes);
 
-            var gridLoveTapGes = new TapGestureRecognizer();
-            gridLoveTapGes.Tapped += (object sender, EventArgs e) =>
+            GridLoveTapGes = new TapGestureRecognizer();
+            GridLoveTapGes.Tapped += (object sender, EventArgs e) =>
             {
                 ShowLovedOnesView();
             };
-            gridLoveTapGes.SetBinding(TapGestureRecognizer.CommandProperty, "OpenLovedOnesTapCommand");
-            gridLove.GestureRecognizers.Add(gridLoveTapGes);
+            GridLoveTapGes.SetBinding(TapGestureRecognizer.CommandProperty, "OpenLovedOnesTapCommand");
+            gridLove.GestureRecognizers.Add(GridLoveTapGes);
 
-            var gridAlertTapGes = new TapGestureRecognizer();
-            gridAlertTapGes.Tapped += (object sender, EventArgs e) =>
+            GridAlertTapGes = new TapGestureRecognizer();
+            GridAlertTapGes.Tapped += (object sender, EventArgs e) =>
             {
                 ShowAlertView();
             };
-            gridAlertTapGes.SetBinding(TapGestureRecognizer.CommandProperty, "OpenAlertTapCommand");
-            gridAlert.GestureRecognizers.Add(gridAlertTapGes);
+            GridAlertTapGes.SetBinding(TapGestureRecognizer.CommandProperty, "OpenAlertTapCommand");
+            gridAlert.GestureRecognizers.Add(GridAlertTapGes);
 
             frmRightControl.Clicked += FrmRightControl_Clicked;
             KeyboardView.OnKeyBoardUpdate += KeyboardView_OnKeyBoardUpdate;
@@ -93,6 +97,11 @@ namespace q5id.guardian.Views
             ShowView(AlertsView, "AlertsVm");
             SelectTab(ALERT_INDEX);
             UpdateRightControlVisibility(false);
+        }
+
+        public void ShowAlertViewLoadData()
+        {
+            GridAlertTapGes?.Command?.Execute(null);
         }
 
         public void ShowCreateAlertView(int fromView)

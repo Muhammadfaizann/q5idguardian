@@ -178,6 +178,7 @@ namespace q5id.guardian.Views.ContentViews
         void OnViewAllAlertTapped(System.Object sender, System.EventArgs e)
         {
             MainPage.ShowAlertView();
+            MainPage.ShowAlertViewLoadData();
         }
     }
 }
