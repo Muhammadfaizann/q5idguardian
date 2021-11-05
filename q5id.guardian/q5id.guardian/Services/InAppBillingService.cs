@@ -76,8 +76,9 @@ namespace q5id.guardian.Services
                         result = purchases.Where(item =>
                         {
                             return item.ProductId == SUBSCRIPTION_PRODUCT_ID;
-                        });
+                        }).OrderByDescending(p=>p.TransactionDateUtc);
                     }
+                    
                 }
                 //try to purchase item
             }
@@ -109,6 +110,7 @@ namespace q5id.guardian.Services
                 }
                 //try to purchase item
                 var purchase = await CrossInAppBilling.Current.PurchaseAsync(SUBSCRIPTION_PRODUCT_ID, ItemType.InAppPurchase);
+                await CrossInAppBilling.Current.FinishTransaction(purchase);
                 return purchase;
             }
             catch (Exception ex)

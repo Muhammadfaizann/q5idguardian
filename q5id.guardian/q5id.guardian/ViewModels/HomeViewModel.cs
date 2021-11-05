@@ -162,7 +162,7 @@ namespace q5id.guardian.ViewModels
             if (purchases != null)
             {
                 int numberOfSubscriptionDay = 30;
-                InAppBillingPurchase purchase = purchases.First();
+                InAppBillingPurchase purchase = purchases.FirstOrDefault();
                 if(purchase != null)
                 {
                     if (purchase.State == PurchaseState.Purchased && purchase.TransactionDateUtc.AddDays(numberOfSubscriptionDay).Ticks > DateTime.UtcNow.Ticks)
