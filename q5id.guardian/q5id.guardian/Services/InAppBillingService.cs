@@ -4,12 +4,18 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Plugin.InAppBilling;
+using Flurl.Http;
+using Newtonsoft.Json;
 
 namespace q5id.guardian.Services
 {
     public class InAppBillingService
     {
         private const string SUBSCRIPTION_PRODUCT_ID = "one_month_subscription_role_guardian_app";
+        // Sandbox -- use https://buy.itunes.apple.com/verifyReceipt for Prod
+        private const string VALIDATE_ENDPOINT = "https://sandbox.itunes.apple.com/verifyReceipt";
+        private const string SHARED_SECRET = "aeaa56dd11194cefb38cc3be2afe075a";
+
 
         private static InAppBillingService mInstances = null;
 
@@ -121,5 +127,34 @@ namespace q5id.guardian.Services
                 await billing.DisconnectAsync();
             }
         }
+        public async Task<bool> IsExpiredReceipt(string purchaseToken)
+        {
+            var res = await VALIDATE_ENDPOINT.PostJsonAsync(new IAPVerifiedRequest()
+            {
+                ReceiptData = purchaseToken,
+                Password = SHARED_SECRET,
+                ExcludeOldTransactions = true
+            }).ReceiveJson<IAPVerifiedResponse>();
+
+            return res.ExpirationIntent == "1" || res.ExpirationIntent == "2" || 
+                res.ExpirationIntent == "3" || res.ExpirationIntent == "4" || res.ExpirationIntent == "5";
+        }
+    }
+
+    public class IAPVerifiedResponse
+    {
+        [JsonProperty("expiration_intent")]
+        public string ExpirationIntent { get; set; }
+    }
+    public class IAPVerifiedRequest
+    {
+        [JsonProperty("receipt-data")]
+        public string ReceiptData { get; set; }
+
+        [JsonProperty("password")]
+        public string Password { get; set; }
+
+        [JsonProperty("exclude-old-transactions")]
+        public bool ExcludeOldTransactions { get; set; }
     }
 }
