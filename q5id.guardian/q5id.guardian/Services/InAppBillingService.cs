@@ -137,9 +137,25 @@ namespace q5id.guardian.Services
                 Password = SHARED_SECRET,
                 ExcludeOldTransactions = true
             }).ReceiveJson<IAPVerifiedResponse>();
-
-            return res.ExpirationIntent == "1" || res.ExpirationIntent == "2" || 
-                res.ExpirationIntent == "3" || res.ExpirationIntent == "4" || res.ExpirationIntent == "5";
+            if(res.ExpirationIntent != null && (res.ExpirationIntent == "1" || res.ExpirationIntent == "2" ||
+                res.ExpirationIntent == "3" || res.ExpirationIntent == "4" || res.ExpirationIntent == "5"))
+            {
+                return true;
+            }
+            else 
+            {
+                try
+                {
+                    var current = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
+                    return current > Convert.ToDouble(res.LastReceiptInfo.ExpiresDate);
+                }
+                catch
+                {
+                    return false;
+                }
+               
+            }
+            
         }
     }
 
@@ -147,6 +163,15 @@ namespace q5id.guardian.Services
     {
         [JsonProperty("expiration_intent")]
         public string ExpirationIntent { get; set; }
+
+        [JsonProperty("latest_expired_receipt_info")]
+        public LastReceiptInfo LastReceiptInfo { get; set; }
+    }
+
+    public class LastReceiptInfo
+    {
+        [JsonProperty("expires_date")]
+        public string ExpiresDate { get; set; }
     }
     public class IAPVerifiedRequest
     {
