@@ -28,9 +28,12 @@ namespace q5id.guardian.Services
                 {
                     timeout = int.Parse(headers[API_TIME_OUT_KEY]);
                 }
+#if DEBUG
+                var client = new HttpClient(new LoggingHttpHandler(new HttpClientHandler()))
 
+#else
                 var client = new HttpClient(messageHandler)
-                //var client = new HttpClient(new LoggingHttpHandler(new HttpClientHandler()))
+#endif
                 {
                     BaseAddress = new Uri(apiBaseAddress),
                     Timeout = TimeSpan.FromSeconds(timeout)
