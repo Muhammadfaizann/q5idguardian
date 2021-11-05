@@ -167,7 +167,7 @@ namespace q5id.guardian.ViewModels
                 {
                     if (purchase.State == PurchaseState.Purchased && purchase.TransactionDateUtc.AddDays(numberOfSubscriptionDay).Ticks > DateTime.UtcNow.Ticks)
                     {
-                        isSubscriptionRole = true;
+                        isSubscriptionRole = await InAppBillingService.Instances.IsExpiredReceipt(purchase.PurchaseToken);
                     }
                 }
             }
