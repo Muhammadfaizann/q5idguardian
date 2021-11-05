@@ -40,7 +40,6 @@ namespace q5id.guardian.Services
             Console.WriteLine(response.ToString());
             Console.WriteLine("Response Content: " + responseContent);
             Console.WriteLine();
-
             return response;
         }
     }

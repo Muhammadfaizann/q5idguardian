@@ -8,6 +8,7 @@ using Plugin.InAppBilling;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -19,12 +20,20 @@ namespace q5id.guardian.ViewModels
         {
             OpenSettingCommand = new MvxAsyncCommand(OnSettingClicked);
             HomeVm = new HomeContentViewModel(navigationService, logProvider);
+            HomeVm.OnUpdateModel += SubVmOnUpdateModel;
             LovedOnesVm = new LovedOnesViewModel(navigationService, logProvider);
+            LovedOnesVm.OnUpdateModel += SubVmOnUpdateModel;
             AlertsVm = new AlertsViewModel(navigationService, logProvider);
+            AlertsVm.OnUpdateModel += SubVmOnUpdateModel;
             Task.Run(async () =>
             {
                await HomeVm.Initialize();
             });
+        }
+
+        private void SubVmOnUpdateModel(object sender, EventArgs e)
+        {
+            GetSubscriptionStatus();
         }
 
         public HomeContentViewModel HomeVm { get; private set; }
@@ -150,15 +159,15 @@ namespace q5id.guardian.ViewModels
         {
             Boolean isSubscriptionRole = false;
             var purchases = await InAppBillingService.Instances.GetProductPurchases();
-            if(purchases != null)
+            if (purchases != null)
             {
                 int numberOfSubscriptionDay = 30;
-                foreach(InAppBillingPurchase purchase in purchases)
+                InAppBillingPurchase purchase = purchases.First();
+                if(purchase != null)
                 {
-                    if(purchase.State == PurchaseState.Purchased && purchase.TransactionDateUtc.AddDays(numberOfSubscriptionDay).Ticks > DateTime.UtcNow.Ticks)
+                    if (purchase.State == PurchaseState.Purchased && purchase.TransactionDateUtc.AddDays(numberOfSubscriptionDay).Ticks > DateTime.UtcNow.Ticks)
                     {
                         isSubscriptionRole = true;
-                        break;
                     }
                 }
             }

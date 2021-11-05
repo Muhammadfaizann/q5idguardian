@@ -8,12 +8,13 @@ using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
+using q5id.guardian.ViewModels.Base;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
 namespace q5id.guardian.ViewModels
 {
-    public class HomeContentViewModel : BaseViewModel
+    public class HomeContentViewModel : BaseSubViewModel
     {
 
         public HomeContentViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
@@ -29,7 +30,7 @@ namespace q5id.guardian.ViewModels
                     IsLoading = true;
                     var result = await InAppBillingService.Instances.MakePurchase();
                     IsLoading = false;
-                    IsSubcriber = result != null;
+                    this.UpdateModel();
                 });
             }
         }

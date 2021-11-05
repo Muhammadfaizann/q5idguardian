@@ -3,6 +3,7 @@ using MvvmCross.Navigation;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
 using q5id.guardian.Services.Bases;
+using q5id.guardian.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,7 +17,7 @@ using Xamarin.Forms;
 
 namespace q5id.guardian.ViewModels
 {
-    public class LovedOnesViewModel : BaseViewModel
+    public class LovedOnesViewModel : BaseSubViewModel
     {
         private Love mSelectedLovedOnes = null;
         public Love SelectedLovedOnes
@@ -350,7 +351,7 @@ namespace q5id.guardian.ViewModels
                     IsLoading = true;
                     var result = await InAppBillingService.Instances.MakePurchase();
                     IsLoading = false;
-                    IsSubcriber = result != null;
+                    this.UpdateModel();
                 });
             }
         }

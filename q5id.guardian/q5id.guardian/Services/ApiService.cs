@@ -24,7 +24,7 @@ namespace q5id.guardian.Services
             createClient = messageHandler =>
             {
                 int timeout = DEFAULT_SECOND_TIMEOUT;
-                if (headers.ContainsKey(API_TIME_OUT_KEY))
+                if (headers != null && headers.ContainsKey(API_TIME_OUT_KEY))
                 {
                     timeout = int.Parse(headers[API_TIME_OUT_KEY]);
                 }

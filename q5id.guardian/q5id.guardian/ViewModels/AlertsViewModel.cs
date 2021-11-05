@@ -9,6 +9,7 @@ using MvvmCross.Navigation;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
 using q5id.guardian.Services.Bases;
+using q5id.guardian.ViewModels.Base;
 using q5id.guardian.ViewModels.ItemViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -16,7 +17,7 @@ using Xamarin.Forms.Maps;
 
 namespace q5id.guardian.ViewModels
 {
-    public class AlertsViewModel : BaseViewModel
+    public class AlertsViewModel : BaseSubViewModel
     {
         private Boolean mIsUpdateSuccess = false;
         public Boolean IsUpdateSuccess
@@ -391,7 +392,10 @@ namespace q5id.guardian.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await NavigationService.Navigate<IAPViewModel, User>(mUser);
+                    IsLoading = true;
+                    var result = await InAppBillingService.Instances.MakePurchase();
+                    IsLoading = false;
+                    this.UpdateModel();
                 });
             }
         }
