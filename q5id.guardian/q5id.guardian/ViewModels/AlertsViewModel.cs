@@ -280,7 +280,9 @@ namespace q5id.guardian.ViewModels
             {
                 return;
             }
+            IsLoading = true;
             var response = await AppApiManager.Instances.GetListLovedOnes(User.UserId);
+            IsLoading = false;
             if (response.IsSuccess && response.ResponseObject != null)
             {
                 MyLoves = response.ResponseObject.Select((Love love) =>
@@ -369,6 +371,17 @@ namespace q5id.guardian.ViewModels
                 {
                     await App.Current.MainPage.DisplayAlert("Error", response.Message, "OK");
                 }
+            }
+        }
+
+        public Command GetMyLovedOnesCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    GetMyLoves();
+                });
             }
         }
 
@@ -581,7 +594,9 @@ namespace q5id.guardian.ViewModels
             List<Alert> listAllAlert = new List<Alert>();
             for(int i = 0; i < alertsResponse.Length; i++)
             {
-                listAllAlert = listAllAlert.Union(alertsResponse[i], new AlertComparer()).ToList();
+                listAllAlert = listAllAlert.Union(alertsResponse[i], new AlertComparer()).Where((Alert alert) => {
+                    return alert.Love != null;
+                }).ToList();
             }
             listAlertItem = listAllAlert.Select((Alert alert) =>
             {

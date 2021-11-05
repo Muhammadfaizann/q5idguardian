@@ -25,7 +25,7 @@ namespace q5id.guardian.Services
         public bool IsReachable { get; set; }
         IApiService<IQ5idApi> q5idApi;
         Dictionary<int, CancellationTokenSource> runningTasks = new Dictionary<int, CancellationTokenSource>();
-        private static string Q5ID_BASE_URL = "https://q5idtest.site.work/api";
+        private static string Q5ID_BASE_URL = "https://guard-app-msvc-westus-dev-qa.azurewebsites.net";
 
         public event EventHandler OnUnauthorized;
 

@@ -13,6 +13,9 @@ namespace q5id.guardian.Services
 {
     public class ApiService<T> : IApiService<T>
     {
+        private const int DEFAULT_SECOND_TIMEOUT = 30;
+        private const string API_TIME_OUT_KEY = "api-timeout";
+
         public static RefitSettings GetNewtonsoftJsonRefitSettings() => new RefitSettings(new NewtonsoftJsonContentSerializer());
 
         Func<HttpMessageHandler, T> createClient;
@@ -20,11 +23,18 @@ namespace q5id.guardian.Services
         {
             createClient = messageHandler =>
             {
+                int timeout = DEFAULT_SECOND_TIMEOUT;
+                if (headers.ContainsKey(API_TIME_OUT_KEY))
+                {
+                    timeout = int.Parse(headers[API_TIME_OUT_KEY]);
+                }
+
                 var client = new HttpClient(messageHandler)
                 //var client = new HttpClient(new LoggingHttpHandler(new HttpClientHandler()))
                 {
-                    BaseAddress = new Uri(apiBaseAddress)
-                    
+                    BaseAddress = new Uri(apiBaseAddress),
+                    Timeout = TimeSpan.FromSeconds(timeout)
+
                 };
                 if (headers != null)
                 {

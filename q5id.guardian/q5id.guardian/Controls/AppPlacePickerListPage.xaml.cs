@@ -40,12 +40,13 @@ namespace q5id.guardian.Controls
                 GooglePlaceAutoCompletePrediction itemData = mItemSource[e.ItemIndex];
                 var place = await AppApiManager.Instances.GetPlaceDetails(itemData.PlaceId);
                 mPickerView.SelectedItem = place;
+                await Navigation.PopPopupAsync();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Get Place Detail Error: " + ex.Message);
             }
-            await Navigation.PopPopupAsync();
+            
         }
 
         private void EntrySearch_TextChanged(object sender, TextChangedEventArgs e)
