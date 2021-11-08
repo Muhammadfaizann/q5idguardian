@@ -21,9 +21,12 @@ namespace q5id.guardian.Models
         {
             get
             {
+                
                 if (CreatedOn != null && CreatedOn != "")
                 {
-                    return DateTime.Parse(CreatedOn);
+                    var utcDate = DateTime.SpecifyKind(DateTime.Parse(CreatedOn), DateTimeKind.Local);
+
+                    return utcDate;
                 }
                 return null;
             }
