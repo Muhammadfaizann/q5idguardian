@@ -56,6 +56,9 @@ namespace q5id.guardian.Services.Bases
         [Put("/User")]
         Task<AppServiceResponse<User>> UpdateUser([Body] Object body, CancellationToken cancellationToken);
 
+        [Post("/Authentication/Reset")]
+        Task<JObject> ForgotPassword([Body] Object body, CancellationToken cancellationToken);
+
         [Post("/Authentication/CreateUser")]
         Task<Entity<User>> CreateAccount([Body] Object body, CancellationToken cancellationToken);
 

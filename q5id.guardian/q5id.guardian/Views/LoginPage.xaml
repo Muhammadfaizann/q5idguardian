@@ -45,6 +45,19 @@
                         Style="{StaticResource etBodyNormalLg}"
                         TextColor="{StaticResource normalCharcoal}" />
                     <app:AppButton
+                        ButtonTitle="Forgot Password"
+                        Command="{Binding ForgotPasswordCommand}"
+                        CornerRadius="20"
+                        HeightRequest="20"
+                        HorizontalOptions="EndAndExpand"
+                        NormalLabelColor="{StaticResource lightCharcoal}"
+                        PressedLabelColor="LightGray"
+                        BorderColor="Transparent"
+                        NormalBackgroundStartColor="Transparent"
+                        NormalBackgroundEndColor="Transparent"
+                        PressedBackgroundColor="Transparent" />
+                    <app:AppButton
+                        Margin="0,10,0,0"
                         ButtonTitle="Login"
                         Command="{Binding LoginCommand}"
                         CornerRadius="20"

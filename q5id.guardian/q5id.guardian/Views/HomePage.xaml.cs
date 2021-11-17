@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CarouselView.FormsPlugin.Abstractions;
+using q5id.guardian.DependencyServices;
 using q5id.guardian.Utils;
 using q5id.guardian.ViewModels;
 using q5id.guardian.Views.ContentViews;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
@@ -204,6 +206,35 @@ namespace q5id.guardian.Views
             
 
             //GridDrawer.IsVisible = !GridDrawer.IsVisible;
+        }
+
+        void OnSubscriptionTapped(System.Object sender, System.EventArgs e)
+        {
+            IAppDeviceService service = DependencyService.Get<IAppDeviceService>();
+            service.OpenSubscriptionManager();
+        }
+
+        async void OnPrivacyTapped(System.Object sender, System.EventArgs e)
+        {
+            Uri uri = new Uri(Utils.Constansts.PRIVACY_POLICY_URL);
+            await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+        }
+
+        async void OnHelpCenterTapped(System.Object sender, System.EventArgs e)
+        {
+            await Launcher.OpenAsync(Utils.Constansts.HELP_URL);
+        }
+
+        async void OnFaqTapped(System.Object sender, System.EventArgs e)
+        {
+            Uri uri = new Uri(Utils.Constansts.FAQ_URL);
+            await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+        }
+
+        async void OnAboutSelfTapped(System.Object sender, System.EventArgs e)
+        {
+            Uri uri = new Uri(Utils.Constansts.ABOUT_URL);
+            await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
         }
     }
 }

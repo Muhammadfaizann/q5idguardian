@@ -30,5 +30,10 @@ namespace q5id.guardian.Utils
         public static string NO_KEY = "No";
 
         public static string API_TOKEN_TYPE = "Bearer";
+
+        public static string PRIVACY_POLICY_URL = "https://q5id.com/privacy-policy";
+        public static string HELP_URL = "mailto:help@q5id.com";
+        public static string FAQ_URL = "https://guardian.q5id.com/frequently-asked-questions";
+        public static string ABOUT_URL = "https://guardian.q5id.com/about";
     }
 }

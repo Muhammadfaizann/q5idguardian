@@ -259,6 +259,48 @@ namespace q5id.guardian.Services
             return result;
         }
 
+        public async Task<ApiResponse<User>> ForgotPassword(string email)
+        {
+            var cts = new CancellationTokenSource();
+            var param = new
+            {
+                username = email,
+                password = ""
+            };
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).ForgotPassword(param, cts.Token));
+            runningTasks.Add(task.Id, cts);
+            var response = await task;
+            var result = new ApiResponse<User>();
+            result.IsSuccess = response.IsSuccess;
+            result.Message = response.Message;
+            result.ResponseStatusCode = response.ResponseStatusCode;
+            if (response.ResponseObject != null)
+            {
+                var jObject = response.ResponseObject;
+                if (jObject["error"] != null)
+                {
+                    var error = jObject["error"].Value<String>();
+                    result.IsSuccess = false;
+                    result.Message = error;
+                }
+                else
+                {
+                    try
+                    {
+                        result.ResponseObject = new User();
+                        result.IsSuccess = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Can not parse user: " + ex.ToMessage());
+                        result.ResponseObject = null;
+                        result.IsSuccess = false;
+                    }
+                }
+            }
+            return result;
+        }
+
         public async Task<ApiResponse<AppServiceResponse<Feed>>> CreateFeed(Feed feed)
         {
             var cts = new CancellationTokenSource();

@@ -21,6 +21,17 @@ namespace q5id.guardian.ViewModels
 
         public Command SignUpCommand { get; }
 
+        public Command ForgotPasswordCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await NavigationService.Navigate<ForgotPasswordViewModel>();
+                });
+            }
+        }
+
         private string mUserName = "";
         public string UserName
         {

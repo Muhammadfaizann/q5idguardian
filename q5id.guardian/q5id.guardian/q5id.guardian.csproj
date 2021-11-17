@@ -32,6 +32,7 @@
     <None Remove="Acr.UserDialogs" />
     <None Remove="Polly" />
     <None Remove="fusillade" />
+    <None Remove="DependencyServices\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -117,6 +118,7 @@
     <Folder Include="Selectors\" />
     <Folder Include="Services\" />
     <Folder Include="Services\Bases\" />
+    <Folder Include="DependencyServices\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Fonts\FontAwesome5Regular.otf" />
