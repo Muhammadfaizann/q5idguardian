@@ -11,9 +11,10 @@ namespace q5id.guardian.Services
 {
     public class InAppBillingService
     {
-        private const string SUBSCRIPTION_PRODUCT_ID = "one_month_subscription_role_guardian_app";
+        private const string SUBSCRIPTION_PRODUCT_ID = "guardian_subscriber";
         // Sandbox -- use https://buy.itunes.apple.com/verifyReceipt for Prod
-        private const string VALIDATE_ENDPOINT = "https://sandbox.itunes.apple.com/verifyReceipt";
+        //private const string VALIDATE_ENDPOINT = "https://sandbox.itunes.apple.com/verifyReceipt";
+        private const string VALIDATE_ENDPOINT = "https://buy.itunes.apple.com/verifyReceipt";
         private const string SHARED_SECRET = "aeaa56dd11194cefb38cc3be2afe075a";
 
 
