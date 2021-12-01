@@ -231,6 +231,12 @@ namespace q5id.guardian.Views
             await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
         }
 
+        async void OnEULATapped(System.Object sender, System.EventArgs e)
+        {
+            Uri uri = new Uri(Utils.Constansts.LICENSE_AGREEMENT);
+            await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+        }
+
         async void OnAboutSelfTapped(System.Object sender, System.EventArgs e)
         {
             Uri uri = new Uri(Utils.Constansts.ABOUT_URL);

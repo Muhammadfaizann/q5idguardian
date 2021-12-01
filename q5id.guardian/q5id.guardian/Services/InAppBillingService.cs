@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Plugin.InAppBilling;
 using Flurl.Http;
 using Newtonsoft.Json;
+using Xamarin.Forms;
 
 namespace q5id.guardian.Services
 {
@@ -100,11 +101,34 @@ namespace q5id.guardian.Services
             return result;
         }
 
+        Page GetCurrentPage()
+        {
+            var mainPage = App.Current.MainPage;
+            if(mainPage is NavigationPage navigationPage)
+            {
+                return navigationPage.Navigation.NavigationStack.LastOrDefault();
+            }
+            else if (mainPage is FlyoutPage flyoutPage)
+            {
+                return flyoutPage.Detail;
+            }else
+            {
+                return mainPage;
+            }
+        }
+
         public async Task<InAppBillingPurchase> MakePurchase()
         {
             if (!CrossInAppBilling.IsSupported)
                 return null;
 
+
+            var currentPage = GetCurrentPage();
+            if(currentPage != null)
+            {
+                var confirm = await currentPage.DisplayAlert("Q5id subscription", "Become a subscriber to create an alert to find your loved one.","Confirm", "Cancel");
+                if (!confirm) return null;
+            }
             var billing = CrossInAppBilling.Current;
             try
             {
