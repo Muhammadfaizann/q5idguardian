@@ -47,6 +47,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AndroidLinkMode>None</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -126,11 +127,13 @@
     <Compile Include="Renderers\AppMediaElementRenderer.cs" />
     <Compile Include="Renderers\KeyboardViewRenderer.cs" />
     <Compile Include="Renderers\AppWebViewRenderer.cs" />
+    <Compile Include="Key\Readme.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
+    <None Include="Key\guardian_keystore" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\styles.xml" />
@@ -207,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="Key\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\SplashScreen.xml">
