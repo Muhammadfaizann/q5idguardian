@@ -127,7 +127,6 @@
     <Compile Include="Renderers\AppMediaElementRenderer.cs" />
     <Compile Include="Renderers\KeyboardViewRenderer.cs" />
     <Compile Include="Renderers\AppWebViewRenderer.cs" />
-    <Compile Include="Key\Readme.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
