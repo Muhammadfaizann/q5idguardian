@@ -12,6 +12,7 @@ using Plugin.CurrentActivity;
 using MvvmCross.Forms.Platforms.Android.Views;
 using Android.Content;
 using Plugin.InAppBilling;
+using Plugin.FirebasePushNotification;
 
 namespace q5id.guardian.Droid
 {
@@ -32,6 +33,14 @@ namespace q5id.guardian.Droid
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
             Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 229, 59, 85));
             UpdateSoftInput();
+
+            FirebasePushNotificationManager.ProcessIntent(this, Intent);
+        }
+
+        protected override void OnNewIntent(Intent intent)
+        {
+            base.OnNewIntent(intent);
+            FirebasePushNotificationManager.ProcessIntent(this, intent);
         }
 
         private void UpdateSoftInput()
