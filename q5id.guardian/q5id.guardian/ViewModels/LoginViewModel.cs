@@ -2,6 +2,7 @@
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using Plugin.InAppBilling;
+using q5id.guardian.DependencyServices;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
 using q5id.guardian.Views;
@@ -69,10 +70,38 @@ namespace q5id.guardian.ViewModels
             if(user != null)
             {
                 await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
+                UpdateUserDevice(user);
             }
             else
             {
                 await App.Current.MainPage.DisplayAlert("Error", "Login Failed", "OK");
+            }
+        }
+
+        private async void UpdateUserDevice(User user)
+        {
+            var currentUserDevice = Utils.Utils.GetUserDevice();
+            if(currentUserDevice != null)
+            {
+                await AppApiManager.Instances.DeleteUserDevice(currentUserDevice);
+                Utils.Utils.SaveUserDevice(null);
+            };
+            var currentPushToken = Utils.Utils.GetPushNotificationToken();
+            Debug.WriteLine("currentPushToken: ", currentPushToken);
+            IAppDeviceService service = DependencyService.Get<IAppDeviceService>();
+            var userDevice = new UserDevice()
+            {
+                UserId = user.UserId,
+                DevicePushId = currentPushToken,
+                Platform = Device.RuntimePlatform.ToLower(),
+                IsAppPurchaseToken = "False",
+                DeviceId = service.GetDeviceId(),
+            };
+            var responseCreateUserDevice = await AppApiManager.Instances.CreateUserDevice(userDevice);
+            if (responseCreateUserDevice.IsSuccess && responseCreateUserDevice.ResponseObject != null && responseCreateUserDevice.ResponseObject.Result != null)
+            {
+                var newUserDevice = responseCreateUserDevice.ResponseObject.Result;
+                Utils.Utils.SaveUserDevice(newUserDevice);
             }
         }
 

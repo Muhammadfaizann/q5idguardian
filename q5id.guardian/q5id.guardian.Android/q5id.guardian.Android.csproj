@@ -134,6 +134,7 @@
     <Compile Include="Renderers\AppMediaElementRenderer.cs" />
     <Compile Include="Renderers\KeyboardViewRenderer.cs" />
     <Compile Include="Renderers\AppWebViewRenderer.cs" />
+    <Compile Include="DependencyServices\AppDeviceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <GoogleServicesJson Include="google-services.json">
@@ -219,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="DependencyServices\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\SplashScreen.xml">

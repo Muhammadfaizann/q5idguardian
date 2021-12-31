@@ -76,6 +76,11 @@ namespace q5id.guardian.ViewModels
                 return new Command(async () =>
                 {
                     Utils.Utils.SaveToken(null);
+                    var currentUserDevice = Utils.Utils.GetUserDevice();
+                    if(currentUserDevice != null)
+                    {
+                        await AppApiManager.Instances.DeleteUserDevice(currentUserDevice);
+                    }
                     await ClearStackAndNavigateToPage<LoginViewModel>();
                 });
             }

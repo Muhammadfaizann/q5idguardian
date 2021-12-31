@@ -84,8 +84,16 @@ namespace q5id.guardian.Droid
             CrossFirebasePushNotification.Current.OnTokenRefresh += (s, p) =>
             {
                 System.Diagnostics.Debug.WriteLine($"TOKEN REC: {p.Token}");
+                Utils.Utils.SavePushNotificationToken(p.Token);
             };
+            UpdatePushNotificationToken();
+        }
 
+        private async void UpdatePushNotificationToken()
+        {
+            string token = await CrossFirebasePushNotification.Current.GetTokenAsync();
+            System.Diagnostics.Debug.WriteLine($"TOKEN IS: {token}");
+            Utils.Utils.SavePushNotificationToken(token);
         }
     }
 }

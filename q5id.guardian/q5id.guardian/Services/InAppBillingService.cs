@@ -7,6 +7,7 @@ using Plugin.InAppBilling;
 using Flurl.Http;
 using Newtonsoft.Json;
 using Xamarin.Forms;
+using q5id.guardian.DependencyServices;
 
 namespace q5id.guardian.Services
 {
@@ -18,6 +19,7 @@ namespace q5id.guardian.Services
         private const string VALIDATE_ENDPOINT = "https://buy.itunes.apple.com/verifyReceipt";
         private const string SHARED_SECRET = "aeaa56dd11194cefb38cc3be2afe075a";
 
+        IAppDeviceService deviceService = DependencyService.Get<IAppDeviceService>();
 
         private static InAppBillingService mInstances = null;
 
@@ -67,6 +69,7 @@ namespace q5id.guardian.Services
 
         public async Task<IEnumerable<InAppBillingPurchase>> GetProductPurchases()
         {
+            deviceService.DeviceLog("GetProductPurchases IsSupported: ", CrossInAppBilling.IsSupported);
             if (!CrossInAppBilling.IsSupported)
                 return null;
             IEnumerable<InAppBillingPurchase> result = null;
@@ -74,12 +77,13 @@ namespace q5id.guardian.Services
             {
                 
                 var connected = await CrossInAppBilling.Current.ConnectAsync();
-
+                deviceService.DeviceLog("GetProductPurchases connected: ", connected);
                 if (connected)
                 {
                     //Couldn't connect to billing, could be offline, alert user
                     var purchases = await CrossInAppBilling.Current.GetPurchasesAsync(ItemType.Subscription);
-                    if(purchases != null)
+                    deviceService.DeviceLog("GetProductPurchases purchases: ", purchases);
+                    if (purchases != null)
                     {
                         result = purchases.Where(item =>
                         {
@@ -93,6 +97,7 @@ namespace q5id.guardian.Services
             catch (Exception ex)
             {
                 Debug.WriteLine("Error GetProductPurchases: " + ex.Message);
+                deviceService.DeviceLog("Error GetProductPurchases: ", ex);
             }
             finally
             {
@@ -141,12 +146,15 @@ namespace q5id.guardian.Services
                 }
                 //try to purchase item
                 var purchase = await CrossInAppBilling.Current.PurchaseAsync(SUBSCRIPTION_PRODUCT_ID, ItemType.InAppPurchase);
-                await CrossInAppBilling.Current.FinishTransaction(purchase);
+                deviceService.DeviceLog("PurchaseAsync purchase: ", purchase);
+                var isFinish = await CrossInAppBilling.Current.FinishTransaction(purchase);
+                deviceService.DeviceLog("PurchaseAsync isFinish: ", isFinish);
                 return purchase;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Error MakePurchase: " + ex.Message);
+                deviceService.DeviceLog("Error MakePurchase: ", ex);
                 return null;
             }
             finally

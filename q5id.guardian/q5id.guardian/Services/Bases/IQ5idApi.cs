@@ -56,6 +56,15 @@ namespace q5id.guardian.Services.Bases
         [Put("/User")]
         Task<AppServiceResponse<User>> UpdateUser([Body] Object body, CancellationToken cancellationToken);
 
+        [Get("/UserDevice/UserId")]
+        Task<List<UserDevice>> GetUserDevicesByUser([Refit.AliasAs("userId")] string userId, CancellationToken cancellationToken);
+
+        [Post("/UserDevice")]
+        Task<AppServiceResponse<UserDevice>> CreateUserDevice([Body] Object body, CancellationToken cancellationToken);
+
+        [Delete("/UserDevice")]
+        Task<EntityResponse<UserDevice>> DeleteUserDevice([Refit.AliasAs("id")] string id, [Refit.AliasAs("objectId")] string objectId, CancellationToken cancellationToken);
+
         [Post("/Authentication/Reset")]
         Task<JObject> ForgotPassword([Body] Object body, CancellationToken cancellationToken);
 

@@ -19,6 +19,8 @@ namespace q5id.guardian.Utils
     {
         private static string CHOICES_KEY = "choices";
         private static string TOKEN_KEY = "token";
+        private static string USER_DEVICE_KEY = "user_device";
+        private static string PUSH_NOTIFICATION_KEY = "push_notification_token";
 
         public static byte[] ConvertStreamToByteArray(System.IO.Stream stream)
         {
@@ -243,6 +245,46 @@ namespace q5id.guardian.Utils
             {
                 return false;
             }
+        }
+
+        public static void SaveUserDevice(UserDevice userDevice)
+        {
+            if (userDevice != null)
+            {
+                Preferences.Set(USER_DEVICE_KEY, JsonConvert.SerializeObject(userDevice));
+            }
+            else
+            {
+                Preferences.Set(USER_DEVICE_KEY, "");
+            }
+        }
+
+        public static UserDevice GetUserDevice()
+        {
+            try
+            {
+                var userDeviceJson = Preferences.Get(USER_DEVICE_KEY, "");
+                if (userDeviceJson != "")
+                {
+                    UserDevice userDevice = JsonConvert.DeserializeObject<UserDevice>(userDeviceJson);
+                    return userDevice;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Cannot get user device: " + ex.Message);
+            }
+            return null;
+        }
+
+        public static void SavePushNotificationToken(string token)
+        {
+            Preferences.Set(PUSH_NOTIFICATION_KEY, token);
+        }
+
+        public static string GetPushNotificationToken()
+        {
+            return Preferences.Get(PUSH_NOTIFICATION_KEY, "");
         }
     }
 }

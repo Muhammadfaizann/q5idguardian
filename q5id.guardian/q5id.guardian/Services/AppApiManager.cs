@@ -218,6 +218,30 @@ namespace q5id.guardian.Services
             return await task;
         }
 
+        public async Task<ApiResponse<EntityResponse<UserDevice>>> DeleteUserDevice(UserDevice model)
+        {
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).DeleteUserDevice(model.Id, model.ObjectId, cts.Token));
+            runningTasks.Add(task.Id, cts);
+            return await task;
+        }
+
+        public async Task<ApiResponse<List<UserDevice>>> GetListUserDevices(string userId)
+        {
+            var cts = new CancellationTokenSource();
+            Task<ApiResponse<List<UserDevice>>> task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).GetUserDevicesByUser(userId, cts.Token));
+            runningTasks.Add(task.Id, cts);
+            return await task;
+        }
+
+        public async Task<ApiResponse<AppServiceResponse<UserDevice>>> CreateUserDevice(UserDevice model)
+        {
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).CreateUserDevice(model.GetParam(), cts.Token));
+            runningTasks.Add(task.Id, cts);
+            return await task;
+        }
+
         public async Task<ApiResponse<User>> Login(string username, string password)
         {
             var cts = new CancellationTokenSource();
