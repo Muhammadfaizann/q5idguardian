@@ -242,18 +242,17 @@ namespace q5id.guardian.Services
             return await task;
         }
 
-        public async Task<ApiResponse<User>> Login(string username, string password)
+        public async Task<ApiResponse<AuthResponse>> Login(string username)
         {
             var cts = new CancellationTokenSource();
             var param = new
             {
-                username = username,
-                password = password
+                username = username
             };
             var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).Login(param, cts.Token));
             runningTasks.Add(task.Id, cts);
             var response = await task;
-            var result = new ApiResponse<User>();
+            var result = new ApiResponse<AuthResponse>();
             result.IsSuccess = response.IsSuccess;
             result.Message = response.Message;
             result.ResponseStatusCode = response.ResponseStatusCode;
@@ -270,13 +269,65 @@ namespace q5id.guardian.Services
                 {
                     try
                     {
-                        User user = jObject.ToObject<User>();
+                        AuthResponse user = jObject.ToObject<AuthResponse>();
                         result.ResponseObject = user;
                     }
                     catch(Exception ex)
                     {
-                        Debug.WriteLine("Can not parse user: " + ex.ToMessage());
+                        Debug.WriteLine("Can not parse auth response: " + ex.ToMessage());
                         result.ResponseObject = null;
+                    }
+                }
+            }
+            return result;
+        }
+
+        public async Task<ApiResponse<User>> PollStatus(string username, AuthResponse authResp)
+        {
+            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
+            Debug.WriteLine("    Polling PID Status   ");
+            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");
+            Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
+            var cts = new CancellationTokenSource();
+            var param = new
+            {
+                username = username,
+                statusUri = authResp.StatusUri
+            };
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(authResp.AccessToken);
+            var base64Text = Convert.ToBase64String(plainTextBytes);
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).PollStatus($"Bearer {base64Text}",param, cts.Token));
+            runningTasks.Add(task.Id, cts);
+            var response = await task;
+            var result = new ApiResponse<User>();
+            result.IsSuccess = response.IsSuccess;
+            result.Message = response.Message;
+            result.ResponseStatusCode = response.ResponseStatusCode;
+            if (response.ResponseObject != null)
+            {
+                var jObject = response.ResponseObject;
+                if (jObject["error"] != null)
+                {
+                    var error = jObject["error"].Value<String>();
+                    result.IsSuccess = false;
+                    result.Message = error;
+                }
+                else
+                {
+                    try
+                    {
+                        User user = jObject.ToObject<User>();
+                        result.ResponseObject = user;
+                        Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
+                        Debug.WriteLine($"    {user.Status}   ");
+                        Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");
+                        Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
+                    }
+                    catch (Exception ex)
+                    {
+                        result.ResponseObject = null;
+                        Debug.WriteLine("Can not parse user: " + ex.ToMessage());
+                        Debug.WriteLine("║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│");
                     }
                 }
             }

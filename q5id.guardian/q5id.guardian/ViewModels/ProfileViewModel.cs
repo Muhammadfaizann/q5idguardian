@@ -292,15 +292,15 @@ namespace q5id.guardian.ViewModels
 
         private async Task<User> GetUser(string username, string password)
         {
-            IsLoading = true;
-            var currentUserResponse = await AppApiManager.Instances.Login(username, password);
-            IsLoading = false;
-            if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null)
-            {
-                var user = currentUserResponse.ResponseObject;
-                Utils.Utils.SaveToken(user);
-                return user;
-            }
+            //IsLoading = true;
+            //var currentUserResponse = await AppApiManager.Instances.Login(username);
+            //IsLoading = false;
+            //if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null)
+            //{
+            //    var user = currentUserResponse.ResponseObject;
+            //    Utils.Utils.SaveToken(user);
+            //    return user;
+            //}
 
             return null;
         }

@@ -33,6 +33,9 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+
+        private AuthResponse _authResp = null;
+
         private string mUserName = "";
         public string UserName
         {
@@ -61,16 +64,37 @@ namespace q5id.guardian.ViewModels
 
         private async void OnSignUpClicked(object obj)
         {
-            await NavigationService.Navigate<ProfileViewModel>();
+            // Ignore for now
+            // await NavigationService.Navigate<ProfileViewModel>();
         }
 
         private async void OnLoginClicked(Object obj)
         {
-            var user = await GetUser();
-            if(user != null)
+            var result = await Login();
+            if(result)
             {
-                await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
-                UpdateUserDevice(user);
+                // Todo start polling
+                Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+                {
+                    IsLoading = true;
+                    // do something every 10 seconds
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        
+                        var resp = await AppApiManager.Instances.PollStatus(mUserName, _authResp);
+
+                        if (resp.IsSuccess && resp.ResponseObject != null && resp.ResponseObject.Status != "Processing")
+                        {
+                            var user = resp.ResponseObject;
+                            Utils.Utils.SaveToken(user);
+                            IsLoading = false;
+                            await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
+                            UpdateUserDevice(user);
+                        }
+                        // interact with UI elements
+                    });
+                    return IsLoading;
+                });
             }
             else
             {
@@ -105,22 +129,22 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private async Task<User> GetUser()
+        private async Task<bool> Login()
         {
-            if(mUserName != "" && mPassword != "")
+            // mUserName = "+1 7167081550";
+            if (mUserName != "")
             {
                 IsLoading = true;
-                var currentUserResponse = await AppApiManager.Instances.Login(mUserName, mPassword);
-                IsLoading = false;
+                var currentUserResponse = await AppApiManager.Instances.Login(mUserName);
                 if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null)
                 {
-                    var user = currentUserResponse.ResponseObject;
-                    Utils.Utils.SaveToken(user);
-                    return user;
+                    _authResp = currentUserResponse.ResponseObject;
+                    Utils.Utils.SavePIDToken(_authResp);
+                    return true;
                 }
             }
             
-            return null;
+            return false;
         }
 
         //private async Task OnSignUpClicked()

@@ -19,6 +19,7 @@ namespace q5id.guardian.Utils
     {
         private static string CHOICES_KEY = "choices";
         private static string TOKEN_KEY = "token";
+        private static string PID_TOKEN_KEY = "pid_token";
         private static string USER_DEVICE_KEY = "user_device";
         private static string PUSH_NOTIFICATION_KEY = "push_notification_token";
 
@@ -133,6 +134,19 @@ namespace q5id.guardian.Utils
             else
             {
                 Preferences.Set(TOKEN_KEY, "");
+            }
+        }
+
+        public static void SavePIDToken(AuthResponse resp)
+        {
+            if (resp != null)
+            {
+   
+                Preferences.Set(PID_TOKEN_KEY, resp.AccessToken);
+            }
+            else
+            {
+                Preferences.Set(PID_TOKEN_KEY, "");
             }
         }
 

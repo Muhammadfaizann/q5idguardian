@@ -71,6 +71,7 @@ namespace q5id.guardian.iOS
             Marshal.Copy(deviceToken.Bytes, result, 0, (int)deviceToken.Length);
             PushDeviceToken = BitConverter.ToString(result).Replace("-", "");
             System.Diagnostics.Debug.WriteLine($"TOKEN REC: {PushDeviceToken}");
+            Utils.Utils.SavePushNotificationToken(BitConverter.ToString(result).Replace("-", ""));
         }
 
         public override void DidReceiveRemoteNotification(UIApplication application,
