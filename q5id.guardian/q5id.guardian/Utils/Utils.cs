@@ -126,7 +126,7 @@ namespace q5id.guardian.Utils
                 var userSession = new UserSession()
                 {
                     UserId = user.UserId,
-                    Session = session,
+                    Session = user.Token,
                     SessionExpiredDate = user.UpdatedTime.ToString(),
                 };
                 Preferences.Set(TOKEN_KEY, JsonConvert.SerializeObject(userSession));

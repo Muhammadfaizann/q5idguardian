@@ -79,6 +79,9 @@
     <Compile Update="Views\AlertsPage.xaml.cs">
       <DependentUpon>AlertsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ContentViews\PidInstrcutionView.xaml.cs">
+      <DependentUpon>PidInstrcutionView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\LovedOnesPage.xaml.cs">
       <DependentUpon>LovedOnesPage.xaml</DependentUpon>
     </Compile>
@@ -106,7 +109,6 @@
   <ItemGroup>
     <Folder Include="Utils\" />
     <Folder Include="Controls\" />
-    <Folder Include="Views\ContentViews\" />
     <Folder Include="Resources\Fonts\" />
     <Folder Include="Effects\" />
     <Folder Include="Controls\Camera\" />

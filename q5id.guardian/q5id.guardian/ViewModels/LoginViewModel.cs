@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using Newtonsoft.Json;
 using Plugin.InAppBilling;
 using q5id.guardian.DependencyServices;
 using q5id.guardian.Models;
@@ -67,7 +68,8 @@ namespace q5id.guardian.ViewModels
             // Ignore for now
             // await NavigationService.Navigate<ProfileViewModel>();
         }
-
+        bool _completedPid = false;
+    
         private async void OnLoginClicked(Object obj)
         {
             var result = await Login();
@@ -76,24 +78,31 @@ namespace q5id.guardian.ViewModels
                 // Todo start polling
                 Device.StartTimer(TimeSpan.FromSeconds(10), () =>
                 {
-                    IsLoading = true;
                     // do something every 10 seconds
-                    Device.BeginInvokeOnMainThread(async () =>
+                    if (!_completedPid)
                     {
-                        
-                        var resp = await AppApiManager.Instances.PollStatus(mUserName, _authResp);
-
-                        if (resp.IsSuccess && resp.ResponseObject != null && resp.ResponseObject.Status != "Processing")
+                        Device.BeginInvokeOnMainThread(async () =>
                         {
-                            var user = resp.ResponseObject;
-                            Utils.Utils.SaveToken(user);
-                            IsLoading = false;
-                            await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
-                            UpdateUserDevice(user);
-                        }
-                        // interact with UI elements
-                    });
-                    return IsLoading;
+
+                            var resp = await AppApiManager.Instances.PollStatus(mUserName, _authResp);
+
+                            if (resp.IsSuccess && resp.ResponseObject != null && resp.ResponseObject.Status != "Processing")
+                            {
+                                var user = resp.ResponseObject;
+                                Debug.WriteLine(JsonConvert.SerializeObject(user));
+                                Utils.Utils.SaveToken(user);
+                                IsLoading = false;
+                                _completedPid = true;
+                                await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
+                                UpdateUserDevice(user);
+                            }
+                        });
+                        return true;
+                    }else
+                    {
+                        return false;
+                    }
+                   
                 });
             }
             else
@@ -131,7 +140,7 @@ namespace q5id.guardian.ViewModels
 
         private async Task<bool> Login()
         {
-            // mUserName = "+1 7167081550";
+             mUserName = "5039858272";
             if (mUserName != "")
             {
                 IsLoading = true;

@@ -48,9 +48,12 @@ namespace q5id.guardian.Services
                     }
                 }
                 UserSession userSession = Utils.Utils.GetToken();
-                if(userSession != null)
+              
+                if (userSession != null)
                 {
-                    client.DefaultRequestHeaders.Add("Authorization", $"{Utils.Constansts.API_TOKEN_TYPE} {userSession.Session}");
+                    var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(userSession.Session);
+                    var base64Text = Convert.ToBase64String(plainTextBytes);
+                    client.DefaultRequestHeaders.Add("Authorization", $"{Utils.Constansts.API_TOKEN_TYPE} {base64Text}");
                 }
                 
                 return RestService.For<T>(client, GetNewtonsoftJsonRefitSettings());
