@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:PopupPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:util="clr-namespace:q5id.guardian.Utils"
+    x:Class="q5id.guardian.Views.ContentViews.PidInstrcutionView">
+    <ContentPage.Content>
+        <Grid BackgroundColor="Transparent" Padding="20">
+            <Frame HasShadow="False"
+                   Padding="10"
+                   BackgroundColor="White"
+                   BorderColor="Transparent"
+                   CornerRadius="16"
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Center">
+                <Grid HorizontalOptions="Fill"
+                      VerticalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <StackLayout Orientation="Vertical"
+                                 Padding="10"
+                                 HorizontalOptions="Fill">
+                        <!--<Label
+                            FontSize="Medium"
+                            HorizontalOptions="Fill"
+                            HorizontalTextAlignment="Center"
+                            Text="Congratulations"
+                            Style="{StaticResource lbHeaderMd}"
+                            TextColor="{StaticResource redNue}" />-->
+                        <Label
+                            Margin="0,10,0,0"
+                            HorizontalOptions="Fill"
+                            HorizontalTextAlignment="Center"
+                            Text="Please note that you will be re-directed to the Proven Identity app to create your login credentials.&#10;Once you have created your user account you will be able to use it to sign in to Guardian. &#10;Once finished, please return to Guardian and click the link to sign-in."
+                            TextColor="{StaticResource normalCharcoal}" />
+                    </StackLayout>
+                    <control:AppButton
+                        Grid.Row="1"
+                        HeightRequest="30"
+                        HorizontalOptions="Center"
+                        BorderColor="Transparent"
+                        NormalBackgroundEndColor="Transparent"
+                        NormalBackgroundStartColor="Transparent"
+                        PressedBackgroundColor="Transparent"
+                        NormalLabelColor="{StaticResource redNue}"
+                        PressedLabelColor="{StaticResource redQ5}"
+                        Clicked="OkClicked"
+                        ButtonTitle="OK"
+                        ButtonTitleSize="16">
+
+                    </control:AppButton>
+                </Grid>
+            </Frame>
+        
+        </Grid>
+    </ContentPage.Content>
+</pages:PopupPage>

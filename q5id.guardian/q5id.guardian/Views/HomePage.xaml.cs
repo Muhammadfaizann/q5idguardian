@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CarouselView.FormsPlugin.Abstractions;
+using q5id.guardian.DependencyServices;
 using q5id.guardian.Utils;
 using q5id.guardian.ViewModels;
 using q5id.guardian.Views.ContentViews;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
@@ -26,6 +28,10 @@ namespace q5id.guardian.Views
         private bool mIsDrawerVisible = false;
         private bool mIsAnimation = false;
 
+        public TapGestureRecognizer GridHomeTapGes { get; }
+        public TapGestureRecognizer GridLoveTapGes { get; }
+        public TapGestureRecognizer GridAlertTapGes { get; }
+
         public event EventHandler RightControlClicked;
 
         public HomePage()
@@ -36,29 +42,29 @@ namespace q5id.guardian.Views
             HomeView = new HomeContentView(this);
             ShowView(HomeView, "HomeVm");
             SelectTab(HOME_INDEX);
-            var gridHomeTapGes = new TapGestureRecognizer();
-            gridHomeTapGes.Tapped += (object sender, EventArgs e) =>
+            GridHomeTapGes = new TapGestureRecognizer();
+            GridHomeTapGes.Tapped += (object sender, EventArgs e) =>
             {
                 ShowHomeView();
             };
-            gridHomeTapGes.SetBinding(TapGestureRecognizer.CommandProperty, "OpenHomeTapCommand");
-            gridHome.GestureRecognizers.Add(gridHomeTapGes);
+            GridHomeTapGes.SetBinding(TapGestureRecognizer.CommandProperty, "OpenHomeTapCommand");
+            gridHome.GestureRecognizers.Add(GridHomeTapGes);
 
-            var gridLoveTapGes = new TapGestureRecognizer();
-            gridLoveTapGes.Tapped += (object sender, EventArgs e) =>
+            GridLoveTapGes = new TapGestureRecognizer();
+            GridLoveTapGes.Tapped += (object sender, EventArgs e) =>
             {
                 ShowLovedOnesView();
             };
-            gridLoveTapGes.SetBinding(TapGestureRecognizer.CommandProperty, "OpenLovedOnesTapCommand");
-            gridLove.GestureRecognizers.Add(gridLoveTapGes);
+            GridLoveTapGes.SetBinding(TapGestureRecognizer.CommandProperty, "OpenLovedOnesTapCommand");
+            gridLove.GestureRecognizers.Add(GridLoveTapGes);
 
-            var gridAlertTapGes = new TapGestureRecognizer();
-            gridAlertTapGes.Tapped += (object sender, EventArgs e) =>
+            GridAlertTapGes = new TapGestureRecognizer();
+            GridAlertTapGes.Tapped += (object sender, EventArgs e) =>
             {
                 ShowAlertView();
             };
-            gridAlertTapGes.SetBinding(TapGestureRecognizer.CommandProperty, "OpenAlertTapCommand");
-            gridAlert.GestureRecognizers.Add(gridAlertTapGes);
+            GridAlertTapGes.SetBinding(TapGestureRecognizer.CommandProperty, "OpenAlertTapCommand");
+            gridAlert.GestureRecognizers.Add(GridAlertTapGes);
 
             frmRightControl.Clicked += FrmRightControl_Clicked;
             KeyboardView.OnKeyBoardUpdate += KeyboardView_OnKeyBoardUpdate;
@@ -93,6 +99,11 @@ namespace q5id.guardian.Views
             ShowView(AlertsView, "AlertsVm");
             SelectTab(ALERT_INDEX);
             UpdateRightControlVisibility(false);
+        }
+
+        public void ShowAlertViewLoadData()
+        {
+            GridAlertTapGes?.Command?.Execute(null);
         }
 
         public void ShowCreateAlertView(int fromView)
@@ -195,6 +206,41 @@ namespace q5id.guardian.Views
             
 
             //GridDrawer.IsVisible = !GridDrawer.IsVisible;
+        }
+
+        void OnSubscriptionTapped(System.Object sender, System.EventArgs e)
+        {
+            IAppDeviceService service = DependencyService.Get<IAppDeviceService>();
+            service.OpenSubscriptionManager();
+        }
+
+        async void OnPrivacyTapped(System.Object sender, System.EventArgs e)
+        {
+            Uri uri = new Uri(Utils.Constansts.PRIVACY_POLICY_URL);
+            await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+        }
+
+        async void OnHelpCenterTapped(System.Object sender, System.EventArgs e)
+        {
+            await Launcher.OpenAsync(Utils.Constansts.HELP_URL);
+        }
+
+        async void OnFaqTapped(System.Object sender, System.EventArgs e)
+        {
+            Uri uri = new Uri(Utils.Constansts.FAQ_URL);
+            await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+        }
+
+        async void OnEULATapped(System.Object sender, System.EventArgs e)
+        {
+            Uri uri = new Uri(Utils.Constansts.LICENSE_AGREEMENT);
+            await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+        }
+
+        async void OnAboutSelfTapped(System.Object sender, System.EventArgs e)
+        {
+            Uri uri = new Uri(Utils.Constansts.ABOUT_URL);
+            await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using Xamarin.Essentials;
@@ -10,6 +11,8 @@ namespace q5id.guardian.Models
     {
         [JsonProperty("ProfileId")]
         public string ProfileId { get; set; }
+        [JsonProperty("UserId")]
+        public string UserId { get; set; }
         [JsonProperty("AlertId")]
         public string AlertId { get; set; }
         [JsonProperty("FirstName")]
@@ -19,24 +22,28 @@ namespace q5id.guardian.Models
         [JsonProperty("Comments")]
         public string Comments { get; set; }
         [JsonProperty("Latitude")]
-        public string Latitude { get; set; }
+        public double Latitude { get; set; }
         [JsonProperty("Lognitude")]
-        public string Lognitude { get; set; }
+        public double Lognitude { get; set; }
         [JsonProperty("Address")]
         public string Address { get; set; }
         [JsonProperty("IsClosed")]
         public bool IsClosed { get; set; }
+        [JsonProperty("alertFeeds")]
+        public List<Feed> AlertFeeds { get; set; }
+        [JsonProperty("profile")]
+        public Love Love { get; set; }
 
         [JsonIgnore]
         public string DistanceFromUser { get; set; }
 
         public static string GetDistanceFrom(Alert alert, Location sourceCoordinates)
         {
-            if(sourceCoordinates != null && alert.Lognitude != "" && alert.Latitude != "")
+            if(sourceCoordinates != null)
             {
                 try
                 {
-                    Location destinationCoordinates = new Location(double.Parse(alert.Latitude), double.Parse(alert.Lognitude));
+                    Location destinationCoordinates = new Location(alert.Latitude, alert.Lognitude);
                     double distance = Location.CalculateDistance(sourceCoordinates, destinationCoordinates, DistanceUnits.Miles);
                     return String.Format("{0:0.00} miles", distance);
                 }
@@ -58,6 +65,7 @@ namespace q5id.guardian.Models
                 CreatedBy = CreatedBy,
                 ProfileId = ProfileId,
                 AlertId = AlertId,
+                UserId = UserId,
                 FirstName = FirstName,
                 Description = Description,
                 Comments = Comments,
@@ -73,23 +81,9 @@ namespace q5id.guardian.Models
         {
             get
             {
-                if(Latitude != "" && Lognitude != "")
-                {
-                    try
-                    {
-                        return new Position(double.Parse(Latitude), double.Parse(Lognitude));
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine("Cannot get alert location: ", ex);
-                    }
-                }
-                return new Position(0, 0);
+                return new Position(Latitude, Lognitude);
             }
         }
-
-        [JsonIgnore]
-        public Love Love { get; set; }
 
         [JsonIgnore]
         public string UpdatedTimeDescription
@@ -115,5 +109,21 @@ namespace q5id.guardian.Models
             }
         }
 
+    }
+
+    class AlertComparer : IEqualityComparer<Alert>
+    {
+        public bool Equals(Alert x, Alert y)
+        {
+            if (x.Id == y.Id)
+                return true;
+
+            return false;
+        }
+
+        public int GetHashCode(Alert obj)
+        {
+            return obj.Id.GetHashCode();
+        }
     }
 }

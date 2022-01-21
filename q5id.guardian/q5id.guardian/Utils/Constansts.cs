@@ -7,7 +7,7 @@ namespace q5id.guardian.Utils
     public static class Constansts
     {
         public static int SEC_TIMEOUT_LOAD_LOCATION = 10;
-        public static int MILES_DEFAULT_MAP_ZOOM_DISTANCT = 10;
+        public static int KM_DEFAULT_MAP_ZOOM_DISTANCT = 10;
 
         public static string DEFAULT_DATE_FORMAT = "MM/dd/yyyy";
         public static string BIRTHDAY_DATE_FORMAT = "yyyy-MM-dd";
@@ -16,6 +16,8 @@ namespace q5id.guardian.Utils
         public static string EYE_COLORS_SETTING_KEY = "EyeColor";
         public static string HEIGHT_FEETS_SETTING_KEY = "HeightFeet";
         public static string HEIGHT_LIST_INCHES_SETTING_KEY = "HeightInches";
+        public static string USER_ROLE_SETTING_KEY = "UserRole";
+        public static string USER_ROLE_SUBSCRIBER_KEY = "Subscriber";
 
         public static string LOVED_ONES_ENTITY_SETTING_KEY = "Profile";
         public static string ALERT_ENTITY_SETTING_KEY = "Alert";
@@ -26,5 +28,13 @@ namespace q5id.guardian.Utils
 
         public static string YES_KEY = "Yes";
         public static string NO_KEY = "No";
+
+        public static string API_TOKEN_TYPE = "Bearer";
+
+        public static string PRIVACY_POLICY_URL = "https://q5id.com/privacy-policy";
+        public static string HELP_URL = "mailto:help@q5id.com";
+        public static string FAQ_URL = "https://guardian.q5id.com/frequently-asked-questions";
+        public static string ABOUT_URL = "https://guardian.q5id.com/about";
+        public static string LICENSE_AGREEMENT = "https://q5id.com/enterprise-end-user-license-agreement";
     }
 }

@@ -6,19 +6,19 @@ namespace q5id.guardian.Models
 {
     public class Love : BaseEntity
     {
-        [JsonProperty("Id")]
+        [JsonProperty("id")]
         public string PrimaryId { get; set; }
-        [JsonProperty("ProfileId")]
+        [JsonProperty("profileId")]
         public string ProfileId { get; set; }
-        [JsonProperty("ContactId")]
+        [JsonProperty("contactId")]
         public string ContactId { get; set; }
-        [JsonProperty("UserId")]
+        [JsonProperty("userId")]
         public string UserId { get; set; }
-        [JsonProperty("FirstName")]
+        [JsonProperty("firstName")]
         public string FirstName { get; set; }
-        [JsonProperty("LastName")]
+        [JsonProperty("lastName")]
         public string LastName { get; set; }
-        [JsonProperty("DateofBirth")]
+        [JsonProperty("dateofBirth")]
         public string DateofBirth { get; set; }
         [JsonProperty("HairColor")]
         public string HairColorId { get; set; }
@@ -64,15 +64,15 @@ namespace q5id.guardian.Models
         }
         [JsonProperty("OtherInformation")]
         public string OtherInformation { get; set; }
-        [JsonProperty("Image")]
+        [JsonProperty("image")]
         public string Image { get; set; }
-        [JsonProperty("Image2")]
+        [JsonProperty("image2")]
         public string Image2 { get; set; }
-        [JsonProperty("Image3")]
+        [JsonProperty("image3")]
         public string Image3 { get; set; }
-        [JsonProperty("Image4")]
+        [JsonProperty("image4")]
         public string Image4 { get; set; }
-        [JsonProperty("Image5")]
+        [JsonProperty("image5")]
         public string Image5 { get; set; }
 
         private static List<Choice> mChoices = null;
@@ -118,9 +118,9 @@ namespace q5id.guardian.Models
         {
             return new
             {
-                createdon = CreatedOn,
-                modifiedon = ModifiedOn,
-                createdby = CreatedBy,
+                CreatedOn = CreatedOn,
+                ModifiedOn = ModifiedOn,
+                CreatedBy = CreatedBy,
                 ProfileId = ProfileId,
                 UserId = UserId,
                 FirstName = FirstName,
@@ -182,19 +182,21 @@ namespace q5id.guardian.Models
         {
             get
             {
-                if(AddedTime == null && UpdatedTime == null)
+                DateTime? TimeToCheck = null;
+                String mResult = "";
+                if (AddedTime != null)
                 {
-                    return "";
+                    mResult = "Added ";
+                    TimeToCheck = (DateTime)AddedTime;
                 }
-                String mResult = "Added ";
-                DateTime TimeToCheck = (DateTime)AddedTime;
+                
                 if (UpdatedTime != null)
                 {
                     mResult = "Updated ";
                     TimeToCheck = (DateTime)UpdatedTime;
                 }
                 
-                return mResult + Utils.Utils.GetTimeAgoFrom(TimeToCheck);
+                return TimeToCheck.HasValue ? mResult + Utils.Utils.GetTimeAgoFrom(TimeToCheck.Value) : "";
             }
         }
     }

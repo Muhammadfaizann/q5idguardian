@@ -5,6 +5,9 @@ namespace q5id.guardian.Models
 {
     public class User : BaseEntity
     {
+        [JsonProperty("userId")]
+        public new string Id { get; set; }
+
         [JsonProperty("Entityimage")]
         public string ImageUrl { get; set; }
         [JsonProperty("Email")]
@@ -19,17 +22,28 @@ namespace q5id.guardian.Models
         public string FullName { get; set; }
         [JsonProperty("UserId")]
         public string UserId { get; set; }
-        [JsonProperty("SubscriptionExpiredDate")]
+        [JsonProperty("sessionToken")]
+        public string SessionToken { get; set; }
+        [JsonProperty("token")]
+        public string Token { get; set; }
+        [JsonIgnore]
+        public string Password { get; set; }
+        [JsonProperty("Subscriptionexpireddate")]
         public string SubscriptionExpiredDate { get; set; }
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("Role")]
+        public string RoleId { get; set; }
         [JsonIgnore]
         public UserRole Role
         {
             get
             {
-                if(SubscriptionExpiredDateTime != null)
-                {
-                    return SubscriptionExpiredDateTime.Value > DateTime.UtcNow ? UserRole.Subscriber : UserRole.Volunteer;
-                }
+                //if(SubscriptionExpiredDateTime != null)
+                //{
+                //    return SubscriptionExpiredDateTime.Value > DateTime.UtcNow ? UserRole.Subscriber : UserRole.Volunteer;
+                //}
                 return UserRole.Volunteer;
             }
         }
@@ -61,7 +75,8 @@ namespace q5id.guardian.Models
                 FirstName = FirstName,
                 LastName = LastName,
                 UserId = UserId,
-                SubscriptionExpiredDate = SubscriptionExpiredDate
+                Role = RoleId,
+                Subscriptionexpireddate = SubscriptionExpiredDate
             };
         }
     }

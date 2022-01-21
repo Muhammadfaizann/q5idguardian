@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Plugin.Geolocator;
@@ -9,14 +10,18 @@ using q5id.guardian.Models;
 using q5id.guardian.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 using static Xamarin.Essentials.Permissions;
 
 namespace q5id.guardian.Utils
 {
     public static class Utils
     {
-        private static string SETTING_KEY = "settings";
         private static string CHOICES_KEY = "choices";
+        private static string TOKEN_KEY = "token";
+        private static string PID_TOKEN_KEY = "pid_token";
+        private static string USER_DEVICE_KEY = "user_device";
+        private static string PUSH_NOTIFICATION_KEY = "push_notification_token";
 
         public static byte[] ConvertStreamToByteArray(System.IO.Stream stream)
         {
@@ -90,25 +95,6 @@ namespace q5id.guardian.Utils
             return defaultColor;
         }
 
-        public static void SaveSetting(List<StructureEntity> settings)
-        {
-            Preferences.Set(SETTING_KEY, JsonConvert.SerializeObject(settings));
-        }
-
-        public static List<StructureEntity> GetSettings()
-        {
-            try
-            {
-                var strSettings = Preferences.Get(SETTING_KEY, "");
-                return JsonConvert.DeserializeObject<List<StructureEntity>>(strSettings);
-            }
-            catch(Exception ex)
-            {
-                Debug.WriteLine("Cannot get settings: " + ex.Message);
-            }
-            return new List<StructureEntity>();
-        }
-
         public static void SaveChoices(List<Choice> choices)
         {
             Preferences.Set(CHOICES_KEY, JsonConvert.SerializeObject(choices));
@@ -119,13 +105,95 @@ namespace q5id.guardian.Utils
             try
             {
                 var strChoices = Preferences.Get(CHOICES_KEY, "");
-                return JsonConvert.DeserializeObject<List<Choice>>(strChoices);
+                if(strChoices != "")
+                {
+                    return JsonConvert.DeserializeObject<List<Choice>>(strChoices);
+                }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Cannot get choices: " + ex.Message);
             }
             return new List<Choice>();
+        }
+
+        public static void SaveToken(User user)
+        {
+            if(user != null)
+            {
+                var plainTextBytes = System.Text.Encoding.UTF8.GetBytes($"{user.Email}:{user.SessionToken}");
+                var session = System.Convert.ToBase64String(plainTextBytes);
+                var userSession = new UserSession()
+                {
+                    UserId = user.Id,
+                    Session = user.Token,
+                    SessionExpiredDate = user.UpdatedTime.ToString(),
+                };
+                Preferences.Set(TOKEN_KEY, JsonConvert.SerializeObject(userSession));
+                Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
+                Debug.WriteLine($"    {user.Token}   ");
+                Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");
+                Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
+            }
+            else
+            {
+                Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
+                Debug.WriteLine($"   No User Token  ");
+                Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");
+                Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
+                Preferences.Set(TOKEN_KEY, "");
+            }
+
+           
+        }
+
+        public static void SavePIDToken(AuthResponse resp)
+        {
+            if (resp != null)
+            {
+   
+                Preferences.Set(PID_TOKEN_KEY, resp.AccessToken);
+            }
+            else
+            {
+                Preferences.Set(PID_TOKEN_KEY, "");
+            }
+        }
+
+        public static UserSession GetToken()
+        {
+            try
+            {
+                var userSessionJson = Preferences.Get(TOKEN_KEY, "");
+                if(userSessionJson != "")
+                {
+                    UserSession userSession = JsonConvert.DeserializeObject<UserSession>(userSessionJson);
+                    return userSession;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Cannot get token: " + ex.Message);
+            }
+            return null;
+        }
+
+        public static string GetUserId()
+        {
+            try
+            {
+                var userSessionJson = Preferences.Get(TOKEN_KEY, "");
+                if (userSessionJson != "")
+                {
+                    UserSession userSession = JsonConvert.DeserializeObject<UserSession>(userSessionJson);
+                    return userSession.UserId;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Cannot get user id: " + ex.Message);
+            }
+            return "";
         }
 
         public static string GetTimeAgoFrom(DateTime dateTime)
@@ -136,7 +204,7 @@ namespace q5id.guardian.Utils
             const int DAY = 24 * HOUR;
             const int MONTH = 30 * DAY;
 
-            var ts = new TimeSpan(DateTime.UtcNow.Ticks - dateTime.Ticks);
+            var ts = new TimeSpan(DateTime.Now.Ticks - dateTime.Ticks);
             double delta = Math.Abs(ts.TotalSeconds);
 
             if (delta < 1 * MINUTE)
@@ -172,13 +240,18 @@ namespace q5id.guardian.Utils
             }
         }
 
-        public static async Task<Position> GetLocalLocation()
+        public static async Task<Plugin.Geolocator.Abstractions.Position> GetLocalLocation()
         {
             if (IsLocationAvailable())
             {
                 try
                 {
                     var locator = CrossGeolocator.Current;
+
+                    //var request = new GeolocationRequest(GeolocationAccuracy.Default, TimeSpan.FromSeconds(20));
+                   
+                    //var location = await Geolocation.GetLocationAsync(request);
+                    //return new Plugin.Geolocator.Abstractions.Position(location.Latitude, location.Longitude);
                     return await locator.GetLastKnownLocationAsync();
                 }
                 catch (Exception ex)
@@ -194,6 +267,71 @@ namespace q5id.guardian.Utils
             if (!CrossGeolocator.IsSupported)
                 return false;
             return CrossGeolocator.Current.IsGeolocationAvailable;
+        }
+
+        public static async Task<string> FindPlaceByPosition(Xamarin.Forms.Maps.Position position)
+        {
+            Geocoder geoCoder = new Geocoder();
+            IEnumerable<string> possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
+            string address = possibleAddresses.FirstOrDefault();
+            return address;
+        }
+
+        public static bool IsValidEmail(string email)
+        {
+            if (email.Trim().EndsWith("."))
+            {
+                return false; // suggested by @TK-421
+            }
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static void SaveUserDevice(UserDevice userDevice)
+        {
+            if (userDevice != null)
+            {
+                Preferences.Set(USER_DEVICE_KEY, JsonConvert.SerializeObject(userDevice));
+            }
+            else
+            {
+                Preferences.Set(USER_DEVICE_KEY, "");
+            }
+        }
+
+        public static UserDevice GetUserDevice()
+        {
+            try
+            {
+                var userDeviceJson = Preferences.Get(USER_DEVICE_KEY, "");
+                if (userDeviceJson != "")
+                {
+                    UserDevice userDevice = JsonConvert.DeserializeObject<UserDevice>(userDeviceJson);
+                    return userDevice;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Cannot get user device: " + ex.Message);
+            }
+            return null;
+        }
+
+        public static void SavePushNotificationToken(string token)
+        {
+            Preferences.Set(PUSH_NOTIFICATION_KEY, token);
+        }
+
+        public static string GetPushNotificationToken()
+        {
+            return Preferences.Get(PUSH_NOTIFICATION_KEY, "");
         }
     }
 }

@@ -4,10 +4,14 @@ using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using Plugin.InAppBilling;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
 using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace q5id.guardian.ViewModels
@@ -18,11 +22,23 @@ namespace q5id.guardian.ViewModels
         {
             OpenSettingCommand = new MvxAsyncCommand(OnSettingClicked);
             HomeVm = new HomeContentViewModel(navigationService, logProvider);
+            HomeVm.OnUpdateModel += SubVmOnUpdateModel;
             LovedOnesVm = new LovedOnesViewModel(navigationService, logProvider);
+            LovedOnesVm.OnUpdateModel += SubVmOnUpdateModel;
             AlertsVm = new AlertsViewModel(navigationService, logProvider);
+            AlertsVm.OnUpdateModel += SubVmOnUpdateModel;
             Task.Run(async () =>
             {
                await HomeVm.Initialize();
+               await GetSubscriptionStatus();
+            });
+        }
+
+        private void SubVmOnUpdateModel(object sender, EventArgs e)
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await GetSubscriptionStatus();
             });
         }
 
@@ -65,6 +81,12 @@ namespace q5id.guardian.ViewModels
             {
                 return new Command(async () =>
                 {
+                    Utils.Utils.SaveToken(null);
+                    var currentUserDevice = Utils.Utils.GetUserDevice();
+                    if(currentUserDevice != null)
+                    {
+                        await AppApiManager.Instances.DeleteUserDevice(currentUserDevice);
+                    }
                     await ClearStackAndNavigateToPage<LoginViewModel>();
                 });
             }
@@ -75,38 +97,57 @@ namespace q5id.guardian.ViewModels
             User = parameter;
         }
 
+        public override void ViewCreated()
+        {
+            base.ViewCreated();
+            
+        }
+
+        public override void Start()
+        {
+            base.Start();
+        }
+
+        private async void OnServiceUnauthorized(object sender, EventArgs e)
+        {
+            Utils.Utils.SaveToken(null);
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await App.Current.MainPage.DisplayAlert("Unauthorized", "Expired Session", "OK");
+
+                await ClearStackAndNavigateToPage<LoginViewModel>();
+            });
+           
+        }
+
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            
+            base.ViewDestroy(viewFinishing);
+        }
+
         public override async Task Initialize()
         {
-            GetAccountEntity();
             await HomeVm.Initialize();
             await LovedOnesVm.Initialize();
             await AlertsVm.Initialize();
         }
 
-        private void GetAccountEntity()
-        {
-            var settings = Utils.Utils.GetSettings();
-            if (settings != null)
-            {
-                UserEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
-                {
-                    return entity.EntityName == Utils.Constansts.USER_ENTITY_SETTING_KEY;
-                });
-            }
-        }
-
         private async void GetProfile()
         {
-            if(UserEntity != null && User != null)
+            UserSession userSession = Utils.Utils.GetToken();
+            if(userSession != null)
             {
-                var currentUserResponse = await AppApiManager.Instances.GetUserProfile(UserEntity.Id, User.UserId);
-                if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject?.Result != null)
+                var currentUserResponse = await AppApiManager.Instances.GetUserProfile(userSession.UserId);
+                if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null && currentUserResponse.ResponseObject.Count > 0)
                 {
-                    var entityUser = currentUserResponse.ResponseObject.Result;
-                    var user = entityUser.Data;
-                    user.Id = entityUser.Id;
-                    User = user;
+                    var result = currentUserResponse.ResponseObject[0];
+                    User = result;
                 }
+            }
+            else
+            {
+                await ClearStackAndNavigateToPage<LoginViewModel>();
             }
         }
 
@@ -126,6 +167,42 @@ namespace q5id.guardian.ViewModels
         {
             base.ViewAppeared();
             GetProfile();
+           
+            AppApiManager.Instances.OnUnauthorized += OnServiceUnauthorized;
+        }
+
+        private async Task GetSubscriptionStatus()
+        {
+            HomeVm.IsLoading = true;
+            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
+            Debug.WriteLine("    Fetching Subscription Status   ");
+            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");
+            Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
+            Boolean isSubscriptionRole = false;
+            var purchases = await InAppBillingService.Instances.GetProductPurchases();
+            if (purchases != null)
+            {
+                int numberOfSubscriptionDay = 30;
+                InAppBillingPurchase purchase = purchases.FirstOrDefault();
+                if(purchase != null)
+                {
+                    if (purchase.State == PurchaseState.Purchased && purchase.TransactionDateUtc.AddDays(numberOfSubscriptionDay).Ticks > DateTime.UtcNow.Ticks)
+                    {
+                        var isExpired = await InAppBillingService.Instances.IsExpiredReceipt(purchase.PurchaseToken);
+                        isSubscriptionRole = !isExpired;
+                    }
+                }
+            }
+            HomeVm.IsLoading = false;
+            HomeVm.IsSubcriber = isSubscriptionRole;
+            LovedOnesVm.IsSubcriber = isSubscriptionRole;
+            AlertsVm.IsSubcriber = isSubscriptionRole;
+        }
+
+        public override void ViewDisappeared()
+        {
+            AppApiManager.Instances.OnUnauthorized -= OnServiceUnauthorized;
+            base.ViewDisappeared();
         }
 
         public Command OpenHomeTapCommand
@@ -156,12 +233,10 @@ namespace q5id.guardian.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await AlertsVm.GetLoves();
+                    AlertsVm.GetMyLoves();
                     AlertsVm.GetAlerts();
                 });
             }
         }
-
-        public StructureEntity UserEntity { get; private set; }
     }
 }

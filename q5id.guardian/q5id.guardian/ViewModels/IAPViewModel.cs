@@ -17,7 +17,6 @@ namespace q5id.guardian.ViewModels
     {
         public IAPViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
-            GetUserEntity();
         }
 
         private bool mIsSuccessPurchase = false;
@@ -67,146 +66,61 @@ namespace q5id.guardian.ViewModels
 
         public async Task GetProducts()
         {
-            if (!CrossInAppBilling.IsSupported)
-                return;
-
-            var billing = CrossInAppBilling.Current;
-            try
+            IsLoading = true;
+            var products = await InAppBillingService.Instances.GetProducts();
+            IsLoading = false;
+            if (products != null)
             {
-                IsLoading = true;
-                var productIds = new string[]
+                var listProduct = new List<object>();
+                foreach (InAppBillingProduct product in products)
                 {
-                    "subscription_one_month",
-                };
-
-                var connected = await CrossInAppBilling.Current.ConnectAsync();
-
-                if (!connected)
-                {
-                    //Couldn't connect to billing, could be offline, alert user
-                    return;
-                }
-
-                //try to purchase item
-
-                var products = await CrossInAppBilling.Current.GetProductInfoAsync(ItemType.InAppPurchase, productIds);
-                if (products == null)
-                {
-                    //Not purchased, alert the user
-
-                }
-                else
-                {
-                    //check purchases
-                    //var purchases = await billing.GetPurchasesAsync(ItemType.InAppPurchase);
-                    var listProduct = new List<object>();
-
-                    //Purchased, save this information
-                    foreach (InAppBillingProduct product in products)
+                    //item info here.
+                    var item = new InAppBillingProductItemViewModel(product)
                     {
-                        //item info here.
-                        //var isPaid = purchases?.Any(p => p.ProductId == product.ProductId) ?? false;
-                        var item = new InAppBillingProductItemViewModel(product)
+                        OnItemClicked = async () =>
                         {
-                            OnItemClicked = async () =>
-                            {
-                                await MakePurchase(product.ProductId);
-
-                            },
-                            IsPaid = false
-                        };
-                        listProduct.Add(item);
-                    }
-                    Products = listProduct;
+                            await MakePurchase();
+                        },
+                        IsPaid = false
+                    };
+                    listProduct.Add(item);
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Error: " + ex.Message);
-            }
-            finally
-            {
-                await billing.DisconnectAsync();
-                IsLoading = false;
+                Products = listProduct;
             }
         }
 
-        public async Task<bool> MakePurchase(string productId)
+        public async Task<bool> MakePurchase()
         {
-            if (!CrossInAppBilling.IsSupported)
-                return false;
-
-            var billing = CrossInAppBilling.Current;
-            try
-            {
-                IsLoading = true;
-                var connected = await CrossInAppBilling.Current.ConnectAsync();
-
-                if (!connected)
-                {
-                    //Couldn't connect to billing, could be offline, alert user
-                    return false;
-                }
-
-                //try to purchase item
-
-                //try to purchase item
-                var purchase = await CrossInAppBilling.Current.PurchaseAsync(productId, ItemType.InAppPurchase);
-                if (purchase == null)
-                {
-                    //Not purchased, alert the user
-                }
-                else
-                {
-                    //Purchased, save this information
-                    var id = purchase.Id;
-                    var token = purchase.PurchaseToken;
-                    var state = purchase.State;
-                    await UpdateUserSubscription(id);
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Error: " + ex.Message);
-                return false;
-            }
-            finally
-            {
-                await billing.DisconnectAsync();
-                IsLoading = false;
-            }
-        }
-
-        private StructureEntity UserEntity = null;
-        private void GetUserEntity()
-        {
-            var settings = Utils.Utils.GetSettings();
-            if (settings != null)
-            {
-                UserEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
-                {
-                    return entity.EntityName == Utils.Constansts.USER_ENTITY_SETTING_KEY;
-                });
-            }
+            IsLoading = true;
+            var makePurchaseResponse = await InAppBillingService.Instances.MakePurchase();
+            IsLoading = false;
+            return makePurchaseResponse != null;
         }
 
         private async Task UpdateUserSubscription(string subscritionId)
         {
-            if (UserEntity == null)
-            {
-                return;
-            }
             IsLoading = true;
-
+            var choices = Utils.Utils.GetChoices();
+            Choice userRoleChoice = choices.Find((Choice obj) =>
+            {
+                return obj.Name == Utils.Constansts.USER_ROLE_SETTING_KEY;
+            });
+            ItemChoice subscriptionChoice = userRoleChoice.Items.Find(item =>
+            {
+                return item.Name == Utils.Constansts.USER_ROLE_SUBSCRIBER_KEY;
+            });
             var userToPost = User;
             userToPost.SubscriptionExpiredDate = DateTime.UtcNow.AddDays(30).ToString();
-            ApiResponse<AppServiceResponse<Entity<User>>> response;
-            response = await AppApiManager.Instances.UpdateUser(UserEntity.Id, userToPost);
+            if(subscriptionChoice != null)
+            {
+                userToPost.RoleId = subscriptionChoice.Id;
+            }
+            ApiResponse<AppServiceResponse<User>> response;
+            response = await AppApiManager.Instances.UpdateUser(userToPost);
             IsLoading = false;
             if (response.IsSuccess && response.ResponseObject != null)
             {
-                User = response.ResponseObject.Result.Data;
+                User = response.ResponseObject.Result;
                 IsSuccessPurchase = true;
             }
 

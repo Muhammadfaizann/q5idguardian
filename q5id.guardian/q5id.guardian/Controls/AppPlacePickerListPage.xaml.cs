@@ -16,7 +16,6 @@ namespace q5id.guardian.Controls
         private bool mIsNeedContinueCall = false;
         private bool mIsTextChanging = false;
         private string mTextSearch = "";
-        private GoogleMapsApiService mapsService;
         private List<GooglePlaceAutoCompletePrediction> mItemSource;
 
         private AppPopupPlacePickerView mPickerView;
@@ -25,7 +24,6 @@ namespace q5id.guardian.Controls
         {
             InitializeComponent();
             this.mPickerView = mPickerView;
-            mapsService = new GoogleMapsApiService();
         }
 
         public void ResetView()
@@ -40,14 +38,15 @@ namespace q5id.guardian.Controls
             try
             {
                 GooglePlaceAutoCompletePrediction itemData = mItemSource[e.ItemIndex];
-                var place = await mapsService.GetPlaceDetails(itemData.PlaceId);
+                var place = await AppApiManager.Instances.GetPlaceDetails(itemData.PlaceId);
                 mPickerView.SelectedItem = place;
+                await Navigation.PopPopupAsync();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Get Place Detail Error: " + ex.Message);
             }
-            await Navigation.PopPopupAsync();
+            
         }
 
         private void EntrySearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -80,7 +79,7 @@ namespace q5id.guardian.Controls
                     mIsNeedContinueCall = false;
                     mIsCalling = true;
                     mTextSearch = EntrySearch.Text;
-                    var result = await mapsService.GetPlaces(mTextSearch);
+                    var result = await AppApiManager.Instances.GetPlaces(mTextSearch);
                     mIsCalling = false;
                     mItemSource = result.AutoCompletePlaces;
                     ListPlaces.ItemsSource = mItemSource;

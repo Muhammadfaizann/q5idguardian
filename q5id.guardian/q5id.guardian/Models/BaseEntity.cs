@@ -8,6 +8,8 @@ namespace q5id.guardian.Models
     {
         [JsonProperty("id")]
         public string Id { get; set; }
+        [JsonProperty("objectId")]
+        public string ObjectId { get; set; }
         [JsonProperty("CreatedOn")]
         public string CreatedOn { get; set; }
         [JsonProperty("ModifiedOn")]
@@ -19,9 +21,12 @@ namespace q5id.guardian.Models
         {
             get
             {
+                
                 if (CreatedOn != null && CreatedOn != "")
                 {
-                    return DateTime.Parse(CreatedOn);
+                    var utcDate = DateTime.SpecifyKind(DateTime.Parse(CreatedOn), DateTimeKind.Local);
+
+                    return utcDate;
                 }
                 return null;
             }

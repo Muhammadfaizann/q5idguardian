@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
+using q5id.guardian.DependencyServices;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
+using q5id.guardian.ViewModels.Base;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
 namespace q5id.guardian.ViewModels
 {
-    public class HomeContentViewModel : BaseViewModel
+    public class HomeContentViewModel : BaseSubViewModel
     {
 
         public HomeContentViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
@@ -26,8 +29,10 @@ namespace q5id.guardian.ViewModels
             {
                 return new Command(async () =>
                 {
-                    var result = await NavigationService.Navigate<IAPViewModel, User, User>(mUser);
-                    User = result;
+                    IsLoading = true;
+                    var result = await InAppBillingService.Instances.MakePurchase();
+                    IsLoading = false;
+                    this.UpdateModel();
                 });
             }
         }
@@ -42,11 +47,21 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        private Boolean mIsSubcriber = false;
+        public Boolean IsSubcriber
+        {
+            get => mIsSubcriber;
+            set
+            {
+                mIsSubcriber = value;
+            }
+        }
+
         public Boolean IsVolunteer
         {
             get
             {
-                return this.User != null && this.User.Role == UserRole.Volunteer;
+                return !IsSubcriber;
             }
         }
 
@@ -97,36 +112,63 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        public StructureEntity AlertEntity { get; private set; }
-
+        
         public override async Task Initialize()
         {
             GetUserPages();
-            GetAlertEntity();
             GetAlerts();
+            UpdateUserDevice();
+            
         }
 
-        private void GetAlertEntity()
+        private async void UpdateUserDevice()
         {
-            var settings = Utils.Utils.GetSettings();
-            if (settings != null)
+            UserSession userSession = Utils.Utils.GetToken();
+            var currentUserDevice = Utils.Utils.GetUserDevice();
+            var location = await Utils.Utils.GetLocalLocation();
+            if(currentUserDevice != null)
             {
-                AlertEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
-                {
-                    return entity.EntityName == Utils.Constansts.ALERT_ENTITY_SETTING_KEY;
-                });
+                await AppApiManager.Instances.DeleteUserDevice(currentUserDevice);
+                Utils.Utils.SaveUserDevice(null);
+            };
+            var currentPushToken = Utils.Utils.GetPushNotificationToken();
+            Debug.WriteLine("currentPushToken: ", currentPushToken);
+            IAppDeviceService service = DependencyService.Get<IAppDeviceService>();
+            var userDevice = new UserDevice()
+            {
+                UserId = userSession.UserId,
+                DevicePushId = "",
+                Platform = Device.RuntimePlatform.ToUpper(),
+                SubscriptionId = "00000000-0000-0000-0000-000000000000",
+                IsAppPurchaseToken = "False",
+                DeviceId = currentPushToken,
+                DeviceUUID = service.GetDeviceId(),
+                Tags = new List<string>(),
+                Latitude = location != null ? location.Latitude : 0,
+                Longitude = location != null ? location.Longitude : 0
+            };
+            var responseCreateUserDevice = await AppApiManager.Instances.CreateUserDevice(userDevice);
+            if (responseCreateUserDevice.IsSuccess && responseCreateUserDevice.ResponseObject != null && responseCreateUserDevice.ResponseObject.Result != null)
+            {
+                var newUserDevice = responseCreateUserDevice.ResponseObject.Result;
+                Utils.Utils.SaveUserDevice(newUserDevice);
             }
         }
 
         public async void GetAlerts()
         {
-            if (AlertEntity != null)
+            var currentLocation = await Utils.Utils.GetLocalLocation();
+            if (currentLocation != null)
             {
-                var response = await AppApiManager.Instances.GetListAlert(AlertEntity.Id);
-                if (response.IsSuccess && response.ResponseObject.Value != null)
+                var response = await AppApiManager.Instances.GetNearbyListAlert(currentLocation.Latitude, currentLocation.Longitude, Utils.Constansts.KM_DEFAULT_MAP_ZOOM_DISTANCT);
+                if (response.IsSuccess && response.ResponseObject != null)
                 {
-                    Alerts = response.ResponseObject.Value;
+                    Alerts = response.ResponseObject;
                 }
+            }
+            else
+            {
+                Alerts = new List<Alert>();
             }
         }
 

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.q5id.guardian">
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29" />
-	<application android:label="Guardian" android:theme="@style/MainTheme">
-		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBfmbh-Rv6aVh4QP7DR41o-_RwPQKZgMDY" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="4" android:versionName="1.0.2" package="com.q5id.guardian" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="30" />
+	<application android:label="q5id.guardian.Droid" android:theme="@style/MainTheme">
+		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDEX2nkFc47bKje1DehOBNHeEcxw1_ncNU" />
 		<uses-library android:name="org.apache.http.legacy" android:required="false" />
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 	</application>
@@ -18,4 +18,5 @@
 	<uses-permission android:name="android.permission.CONTROL_LOCATION_UPDATES" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="com.android.vending.BILLING" />
 </manifest>

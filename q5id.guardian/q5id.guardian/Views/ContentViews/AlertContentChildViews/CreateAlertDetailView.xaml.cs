@@ -128,8 +128,8 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
 
             ImageSourceGuardianNearby.Color = Utils.Utils.GetColorFromResource("lightCharcoal40", Color.LightGray);
             ImageSourceGuardianNearby.FontFamily = Utils.ThemeConstanst.FontAwesomeRegular;
-            ImageSourceYourPersonalNetwork.Color = Utils.Utils.GetColorFromResource("lightCharcoal40", Color.LightGray);
-            ImageSourceYourPersonalNetwork.FontFamily = Utils.ThemeConstanst.FontAwesomeRegular;
+            //ImageSourceYourPersonalNetwork.Color = Utils.Utils.GetColorFromResource("lightCharcoal40", Color.LightGray);
+            //ImageSourceYourPersonalNetwork.FontFamily = Utils.ThemeConstanst.FontAwesomeRegular;
             ImageSourceLowEnforcement.Color = Utils.Utils.GetColorFromResource("lightCharcoal40", Color.LightGray);
             ImageSourceLowEnforcement.FontFamily = Utils.ThemeConstanst.FontAwesomeRegular;
 
@@ -184,8 +184,8 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
         private void UpdateYourPersonalNetwork()
         {
             String colorResource = IsYourPersonalNetwork ? "redNue" : "lightCharcoal40";
-            ImageSourceYourPersonalNetwork.Color = Utils.Utils.GetColorFromResource(colorResource, Color.LightGray);
-            ImageSourceYourPersonalNetwork.FontFamily = IsYourPersonalNetwork ? Utils.ThemeConstanst.FontAwesomeSolid : Utils.ThemeConstanst.FontAwesomeRegular;
+            //ImageSourceYourPersonalNetwork.Color = Utils.Utils.GetColorFromResource(colorResource, Color.LightGray);
+            //ImageSourceYourPersonalNetwork.FontFamily = IsYourPersonalNetwork ? Utils.ThemeConstanst.FontAwesomeSolid : Utils.ThemeConstanst.FontAwesomeRegular;
         }
 
         void GuardianNearbyTapped(System.Object sender, System.EventArgs e)
@@ -223,13 +223,9 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             MainContentView.MainPage.UpdateRightControlImage(Utils.FontAwesomeIcons.ChevronLeft);
         }
 
-        private async void CheckAndGetLocalLocation()
+        private void CheckAndGetLocalLocation()
         {
-            var result = await Utils.Utils.CheckAndRequestLocationPermission();
-            if (result == PermissionStatus.Granted)
-            {
-                GetLocalLocation();
-            }
+            GetLocalLocation();
         }
 
         private async void GetLocalLocation()
@@ -245,6 +241,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
                 catch (Exception ex)
                 {
                     Debug.WriteLine("Cannot get local location: " + ex.Message);
+                    AlertPosition = null;
                 }
             }
         }

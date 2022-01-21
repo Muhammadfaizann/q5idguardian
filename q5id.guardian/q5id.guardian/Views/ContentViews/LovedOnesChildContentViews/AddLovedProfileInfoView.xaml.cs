@@ -29,17 +29,17 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
         {
             if(EntryFirstName.Text == "" || EntryFirstName.Text == null)
             {
-                ShowErrorMessage("Plase input first name");
+                ShowErrorMessage("Please input first name");
                 return false;
             }
             if (EntryLastName.Text == "" || EntryLastName.Text == null)
             {
-                ShowErrorMessage("Plase input first name");
+                ShowErrorMessage("Please input first name");
                 return false;
             }
             if (EntryBirthDay.NullableDate == null)
             {
-                ShowErrorMessage("Plase input birthday");
+                ShowErrorMessage("Please input birthday");
                 return false;
             }
             return true;

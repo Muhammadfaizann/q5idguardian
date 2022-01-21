@@ -16,43 +16,15 @@ namespace q5id.guardian
     {
         public App()
         {
-            GoogleMapsApiService.Initialize("AIzaSyBfmbh-Rv6aVh4QP7DR41o-_RwPQKZgMDY");
-            AppApiManager.Init("7e83fc21dcb44d1db06b8284b0c0fb89");
             InitializeComponent();
             GetInitData();
         }
 
         private void GetInitData()
         {
-            GetSettings();
-            GetChoices();
         }
 
-        private async void GetSettings()
-        {
-            var response = await AppApiManager.Instances.GetSettings();
-            if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Result != null)
-            {
-                var strutures = response.ResponseObject.Result;
-                if(strutures.Count > 0)
-                {
-                    Utils.Utils.SaveSetting(strutures[0].Entities);
-                }
-            }
-        }
-
-        private async void GetChoices()
-        {
-            var response = await AppApiManager.Instances.GetChoices();
-            if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Result != null)
-            {
-                var choices = response.ResponseObject.Result;
-                if (choices.Count > 0)
-                {
-                    Utils.Utils.SaveChoices(choices);
-                }
-            }
-        }
+        
 
         protected override void OnStart()
         {

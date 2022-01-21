@@ -7,6 +7,8 @@ namespace q5id.guardian.Models
     {
         [JsonProperty("AlertFeedId")]
         public string AlertFeedId { get; set; }
+        [JsonProperty("UserId")]
+        public string UserId { get; set; }
         [JsonProperty("AlertId")]
         public string AlertId { get; set; }
         [JsonProperty("VolunteerName")]
@@ -30,6 +32,7 @@ namespace q5id.guardian.Models
                 ModifiedOn = ModifiedOn,
                 CreatedBy = CreatedBy,
                 AlertFeedId = AlertFeedId,
+                UserId = UserId,
                 AlertId = AlertId,
                 VolunteerName = VolunteerName,
                 Comment = Comment,

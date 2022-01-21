@@ -74,14 +74,17 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             if(userPosition != null)
             {
                 map?.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(userPosition.Latitude, userPosition.Longitude),
-                                                 Distance.FromMiles(Constansts.MILES_DEFAULT_MAP_ZOOM_DISTANCT)));
+                                                 Distance.FromKilometers(Constansts.KM_DEFAULT_MAP_ZOOM_DISTANCT)));
             }
         }
 
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
-            cardInfoView.BindingContext = this.BindingContext;
+            if(cardInfoView != null)
+            {
+                cardInfoView.BindingContext = this.BindingContext;
+            }
         }
 
         void OnShowMapTapped(System.Object sender, System.EventArgs e)

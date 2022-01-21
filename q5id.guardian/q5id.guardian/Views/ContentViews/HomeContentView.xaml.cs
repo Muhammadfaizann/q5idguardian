@@ -68,7 +68,7 @@ namespace q5id.guardian.Views.ContentViews
             if (userPosition != null)
             {
                 map?.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(userPosition.Latitude, userPosition.Longitude),
-                                                 Distance.FromMiles(Constansts.MILES_DEFAULT_MAP_ZOOM_DISTANCT)));
+                                                 Distance.FromKilometers(Constansts.KM_DEFAULT_MAP_ZOOM_DISTANCT)));
             }
 
         }
@@ -173,6 +173,12 @@ namespace q5id.guardian.Views.ContentViews
         public override Grid GetContentView()
         {
             return new Grid();
+        }
+
+        void OnViewAllAlertTapped(System.Object sender, System.EventArgs e)
+        {
+            MainPage.ShowAlertView();
+            MainPage.ShowAlertViewLoadData();
         }
     }
 }

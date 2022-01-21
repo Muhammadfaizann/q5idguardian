@@ -11,7 +11,6 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
         {
             InitializeComponent();
             ViewTitle = "Add Loved One";
-
         }
 
         void OnNextClicked(System.Object sender, System.EventArgs e)
@@ -30,24 +29,28 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
         {
             if (HairColorPicker.SelectedItem == null)
             {
-                ShowErrorMessage("Plase input hair color");
+                ShowErrorMessage("Please input hair color");
                 return false;
             }
+
             if (EyeColorPicker.SelectedItem == null)
             {
-                ShowErrorMessage("Plase input eye color");
+                ShowErrorMessage("Please input eye color");
                 return false;
             }
+
             if (HeightFeetPicker.SelectedItem == null || HeightInchesPicker.SelectedItem == null)
             {
-                ShowErrorMessage("Plase input height");
+                ShowErrorMessage("Please input height");
                 return false;
             }
+
             if (EntryWeight.Text == "" || EntryWeight.Text == null)
             {
-                ShowErrorMessage("Plase input weight");
+                ShowErrorMessage("Please input weight");
                 return false;
             }
+
             return true;
         }
 

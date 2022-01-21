@@ -4,6 +4,7 @@ using System.Net.Http;
 using Fusillade;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using q5id.guardian.Models;
 using q5id.guardian.Services.Bases;
 using Refit;
 using Xamarin.Essentials;
@@ -12,6 +13,9 @@ namespace q5id.guardian.Services
 {
     public class ApiService<T> : IApiService<T>
     {
+        private const int DEFAULT_SECOND_TIMEOUT = 30;
+        private const string API_TIME_OUT_KEY = "api-timeout";
+
         public static RefitSettings GetNewtonsoftJsonRefitSettings() => new RefitSettings(new NewtonsoftJsonContentSerializer());
 
         Func<HttpMessageHandler, T> createClient;
@@ -19,18 +23,37 @@ namespace q5id.guardian.Services
         {
             createClient = messageHandler =>
             {
-                var client = new HttpClient(messageHandler)
+                int timeout = DEFAULT_SECOND_TIMEOUT;
+                if (headers != null && headers.ContainsKey(API_TIME_OUT_KEY))
                 {
-                    BaseAddress = new Uri(apiBaseAddress)
-                    
+                    timeout = int.Parse(headers[API_TIME_OUT_KEY]);
+                }
+#if DEBUG
+                var client = new HttpClient(new LoggingHttpHandler(new HttpClientHandler()))
+
+#else
+                var client = new HttpClient(messageHandler)
+#endif
+                {
+                    BaseAddress = new Uri(apiBaseAddress),
+                    Timeout = TimeSpan.FromSeconds(timeout)
+
                 };
-                if(headers != null)
+                if (headers != null)
                 {
                     foreach (KeyValuePair<string, string> entry in headers)
                     {
                         // do something with entry.Value or entry.Key
                         client.DefaultRequestHeaders.Add(entry.Key, entry.Value);
                     }
+                }
+                UserSession userSession = Utils.Utils.GetToken();
+              
+                if (userSession != null)
+                {
+                    var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(userSession.Session);
+                    var base64Text = Convert.ToBase64String(plainTextBytes);
+                    client.DefaultRequestHeaders.Add("Authorization", $"{Utils.Constansts.API_TOKEN_TYPE} {base64Text}");
                 }
                 
                 return RestService.For<T>(client, GetNewtonsoftJsonRefitSettings());

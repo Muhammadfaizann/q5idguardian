@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using CarouselView.FormsPlugin.iOS;
 using FFImageLoading.Forms.Platform;
 using Foundation;
@@ -25,6 +28,8 @@ namespace q5id.guardian.iOS
         //
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         //
+
+        public static NSData PushDeviceToken { get; private set; } = null;
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
             global::Xamarin.Forms.Forms.Init();
@@ -36,12 +41,63 @@ namespace q5id.guardian.iOS
             Xamarin.Forms.Forms.Init();
             //Xamarin.FormsGoogleMaps.Init("AIzaSyANi77wVc7W33Z4UW_9_2dUCobRbQiB16E");
             Plugin.InAppBilling.InAppBillingImplementation.OnShouldAddStorePayment = OnShouldAddStorePayment;
+
+
+            if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
+            {
+                var pushSettings = UIUserNotificationSettings.GetSettingsForTypes(
+                    UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound,
+                    new NSSet());
+                UIApplication.SharedApplication.RegisterUserNotificationSettings(pushSettings);
+                UIApplication.SharedApplication.RegisterForRemoteNotifications();
+            }
+
+
             return base.FinishedLaunching(application, launchOptions);
         }
 
         private bool OnShouldAddStorePayment(SKPaymentQueue arg1, SKPayment arg2, SKProduct arg3)
         {
             return true;
+        }
+
+        /// <summary>
+        /// Called when the push notification system is registered
+        /// </summary>
+        /// <param name="application">Application.</param>
+        /// <param name="deviceToken">Device token.</param>
+        public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
+        {
+            byte[] result = new byte[deviceToken.Length];
+            Marshal.Copy(deviceToken.Bytes, result, 0, (int)deviceToken.Length);
+            PushDeviceToken = BitConverter.ToString(result).Replace("-", "");
+            System.Diagnostics.Debug.WriteLine($"TOKEN REC: {PushDeviceToken}");
+            Utils.Utils.SavePushNotificationToken(BitConverter.ToString(result).Replace("-", ""));
+        }
+
+        public override void DidReceiveRemoteNotification(UIApplication application,
+            NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
+        {
+            
+            NSDictionary aps = userInfo.ObjectForKey(new NSString("aps")) as NSDictionary;
+
+            // The aps is a dictionary with the template values in it
+            // You can adjust this section to do whatever you need to with the push notification
+
+            string alert = string.Empty;
+            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
+            Debug.WriteLine("    Received notification   ");
+            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");            
+            if (aps.ContainsKey(new NSString("alert")))
+                alert = (aps[new NSString("alert")] as NSString).ToString();
+            Debug.WriteLine($"    {alert}   ");
+            Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
+            //show alert
+            if (!string.IsNullOrEmpty(alert))
+            {
+                UIAlertView avAlert = new UIAlertView("Notification", alert, null, "OK", null);
+                avAlert.Show();
+            }
         }
     }
 }

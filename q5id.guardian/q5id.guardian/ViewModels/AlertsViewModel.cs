@@ -9,6 +9,7 @@ using MvvmCross.Navigation;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
 using q5id.guardian.Services.Bases;
+using q5id.guardian.ViewModels.Base;
 using q5id.guardian.ViewModels.ItemViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -16,7 +17,7 @@ using Xamarin.Forms.Maps;
 
 namespace q5id.guardian.ViewModels
 {
-    public class AlertsViewModel : BaseViewModel
+    public class AlertsViewModel : BaseSubViewModel
     {
         private Boolean mIsUpdateSuccess = false;
         public Boolean IsUpdateSuccess
@@ -153,11 +154,21 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        private Boolean mIsSubcriber = false;
+        public Boolean IsSubcriber
+        {
+            get => mIsSubcriber;
+            set
+            {
+                mIsSubcriber = value;
+            }
+        }
+
         public Boolean IsVolunteer
         {
             get
             {
-                return this.User != null && this.User.Role == UserRole.Volunteer;
+                return !IsSubcriber;
             }
         }
 
@@ -245,103 +256,47 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private List<LoveItemViewModel> mLoves = null;
-        public List<LoveItemViewModel> Loves
-        {
-            get => mLoves;
-            set
-            {
-                mLoves = value;
-            }
-        }
-
+        private List<LoveItemViewModel> mMyLoves = null;
         public List<LoveItemViewModel> MyLoves
         {
-            get
+            get => mMyLoves;
+            set
             {
-                if(Loves != null)
-                {
-                    return Loves.Where((LoveItemViewModel item) =>
-                    {
-                        return item.Model.UserId == User.UserId;
-                    }).ToList();
-                }
-                return new List<LoveItemViewModel>();
+                mMyLoves = value;
             }
         }
 
-        private StructureEntity LovedOnesEntity = null;
-        private StructureEntity AlertEntity = null;
-        private StructureEntity FeedEntity = null;
         private bool isInitData = false;
 
         public override async Task Initialize()
         {
 
-            GetLovedOnesEntity();
-            GetAlertEntity();
-            GetFeedEntity();
-            await GetLoves();
+            GetMyLoves();
             await Task.CompletedTask;
         }
 
-        private void GetFeedEntity()
+        public async void GetMyLoves()
         {
-            var settings = Utils.Utils.GetSettings();
-            if (settings != null)
+            if(User == null)
             {
-                FeedEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
-                {
-                    return entity.EntityName == Utils.Constansts.ALERT_FEED_ENTITY_SETTING_KEY;
-                });
+                return;
             }
-        }
-
-        private void GetLovedOnesEntity()
-        {
-            var settings = Utils.Utils.GetSettings();
-            if (settings != null)
-            {
-                LovedOnesEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
-                {
-                    return entity.EntityName == Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY;
-                });
-            }
-        }
-
-        private void GetAlertEntity()
-        {
-            var settings = Utils.Utils.GetSettings();
-            if (settings != null)
-            {
-                AlertEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
-                {
-                    return entity.EntityName == Utils.Constansts.ALERT_ENTITY_SETTING_KEY;
-                });
-            }
-        }
-
-        public async Task GetLoves()
-        {
             IsLoading = true;
-            if (LovedOnesEntity != null)
-            {
-                var response = await AppApiManager.Instances.GetListLovedOnes(LovedOnesEntity.Id, null);
-                if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Value != null)
-                {
-                    Loves = response.ResponseObject.Value.Select((Love love) =>
-                    {
-                        return new LoveItemViewModel(love)
-                        {
-                            OnItemClicked = () =>
-                            {
-                                CreatingLove = love;
-                            }
-                        };
-                    }).ToList();
-                }
-            }
+            var response = await AppApiManager.Instances.GetListLovedOnes(User.UserId);
             IsLoading = false;
+            if (response.IsSuccess && response.ResponseObject != null)
+            {
+                MyLoves = response.ResponseObject.Select((Love love) =>
+                {
+                    return new LoveItemViewModel(love)
+                    {
+                        OnItemClicked = () =>
+                        {
+                            CreatingLove = love;
+                        }
+                    };
+                }).ToList();
+            }
         }
 
         public Command ResetCommand
@@ -375,7 +330,7 @@ namespace q5id.guardian.ViewModels
 
         private async void CreateAlert()
         {
-            if (AlertEntity != null && User != null)
+            if (User != null)
             {
                 IsLoading = true;
                 var alertToPost = new Alert()
@@ -384,19 +339,20 @@ namespace q5id.guardian.ViewModels
                     FirstName = mCreatingLove.FullName,
                     AlertId = System.Guid.NewGuid().ToString(),
                     ProfileId = mCreatingLove.ProfileId,
+                    UserId = Utils.Utils.GetUserId(),
                     CreatedOn = DateTime.UtcNow.ToString(),
                     Description = Detail,
-                    Latitude = AlertPosition != null ? AlertPosition.Value.Latitude+"" : "",
-                    Lognitude = AlertPosition != null ? AlertPosition.Value.Longitude + "" : "",
+                    Latitude = AlertPosition != null ? AlertPosition.Value.Latitude : 0,
+                    Lognitude = AlertPosition != null ? AlertPosition.Value.Longitude : 0,
                     IsClosed = false
                 };
 
                 if (AlertPosition != null)
                 {
-                    string address = await GoogleMapsApiService.Instances.FindPlaceByPosition(AlertPosition.Value);
+                    string address = await Utils.Utils.FindPlaceByPosition(AlertPosition.Value);
                     alertToPost.Address = address;
                 }
-                ApiResponse<AppServiceResponse<Entity<Alert>>> response = await AppApiManager.Instances.CreateAlert(AlertEntity.Id, alertToPost);
+                ApiResponse<AppServiceResponse<Alert>> response = await AppApiManager.Instances.CreateAlert(alertToPost);
 
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
@@ -419,13 +375,27 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        public Command GetMyLovedOnesCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    GetMyLoves();
+                });
+            }
+        }
+
         public Command SubscriptionCommand
         {
             get
             {
                 return new Command(async () =>
                 {
-                    await NavigationService.Navigate<IAPViewModel, User>(mUser);
+                    IsLoading = true;
+                    var result = await InAppBillingService.Instances.MakePurchase();
+                    IsLoading = false;
+                    this.UpdateModel();
                 });
             }
         }
@@ -440,12 +410,12 @@ namespace q5id.guardian.ViewModels
 
         private async void EndAlert()
         {
-            if (AlertEntity != null && AlertDetail != null)
+            if (AlertDetail != null)
             {
                 IsLoading = true;
                 var alertToPost = AlertDetail;
                 alertToPost.IsClosed = true;
-                ApiResponse<AppServiceResponse<Entity<Alert>>> response = await AppApiManager.Instances.UpdateAlert(AlertEntity.Id, alertToPost);
+                ApiResponse<AppServiceResponse<Alert>> response = await AppApiManager.Instances.UpdateAlert(alertToPost);
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
@@ -477,15 +447,16 @@ namespace q5id.guardian.ViewModels
 
         private async void JoinAlert()
         {
-            if (FeedEntity != null && AlertDetail != null)
+            if (AlertDetail != null)
             {
                 IsLoading = true;
                 var userPosition = await Utils.Utils.GetLocalLocation();
                 var feedToPost = new Feed()
                 {
                     AlertFeedId = System.Guid.NewGuid().ToString(),
-                    VolunteerName = User.FullName,
+                    VolunteerName = User.FirstName + " " + User.LastName,
                     CreatedBy = User.Id,
+                    UserId = Utils.Utils.GetUserId(),
                     AlertId = AlertDetail.AlertId,
                     Timestamp = DateTime.UtcNow.ToString(),
                     CreatedOn = DateTime.UtcNow.ToString(),
@@ -493,7 +464,7 @@ namespace q5id.guardian.ViewModels
                     Lognitude = userPosition != null ? userPosition.Longitude + "" : "",
                     Action = "is looking",
                 };
-                ApiResponse<AppServiceResponse<Entity<Feed>>> response = await AppApiManager.Instances.CreateFeed(FeedEntity.Id, feedToPost);
+                ApiResponse<AppServiceResponse<Feed>> response = await AppApiManager.Instances.CreateFeed(feedToPost);
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
@@ -533,15 +504,16 @@ namespace q5id.guardian.ViewModels
 
         private async void PostFeed()
         {
-            if (FeedEntity != null && AlertDetail != null && FeedMessage != "" && FeedMessage != null)
+            if (AlertDetail != null && FeedMessage != "" && FeedMessage != null)
             {
                 IsLoading = true;
                 var userPosition = await Utils.Utils.GetLocalLocation();
                 var feedToPost = new Feed()
                 {
                     AlertFeedId = System.Guid.NewGuid().ToString(),
-                    VolunteerName = User.FullName,
+                    VolunteerName = User.FirstName + " " + User.LastName,
                     CreatedBy = User.Id,
+                    UserId = Utils.Utils.GetUserId(),
                     AlertId = AlertDetail.AlertId,
                     Timestamp = DateTime.UtcNow.ToString(),
                     CreatedOn = DateTime.UtcNow.ToString(),
@@ -550,7 +522,7 @@ namespace q5id.guardian.ViewModels
                     Action = "posted ",
                     Comment = FeedMessage
                 };
-                ApiResponse<AppServiceResponse<Entity<Feed>>> response = await AppApiManager.Instances.CreateFeed(FeedEntity.Id, feedToPost);
+                ApiResponse<AppServiceResponse<Feed>> response = await AppApiManager.Instances.CreateFeed(feedToPost);
                 IsLoading = false;
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
@@ -575,27 +547,30 @@ namespace q5id.guardian.ViewModels
         {
             var result = new List<object>();
             IsLoading = true;
-            if (FeedEntity != null && mAlertDetail != null)
+            if (mAlertDetail != null)
             {
-                
-                var response = await AppApiManager.Instances.GetFeeds(FeedEntity.Id, mAlertDetail.AlertId);
-                if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Value != null)
+                var response = await AppApiManager.Instances.GetAlertDetail(mAlertDetail.AlertId);
+                if(response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Count > 0)
                 {
-                    
-                    response.ResponseObject.Value.ForEach((Feed feed) =>
+                    var alert = response.ResponseObject.First();
+                    if(alert.AlertFeeds != null)
                     {
-                        var item = new FeedItemViewModel(feed)
+                        alert.AlertFeeds.ForEach((Feed feed) =>
                         {
-                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyX16xukQ-ZF5Obira-CMZqamIbFPfaMeB557mzjZjsbZ3h97l3LlXihU5VGiDtegDvo0",
-                            Name = feed.CreatedBy == User.Id ? "You" : feed.VolunteerName,
-                            Action = " "+feed.Action,
-                            UpdatedTime = feed.AddedTime != null ? feed.AddedTime.Value.ToString("MM/dd/yyyy HH:mm") : "",
-                            IsParent = false,
-                            Detail = feed.Comment != "" && feed.Comment != null ? $"“{feed.Comment}”" : null,
-                        };
-                        result.Add(item);
-                    });
+                            var item = new FeedItemViewModel(feed)
+                            {
+                                ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyX16xukQ-ZF5Obira-CMZqamIbFPfaMeB557mzjZjsbZ3h97l3LlXihU5VGiDtegDvo0",
+                                Name = feed.CreatedBy == User.Id ? "You" : feed.VolunteerName,
+                                Action = " " + feed.Action,
+                                UpdatedTime = feed.AddedTime != null ? feed.AddedTime.Value.ToString("MM/dd/yyyy HH:mm") : "",
+                                IsParent = false,
+                                Detail = feed.Comment != "" && feed.Comment != null ? $"“{feed.Comment}”" : null,
+                            };
+                            result.Add(item);
+                        });
+                    }
                 }
+                
                 result.Reverse();
                 result.Add(new FeedItemViewModel(new Feed())
                 {
@@ -619,39 +594,29 @@ namespace q5id.guardian.ViewModels
             IsLoading = true;
             var userPosition = await Utils.Utils.GetLocalLocation();
             var userLocation = userPosition != null ? new Location(userPosition.Latitude, userPosition.Longitude) : null;
-            if (AlertEntity != null)
+            var alertsResponse = await Task.WhenAll<List<Alert>>(GetNearbyAlerts(), GetHistoryFeedAlerts());
+            List<Alert> listAllAlert = new List<Alert>();
+            for(int i = 0; i < alertsResponse.Length; i++)
             {
-                var response = await AppApiManager.Instances.GetListAlert(AlertEntity.Id);
-                if (response.IsSuccess && response.ResponseObject.Value != null)
-                {
-                    listAlertItem = response.ResponseObject.Value.Select((Alert alert) =>
-                    {
-                        AlertItemViewModel item = new AlertItemViewModel(alert)
-                        {
-                            OnUpdateItemAction = OnUpdateItemList,
-                            OnUpdateExpanded = OnItemExpandedUpdate,
-                            
-                        };
-                        item.Model.DistanceFromUser = Alert.GetDistanceFrom(item.Model, userLocation);
-                        item.OnOpenAlert = () =>
-                        {
-                            AlertDetail = item.Model;
-                        };
-                        if(this.Loves != null)
-                        {
-                            var selectedLoveItemViewModel = this.Loves.Find((LoveItemViewModel loveItemViewModel) =>
-                            {
-                                return loveItemViewModel.Model.ProfileId == item.Model.ProfileId;
-                            });
-                            if (selectedLoveItemViewModel != null)
-                            {
-                                item.Model.Love = selectedLoveItemViewModel.Model;
-                            }
-                        }
-                        return item;
-                    }).ToList();
-                }
+                listAllAlert = listAllAlert.Union(alertsResponse[i], new AlertComparer()).Where((Alert alert) => {
+                    return alert.Love != null;
+                }).ToList();
             }
+            listAlertItem = listAllAlert.Select((Alert alert) =>
+            {
+                AlertItemViewModel item = new AlertItemViewModel(alert)
+                {
+                    OnUpdateItemAction = OnUpdateItemList,
+                    OnUpdateExpanded = OnItemExpandedUpdate,
+
+                };
+                item.Model.DistanceFromUser = Alert.GetDistanceFrom(item.Model, userLocation);
+                item.OnOpenAlert = () =>
+                {
+                    AlertDetail = item.Model;
+                };
+                return item;
+            }).ToList();
             List<AlertItemViewModel> listLiveItem = listAlertItem.Where((AlertItemViewModel item) =>
             {
                 return item.Model.IsClosed != true;
@@ -686,6 +651,40 @@ namespace q5id.guardian.ViewModels
             }
             Alerts = alerts;
             IsLoading = false;
+        }
+
+        private async Task<List<Alert>> GetNearbyAlerts()
+        {
+            var currentUserPosition = await Utils.Utils.GetLocalLocation();
+            if(currentUserPosition != null)
+            {
+                var response = await AppApiManager.Instances.GetNearbyListAlert(currentUserPosition.Latitude, currentUserPosition.Longitude, Utils.Constansts.KM_DEFAULT_MAP_ZOOM_DISTANCT);
+                if(response.IsSuccess && response.ResponseObject != null)
+                {
+                    return response.ResponseObject;
+                }
+            }
+            return new List<Alert>();
+        }
+
+        private async Task<List<Alert>> GetMyAlerts()
+        {
+            var response = await AppApiManager.Instances.GetListAlert();
+            if (response.IsSuccess && response.ResponseObject != null)
+            {
+                return response.ResponseObject;
+            }
+            return new List<Alert>();
+        }
+
+        private async Task<List<Alert>> GetHistoryFeedAlerts()
+        {
+            var response = await AppApiManager.Instances.GetListFeedHistoryAlert();
+            if (response.IsSuccess && response.ResponseObject != null)
+            {
+                return response.ResponseObject;
+            }
+            return new List<Alert>();
         }
 
         private void OnItemExpandedUpdate(AlertItemViewModel item)

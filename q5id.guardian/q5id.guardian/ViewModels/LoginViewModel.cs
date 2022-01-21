@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using Newtonsoft.Json;
 using Plugin.InAppBilling;
+using q5id.guardian.DependencyServices;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
 using q5id.guardian.Views;
@@ -21,6 +23,20 @@ namespace q5id.guardian.ViewModels
 
         public Command SignUpCommand { get; }
 
+        public Command ForgotPasswordCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await NavigationService.Navigate<ForgotPasswordViewModel>();
+                });
+            }
+        }
+
+
+        private AuthResponse _authResp = null;
+
         private string mUserName = "";
         public string UserName
         {
@@ -31,26 +47,63 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        public StructureEntity UserEntity { get; private set; }
+        private string mPassword = "";
+        public string Password
+        {
+            get => mPassword;
+            set
+            {
+                mPassword = value;
+            }
+        }
 
         public LoginViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
             LoginCommand = new Command(OnLoginClicked);
             SignUpCommand = new Command(OnSignUpClicked);
-            GetUserEntity();
         }
 
         private async void OnSignUpClicked(object obj)
         {
-            await NavigationService.Navigate<ProfileViewModel>();
+            // Ignore for now
+            // await NavigationService.Navigate<ProfileViewModel>();
         }
-
+        bool _completedPid = false;
+    
         private async void OnLoginClicked(Object obj)
         {
-            var user = await GetUser();
-            if(user != null)
+            var result = await Login();
+            if(result)
             {
-                await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
+                // Todo start polling
+                Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+                {
+                    // do something every 10 seconds
+                    if (!_completedPid)
+                    {
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+
+                            var resp = await AppApiManager.Instances.PollStatus(mUserName, _authResp);
+
+                            if (resp.IsSuccess && resp.ResponseObject != null && resp.ResponseObject.Status != "Processing")
+                            {
+                                var user = resp.ResponseObject;
+                                Debug.WriteLine(JsonConvert.SerializeObject(user));
+                                Utils.Utils.SaveToken(user);
+                                IsLoading = false;
+                                _completedPid = true;
+                                await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
+                                UpdateUserDevice(user);
+                            }
+                        });
+                        return true;
+                    }else
+                    {
+                        return false;
+                    }
+                   
+                });
             }
             else
             {
@@ -58,39 +111,59 @@ namespace q5id.guardian.ViewModels
             }
         }
 
-        private void GetUserEntity()
+        private async void UpdateUserDevice(User user)
         {
-            var settings = Utils.Utils.GetSettings();
-            if (settings != null)
+            var currentUserDevice = Utils.Utils.GetUserDevice();
+            if(currentUserDevice != null)
             {
-                UserEntity = Utils.Utils.GetSettings().Find((StructureEntity entity) =>
-                {
-                    return entity.EntityName == Utils.Constansts.USER_ENTITY_SETTING_KEY;
-                });
+                await AppApiManager.Instances.DeleteUserDevice(currentUserDevice);
+                Utils.Utils.SaveUserDevice(null);
+            };
+            var currentPushToken = Utils.Utils.GetPushNotificationToken();
+            var location = await Utils.Utils.GetLocalLocation();
+            Debug.WriteLine("currentPushToken: ", currentPushToken);
+            IAppDeviceService service = DependencyService.Get<IAppDeviceService>();
+            var userDevice = new UserDevice()
+            {
+                UserId = user.UserId,
+                DevicePushId = "",
+                SubscriptionId = "00000000-0000-0000-0000-000000000000",
+                Platform = Device.RuntimePlatform.ToLower(),
+                IsAppPurchaseToken = "False",
+                DeviceId = service.GetDeviceId(),
+                Tags = new List<string>(),
+                DeviceUUID = service.GetDeviceId(),
+                Latitude = location != null ? location.Latitude : 0,
+                Longitude = location != null ? location.Longitude : 0
+            };
+            var responseCreateUserDevice = await AppApiManager.Instances.CreateUserDevice(userDevice);
+            if (responseCreateUserDevice.IsSuccess && responseCreateUserDevice.ResponseObject != null && responseCreateUserDevice.ResponseObject.Result != null)
+            {
+                var newUserDevice = responseCreateUserDevice.ResponseObject.Result;
+                Utils.Utils.SaveUserDevice(newUserDevice);
             }
         }
 
-        private async Task<User> GetUser()
+        private async Task<bool> Login()
         {
-            if(mUserName != "" && UserEntity != null)
+            Utils.Utils.SavePIDToken(null);
+#if DEBUG
+            mUserName = "5039159930";
+#endif
+
+            if (mUserName != "")
             {
                 IsLoading = true;
-                var currentUserResponse = await AppApiManager.Instances.GetUsers(UserEntity.Id, mUserName);
-                if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject.Value.Count > 0)
+                var currentUserResponse = await AppApiManager.Instances.Login(mUserName);
+                if (currentUserResponse.IsSuccess && currentUserResponse.ResponseObject != null)
                 {
-                    var validUser = currentUserResponse.ResponseObject.Value.Find((User user) =>
-                    {
-                        return user.Email == mUserName;
-                    });
-                    if(validUser != null)
-                    {
-                        IsLoading = false;
-                        return validUser;
-                    }
+                    _authResp = currentUserResponse.ResponseObject;
+                    Utils.Utils.SavePIDToken(_authResp);
+                    return true;
                 }
             }
-            IsLoading = false;
-            return null;
+            
+            return false;
         }
 
         //private async Task OnSignUpClicked()

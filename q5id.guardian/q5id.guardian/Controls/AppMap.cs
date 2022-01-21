@@ -56,17 +56,6 @@ namespace q5id.guardian.Controls
                     };
                     appMap.MapElements.Add(insideCircle);
                     appMap.MapElements.Add(outsideCircle);
-                    //Pin pin = new Pin()
-                    //{
-                    //    Label = alert.Title,
-                    //    Address = alert.Address,
-                    //    Position = new Position(position.Latitude - 0.0025, position.Longitude)
-                    //    {
-                            
-                    //    },
-                        
-                    //};
-                    //appMap.Pins.Add(pin);
                 }
             }
         }

@@ -109,7 +109,11 @@
                         HorizontalOptions="Center"
                         Text="JOIN THE TEAM"
                         TextColor="White"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Center" >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding JoinPidCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
                 </Frame>
                 <StackLayout
                     Margin="0,10,0,25"
