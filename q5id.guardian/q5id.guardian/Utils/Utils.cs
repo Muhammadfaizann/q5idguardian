@@ -125,16 +125,26 @@ namespace q5id.guardian.Utils
                 var session = System.Convert.ToBase64String(plainTextBytes);
                 var userSession = new UserSession()
                 {
-                    UserId = user.UserId,
+                    UserId = user.Id,
                     Session = user.Token,
                     SessionExpiredDate = user.UpdatedTime.ToString(),
                 };
                 Preferences.Set(TOKEN_KEY, JsonConvert.SerializeObject(userSession));
+                Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
+                Debug.WriteLine($"    {user.Token}   ");
+                Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");
+                Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
             }
             else
             {
+                Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
+                Debug.WriteLine($"   No User Token  ");
+                Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");
+                Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
                 Preferences.Set(TOKEN_KEY, "");
             }
+
+           
         }
 
         public static void SavePIDToken(AuthResponse resp)
@@ -166,6 +176,24 @@ namespace q5id.guardian.Utils
                 Debug.WriteLine("Cannot get token: " + ex.Message);
             }
             return null;
+        }
+
+        public static string GetUserId()
+        {
+            try
+            {
+                var userSessionJson = Preferences.Get(TOKEN_KEY, "");
+                if (userSessionJson != "")
+                {
+                    UserSession userSession = JsonConvert.DeserializeObject<UserSession>(userSessionJson);
+                    return userSession.UserId;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Cannot get user id: " + ex.Message);
+            }
+            return "";
         }
 
         public static string GetTimeAgoFrom(DateTime dateTime)
@@ -219,6 +247,11 @@ namespace q5id.guardian.Utils
                 try
                 {
                     var locator = CrossGeolocator.Current;
+
+                    //var request = new GeolocationRequest(GeolocationAccuracy.Default, TimeSpan.FromSeconds(20));
+                   
+                    //var location = await Geolocation.GetLocationAsync(request);
+                    //return new Plugin.Geolocator.Abstractions.Position(location.Latitude, location.Longitude);
                     return await locator.GetLastKnownLocationAsync();
                 }
                 catch (Exception ex)

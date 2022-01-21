@@ -8,8 +8,10 @@ using Plugin.InAppBilling;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace q5id.guardian.ViewModels
@@ -28,12 +30,16 @@ namespace q5id.guardian.ViewModels
             Task.Run(async () =>
             {
                await HomeVm.Initialize();
+               await GetSubscriptionStatus();
             });
         }
 
         private void SubVmOnUpdateModel(object sender, EventArgs e)
         {
-            GetSubscriptionStatus();
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await GetSubscriptionStatus();
+            });
         }
 
         public HomeContentViewModel HomeVm { get; private set; }
@@ -105,8 +111,13 @@ namespace q5id.guardian.ViewModels
         private async void OnServiceUnauthorized(object sender, EventArgs e)
         {
             Utils.Utils.SaveToken(null);
-            await App.Current.MainPage.DisplayAlert("Unauthorized", "Expired Session", "OK");
-            await ClearStackAndNavigateToPage<LoginViewModel>();
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await App.Current.MainPage.DisplayAlert("Unauthorized", "Expired Session", "OK");
+
+                await ClearStackAndNavigateToPage<LoginViewModel>();
+            });
+           
         }
 
         public override void ViewDestroy(bool viewFinishing = true)
@@ -156,12 +167,17 @@ namespace q5id.guardian.ViewModels
         {
             base.ViewAppeared();
             GetProfile();
-            GetSubscriptionStatus();
+           
             AppApiManager.Instances.OnUnauthorized += OnServiceUnauthorized;
         }
 
-        private async void GetSubscriptionStatus()
+        private async Task GetSubscriptionStatus()
         {
+            HomeVm.IsLoading = true;
+            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
+            Debug.WriteLine("    Fetching Subscription Status   ");
+            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");
+            Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
             Boolean isSubscriptionRole = false;
             var purchases = await InAppBillingService.Instances.GetProductPurchases();
             if (purchases != null)
@@ -177,6 +193,7 @@ namespace q5id.guardian.ViewModels
                     }
                 }
             }
+            HomeVm.IsLoading = false;
             HomeVm.IsSubcriber = isSubscriptionRole;
             LovedOnesVm.IsSubcriber = isSubscriptionRole;
             AlertsVm.IsSubcriber = isSubscriptionRole;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace q5id.guardian.Models
@@ -21,6 +22,15 @@ namespace q5id.guardian.Models
         public string DeviceId { get; set; }
         [JsonProperty("userDeviceId")]
         public string UserDeviceId { get; set; }
+        [JsonProperty("latitude")]
+        public double Latitude { get; set; }
+        [JsonProperty("longitude")]
+        public double Longitude { get; set; }
+        [JsonProperty("tags")]
+        public List<string> Tags { get; set; }
+
+        [JsonProperty("DeviceUUID")]
+        public string DeviceUUID { get; set; }
 
         public UserDevice()
         {
@@ -36,7 +46,11 @@ namespace q5id.guardian.Models
                 platform = Platform,
                 isDeleted = IsDeleted,
                 UserId = UserId,
-                DeviceId = DeviceId
+                DeviceId = DeviceId,
+                DeviceUUID = DeviceUUID,
+                Tags = Tags,
+                Latitude = Latitude,
+                Longitude = Longitude
             };
         }
     }

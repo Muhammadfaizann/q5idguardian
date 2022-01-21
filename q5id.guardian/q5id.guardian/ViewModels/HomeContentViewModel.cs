@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
+using q5id.guardian.DependencyServices;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
 using q5id.guardian.ViewModels.Base;
@@ -115,6 +117,42 @@ namespace q5id.guardian.ViewModels
         {
             GetUserPages();
             GetAlerts();
+            UpdateUserDevice();
+            
+        }
+
+        private async void UpdateUserDevice()
+        {
+            UserSession userSession = Utils.Utils.GetToken();
+            var currentUserDevice = Utils.Utils.GetUserDevice();
+            var location = await Utils.Utils.GetLocalLocation();
+            if(currentUserDevice != null)
+            {
+                await AppApiManager.Instances.DeleteUserDevice(currentUserDevice);
+                Utils.Utils.SaveUserDevice(null);
+            };
+            var currentPushToken = Utils.Utils.GetPushNotificationToken();
+            Debug.WriteLine("currentPushToken: ", currentPushToken);
+            IAppDeviceService service = DependencyService.Get<IAppDeviceService>();
+            var userDevice = new UserDevice()
+            {
+                UserId = userSession.UserId,
+                DevicePushId = "",
+                Platform = Device.RuntimePlatform.ToUpper(),
+                SubscriptionId = "00000000-0000-0000-0000-000000000000",
+                IsAppPurchaseToken = "False",
+                DeviceId = currentPushToken,
+                DeviceUUID = service.GetDeviceId(),
+                Tags = new List<string>(),
+                Latitude = location != null ? location.Latitude : 0,
+                Longitude = location != null ? location.Longitude : 0
+            };
+            var responseCreateUserDevice = await AppApiManager.Instances.CreateUserDevice(userDevice);
+            if (responseCreateUserDevice.IsSuccess && responseCreateUserDevice.ResponseObject != null && responseCreateUserDevice.ResponseObject.Result != null)
+            {
+                var newUserDevice = responseCreateUserDevice.ResponseObject.Result;
+                Utils.Utils.SaveUserDevice(newUserDevice);
+            }
         }
 
         public async void GetAlerts()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -77,15 +78,20 @@ namespace q5id.guardian.iOS
         public override void DidReceiveRemoteNotification(UIApplication application,
             NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
         {
+            
             NSDictionary aps = userInfo.ObjectForKey(new NSString("aps")) as NSDictionary;
 
             // The aps is a dictionary with the template values in it
             // You can adjust this section to do whatever you need to with the push notification
 
             string alert = string.Empty;
+            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
+            Debug.WriteLine("    Received notification   ");
+            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");            
             if (aps.ContainsKey(new NSString("alert")))
                 alert = (aps[new NSString("alert")] as NSString).ToString();
-
+            Debug.WriteLine($"    {alert}   ");
+            Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
             //show alert
             if (!string.IsNullOrEmpty(alert))
             {

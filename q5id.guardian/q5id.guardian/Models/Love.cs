@@ -182,19 +182,21 @@ namespace q5id.guardian.Models
         {
             get
             {
-                if(AddedTime == null && UpdatedTime == null)
+                DateTime? TimeToCheck = null;
+                String mResult = "";
+                if (AddedTime != null)
                 {
-                    return "";
+                    mResult = "Added ";
+                    TimeToCheck = (DateTime)AddedTime;
                 }
-                String mResult = "Added ";
-                DateTime TimeToCheck = (DateTime)AddedTime;
+                
                 if (UpdatedTime != null)
                 {
                     mResult = "Updated ";
                     TimeToCheck = (DateTime)UpdatedTime;
                 }
                 
-                return mResult + Utils.Utils.GetTimeAgoFrom(TimeToCheck);
+                return TimeToCheck.HasValue ? mResult + Utils.Utils.GetTimeAgoFrom(TimeToCheck.Value) : "";
             }
         }
     }

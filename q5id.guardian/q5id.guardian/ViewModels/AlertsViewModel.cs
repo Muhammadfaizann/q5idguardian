@@ -339,7 +339,7 @@ namespace q5id.guardian.ViewModels
                     FirstName = mCreatingLove.FullName,
                     AlertId = System.Guid.NewGuid().ToString(),
                     ProfileId = mCreatingLove.ProfileId,
-                    UserId = User.UserId,
+                    UserId = Utils.Utils.GetUserId(),
                     CreatedOn = DateTime.UtcNow.ToString(),
                     Description = Detail,
                     Latitude = AlertPosition != null ? AlertPosition.Value.Latitude : 0,
@@ -456,7 +456,7 @@ namespace q5id.guardian.ViewModels
                     AlertFeedId = System.Guid.NewGuid().ToString(),
                     VolunteerName = User.FirstName + " " + User.LastName,
                     CreatedBy = User.Id,
-                    UserId = User.UserId,
+                    UserId = Utils.Utils.GetUserId(),
                     AlertId = AlertDetail.AlertId,
                     Timestamp = DateTime.UtcNow.ToString(),
                     CreatedOn = DateTime.UtcNow.ToString(),
@@ -513,7 +513,7 @@ namespace q5id.guardian.ViewModels
                     AlertFeedId = System.Guid.NewGuid().ToString(),
                     VolunteerName = User.FirstName + " " + User.LastName,
                     CreatedBy = User.Id,
-                    UserId = User.UserId,
+                    UserId = Utils.Utils.GetUserId(),
                     AlertId = AlertDetail.AlertId,
                     Timestamp = DateTime.UtcNow.ToString(),
                     CreatedOn = DateTime.UtcNow.ToString(),
@@ -594,7 +594,7 @@ namespace q5id.guardian.ViewModels
             IsLoading = true;
             var userPosition = await Utils.Utils.GetLocalLocation();
             var userLocation = userPosition != null ? new Location(userPosition.Latitude, userPosition.Longitude) : null;
-            var alertsResponse = await Task.WhenAll<List<Alert>>(GetNearbyAlerts(), GetMyAlerts(), GetHistoryFeedAlerts());
+            var alertsResponse = await Task.WhenAll<List<Alert>>(GetNearbyAlerts(), GetHistoryFeedAlerts());
             List<Alert> listAllAlert = new List<Alert>();
             for(int i = 0; i < alertsResponse.Length; i++)
             {

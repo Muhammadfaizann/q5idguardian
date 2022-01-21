@@ -120,15 +120,21 @@ namespace q5id.guardian.ViewModels
                 Utils.Utils.SaveUserDevice(null);
             };
             var currentPushToken = Utils.Utils.GetPushNotificationToken();
+            var location = await Utils.Utils.GetLocalLocation();
             Debug.WriteLine("currentPushToken: ", currentPushToken);
             IAppDeviceService service = DependencyService.Get<IAppDeviceService>();
             var userDevice = new UserDevice()
             {
                 UserId = user.UserId,
-                DevicePushId = currentPushToken,
+                DevicePushId = "",
+                SubscriptionId = "00000000-0000-0000-0000-000000000000",
                 Platform = Device.RuntimePlatform.ToLower(),
                 IsAppPurchaseToken = "False",
                 DeviceId = service.GetDeviceId(),
+                Tags = new List<string>(),
+                DeviceUUID = service.GetDeviceId(),
+                Latitude = location != null ? location.Latitude : 0,
+                Longitude = location != null ? location.Longitude : 0
             };
             var responseCreateUserDevice = await AppApiManager.Instances.CreateUserDevice(userDevice);
             if (responseCreateUserDevice.IsSuccess && responseCreateUserDevice.ResponseObject != null && responseCreateUserDevice.ResponseObject.Result != null)
@@ -140,7 +146,11 @@ namespace q5id.guardian.ViewModels
 
         private async Task<bool> Login()
         {
-             mUserName = "5039858272";
+            Utils.Utils.SavePIDToken(null);
+#if DEBUG
+            mUserName = "5039159930";
+#endif
+
             if (mUserName != "")
             {
                 IsLoading = true;
