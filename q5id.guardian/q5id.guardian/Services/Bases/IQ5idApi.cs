@@ -31,6 +31,8 @@ namespace q5id.guardian.Services.Bases
 
         [Get("/Profile/UserId")]
         Task<List<Love>> GetUserLovedOnes([Refit.AliasAs("userId")] string id, CancellationToken cancellationToken);
+        [Post("/RapidSOS/trigger/alert")]
+        Task<AppServiceResponse<RapidSOSResponse>> RapidSOSTrigger([Body] Object body, CancellationToken cancellationToken);
 
         [Post("/Alert")]
         Task<AppServiceResponse<Alert>> CreateAlert([Body] Object body, CancellationToken cancellationToken);
@@ -44,7 +46,7 @@ namespace q5id.guardian.Services.Bases
         [Get("/Alert/FeedHistory")]
         Task<List<Alert>> GetFeedHistoryAlerts(CancellationToken cancellationToken);
 
-        [Get("/Alert/Nearby")]
+        [Get("/Alert/Nearby/WithMyAlerts")]
         Task<List<Alert>> GetNearbyAlerts([Refit.AliasAs("latitude")] double latitude, [Refit.AliasAs("longitude")] double longitude, [Refit.AliasAs("radiusInKilometers")] double radiusInKilometers, CancellationToken cancellationToken);
 
         [Get("/Alert")]

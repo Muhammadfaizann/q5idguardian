@@ -136,6 +136,18 @@ namespace q5id.guardian.Services
             return await task;
         }
 
+        public async Task<ApiResponse<AppServiceResponse<RapidSOSResponse>>> TriggerRapidSOS(RapidSOSRequest request)
+        {
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).RapidSOSTrigger(new
+            {
+                alertId = request.AlertId,
+            }, cts.Token));
+            runningTasks.Add(task.Id, cts);
+            return await task;
+        }
+
+
         public async Task<ApiResponse<AppServiceResponse<Alert>>> UpdateAlert(Alert alert)
         {
             var cts = new CancellationTokenSource();

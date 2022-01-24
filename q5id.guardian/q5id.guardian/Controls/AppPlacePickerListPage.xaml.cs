@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
@@ -12,9 +13,6 @@ namespace q5id.guardian.Controls
 {
     public partial class AppPlacePickerListPage : PopupPage
     {
-        private bool mIsCalling = false;
-        private bool mIsNeedContinueCall = false;
-        private bool mIsTextChanging = false;
         private string mTextSearch = "";
         private List<GooglePlaceAutoCompletePrediction> mItemSource;
 
@@ -51,52 +49,38 @@ namespace q5id.guardian.Controls
 
         private void EntrySearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            DelayGetPlaces();
+            DebouncedSearch();
         }
 
-        private async void DelayGetPlaces()
-        {
-            if (mIsTextChanging == false)
-            {
-                mIsTextChanging = true;
-                int delayTimeToGetData = 2000;
-                await Task.Delay(delayTimeToGetData);
-                mIsTextChanging = false;
-                int minimumLengthForSearching = 2;
-                if(EntrySearch.Text != "" && EntrySearch.Text != null && EntrySearch.Text.Length > minimumLengthForSearching)
-                {
-                    GetPlaces();
-                }
-            }
-        }
+        private CancellationTokenSource _throttleCts = new CancellationTokenSource();
 
-        private async void GetPlaces()
+        private async void DebouncedSearch()
         {
             try
             {
-                if (mIsCalling == false)
-                {
-                    mIsNeedContinueCall = false;
-                    mIsCalling = true;
-                    mTextSearch = EntrySearch.Text;
-                    var result = await AppApiManager.Instances.GetPlaces(mTextSearch);
-                    mIsCalling = false;
-                    mItemSource = result.AutoCompletePlaces;
-                    ListPlaces.ItemsSource = mItemSource;
-                    if (mIsNeedContinueCall == true && EntrySearch.Text != mTextSearch)
-                    {
-                        GetPlaces();
-                    }
-                }
-                else
-                {
-                    mIsNeedContinueCall = true;
-                }
+                Interlocked.Exchange(ref _throttleCts, new CancellationTokenSource()).Cancel();
+
+                await Task.Delay(TimeSpan.FromMilliseconds(500), _throttleCts.Token)
+
+                    .ContinueWith(async task => await Search(),
+                        CancellationToken.None,
+                        TaskContinuationOptions.OnlyOnRanToCompletion,
+                        TaskScheduler.FromCurrentSynchronizationContext());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Debug.WriteLine("Get Places Error: " + ex.Message);
-                mItemSource = new List<GooglePlaceAutoCompletePrediction>();
+                //Ignore any Threading errors
+            }
+        }
+
+        private async Task Search()
+        {
+            int minimumLengthForSearching = 2;
+            if (EntrySearch.Text != "" && EntrySearch.Text != null && EntrySearch.Text.Length > minimumLengthForSearching)
+            {
+                Debug.WriteLine("Seaching with " + EntrySearch.Text);
+                var result = await AppApiManager.Instances.GetPlaces(EntrySearch.Text);
+                mItemSource = result.AutoCompletePlaces;
                 ListPlaces.ItemsSource = mItemSource;
             }
         }

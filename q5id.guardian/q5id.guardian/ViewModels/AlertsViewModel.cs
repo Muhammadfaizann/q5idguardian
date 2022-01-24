@@ -362,6 +362,16 @@ namespace q5id.guardian.ViewModels
                         IsUpdateSuccess = true;
                         ResetData();
                         GetAlerts();
+
+                        // Trigger SOS
+                        if(IsLowEnforcement)
+                        {
+                            await AppApiManager.Instances.TriggerRapidSOS(new RapidSOSRequest()
+                            {
+                                AlertId = response.ResponseObject.Result.Id
+                            });
+                        }
+                        
                     }
                     else
                     {

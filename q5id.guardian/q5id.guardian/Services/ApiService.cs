@@ -54,8 +54,9 @@ namespace q5id.guardian.Services
                     var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(userSession.Session);
                     var base64Text = Convert.ToBase64String(plainTextBytes);
                     client.DefaultRequestHeaders.Add("Authorization", $"{Utils.Constansts.API_TOKEN_TYPE} {base64Text}");
+
                 }
-                
+
                 return RestService.For<T>(client, GetNewtonsoftJsonRefitSettings());
             };
         }

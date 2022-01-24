@@ -94,7 +94,6 @@ namespace q5id.guardian.ViewModels
                                 IsLoading = false;
                                 _completedPid = true;
                                 await ClearStackAndNavigateToPage<HomeViewModel, User>(user);
-                                UpdateUserDevice(user);
                             }
                         });
                         return true;
@@ -108,39 +107,6 @@ namespace q5id.guardian.ViewModels
             else
             {
                 await App.Current.MainPage.DisplayAlert("Error", "Login Failed", "OK");
-            }
-        }
-
-        private async void UpdateUserDevice(User user)
-        {
-            var currentUserDevice = Utils.Utils.GetUserDevice();
-            if(currentUserDevice != null)
-            {
-                await AppApiManager.Instances.DeleteUserDevice(currentUserDevice);
-                Utils.Utils.SaveUserDevice(null);
-            };
-            var currentPushToken = Utils.Utils.GetPushNotificationToken();
-            var location = await Utils.Utils.GetLocalLocation();
-            Debug.WriteLine("currentPushToken: ", currentPushToken);
-            IAppDeviceService service = DependencyService.Get<IAppDeviceService>();
-            var userDevice = new UserDevice()
-            {
-                UserId = user.UserId,
-                DevicePushId = "",
-                SubscriptionId = "00000000-0000-0000-0000-000000000000",
-                Platform = Device.RuntimePlatform.ToLower(),
-                IsAppPurchaseToken = "False",
-                DeviceId = service.GetDeviceId(),
-                Tags = new List<string>(),
-                DeviceUUID = service.GetDeviceId(),
-                Latitude = location != null ? location.Latitude : 0,
-                Longitude = location != null ? location.Longitude : 0
-            };
-            var responseCreateUserDevice = await AppApiManager.Instances.CreateUserDevice(userDevice);
-            if (responseCreateUserDevice.IsSuccess && responseCreateUserDevice.ResponseObject != null && responseCreateUserDevice.ResponseObject.Result != null)
-            {
-                var newUserDevice = responseCreateUserDevice.ResponseObject.Result;
-                Utils.Utils.SaveUserDevice(newUserDevice);
             }
         }
 
