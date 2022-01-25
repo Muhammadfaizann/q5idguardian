@@ -539,7 +539,7 @@
                                     Style="{StaticResource lbBodyBoldMd}">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span FontSize="12" Text="Low enforcement" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" />
+                                            <Span FontSize="12" Text="Law enforcement" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}" />
                                             <Span FontSize="12" Text=" (911 dispatch)" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" />
                                         </FormattedString>
                                     </Label.FormattedText>

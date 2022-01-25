@@ -36,7 +36,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             }
         }
 
-        public static readonly BindableProperty IsGuardianNearbyProperty = BindableProperty.Create(nameof(IsGuardianNearby), typeof(bool), typeof(CreateAlertDetailView), false, BindingMode.TwoWay, null, propertyChanged: OnIsGuardianNearbyChanged);
+        public static readonly BindableProperty IsGuardianNearbyProperty = BindableProperty.Create(nameof(IsGuardianNearby), typeof(bool), typeof(CreateAlertDetailView), true, BindingMode.TwoWay, null, propertyChanged: OnIsGuardianNearbyChanged);
 
         private static void OnIsGuardianNearbyChanged(BindableObject bindable, object oldValue, object newValue)
         {
