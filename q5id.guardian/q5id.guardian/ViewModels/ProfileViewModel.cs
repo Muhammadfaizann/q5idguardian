@@ -198,7 +198,7 @@ namespace q5id.guardian.ViewModels
 
         public override async Task Initialize()
         {
-            await Task.CompletedTask;
+            await Task.CompletedTask; //TODO: Need to review the usage of CompletedTask.
         }
 
         private async void CreateUpdateUser()
@@ -228,11 +228,20 @@ namespace q5id.guardian.ViewModels
             if (ProfileImage != null)
             {
                 var responseUploadImageOne = await AppApiManager.Instances.UploadImage(Utils.Constansts.USER_ENTITY_SETTING_KEY, ProfileImage);
-                if (responseUploadImageOne.IsSuccess)
+                if (responseUploadImageOne.IsSuccess) //TODO: Checking if the ResponseObject is null?
                 {
                     userToPost.ImageUrl = responseUploadImageOne.ResponseObject.Result;
                 }
+                else
+                {
+                    //TODO: UX to show the user that profile image has failed to upload.
+                }
             }
+            else
+            {
+                //TODO: What if the ProfileImage is null? I think it should not continue calling the endpoint.
+            }
+
 
             ApiResponse<AppServiceResponse<User>> response = new ApiResponse<AppServiceResponse<User>>();
             if (User != null)
@@ -260,7 +269,7 @@ namespace q5id.guardian.ViewModels
                     Result = responseCreate.ResponseObject?.Data
                 };
             }
-            IsLoading = false;
+            IsLoading = false; //TODO: Candidate for UI Bug if there was a thrown exception, the IsLoading will remain true.
             
             if (response.IsSuccess && response.ResponseObject != null && response.ResponseObject.Result != null)
             {
@@ -290,6 +299,7 @@ namespace q5id.guardian.ViewModels
 
         }
 
+        //TODO: Review this implementation because it will return null always.
         private async Task<User> GetUser(string username, string password)
         {
             //IsLoading = true;

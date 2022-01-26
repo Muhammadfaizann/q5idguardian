@@ -249,7 +249,7 @@ namespace q5id.guardian.Services
         public async Task<ApiResponse<AppServiceResponse<UserDevice>>> CreateUserDevice(UserDevice model)
         {
             var cts = new CancellationTokenSource();
-            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).CreateUserDevice(model.GetParam(), cts.Token));
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).CreateUserDevice(model.GetParam(), cts.Token)); //TODO: Is this get or should be put because we are updating user device?
             runningTasks.Add(task.Id, cts);
             return await task;
         }

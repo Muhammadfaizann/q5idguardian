@@ -520,7 +520,7 @@ namespace q5id.guardian.ViewModels
         public override async Task Initialize()
         {
             GetChoices();
-            await Task.CompletedTask;
+            await Task.CompletedTask; //TODO: Need to review the usage of CompletedTask.
         }
 
         public async void GetLoves()
@@ -547,6 +547,7 @@ namespace q5id.guardian.ViewModels
                 //Update Flow
                 lovedOnesToUpdate = mSelectedLovedOnes;
             }
+            //TODO: Out of all the properties for the Love object, which are required and which are not?
             var lovedOnesToPost = new Love()
             {
                 Id = lovedOnesToUpdate != null ? lovedOnesToUpdate.PrimaryId : null,
@@ -570,10 +571,13 @@ namespace q5id.guardian.ViewModels
                 ProfileId = lovedOnesToUpdate != null ? lovedOnesToUpdate.ProfileId : System.Guid.NewGuid().ToString(),
                 CreatedOn = lovedOnesToUpdate != null ? lovedOnesToUpdate.CreatedOn : DateTime.UtcNow.ToString(),
             };
+
+            //TODO: I think this should be a single API call for uploading all image related properties. The multiple API calls is process intensive and is prone to bugs.
+            //TODO: What if the Primary Image and Secondary Image are successful but the rest encountered an error? Should it perform rollback?
             if (PrimaryImage != null)
             {
                 var responseUploadImageOne = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, PrimaryImage);
-                if (responseUploadImageOne.IsSuccess)
+                if (responseUploadImageOne.IsSuccess) //TODO: Should add null checking for the ResponseObject.
                 {
                     lovedOnesToPost.Image = responseUploadImageOne.ResponseObject.Result;
                 }
@@ -583,7 +587,7 @@ namespace q5id.guardian.ViewModels
                 if (SecondaryImages[0] != null)
                 {
                     var responseUploadImageTwo = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, SecondaryImages[0]);
-                    if (responseUploadImageTwo.IsSuccess)
+                    if (responseUploadImageTwo.IsSuccess) //TODO: Should add null checking for the ResponseObject.
                     {
                         lovedOnesToPost.Image2 = responseUploadImageTwo.ResponseObject.Result;
                     }
@@ -591,7 +595,7 @@ namespace q5id.guardian.ViewModels
                 if (SecondaryImages[1] != null)
                 {
                     var responseUploadImageThree = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, SecondaryImages[1]);
-                    if (responseUploadImageThree.IsSuccess)
+                    if (responseUploadImageThree.IsSuccess) //TODO: Should add null checking for the ResponseObject.
                     {
                         lovedOnesToPost.Image3 = responseUploadImageThree.ResponseObject.Result;
                     }
@@ -599,7 +603,7 @@ namespace q5id.guardian.ViewModels
                 if (SecondaryImages[2] != null)
                 {
                     var responseUploadImageFour = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, SecondaryImages[2]);
-                    if (responseUploadImageFour.IsSuccess)
+                    if (responseUploadImageFour.IsSuccess) //TODO: Should add null checking for the ResponseObject.
                     {
                         lovedOnesToPost.Image4 = responseUploadImageFour.ResponseObject.Result;
                     }
@@ -607,7 +611,7 @@ namespace q5id.guardian.ViewModels
                 if (SecondaryImages[3] != null)
                 {
                     var responseUploadImageFive = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, SecondaryImages[3]);
-                    if (responseUploadImageFive.IsSuccess)
+                    if (responseUploadImageFive.IsSuccess) //TODO: Should add null checking for the ResponseObject.
                     {
                         lovedOnesToPost.Image5 = responseUploadImageFive.ResponseObject.Result;
                     }
@@ -641,7 +645,7 @@ namespace q5id.guardian.ViewModels
             }
             else
             {
-                await App.Current.MainPage.DisplayAlert("Error", response.Message, "OK");
+                await App.Current.MainPage.DisplayAlert("Error", response.Message, "OK"); //TODO: Just an observation, why need to use a static method if you could inject it? For testability.
             }
         }
 

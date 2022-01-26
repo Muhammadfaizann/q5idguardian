@@ -117,16 +117,17 @@ namespace q5id.guardian.ViewModels
         {
             GetUserPages();
             GetAlerts();
-            UpdateUserDevice();
+            await UpdateUserDevice(); //Should have await keyword. Possible that multiple calls are happening if this page is being navigated back and forth
             
         }
 
-        private async void UpdateUserDevice()
+        //TODO:converted to task from void due to it is awaitable
+        private async Task UpdateUserDevice()
         {
             UserSession userSession = Utils.Utils.GetToken();
             var currentUserDevice = Utils.Utils.GetUserDevice();
             var location = await Utils.Utils.GetLocalLocation();
-            if(currentUserDevice != null)
+            if (currentUserDevice != null)
             {
                 await AppApiManager.Instances.DeleteUserDevice(currentUserDevice);
                 Utils.Utils.SaveUserDevice(null);
@@ -137,22 +138,52 @@ namespace q5id.guardian.ViewModels
             var userDevice = new UserDevice()
             {
                 UserId = userSession.UserId,
-                DevicePushId = "",
+                DevicePushId = "", //TODO:What value is needed for this?
                 Platform = Device.RuntimePlatform.ToUpper(),
-                SubscriptionId = "00000000-0000-0000-0000-000000000000",
+                SubscriptionId = "00000000-0000-0000-0000-000000000000", //TODO:Check if this is constant?
                 IsAppPurchaseToken = "False",
                 DeviceId = currentPushToken,
                 DeviceUUID = service.GetDeviceId(),
-                Tags = new List<string>(),
+                Tags = new List<string>(), //TODO:Mentioned in chat that it uses Tags in registration. Currently this is empty.
                 Latitude = location != null ? location.Latitude : 0,
                 Longitude = location != null ? location.Longitude : 0
             };
+
+            //TODO: Check what paarameters are needed. Some are missing
+            //"id": "string",
+            //"documentTypeInstanceId": "string",
+            //"dataVaultId": "string",
+            //"entityId": "string",
+            //"createdBy": "string",
+            //"createdOn": "string",
+            //"modifiedOn": "string",
+            //"modifiedBy": "string",
+            //"userId": "string",
+            //"subscriptionId": "string",
+            //"devicePushId": "string",
+            //"platform": "string",
+            //"isDeleted": true,
+            //"isAppPurchaseToken": "string",
+            //"deviceUUID": "string",
+            //"deviceId": "string",
+            //"userDeviceId": "string",
+            //"latitude": 0,
+            //"longitude": 0,
+            //"tags": [
+            //  "string"
+            //]
+
             var responseCreateUserDevice = await AppApiManager.Instances.CreateUserDevice(userDevice);
             if (responseCreateUserDevice.IsSuccess && responseCreateUserDevice.ResponseObject != null && responseCreateUserDevice.ResponseObject.Result != null)
             {
                 var newUserDevice = responseCreateUserDevice.ResponseObject.Result;
                 Utils.Utils.SaveUserDevice(newUserDevice);
             }
+            else
+            {
+            }
+        
+            //TODO:Currently no handling for failed registration.
         }
 
         public async void GetAlerts()
