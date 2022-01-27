@@ -537,7 +537,6 @@ namespace q5id.guardian.ViewModels
                 IsLoading = false;
             }
         }
-
         private async void CreateUpdateLove()
         {
             IsLoading = true;
@@ -571,7 +570,6 @@ namespace q5id.guardian.ViewModels
                 ProfileId = lovedOnesToUpdate != null ? lovedOnesToUpdate.ProfileId : System.Guid.NewGuid().ToString(),
                 CreatedOn = lovedOnesToUpdate != null ? lovedOnesToUpdate.CreatedOn : DateTime.UtcNow.ToString(),
             };
-
             if (PrimaryImage != null)
             {
                 var responseUploadImageOne = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, PrimaryImage);

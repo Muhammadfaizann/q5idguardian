@@ -117,7 +117,6 @@ namespace q5id.guardian.ViewModels
         public override async Task Initialize()
         {
             GetUserPages();
-<<<<<<< HEAD
             await GetAlerts();
             await UpdateUserDevice();
             
@@ -167,12 +166,6 @@ namespace q5id.guardian.ViewModels
                 Analytics.TrackEvent("Update UserDevice - Failed",logInformation);
             }                    
         }
-=======
-            GetAlerts();
-        }
-
-        
->>>>>>> origin/develop
 
         public async Task GetAlerts()
         {
