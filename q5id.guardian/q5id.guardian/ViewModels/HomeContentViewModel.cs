@@ -117,7 +117,7 @@ namespace q5id.guardian.ViewModels
         public override async Task Initialize()
         {
             GetUserPages();
-            await GetAlerts();
+            GetAlerts();
             await UpdateUserDevice();
             
         }
@@ -167,7 +167,7 @@ namespace q5id.guardian.ViewModels
             }                    
         }
 
-        public async Task GetAlerts()
+        public async void GetAlerts()
         {
             var currentLocation = await Utils.Utils.GetLocalLocation();
             if (currentLocation != null)
