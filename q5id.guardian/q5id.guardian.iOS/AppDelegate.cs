@@ -99,11 +99,5 @@ namespace q5id.guardian.iOS
                 avAlert.Show();
             }
         }
-
-        public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)
-        {
-            base.FailedToRegisterForRemoteNotifications(application, error);
-            Debug.WriteLine("Failed to register for remote notification");
-        }
     }
 }

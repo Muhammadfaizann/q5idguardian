@@ -36,5 +36,10 @@ namespace q5id.guardian.Utils
         public static string FAQ_URL = "https://guardian.q5id.com/frequently-asked-questions";
         public static string ABOUT_URL = "https://guardian.q5id.com/about";
         public static string LICENSE_AGREEMENT = "https://q5id.com/enterprise-end-user-license-agreement";
+
+        public static string DevicePushIDAlwaysEmpty = "";
+        public static string FakeGuidAsIndicated = "00000000-0000-0000-0000-000000000000";
+        public static string AppPurchaseIsFalse = "False";
+        public static List<string> ServerPopulatesThisTagShouldBeEmpty = new List<string>();
     }
 }

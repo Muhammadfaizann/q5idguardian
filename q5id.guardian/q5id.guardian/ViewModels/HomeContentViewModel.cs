@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter.Analytics;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using q5id.guardian.DependencyServices;
@@ -19,6 +19,7 @@ namespace q5id.guardian.ViewModels
     public class HomeContentViewModel : BaseSubViewModel
     {
 
+        
         public HomeContentViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
         }
@@ -116,12 +117,11 @@ namespace q5id.guardian.ViewModels
         public override async Task Initialize()
         {
             GetUserPages();
-            GetAlerts();
-            await UpdateUserDevice(); //Should have await keyword. Possible that multiple calls are happening if this page is being navigated back and forth
+            await GetAlerts();
+            await UpdateUserDevice();
             
         }
 
-        //TODO:converted to task from void due to it is awaitable
         private async Task UpdateUserDevice()
         {
             UserSession userSession = Utils.Utils.GetToken();
@@ -138,41 +138,17 @@ namespace q5id.guardian.ViewModels
             var userDevice = new UserDevice()
             {
                 UserId = userSession.UserId,
-                DevicePushId = "", //TODO:What value is needed for this?
+                DevicePushId = Utils.Constansts.DevicePushIDAlwaysEmpty,
                 Platform = Device.RuntimePlatform.ToUpper(),
-                SubscriptionId = "00000000-0000-0000-0000-000000000000", //TODO:Check if this is constant?
-                IsAppPurchaseToken = "False",
+                SubscriptionId = Utils.Constansts.FakeGuidAsIndicated,
+                IsAppPurchaseToken = Utils.Constansts.AppPurchaseIsFalse,
                 DeviceId = currentPushToken,
                 DeviceUUID = service.GetDeviceId(),
-                Tags = new List<string>(), //TODO:Mentioned in chat that it uses Tags in registration. Currently this is empty.
+                Tags = Utils.Constansts.ServerPopulatesThisTagShouldBeEmpty,
                 Latitude = location != null ? location.Latitude : 0,
                 Longitude = location != null ? location.Longitude : 0
             };
-
-            //TODO: Check what paarameters are needed. Some are missing
-            //"id": "string",
-            //"documentTypeInstanceId": "string",
-            //"dataVaultId": "string",
-            //"entityId": "string",
-            //"createdBy": "string",
-            //"createdOn": "string",
-            //"modifiedOn": "string",
-            //"modifiedBy": "string",
-            //"userId": "string",
-            //"subscriptionId": "string",
-            //"devicePushId": "string",
-            //"platform": "string",
-            //"isDeleted": true,
-            //"isAppPurchaseToken": "string",
-            //"deviceUUID": "string",
-            //"deviceId": "string",
-            //"userDeviceId": "string",
-            //"latitude": 0,
-            //"longitude": 0,
-            //"tags": [
-            //  "string"
-            //]
-
+            
             var responseCreateUserDevice = await AppApiManager.Instances.CreateUserDevice(userDevice);
             if (responseCreateUserDevice.IsSuccess && responseCreateUserDevice.ResponseObject != null && responseCreateUserDevice.ResponseObject.Result != null)
             {
@@ -181,12 +157,17 @@ namespace q5id.guardian.ViewModels
             }
             else
             {
-            }
-        
-            //TODO:Currently no handling for failed registration.
+                var logInformation = new Dictionary<string, string>()
+                {
+                    { "UserId",userSession?.UserId },
+                    { "PushToken",currentPushToken }
+                };
+
+                Analytics.TrackEvent("Update UserDevice - Failed",logInformation);
+            }                    
         }
 
-        public async void GetAlerts()
+        public async Task GetAlerts()
         {
             var currentLocation = await Utils.Utils.GetLocalLocation();
             if (currentLocation != null)
@@ -200,6 +181,14 @@ namespace q5id.guardian.ViewModels
             else
             {
                 Alerts = new List<Alert>();
+
+                UserSession userSession = Utils.Utils.GetToken();
+                var logInformation = new Dictionary<string, string>()
+                {
+                    { "UserId",userSession?.UserId }
+                };
+
+                Analytics.TrackEvent("GetAlerts - Failed", logInformation);
             }
         }
 
