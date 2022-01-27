@@ -537,7 +537,6 @@ namespace q5id.guardian.ViewModels
                 IsLoading = false;
             }
         }
-
         private async void CreateUpdateLove()
         {
             IsLoading = true;
@@ -547,6 +546,7 @@ namespace q5id.guardian.ViewModels
                 //Update Flow
                 lovedOnesToUpdate = mSelectedLovedOnes;
             }
+
             var lovedOnesToPost = new Love()
             {
                 Id = lovedOnesToUpdate != null ? lovedOnesToUpdate.PrimaryId : null,

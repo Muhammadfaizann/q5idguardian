@@ -127,7 +127,7 @@ namespace q5id.guardian.Utils
                 {
                     UserId = user.Id,
                     Session = user.Token,
-                    SessionExpiredDate = user.UpdatedTime.ToString(),
+                    SessionExpiredDate = user.UpdatedTime.ToString(), //TODO:I can't see any checking for the SessionExpiredDate property in the codebase. What is the workflow for expired sessions?
                 };
                 Preferences.Set(TOKEN_KEY, JsonConvert.SerializeObject(userSession));
                 Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
@@ -137,6 +137,7 @@ namespace q5id.guardian.Utils
             }
             else
             {
+                //TODO: I think we should throw a TokenNotFoundException because this will cause a bug for empty TOKEN_KEY.
                 Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
                 Debug.WriteLine($"   No User Token  ");
                 Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");

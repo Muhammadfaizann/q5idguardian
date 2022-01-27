@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter.Analytics;
 using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using q5id.guardian.DependencyServices;
@@ -19,6 +19,7 @@ namespace q5id.guardian.ViewModels
     public class HomeContentViewModel : BaseSubViewModel
     {
 
+        
         public HomeContentViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
         }
@@ -116,12 +117,57 @@ namespace q5id.guardian.ViewModels
         public override async Task Initialize()
         {
             GetUserPages();
-            GetAlerts();
+            await GetAlerts();
+            await UpdateUserDevice();
+            
         }
 
-        
+        private async Task UpdateUserDevice()
+        {
+            UserSession userSession = Utils.Utils.GetToken();
+            var currentUserDevice = Utils.Utils.GetUserDevice();
+            var location = await Utils.Utils.GetLocalLocation();
+            if (currentUserDevice != null)
+            {
+                await AppApiManager.Instances.DeleteUserDevice(currentUserDevice);
+                Utils.Utils.SaveUserDevice(null);
+            };
+            var currentPushToken = Utils.Utils.GetPushNotificationToken();
+            Debug.WriteLine("currentPushToken: ", currentPushToken);
+            IAppDeviceService service = DependencyService.Get<IAppDeviceService>();
+            var userDevice = new UserDevice()
+            {
+                UserId = userSession.UserId,
+                DevicePushId = Utils.Constansts.DevicePushIDAlwaysEmpty,
+                Platform = Device.RuntimePlatform.ToUpper(),
+                SubscriptionId = Utils.Constansts.FakeGuidAsIndicated,
+                IsAppPurchaseToken = Utils.Constansts.AppPurchaseIsFalse,
+                DeviceId = currentPushToken,
+                DeviceUUID = service.GetDeviceId(),
+                Tags = Utils.Constansts.ServerPopulatesThisTagShouldBeEmpty,
+                Latitude = location != null ? location.Latitude : 0,
+                Longitude = location != null ? location.Longitude : 0
+            };
+            
+            var responseCreateUserDevice = await AppApiManager.Instances.CreateUserDevice(userDevice);
+            if (responseCreateUserDevice.IsSuccess && responseCreateUserDevice.ResponseObject != null && responseCreateUserDevice.ResponseObject.Result != null)
+            {
+                var newUserDevice = responseCreateUserDevice.ResponseObject.Result;
+                Utils.Utils.SaveUserDevice(newUserDevice);
+            }
+            else
+            {
+                var logInformation = new Dictionary<string, string>()
+                {
+                    { "UserId",userSession?.UserId },
+                    { "PushToken",currentPushToken }
+                };
 
-        public async void GetAlerts()
+                Analytics.TrackEvent("Update UserDevice - Failed",logInformation);
+            }                    
+        }
+
+        public async Task GetAlerts()
         {
             var currentLocation = await Utils.Utils.GetLocalLocation();
             if (currentLocation != null)
@@ -135,6 +181,14 @@ namespace q5id.guardian.ViewModels
             else
             {
                 Alerts = new List<Alert>();
+
+                UserSession userSession = Utils.Utils.GetToken();
+                var logInformation = new Dictionary<string, string>()
+                {
+                    { "UserId",userSession?.UserId }
+                };
+
+                Analytics.TrackEvent("GetAlerts - Failed", logInformation);
             }
         }
 
