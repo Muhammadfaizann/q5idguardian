@@ -13,6 +13,7 @@ namespace q5id.guardian.ViewModels
     public interface IntroView
     {
         void ShowPidInstruction();
+        Task ShowAlert(string message);
     }
     public class IntroViewModel : BaseViewModel
     {
@@ -29,6 +30,7 @@ namespace q5id.guardian.ViewModels
             LoginCommand = new Command(OnLoginClicked);
             OpenPIDCommand = new Command(OpenPIDClicked);
             JoinPidCommand = new Command(JoinPidClicked);
+            CopyPushTokenCommand = new Command(CopyPushToken);
         }
         public IntroView View { get; set; }
 
@@ -37,6 +39,8 @@ namespace q5id.guardian.ViewModels
         public Command JoinPidCommand { get; }
 
         public Command OpenPIDCommand { get; }
+
+        public Command CopyPushTokenCommand { get; }
 
         private ObservableCollection<Intro> mIntroPages;
         public ObservableCollection<Intro> IntroPages
@@ -71,6 +75,17 @@ namespace q5id.guardian.ViewModels
             View?.ShowPidInstruction();
         }
         
+        private int _tapCount = 0;
+        private async void CopyPushToken(object obj)
+        {
+            _tapCount++;
+            if(_tapCount % 5 == 0)
+            {
+                await Clipboard.SetTextAsync(Utils.Utils.GetPushNotificationToken());
+                View?.ShowAlert("Push token is coppied.");
+            }
+        }
+
         private async Task<User> GetProfile()
         {
             UserSession userSession = Utils.Utils.GetToken();

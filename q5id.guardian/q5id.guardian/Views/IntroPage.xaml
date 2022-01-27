@@ -43,7 +43,11 @@
                         Margin="0,40,0,0"
                         HeightRequest="120"
                         Source="intro_icon"
-                        WidthRequest="240" />
+                        WidthRequest="240" >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CopyPushTokenCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
                     <Frame
                         Margin="20,40,20,20"
                         BackgroundColor="White"

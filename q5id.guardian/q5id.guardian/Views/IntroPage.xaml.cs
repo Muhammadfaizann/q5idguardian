@@ -51,5 +51,10 @@ namespace q5id.guardian.Views
                 Debug.WriteLine("Can not open popup: " + ex.Message);
             }
         }
+
+        public async Task ShowAlert(string message)
+        {
+            await this.DisplayAlert("Helper Mode", message, "OK");
+        }
     }
 }

@@ -17,7 +17,7 @@ using Plugin.FirebasePushNotification;
 namespace q5id.guardian.Droid
 {
     [Activity(Label = "Guardian", Icon = "@mipmap/icon", Theme = "@style/MainTheme",
-        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : MvxFormsAppCompatActivity<Setup, MainApp, App>
     {
         protected override void OnCreate(Bundle savedInstanceState)
