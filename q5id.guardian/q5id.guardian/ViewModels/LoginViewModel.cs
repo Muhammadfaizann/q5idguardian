@@ -106,6 +106,7 @@ namespace q5id.guardian.ViewModels
             }
             else
             {
+               IsLoading = false;
                 await App.Current.MainPage.DisplayAlert("Error", "Login Failed", "OK");
             }
         }
@@ -114,7 +115,8 @@ namespace q5id.guardian.ViewModels
         {
             Utils.Utils.SavePIDToken(null);
 #if DEBUG
-            mUserName = "5039159930";
+            // 7167081550 5039159930
+            mUserName = "7167081550";
 #endif
 
             if (mUserName != "")
