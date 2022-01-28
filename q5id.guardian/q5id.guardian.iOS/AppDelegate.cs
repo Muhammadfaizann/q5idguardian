@@ -78,26 +78,45 @@ namespace q5id.guardian.iOS
         public override void DidReceiveRemoteNotification(UIApplication application,
             NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
         {
-            
+
             NSDictionary aps = userInfo.ObjectForKey(new NSString("aps")) as NSDictionary;
 
-            // The aps is a dictionary with the template values in it
-            // You can adjust this section to do whatever you need to with the push notification
+            ProcessNotification(aps);
+        }
 
-            string alert = string.Empty;
-            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
-            Debug.WriteLine("    Received notification   ");
-            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");            
-            if (aps.ContainsKey(new NSString("alert")))
-                alert = (aps[new NSString("alert")] as NSString).ToString();
-            Debug.WriteLine($"    {alert}   ");
-            Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
-            //show alert
-            if (!string.IsNullOrEmpty(alert))
+        void ProcessNotification(NSDictionary userInfo)
+        {
+            if (userInfo == null)
+                return;
+
+            var apsKey = new NSString("alert");
+            var titleKey = new NSString("title");
+            var bodyKey = new NSString("body");
+
+            if (userInfo.ContainsKey(apsKey))
             {
-                UIAlertView avAlert = new UIAlertView("Notification", alert, null, "OK", null);
+                var aps = (NSDictionary)userInfo.ObjectForKey(apsKey);
+
+                var title = (NSString)aps.ObjectForKey(titleKey);
+                var body = (NSString)aps.ObjectForKey(bodyKey);
+
+                string titleContent = string.Empty, bodyContent = string.Empty;
+
+                if (!string.IsNullOrEmpty(title))
+                {
+                    titleContent = title.ToString();
+                }
+
+                if (!string.IsNullOrEmpty(body))
+                {
+                    bodyContent = body.ToString();
+                }
+
+                UIAlertView avAlert = new UIAlertView(titleContent, bodyContent, null, "OK", null);
                 avAlert.Show();
+
             }
+
         }
     }
 }
