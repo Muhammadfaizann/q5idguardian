@@ -174,6 +174,8 @@ namespace q5id.guardian.Services
 
         public async Task<ApiResponse<List<Alert>>> GetNearbyListAlert(double lat, double lng, double radiusInKm)
         {
+            lat = Math.Round(lat, 9);
+            lng = Math.Round(lng, 9);
             var cts = new CancellationTokenSource();
             var task = RemoteRequestAsync<List<Alert>>(q5idApi.GetApi(Priority.UserInitiated).GetNearbyAlerts(lat, lng, radiusInKm, cts.Token));
             runningTasks.Add(task.Id, cts);
@@ -248,6 +250,9 @@ namespace q5id.guardian.Services
 
         public async Task<ApiResponse<AppServiceResponse<UserDevice>>> CreateUserDevice(UserDevice model)
         {
+            model.Latitude = Math.Round(model.Latitude, 9);
+            model.Longitude = Math.Round(model.Longitude, 9);
+
             var cts = new CancellationTokenSource();
             var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).CreateUserDevice(model.GetParam(), cts.Token)); //TODO: Is this get or should be put because we are updating user device?
             runningTasks.Add(task.Id, cts);
