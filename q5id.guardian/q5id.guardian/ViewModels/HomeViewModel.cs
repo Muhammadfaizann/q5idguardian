@@ -113,9 +113,7 @@ namespace q5id.guardian.ViewModels
             Utils.Utils.SaveToken(null);
             MainThread.BeginInvokeOnMainThread(async () =>
             {
-                await App.Current.MainPage.DisplayAlert("Unauthorized", "Expired Session", "OK");
-
-                await ClearStackAndNavigateToPage<LoginViewModel>();
+                await ClearStackAndNavigateToPage<IntroViewModel>();
             });
            
         }
