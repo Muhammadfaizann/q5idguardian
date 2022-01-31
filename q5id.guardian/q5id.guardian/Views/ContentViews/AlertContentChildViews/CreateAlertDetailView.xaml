@@ -219,7 +219,8 @@
                                         </Grid>
                                         <control:AppButton
                                             Margin="0,25,0,5"
-                                            ButtonTitle="UPDATE INFORMATION"
+                                            ButtonTitle="UPDATE INFORMATION"                                            
+                                            Clicked="UpdateMyLovedOnes"
                                             CornerRadius="16"
                                             HeightRequest="32"
                                             HorizontalOptions="Center"
@@ -488,6 +489,9 @@
                                                         Color="{StaticResource redNue}"
                                                         Glyph="{x:Static util:FontAwesomeIcons.CheckCircle}"/>
                                     </Image.Source>
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="GuardianNearbyTapped" />
+                                    </Image.GestureRecognizers>
                                 </Image>
                                 <Image
                                     Grid.Column="0"
@@ -503,6 +507,9 @@
                                                         Color="{StaticResource redNue}"
                                                         Glyph="{x:Static util:FontAwesomeIcons.CheckCircle}"/>
                                     </Image.Source>
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="LowEnforcementTapped" />
+                                    </Image.GestureRecognizers>
                                 </Image>
                                 <!--<Label
                                     Grid.Column="1"

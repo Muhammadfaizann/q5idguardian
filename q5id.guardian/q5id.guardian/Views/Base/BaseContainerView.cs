@@ -1,4 +1,5 @@
-﻿using System;
+﻿using q5id.guardian.ViewModels;
+using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
@@ -15,8 +16,7 @@ namespace q5id.guardian.Views.Base
             MainPage = homePage;
             StackViews = new List<BaseChildContentView>();
         }
-
-        public void PushView(BaseChildContentView view)
+        public void PushView(BaseChildContentView view, object bindingContext = null)
         {
             if (this.CurrentView != null)
             {
@@ -24,7 +24,16 @@ namespace q5id.guardian.Views.Base
             }
             this.GetContentView().Children.Add(view);
             StackViews.Add(view);
-            view.BindingContext = this.BindingContext;
+
+            if(bindingContext == null)
+            {
+                view.BindingContext = this.BindingContext;
+            }
+            else
+            {
+                view.BindingContext = bindingContext;
+            }
+            
             this.CurrentView = view;
         }
 

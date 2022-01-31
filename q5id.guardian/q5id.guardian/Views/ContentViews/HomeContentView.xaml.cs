@@ -167,7 +167,7 @@ namespace q5id.guardian.Views.ContentViews
 
         void CreateAlertTapped(System.Object sender, System.EventArgs e)
         {
-            MainPage.ShowCreateAlertView(AlertContentView.NAVIGATE_FROM_HOME);
+            MainPage.ShowCreateAlertView(AlertContentView.NAVIGATE_FROM_HOME);            
         }
 
         public override Grid GetContentView()

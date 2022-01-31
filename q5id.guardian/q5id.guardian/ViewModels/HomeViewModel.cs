@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
@@ -31,7 +29,7 @@ namespace q5id.guardian.ViewModels
             AlertsVm.OnUpdateModel += SubVmOnUpdateModel;
             Task.Run(async () =>
             {
-               await HomeVm.Initialize();
+                await HomeVm.Initialize();
                await GetSubscriptionStatus();
             });
         }
@@ -192,8 +190,9 @@ namespace q5id.guardian.ViewModels
                         var isExpired = await InAppBillingService.Instances.IsExpiredReceipt(purchase.PurchaseToken);
                         isSubscriptionRole = !isExpired;
                     }
-                }
+                }                
             }
+            
             HomeVm.IsLoading = false;
             HomeVm.IsSubcriber = isSubscriptionRole;
             LovedOnesVm.IsSubcriber = isSubscriptionRole;

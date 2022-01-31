@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Plugin.Geolocator;
 using q5id.guardian.Models;
 using q5id.guardian.ViewModels;
+using q5id.guardian.ViewModels.ItemViewModels;
 using q5id.guardian.Views.Base;
+using q5id.guardian.Views.ContentViews.LovedOnesChildContentViews;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
@@ -134,7 +136,8 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             ImageSourceLowEnforcement.FontFamily = Utils.ThemeConstanst.FontAwesomeRegular;
 
             IsYourPersonalNetwork = false;
-            IsGuardianNearby = false;
+            IsGuardianNearby = true;
+            UpdateGuardianNearby();
             IsLowEnforcement = false;
 
             EntrySearchMap.SelectedItem = null;
@@ -251,6 +254,18 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             if (!CrossGeolocator.IsSupported)
                 return false;
             return CrossGeolocator.Current.IsGeolocationAvailable;
+        }
+
+        void UpdateMyLovedOnes(System.Object sender, System.EventArgs e)
+        {                  
+            MainContentView.MainPage.UpdateRightControlVisibility(true);
+            var addLovedEditView = new AddLovedEditView(MainContentView);
+            var alertVm = this.BindingContext as AlertsViewModel;
+            var lovedOneVm = new LovedOnesViewModel(alertVm.AlertNavigationService, alertVm.LogProvider);
+            lovedOneVm.SelectedLovedOnes = alertVm.CreatingLove;
+            lovedOneVm.AlertsVmFrom = alertVm;
+            MainContentView.PushView(addLovedEditView, lovedOneVm);
+            addLovedEditView.UpdateImage(true);                       
         }
     }
 }

@@ -392,8 +392,7 @@ namespace q5id.guardian.ViewModels
 
         public LovedOnesViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
-        }
-
+        }        
         private void OnResetData(object obj)
         {
             this.FirstName = "";
@@ -458,6 +457,7 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        public AlertsViewModel AlertsVmFrom { get; set; }
 
         private async void GetChoices()
         {
@@ -631,8 +631,20 @@ namespace q5id.guardian.ViewModels
                 if (response.ResponseObject.IsError == false)
                 {
                     IsUpdateSuccess = true;
-                    SelectedLovedOnes = null;
-                    GetLoves();
+                    if (AlertsVmFrom != null)
+                    {                        
+                        AlertsVmFrom.GetAlerts();
+                        AlertsVmFrom.GetMyLoves();
+                        AlertsVmFrom.CreatingLove = lovedOnesToPost;
+                        IsLoading = false;
+                        await App.Current.MainPage.DisplayAlert("Info", "Information updated successfully.", "OK");
+                        AlertsVmFrom.CreateAlertCommand.Execute(null);                       
+                    }
+                    else
+                    {
+                        SelectedLovedOnes = null;
+                        GetLoves();
+                    }
                 }
                 else
                 {
@@ -665,7 +677,19 @@ namespace q5id.guardian.ViewModels
                 if (response.IsSuccess)
                 {
                     IsUpdateSuccess = true;
-                    GetLoves();
+                    if (AlertsVmFrom != null)
+                    {
+                        IsLoading = false;
+                        AlertsVmFrom.GetAlerts();
+                        AlertsVmFrom.GetMyLoves();
+                        await App.Current.MainPage.DisplayAlert("Info", "Loved one record deleted successfully.", "OK");
+                        AlertsVmFrom.CreateAlertCommand.Execute(null);
+                    }
+                    else
+                    {
+                        SelectedLovedOnes = null;
+                        GetLoves();
+                    }                    
                 }
                 else
                 {
