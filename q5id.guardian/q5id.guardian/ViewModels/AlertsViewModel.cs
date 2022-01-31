@@ -332,11 +332,13 @@ namespace q5id.guardian.ViewModels
             if (User != null)
             {
                 IsLoading = true;
+                string alertId = System.Guid.NewGuid().ToString();
+
                 var alertToPost = new Alert()
                 {
                     CreatedBy = User.Id,
                     FirstName = mCreatingLove.FullName,
-                    AlertId = System.Guid.NewGuid().ToString(),
+                    AlertId = alertId,
                     ProfileId = mCreatingLove.ProfileId,
                     UserId = Utils.Utils.GetUserId(),
                     CreatedOn = DateTime.UtcNow.ToString(),
@@ -359,18 +361,23 @@ namespace q5id.guardian.ViewModels
                     if (response.ResponseObject.IsError == false)
                     {
                         IsUpdateSuccess = true;
-                        ResetData();
-                        GetAlerts();
-
+                        
                         // Trigger SOS
                         if(IsLowEnforcement)
                         {
-                            await AppApiManager.Instances.TriggerRapidSOS(new RapidSOSRequest()
+                            var resp = await AppApiManager.Instances.TriggerRapidSOS(new RapidSOSRequest()
                             {
-                                AlertId = response.ResponseObject.Result.AlertId
+                                AlertId = alertId
                             });
+
+                            if(!string.IsNullOrWhiteSpace(resp.ResponseObject.Message))
+                            {
+                                await App.Current.MainPage.DisplayAlert("Info", resp.ResponseObject.Message, "OK");
+                            }
                         }
-                        
+
+                        ResetData();
+                        GetAlerts();
                     }
                     else
                     {
