@@ -63,7 +63,7 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                if(User != null && AlertDetail != null)
+                if (User != null && AlertDetail != null)
                 {
                     return User.Id == AlertDetail.CreatedBy;
                 }
@@ -113,15 +113,15 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                if(AlertDetail != null && AlertDetail.IsEnded == false && IsOwner == false)
+                if (AlertDetail != null && AlertDetail.IsEnded == false && IsOwner == false)
                 {
-                    if(this.Feeds == null)
+                    if (this.Feeds == null)
                     {
                         return true;
                     }
                     var existJoin = this.Feeds.Find((object obj) =>
                     {
-                        if(obj is FeedItemViewModel feedItemViewModel)
+                        if (obj is FeedItemViewModel feedItemViewModel)
                         {
                             return feedItemViewModel.Model.CreatedBy == User.Id;
                         }
@@ -199,7 +199,7 @@ namespace q5id.guardian.ViewModels
 
         private void UpdateIsEndAlert()
         {
-            if(mAlertDetail != null && IsOwner)
+            if (mAlertDetail != null && IsOwner)
             {
                 IsCanEndAlert = !mAlertDetail.IsClosed;
             }
@@ -213,7 +213,7 @@ namespace q5id.guardian.ViewModels
         {
             get
             {
-                if(mAlertDetail != null)
+                if (mAlertDetail != null)
                 {
                     var result = new List<Position>();
                     result.Add(mAlertDetail.Position);
@@ -277,12 +277,12 @@ namespace q5id.guardian.ViewModels
 
         public async void GetMyLoves()
         {
-            if(User == null)
+            if (User == null)
             {
                 return;
             }
             IsLoading = true;
-            var response = await AppApiManager.Instances.GetListLovedOnes(User.UserId);
+            var response = await AppApiManager.Instances.GetListLovedOnes(User.Id);
             IsLoading = false;
             if (response.IsSuccess && response.ResponseObject != null)
             {
@@ -313,8 +313,7 @@ namespace q5id.guardian.ViewModels
             {
                 return new Command(CreateAlert);
             }
-        }
-
+        }        
         private void ResetData()
         {
             CreatingLove = null;
@@ -711,8 +710,12 @@ namespace q5id.guardian.ViewModels
             RaisePropertyChanged(nameof(Alerts));
         }
 
+        public IMvxNavigationService AlertNavigationService { get; set; }
+        public ILoggerFactory LogProvider { get; set; }
         public AlertsViewModel(IMvxNavigationService navigationService, ILoggerFactory logProvider) : base(navigationService, logProvider)
         {
+            AlertNavigationService = navigationService;
+            LogProvider = logProvider;
         }
     }
 }

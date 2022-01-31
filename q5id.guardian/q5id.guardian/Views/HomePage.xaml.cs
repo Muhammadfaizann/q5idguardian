@@ -92,7 +92,6 @@ namespace q5id.guardian.Views
             SelectTab(LOVED_ONES_INDEX);
             UpdateRightControlVisibility(false);
         }
-
         public void ShowAlertView()
         {
             AlertsView = new AlertContentView(this);
