@@ -632,9 +632,7 @@ namespace q5id.guardian.ViewModels
                 {
                     IsUpdateSuccess = true;
                     if (AlertsVmFrom != null)
-                    {                        
-                        AlertsVmFrom.GetAlerts();
-                        AlertsVmFrom.GetMyLoves();
+                    {   
                         AlertsVmFrom.CreatingLove = lovedOnesToPost;
                         IsLoading = false;
                         await App.Current.MainPage.DisplayAlert("Info", "Information updated successfully.", "OK");
@@ -680,8 +678,7 @@ namespace q5id.guardian.ViewModels
                     if (AlertsVmFrom != null)
                     {
                         IsLoading = false;
-                        AlertsVmFrom.GetAlerts();
-                        AlertsVmFrom.GetMyLoves();
+                        
                         await App.Current.MainPage.DisplayAlert("Info", "Loved one record deleted successfully.", "OK");
                         AlertsVmFrom.CreateAlertCommand.Execute(null);
                     }

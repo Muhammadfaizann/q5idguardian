@@ -43,8 +43,8 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
         private static void OnIsGuardianNearbyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             if (bindable is CreateAlertDetailView createAlertDetailView)
-            {
-                createAlertDetailView.UpdateGuardianNearby();
+            {    
+                //createAlertDetailView.UpdateGuardianNearby();                              
             }
         }
 
@@ -115,6 +115,9 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             this.SetBinding(AlertPositionProperty, "AlertPosition");
             InitView();
             InitEvent();
+
+            IsGuardianNearby = true;
+            UpdateGuardianNearby();
         }
 
         private void InitEvent()
@@ -136,8 +139,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             ImageSourceLowEnforcement.FontFamily = Utils.ThemeConstanst.FontAwesomeRegular;
 
             IsYourPersonalNetwork = false;
-            IsGuardianNearby = true;
-            UpdateGuardianNearby();
+            IsGuardianNearby = false;
             IsLowEnforcement = false;
 
             EntrySearchMap.SelectedItem = null;
