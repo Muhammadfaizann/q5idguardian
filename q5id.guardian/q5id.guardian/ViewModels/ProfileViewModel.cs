@@ -212,7 +212,6 @@ namespace q5id.guardian.ViewModels
             var userToPost = new User()
             {
                 Id = User != null ? User.Id : null,
-                UserId = User != null ? User.UserId : System.Guid.NewGuid().ToString(),
                 RoleId = User != null ? User.RoleId : "",
                 Email = Email,
                 Phone = Phone,
@@ -225,6 +224,11 @@ namespace q5id.guardian.ViewModels
                 ImageUrl = User != null ? User.ImageUrl : "",
                 SubscriptionExpiredDate = User != null ? User.SubscriptionExpiredDate : null,
             };
+
+            if (User !=null)
+            {
+                userToPost.UserId = User.UserId;
+            }
             if (ProfileImage != null)
             {
                 var responseUploadImageOne = await AppApiManager.Instances.UploadImage(Utils.Constansts.USER_ENTITY_SETTING_KEY, ProfileImage);
