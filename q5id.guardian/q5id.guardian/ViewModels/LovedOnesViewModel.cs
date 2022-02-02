@@ -567,9 +567,14 @@ namespace q5id.guardian.ViewModels
                 Image3 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image3 : "",
                 Image4 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image4 : "",
                 Image5 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image5 : "",
-                ProfileId = lovedOnesToUpdate != null ? lovedOnesToUpdate.ProfileId : System.Guid.NewGuid().ToString(),
                 CreatedOn = lovedOnesToUpdate != null ? lovedOnesToUpdate.CreatedOn : DateTime.UtcNow.ToString(),
             };
+
+            if (lovedOnesToUpdate != null)
+            {
+                lovedOnesToPost.ProfileId = lovedOnesToUpdate.ProfileId;
+            }
+
             if (PrimaryImage != null)
             {
                 var responseUploadImageOne = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, PrimaryImage);
