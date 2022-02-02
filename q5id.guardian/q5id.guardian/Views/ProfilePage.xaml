@@ -82,10 +82,11 @@
                                         IsClippedToBounds="True"
                                         Padding="0"
                                         HasShadow="False"
+                                        IsEnabled="False"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center">
                                         <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="OnPickImageTapped" />
+                                            <TapGestureRecognizer Tapped="OnPickImageTapped"/>
                                         </Frame.GestureRecognizers>
                                         <ffimageloading:CachedImage x:Name="ImgProfile" Source="{Binding Image}" Aspect="AspectFill" />
                                     </Frame>
@@ -98,6 +99,7 @@
                                         VerticalOptions="Center"
                                         Padding="0"
                                         Clicked="OnPickImageTapped"
+                                        IsEnabled="False"
                                         NormalBackgroundColorStart="{StaticResource dimCharcoal}"
                                         NormalBackgroundColorEnd="{StaticResource normalCharcoal}"
                                         PressedBackgroundColor="{StaticResource dimCharcoal}">
@@ -130,7 +132,7 @@
                                         HeightRequest="32"
                                         NoramlBorderColor="#E8EAF2"
                                         Placeholder=""
-                                        IsEnabled="{Binding IsUpdate, Converter={StaticResource reverseBooleanConverter}}"
+                                        IsEnabled="False"
                                         Text="{Binding Email}"
                                         Keyboard="Email"
                                         PlaceholderColor="{StaticResource lightCharcoal}"
@@ -160,6 +162,7 @@
                                         NoramlBorderColor="#E8EAF2"
                                         Placeholder=""
                                         Text="{Binding Phone}"
+                                        IsEnabled="False"
                                         Keyboard="Telephone"
                                         PlaceholderColor="{StaticResource lightCharcoal}"
                                         Style="{StaticResource etBodyNormalLg}"
@@ -217,6 +220,7 @@
                                         NoramlBorderColor="#E8EAF2"
                                         Placeholder=""
                                         Text="{Binding FirstName}"
+                                        IsEnabled="False"
                                         PlaceholderColor="{StaticResource lightCharcoal}"
                                         Style="{StaticResource etBodyNormalLg}"
                                         TextColor="{StaticResource normalCharcoal}" />
@@ -240,6 +244,7 @@
                                         NoramlBorderColor="#E8EAF2"
                                         Placeholder=""
                                         Text="{Binding LastName}"
+                                        IsEnabled="False"
                                         PlaceholderColor="{StaticResource lightCharcoal}"
                                         Style="{StaticResource etBodyNormalLg}"
                                         TextColor="{StaticResource normalCharcoal}" />
@@ -260,6 +265,7 @@
                                 PressedBackgroundColor="{StaticResource dimCharcoal}"
                                 NormalLabelColor="White"
                                 PressedLabelColor="LightGray"
+                                IsVisible="False"
                                 ButtonTitleSize="12"
                                 WidthRequest="97" />
                         </StackLayout>
