@@ -76,11 +76,14 @@
                                                 Glyph="{x:Static util:FontAwesomeIcons.ChevronDown}"
                                                 FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"/>
                         </Image.Source>
-                        <Image.GestureRecognizers>
+                        <!--<Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ToggleExpandedCommand}" Tapped="OnExpandedClicked" />
-                        </Image.GestureRecognizers>
+                        </Image.GestureRecognizers>-->
                     </Image>
                 </Grid>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleExpandedCommand}" Tapped="OnExpandedClicked" />
+                </Frame.GestureRecognizers>
             </Frame>
         </Grid>
     </ContentView.Content>
