@@ -241,26 +241,27 @@ namespace q5id.guardian.Utils
             }
         }
 
-        public static async Task<Plugin.Geolocator.Abstractions.Position> GetLocalLocation()
+        public static async Task<Location> GetLocalLocation()
         {
-            if (IsLocationAvailable())
+            try
             {
-                try
-                {
-                    var locator = CrossGeolocator.Current;
+                var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+                var currentLocation = await Geolocation.GetLocationAsync(request);
 
-                    //var request = new GeolocationRequest(GeolocationAccuracy.Default, TimeSpan.FromSeconds(20));
-                   
-                    //var location = await Geolocation.GetLocationAsync(request);
-                    //return new Plugin.Geolocator.Abstractions.Position(location.Latitude, location.Longitude);
-                    return await locator.GetLastKnownLocationAsync();
-                }
-                catch (Exception ex)
+                if (currentLocation == null)
                 {
-                    Debug.WriteLine("Cannot get local location: " + ex.Message);
+                    var lastKnownLocation = await Geolocation.GetLastKnownLocationAsync();
+                    return lastKnownLocation;
                 }
+
+                return currentLocation;
+
             }
-            return null;
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Cannot get location: " + ex.Message);
+                return null;
+            }
         }
 
         private static bool IsLocationAvailable()
