@@ -25,7 +25,7 @@ namespace q5id.guardian.Views.ContentViews
 
         Map map;
 
-        private Plugin.Geolocator.Abstractions.Position userPosition;
+        private Location userPosition;
 
         public HomeContentView(HomePage homePage) : base(homePage)
         {
