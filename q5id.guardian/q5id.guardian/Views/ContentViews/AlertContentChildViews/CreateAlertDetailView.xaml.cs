@@ -143,6 +143,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             IsLowEnforcement = false;
 
             EntrySearchMap.SelectedItem = null;
+            OnCurrentMyLocationTapped(this, null);
         }
 
         private void EntrySearchMap_SelectedItemChanged(object sender, EventArgs e)
