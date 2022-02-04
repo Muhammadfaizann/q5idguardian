@@ -245,6 +245,16 @@ namespace q5id.guardian.Utils
         {
             try
             {
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    var resultPermission = await CheckStatusAsync<Permissions.LocationWhenInUse>();
+
+                    if (resultPermission == PermissionStatus.Denied)
+                    {
+                        AppInfo.ShowSettingsUI();
+                    }
+                });
+
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
                 var currentLocation = await Geolocation.GetLocationAsync(request);
 
