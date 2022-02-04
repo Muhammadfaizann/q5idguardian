@@ -252,6 +252,7 @@ namespace q5id.guardian.Utils
                     if (resultPermission == PermissionStatus.Denied)
                     {
                         AppInfo.ShowSettingsUI();
+                        return;
                     }
                 });
 
