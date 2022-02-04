@@ -33,6 +33,7 @@ namespace q5id.guardian.Models
         public List<Feed> AlertFeeds { get; set; }
         [JsonProperty("profile")]
         public Love Love { get; set; }
+        public Data data { get; set; }
 
         [JsonIgnore]
         public string DistanceFromUser { get; set; }
@@ -126,4 +127,34 @@ namespace q5id.guardian.Models
             return obj.Id.GetHashCode();
         }
     }
+
+    public class Data
+    {
+        public string profileId { get; set; }
+        public string userId { get; set; }
+        public string alertId { get; set; }
+        public string firstName { get; set; }
+        public string description { get; set; }
+        public string comments { get; set; }
+        public int latitude { get; set; }
+        public int lognitude { get; set; }
+        public string address { get; set; }
+        public bool isClosed { get; set; }
+        public string photo { get; set; }
+        public object timestamp { get; set; }
+        public object alertFeeds { get; set; }
+        public object profile { get; set; }
+        public string rapidSOSId { get; set; }
+        public object id { get; set; }
+        public object documentTypeInstanceId { get; set; }
+        public object dataVaultId { get; set; }
+        public object entityId { get; set; }
+        public string createdBy { get; set; }
+        public string createdOn { get; set; }
+        public object modifiedOn { get; set; }
+        public string modifiedBy { get; set; }
+        public DateTime addedTime { get; set; }
+        public object updatedTime { get; set; }
+    }
+
 }
