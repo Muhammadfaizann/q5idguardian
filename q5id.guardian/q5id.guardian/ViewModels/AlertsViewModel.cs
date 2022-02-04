@@ -365,7 +365,7 @@ namespace q5id.guardian.ViewModels
                         {
                             var resp = await AppApiManager.Instances.TriggerRapidSOS(new RapidSOSRequest()
                             {
-                                AlertId = response?.ResponseObject?.Result?.AlertId
+                                AlertId = response?.ResponseObject?.Result?.data?.alertId
                             });
 
                             if(!string.IsNullOrWhiteSpace(resp.ResponseObject.Message))
