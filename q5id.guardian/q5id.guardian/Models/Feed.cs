@@ -18,9 +18,9 @@ namespace q5id.guardian.Models
         [JsonProperty("Timestamp")]
         public string Timestamp { get; set; }
         [JsonProperty("Latitude")]
-        public string Latitude { get; set; }
-        [JsonProperty("Lognitude")]
-        public string Lognitude { get; set; }
+        public double Latitude { get; set; }
+        [JsonProperty("Longitude")]
+        public double Longitude { get; set; }
         [JsonProperty("Action")]
         public string Action { get; set; }
 
@@ -38,7 +38,7 @@ namespace q5id.guardian.Models
                 Comment = Comment,
                 Timestamp = Timestamp,
                 Latitude = Latitude,
-                Lognitude = Lognitude,
+                Longitude = Longitude,
                 Action = Action,
             };
         }

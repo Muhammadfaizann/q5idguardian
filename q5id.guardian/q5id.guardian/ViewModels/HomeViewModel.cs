@@ -176,21 +176,35 @@ namespace q5id.guardian.ViewModels
             Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");
             Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
             Boolean isSubscriptionRole = false;
-            var purchases = await InAppBillingService.Instances.GetProductPurchases();
-            if (purchases != null)
+
+            try
             {
-                int numberOfSubscriptionDay = 30;
-                InAppBillingPurchase purchase = purchases.FirstOrDefault();
-                if(purchase != null)
+                var purchases = await InAppBillingService.Instances.GetProductPurchases();
+                if (purchases != null)
                 {
-                    if (purchase.State == PurchaseState.Purchased && purchase.TransactionDateUtc.AddDays(numberOfSubscriptionDay).Ticks > DateTime.UtcNow.Ticks)
+                    int numberOfSubscriptionDay = 30;
+                    InAppBillingPurchase purchase = purchases.FirstOrDefault();
+                    if (purchase != null)
                     {
-                        var isExpired = await InAppBillingService.Instances.IsExpiredReceipt(purchase.PurchaseToken);
-                        isSubscriptionRole = !isExpired;
+                        if (purchase.State == PurchaseState.Purchased && purchase.TransactionDateUtc.AddDays(numberOfSubscriptionDay).Ticks > DateTime.UtcNow.Ticks)
+                        {
+                            var isExpired = await InAppBillingService.Instances.IsExpiredReceipt(purchase.PurchaseToken);
+                            isSubscriptionRole = !isExpired;
+                        }
                     }
-                }                
+                }
             }
-            
+            catch (Exception ex) {
+                // todo log exception if not already logged
+                Log.LogError(ex, ex.Message);
+                Debug.WriteLine(ex.Message);
+            }
+
+#if DEBUG
+            // optionally bypass subscription role checks for local debugging. REMEMBER to comment out any changes before checking in!
+             //isSubscriptionRole = true;
+#endif
+
             HomeVm.IsLoading = false;
             HomeVm.IsSubcriber = isSubscriptionRole;
             LovedOnesVm.IsSubcriber = isSubscriptionRole;
