@@ -114,9 +114,11 @@ namespace q5id.guardian.ViewModels
         private async Task<bool> Login()
         {
             Utils.Utils.SavePIDToken(null);
+
+            // optionally hard code a number here. REMOVE or comment out before committing!
 #if DEBUG
             // 7167081550 5039159930  4086475274
-            mUserName = "4086475274";
+            //mUserName = "4086475274";
 #endif
 
             if (mUserName != "")

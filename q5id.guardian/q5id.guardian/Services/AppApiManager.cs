@@ -25,7 +25,14 @@ namespace q5id.guardian.Services
         public bool IsReachable { get; set; }
         IApiService<IQ5idApi> q5idApi;
         Dictionary<int, CancellationTokenSource> runningTasks = new Dictionary<int, CancellationTokenSource>();
+
+#if DEBUG
+        // using http until we figure out how to share the api dev cert with the emulated device
+        private static string Q5ID_BASE_URL = "http://10.0.2.2:5000";
+#else
         private static string Q5ID_BASE_URL = "https://guard-app-msvc-westus-dev-qa.azurewebsites.net";
+#endif
+
 
         public event EventHandler OnUnauthorized;
 

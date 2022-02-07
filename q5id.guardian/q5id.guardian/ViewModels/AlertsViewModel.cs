@@ -342,7 +342,7 @@ namespace q5id.guardian.ViewModels
                     CreatedOn = DateTime.UtcNow.ToString(),
                     Description = Detail,
                     Latitude = AlertPosition != null ? AlertPosition.Value.Latitude : 0,
-                    Lognitude = AlertPosition != null ? AlertPosition.Value.Longitude : 0,
+                    Longitude = AlertPosition != null ? AlertPosition.Value.Longitude : 0,
                     IsClosed = false
                 };
 
@@ -473,8 +473,8 @@ namespace q5id.guardian.ViewModels
                     AlertId = AlertDetail.AlertId,
                     Timestamp = DateTime.UtcNow.ToString(),
                     CreatedOn = DateTime.UtcNow.ToString(),
-                    Latitude = userPosition != null ? userPosition.Latitude + "" : "",
-                    Lognitude = userPosition != null ? userPosition.Longitude + "" : "",
+                    Latitude = userPosition.Latitude, // userPosition != null ? userPosition.Latitude + "" : "",
+                    Longitude = userPosition.Longitude,//userPosition != null ? userPosition.Longitude + "" : "",
                     Action = "is looking",
                 };
                 ApiResponse<AppServiceResponse<Feed>> response = await AppApiManager.Instances.CreateFeed(feedToPost);
@@ -529,8 +529,8 @@ namespace q5id.guardian.ViewModels
                     AlertId = AlertDetail.AlertId,
                     Timestamp = DateTime.UtcNow.ToString(),
                     CreatedOn = DateTime.UtcNow.ToString(),
-                    Latitude = userPosition != null ? userPosition.Latitude + "" : "",
-                    Lognitude = userPosition != null ? userPosition.Longitude + "" : "",
+                    Latitude =  userPosition.Latitude, //userPosition != null ? userPosition.Latitude + "" : "",
+                    Longitude = userPosition.Longitude, //userPosition != null ? userPosition.Longitude + "" : "",
                     Action = "posted ",
                     Comment = FeedMessage
                 };

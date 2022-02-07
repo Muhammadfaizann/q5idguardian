@@ -23,8 +23,8 @@ namespace q5id.guardian.Models
         public string Comments { get; set; }
         [JsonProperty("Latitude")]
         public double Latitude { get; set; }
-        [JsonProperty("Lognitude")]
-        public double Lognitude { get; set; }
+        [JsonProperty("Longitude")]
+        public double Longitude { get; set; }
         [JsonProperty("Address")]
         public string Address { get; set; }
         [JsonProperty("IsClosed")]
@@ -44,7 +44,7 @@ namespace q5id.guardian.Models
             {
                 try
                 {
-                    Location destinationCoordinates = new Location(alert.Latitude, alert.Lognitude);
+                    Location destinationCoordinates = new Location(alert.Latitude, alert.Longitude);
                     double distance = Location.CalculateDistance(sourceCoordinates, destinationCoordinates, DistanceUnits.Miles);
                     return String.Format("{0:0.00} miles", distance);
                 }
@@ -71,7 +71,7 @@ namespace q5id.guardian.Models
                 Description = Description,
                 Comments = Comments,
                 Latitude = Latitude,
-                Lognitude = Lognitude,
+                Longitude = Longitude,
                 Address = Address,
                 IsClosed = IsClosed,
             };
@@ -82,7 +82,7 @@ namespace q5id.guardian.Models
         {
             get
             {
-                return new Position(Latitude, Lognitude);
+                return new Position(Latitude, Longitude);
             }
         }
 
@@ -136,8 +136,8 @@ namespace q5id.guardian.Models
         public string firstName { get; set; }
         public string description { get; set; }
         public string comments { get; set; }
-        public int latitude { get; set; }
-        public int lognitude { get; set; }
+        public double latitude { get; set; }
+        public double longitude { get; set; }
         public string address { get; set; }
         public bool isClosed { get; set; }
         public string photo { get; set; }
