@@ -38,7 +38,10 @@ namespace q5id.guardian.ViewModels
                 FirstName = selectedLovedOnes.FirstName;
                 LastName = selectedLovedOnes.LastName;
                 BirthDay = DateTime.Parse(selectedLovedOnes.DateofBirth);
-                if(HairColors != null)
+
+                GetChoices();
+
+                if (HairColors != null)
                 {
                     HairColor = HairColors.Find((ItemChoice choice) =>
                     {
