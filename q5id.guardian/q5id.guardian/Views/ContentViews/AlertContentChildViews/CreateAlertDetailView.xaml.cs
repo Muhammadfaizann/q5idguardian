@@ -117,6 +117,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             InitEvent();
 
             IsGuardianNearby = true;
+            IsLowEnforcement = false;
             UpdateGuardianNearby();
         }
 
@@ -139,7 +140,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             ImageSourceLowEnforcement.FontFamily = Utils.ThemeConstanst.FontAwesomeRegular;
 
             IsYourPersonalNetwork = false;
-            IsGuardianNearby = false;
+            IsGuardianNearby = true;
             IsLowEnforcement = false;
 
             EntrySearchMap.SelectedItem = null;
