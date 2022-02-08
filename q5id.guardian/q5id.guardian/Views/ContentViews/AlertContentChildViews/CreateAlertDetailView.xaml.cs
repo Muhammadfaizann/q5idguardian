@@ -264,11 +264,29 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
             MainContentView.MainPage.UpdateRightControlVisibility(true);
             var addLovedEditView = new AddLovedEditView(MainContentView);
             var alertVm = this.BindingContext as AlertsViewModel;
-            var lovedOneVm = new LovedOnesViewModel(alertVm.AlertNavigationService, alertVm.LogProvider);
-            lovedOneVm.SelectedLovedOnes = alertVm.CreatingLove;
-            lovedOneVm.AlertsVmFrom = alertVm;
-            MainContentView.PushView(addLovedEditView, lovedOneVm);
-            addLovedEditView.UpdateImage(true);                       
+
+            if (alertVm != null && addLovedEditView != null && MainContentView != null)
+            {
+                var lovedOneVm = new LovedOnesViewModel(alertVm.AlertNavigationService, alertVm.LogProvider);
+
+                if (lovedOneVm != null)
+                {
+                    lovedOneVm.SelectedLovedOnes = alertVm.CreatingLove;
+                    lovedOneVm.AlertsVmFrom = alertVm;
+                    MainContentView.PushView(addLovedEditView, lovedOneVm);
+                    addLovedEditView.UpdateImage(true);
+                }
+                else
+                {
+                    Debug.WriteLine("Cannot update user information");
+                    App.Current.MainPage.DisplayAlert("Error", "Cannot update user information", "OK");
+                }
+            }
+            else
+            {
+                Debug.WriteLine("Cannot update user information ");
+                App.Current.MainPage.DisplayAlert("Error", "Cannot update user information", "OK");
+            }
         }
     }
 }
