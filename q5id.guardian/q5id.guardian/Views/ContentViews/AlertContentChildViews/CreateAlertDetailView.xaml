@@ -475,6 +475,11 @@
                                                         Glyph="{x:Static util:FontAwesomeIcons.CheckCircle}"/>
                                     </Image.Source>
                                 </Image>-->
+                                <Grid Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent">                                    
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="GuardianNearbyTapped" />
+                                    </Grid.GestureRecognizers>
+                                </Grid>
                                 <Image
                                     Grid.Column="0"
                                     Grid.Row="0"
@@ -493,6 +498,11 @@
                                         <TapGestureRecognizer Tapped="GuardianNearbyTapped" />
                                     </Image.GestureRecognizers>
                                 </Image>
+                                 <Grid Grid.Column="0" Grid.Row="1" BackgroundColor="Transparent">                                    
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="LowEnforcementTapped" />
+                                    </Grid.GestureRecognizers>
+                                </Grid>
                                 <Image
                                     Grid.Column="0"
                                     Grid.Row="1"
@@ -524,6 +534,11 @@
                                         <TapGestureRecognizer Tapped="YourPersonalNetworkTapped" />
                                     </Label.GestureRecognizers>
                                 </Label>-->
+                                <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="GuardianNearbyTapped" />
+                                    </Grid.GestureRecognizers>
+                                </Grid>
                                 <Label
                                     Grid.Column="1"
                                     Grid.Row="0"
@@ -537,6 +552,11 @@
                                         <TapGestureRecognizer Tapped="GuardianNearbyTapped" />
                                     </Label.GestureRecognizers>
                                 </Label>
+                                <Grid Grid.Column="1" Grid.Row="1" BackgroundColor="Transparent">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="LowEnforcementTapped" />
+                                    </Grid.GestureRecognizers>
+                                </Grid>
                                 <Label
                                     Grid.Column="1"
                                     Grid.Row="1"
