@@ -285,6 +285,7 @@ namespace q5id.guardian.Utils
         public static async Task<string> FindPlaceByPosition(Xamarin.Forms.Maps.Position position)
         {
             Geocoder geoCoder = new Geocoder();
+            
             IEnumerable<string> possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
             string address = possibleAddresses.FirstOrDefault();
             return address;
@@ -345,6 +346,20 @@ namespace q5id.guardian.Utils
         public static string GetPushNotificationToken()
         {
             return Preferences.Get(PUSH_NOTIFICATION_KEY, "");
+        }
+
+        private static async Task<PermissionStatus> CheckLocationPermission()
+        {
+            var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+            switch (status)
+            {
+                case PermissionStatus.Unknown:
+                case PermissionStatus.Disabled:
+                case PermissionStatus.Denied:
+                    status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+                    break;
+            }
+            return status;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace q5id.guardian.Services
 #else
         private static string Q5ID_BASE_URL = "https://guard-app-msvc-westus-dev-qa.azurewebsites.net";
 #endif
-
+        //private static string Q5ID_BASE_URL = "https://guard-app-msvc-westus-dev-qa.azurewebsites.net";
 
         public event EventHandler OnUnauthorized;
 
