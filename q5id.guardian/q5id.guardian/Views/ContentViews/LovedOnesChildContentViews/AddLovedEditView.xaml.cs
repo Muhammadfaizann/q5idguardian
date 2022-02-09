@@ -188,5 +188,13 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
             }
             return result;
         }
+
+        void AppButton_Clicked(System.Object sender, System.EventArgs e)
+        {
+            if (MainContentView is AlertContentView alertContentView)
+            {
+                alertContentView.ShowCreateAlertDetail();
+            }
+        }
     }
 }

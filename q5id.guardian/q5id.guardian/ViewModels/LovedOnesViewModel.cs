@@ -640,8 +640,7 @@ namespace q5id.guardian.ViewModels
                     {   
                         AlertsVmFrom.CreatingLove = lovedOnesToPost;
                         IsLoading = false;
-                        await App.Current.MainPage.DisplayAlert("Info", "Information updated successfully.", "OK");
-                        AlertsVmFrom.CreateAlertCommand.Execute(null);                       
+                        await App.Current.MainPage.DisplayAlert("Info", "Information updated successfully.", "OK");                    
                     }
                     else
                     {

@@ -393,6 +393,7 @@
                             NormalBackgroundEndColor="{StaticResource normalCharcoal}"
                             PressedBackgroundColor="{StaticResource dimCharcoal}"
                             Command="{Binding CreateUpdateCommand}"
+                            Clicked="AppButton_Clicked"
                             NormalLabelColor="White"
                             PressedLabelColor="LightGray"
                             ButtonTitleSize="12"
