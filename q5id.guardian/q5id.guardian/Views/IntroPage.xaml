@@ -9,7 +9,7 @@
     xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
     x:DataType="vm:IntroViewModel"
     x:TypeArguments="vm:IntroViewModel"
-    BackgroundColor="#E8EAF2">
+    BackgroundColor="#e4e4e6">
     <ContentPage.Content>
         <Grid BackgroundColor="White" RowSpacing="0">
             <Grid.Padding>
@@ -31,13 +31,13 @@
                 <Ellipse
                     Grid.Row="1"
                     Margin="-20,-60,-20,0"
-                    Fill="#E8EAF2"
+                    Fill="#e4e4e6"
                     HeightRequest="40"
                     StrokeThickness="0" />
                 <StackLayout
                     Grid.Row="0"
                     Padding="0,20,0,0"
-                    Background="#E8EAF2"
+                    Background="#e4e4e6"
                     Orientation="Vertical">
                     <Image
                         Margin="0,40,0,0"
@@ -57,7 +57,7 @@
                         HeightRequest="160">
                         <Grid>
                             <controls:CarouselViewControl
-                                CurrentPageIndicatorTintColor="#FD425E"
+                                CurrentPageIndicatorTintColor="#BF1E2D"
                                 ItemsSource="{Binding IntroPages}"
                                 Orientation="Horizontal"
                                 ShowIndicators="True">
@@ -68,7 +68,7 @@
                                                 FontSize="Medium"
                                                 HorizontalOptions="Center"
                                                 Text="{Binding Title}"
-                                                TextColor="#FD425E" />
+                                                TextColor="#BF1E2D" />
                                             <Label
                                                 Margin="0,10,0,0"
                                                 HorizontalOptions="Center"
