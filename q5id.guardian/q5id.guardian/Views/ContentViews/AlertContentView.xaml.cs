@@ -71,7 +71,6 @@ namespace q5id.guardian.Views.ContentViews
             MainPage.UpdateRightControlImage(FontAwesomeIcons.ChevronLeft);
             this.SetBinding(IsUpdateSuccessProperty, "IsUpdateSuccess");
             this.SetBinding(ResetCommandProperty, "ResetCommand");
-            SetupView();
         }
 
         public void ShowDetail()
@@ -90,7 +89,7 @@ namespace q5id.guardian.Views.ContentViews
             PushView(new CreateAlertDetailView(this));
         }
 
-        private void SetupView()
+        public void SetupView()
         {
             PushView(new AlertListVew(this));
         }
