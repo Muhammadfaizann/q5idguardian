@@ -40,6 +40,8 @@ namespace q5id.guardian.Views
             GridDrawer.IsVisible = false;
             GridDrawer.TranslateTo(-320, 0, 0);
             HomeView = new HomeContentView(this);
+            LovedOnesView = new LovedOnesContentView(this);
+            AlertsView = new AlertContentView(this);
             ShowView(HomeView, "HomeVm");
             SelectTab(HOME_INDEX);
             GridHomeTapGes = new TapGestureRecognizer();
@@ -78,8 +80,7 @@ namespace q5id.guardian.Views
 
         public void ShowHomeView()
         {
-            HomeView = new HomeContentView(this);
-
+            LovedOnesView.ClearViewStack();
             ShowView(HomeView, "HomeVm");
             SelectTab(HOME_INDEX);
             UpdateRightControlVisibility(false);
@@ -87,14 +88,16 @@ namespace q5id.guardian.Views
 
         public void ShowLovedOnesView()
         {
-            LovedOnesView = new LovedOnesContentView(this);
+            LovedOnesView.ClearViewStack();
+            LovedOnesView.SetupView();
             ShowView(LovedOnesView, "LovedOnesVm");
             SelectTab(LOVED_ONES_INDEX);
             UpdateRightControlVisibility(false);
         }
         public void ShowAlertView()
         {
-            AlertsView = new AlertContentView(this);
+            LovedOnesView.ClearViewStack();
+            AlertsView.SetupView();
             ShowView(AlertsView, "AlertsVm");
             SelectTab(ALERT_INDEX);
             UpdateRightControlVisibility(false);

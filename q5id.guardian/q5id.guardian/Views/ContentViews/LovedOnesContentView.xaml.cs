@@ -102,11 +102,10 @@ namespace q5id.guardian.Views.ContentViews
             this.SetBinding(ResetCommandProperty, "ResetCommand");
             MainPage.UpdateRightControlVisibility(false);
             MainPage.UpdateRightControlImage(FontAwesomeIcons.Times);
-            SetupView();
             
         }
 
-        private void SetupView()
+        public void SetupView()
         {
             ClearImages();
             PushView(new LovedOnesListView(this));

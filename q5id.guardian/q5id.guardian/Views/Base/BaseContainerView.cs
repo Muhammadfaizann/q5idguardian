@@ -49,6 +49,13 @@ namespace q5id.guardian.Views.Base
             }
         }
 
+        public void ClearViewStack()
+        {
+            this.GetContentView().Children.Clear();
+            StackViews.Clear();
+            this.CurrentView = null;
+        }
+
         public void BackToTop()
         {
             while (StackViews.Count > 1)
