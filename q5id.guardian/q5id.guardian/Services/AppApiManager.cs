@@ -28,18 +28,17 @@ namespace q5id.guardian.Services
 
 #if DEBUG
         // using http until we figure out how to share the api dev cert with the emulated device
-        private static string Q5ID_BASE_URL = "http://10.0.2.2:5000";
+        private static string GUARDIAN_API_BASE_URL = "http://10.0.2.2:5000";
 #else
-        private static string Q5ID_BASE_URL = "https://guard-app-msvc-westus-dev-qa.azurewebsites.net";
+        private static string GUARDIAN_API_BASE_URL = "https://guard-app-msvc-westus-dev-qa.azurewebsites.net";
 #endif
-        //private static string Q5ID_BASE_URL = "https://guard-app-msvc-westus-dev-qa.azurewebsites.net";
 
         public event EventHandler OnUnauthorized;
 
         public AppApiManager()
         {
             IsConnected = _connectivity.IsConnected;
-            q5idApi = new ApiService<IQ5idApi>(Q5ID_BASE_URL);
+            q5idApi = new ApiService<IQ5idApi>(GUARDIAN_API_BASE_URL);
             _connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
 
