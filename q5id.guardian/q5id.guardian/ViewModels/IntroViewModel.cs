@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using MvvmCross.Navigation;
 using q5id.guardian.Models;
 using q5id.guardian.Services;
+using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -61,7 +61,11 @@ namespace q5id.guardian.ViewModels
 
             try
             {
-                await Browser.OpenAsync("https://testflight.apple.com/join/DsL2tRJV", BrowserLaunchMode.External);
+                // TODO: identify and implement best way to make these urls configuration driven, and whether or not to use webview or browser
+                if (DeviceInfo.Platform == DevicePlatform.iOS) 
+                    await Browser.OpenAsync("https://apps.apple.com/us/app/proven-identity/id1481905171", BrowserLaunchMode.External);
+                else 
+                    await Browser.OpenAsync("https://play.google.com/store/apps/details?id=com.q5id.provenidentity&hl=en_US&gl=US", BrowserLaunchMode.External);
             }
             catch (Exception ex)
             {
