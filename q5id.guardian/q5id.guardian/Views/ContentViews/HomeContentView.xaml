@@ -37,7 +37,7 @@
                         HasShadow="False"
                         HeightRequest="60"
                         HorizontalOptions="Center"
-                        IsDisable="{Binding IsVolunteer}"
+                        IsDisable="{Binding IsVolunteer, Mode=OneWay}"
                         NormalBackgroundEndColor="White"
                         NormalBackgroundStartColor="White"
                         NormalLabelColor="{StaticResource redVibrant}"

@@ -35,7 +35,7 @@
                     HasShadow="False"
                     HeightRequest="60"
                     HorizontalOptions="Center"
-                    IsDisable="{Binding IsVolunteer}"
+                    IsDisable="{Binding IsVolunteer, Mode=OneWay}"
                     Clicked="CreateAlertTapped"
                     NormalBackgroundEndColor="White"
                     NormalBackgroundStartColor="White"

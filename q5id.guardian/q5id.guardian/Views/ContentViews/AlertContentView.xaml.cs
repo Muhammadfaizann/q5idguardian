@@ -15,7 +15,7 @@ namespace q5id.guardian.Views.ContentViews
         public const int NAVIGATE_FROM_LOVED_ONES = 1;
 
         public static readonly BindableProperty ResetCommandProperty =
-            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(AlertContentView), null, defaultBindingMode: BindingMode.TwoWay);
+            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(AlertContentView), null, defaultBindingMode: BindingMode.OneWay);
 
         public ICommand ResetCommand
         {

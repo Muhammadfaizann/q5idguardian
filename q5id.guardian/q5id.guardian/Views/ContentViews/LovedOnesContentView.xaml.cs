@@ -43,7 +43,7 @@ namespace q5id.guardian.Views.ContentViews
         }
 
         public static readonly BindableProperty ResetCommandProperty =
-            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(LovedOnesContentView), null, defaultBindingMode: BindingMode.TwoWay);
+            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(LovedOnesContentView), null, defaultBindingMode: BindingMode.OneWay);
 
         public ICommand ResetCommand
         {
