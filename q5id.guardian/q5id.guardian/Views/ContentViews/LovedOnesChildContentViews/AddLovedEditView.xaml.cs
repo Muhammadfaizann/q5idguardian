@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using FFImageLoading.Forms;
 using q5id.guardian.Models;
+using q5id.guardian.ViewModels;
 using q5id.guardian.Views.Base;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -13,8 +14,11 @@ namespace q5id.guardian.Views.ContentViews.LovedOnesChildContentViews
 {
     public partial class AddLovedEditView : BaseChildContentView
     {
-        public AddLovedEditView(BaseContainerView mainCtv) : base(mainCtv)
+        public AddLovedEditView(BaseContainerView mainCtv, LovedOnesViewModel param = null) : base(mainCtv)
         {
+            if (param != null)
+                this.BindingContext = param;
+
             InitializeComponent();
             ViewTitle = "Add Loved One";
             
