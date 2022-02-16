@@ -10,7 +10,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
     {
 
         public static readonly BindableProperty GetMyLovedOnesCommandProperty =
-            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(CreateAlertChooseLoveView), null, defaultBindingMode: BindingMode.TwoWay);
+            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(CreateAlertChooseLoveView), null, defaultBindingMode: BindingMode.OneWay);
 
         public ICommand GetMyLovedOnesCommand
         {

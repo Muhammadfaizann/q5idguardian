@@ -263,10 +263,10 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
         void UpdateMyLovedOnes(System.Object sender, System.EventArgs e)
         {                  
             MainContentView.MainPage.UpdateRightControlVisibility(true);
-            var addLovedEditView = new AddLovedEditView(MainContentView);
+            
             var alertVm = this.BindingContext as AlertsViewModel;
 
-            if (alertVm != null && addLovedEditView != null && MainContentView != null)
+            if (alertVm != null && MainContentView != null)
             {
                 var lovedOneVm = new LovedOnesViewModel(alertVm.AlertNavigationService, alertVm.LogProvider);
 
@@ -274,6 +274,7 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews
                 {
                     lovedOneVm.SelectedLovedOnes = alertVm.CreatingLove;
                     lovedOneVm.AlertsVmFrom = alertVm;
+                    var addLovedEditView = new AddLovedEditView(MainContentView, lovedOneVm);
                     MainContentView.PushView(addLovedEditView, lovedOneVm);
                     addLovedEditView.UpdateImage(true);
                 }
