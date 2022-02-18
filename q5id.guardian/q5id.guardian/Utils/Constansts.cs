@@ -41,5 +41,8 @@ namespace q5id.guardian.Utils
         public static string FakeGuidAsIndicated = "00000000-0000-0000-0000-000000000000";
         public static string AppPurchaseIsFalse = "False";
         public static List<string> ServerPopulatesThisTagShouldBeEmpty = new List<string>();
+
+        public static string DEVICE_UPDATE_STRING = "DeviceUpdate";
+        public static string DEVICE_DISTANCE_STRING = "DeviceDistance";
     }
 }

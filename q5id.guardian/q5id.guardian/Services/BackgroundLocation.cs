@@ -21,7 +21,8 @@ namespace q5id.guardian.Services
             if (CrossGeolocator.Current.IsListening)
                 return;
 
-            await CrossGeolocator.Current.StartListeningAsync(TimeSpan.FromMinutes(3), 10, true, new Plugin.Geolocator.Abstractions.ListenerSettings
+            await CrossGeolocator.Current.StartListeningAsync(TimeSpan.FromMinutes(Utils.Utils.GetUpdateFrequency()), 
+                Utils.Utils.GetDistanceForDeviceUpdate(), true, new Plugin.Geolocator.Abstractions.ListenerSettings
             {
                 ActivityType = Plugin.Geolocator.Abstractions.ActivityType.OtherNavigation,
                 AllowBackgroundUpdates = true,

@@ -3,9 +3,12 @@ using Microsoft.Extensions.Logging;
 using MvvmCross;
 using MvvmCross.Forms.Platforms.Ios.Core;
 using MvvmCross.Forms.Presenters;
+using MvvmCross.IoC;
 using MvvmCross.Platforms.Ios.Core;
 using MvvmCross.Platforms.Ios.Presenters;
 using q5id.guardian.iOS.Presenter;
+using q5id.guardian.Services;
+using q5id.guardian.Services.Bases;
 using Serilog;
 using Serilog.Extensions.Logging;
 using System;
@@ -40,5 +43,10 @@ namespace q5id.guardian.iOS
             return presenter;
         }
 
+        protected override void InitializeFirstChance(IMvxIoCProvider iocProvider)
+        {
+            iocProvider.RegisterSingleton<IBackgroundLocation>(new BackgroundLocation());
+            base.InitializeFirstChance(iocProvider);
+        }
     }
 }
