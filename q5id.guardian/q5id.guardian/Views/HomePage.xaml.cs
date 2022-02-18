@@ -180,7 +180,7 @@ namespace q5id.guardian.Views
 
         protected override bool OnBackButtonPressed()
         {
-            return base.OnBackButtonPressed();
+            return true;
         }
 
         async void OnDrawerTapped(System.Object sender, System.EventArgs e)
