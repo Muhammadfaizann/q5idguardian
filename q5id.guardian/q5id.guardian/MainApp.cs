@@ -1,6 +1,8 @@
 ﻿using MvvmCross.IoC;
 using MvvmCross.ViewModels;
 using q5id.guardian.Models;
+using q5id.guardian.Services;
+using q5id.guardian.Services.Bases;
 using q5id.guardian.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -26,6 +28,7 @@ namespace q5id.guardian
             {
                 RegisterAppStart<IntroViewModel>();
             }
+            
            
         }
 
@@ -34,6 +37,8 @@ namespace q5id.guardian
         /// </summary>
         public override Task Startup()
         {
+            var locator = MvxIoCProvider.Instance.Resolve<IBackgroundLocation>();
+            locator.StartListening();
             return base.Startup();
         }
         /// <summary>
