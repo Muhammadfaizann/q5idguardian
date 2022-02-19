@@ -216,6 +216,7 @@
     <ProjectReference Include="..\q5id.guardian\q5id.guardian.csproj">
       <Project>{64F6A1E6-88A9-4D9A-B303-99CD996E1451}</Project>
       <Name>q5id.guardian</Name>
+      <ReferenceSourceTarget></ReferenceSourceTarget>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

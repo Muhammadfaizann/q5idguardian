@@ -361,5 +361,25 @@ namespace q5id.guardian.Utils
             }
             return status;
         }
+
+        public static void SetUpdateFrequency(int minutes)
+        {
+            Preferences.Set(Constansts.DEVICE_UPDATE_STRING, minutes);
+        }
+
+        public static int GetUpdateFrequency()
+        {
+            return Preferences.Get(Constansts.DEVICE_UPDATE_STRING, 2);
+        }
+
+        public static void SetDistanceForDeviceUpdate(int km)
+        {
+            Preferences.Set(Constansts.DEVICE_DISTANCE_STRING, km);
+        }
+
+        public static int GetDistanceForDeviceUpdate()
+        {
+            return Preferences.Get(Constansts.DEVICE_DISTANCE_STRING, 10);
+        }
     }
 }

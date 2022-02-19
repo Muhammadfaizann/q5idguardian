@@ -7,6 +7,8 @@ using MvvmCross.Platforms.Android;
 using MvvmCross.Platforms.Android.Presenters;
 using MvvmCross.ViewModels;
 using q5id.guardian.Droid.Presenter;
+using q5id.guardian.Services;
+using q5id.guardian.Services.Bases;
 using Serilog;
 using Serilog.Extensions.Logging;
 
@@ -53,6 +55,12 @@ namespace q5id.guardian.Droid
             var presenter = new MvxCustomAndroidPresenter(this.GetViewAssemblies(), this.FormsApplication);
             Mvx.IoCProvider.RegisterSingleton<IMvxFormsViewPresenter>(presenter);
             return presenter;
+        }
+
+        protected override void InitializeFirstChance(IMvxIoCProvider iocProvider)
+        {
+            iocProvider.RegisterSingleton<IBackgroundLocation>(new BackgroundLocation());
+            base.InitializeFirstChance(iocProvider);
         }
     }
 }
