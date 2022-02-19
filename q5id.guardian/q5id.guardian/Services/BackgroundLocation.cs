@@ -1,4 +1,6 @@
-﻿using Plugin.Geolocator;
+﻿using Microsoft.AppCenter.Analytics;
+using MvvmCross.Base;
+using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using q5id.guardian.Services.Bases;
 using q5id.guardian.Utils;
@@ -38,7 +40,8 @@ namespace q5id.guardian.Services
 
         private void Current_PositionError(object sender, PositionErrorEventArgs e)
         {
-            Debug.WriteLine(e.Error);
+            
+            Analytics.TrackEvent("Background Information Current_PositionError", null );
         }
 
         private void Current_PositionChanged(object sender, PositionEventArgs e)
