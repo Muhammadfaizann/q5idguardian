@@ -27,16 +27,14 @@ namespace q5id.guardian.Services
         Dictionary<int, CancellationTokenSource> runningTasks = new Dictionary<int, CancellationTokenSource>();
 
 #if DEBUG
-        // using http until we figure out how to share the api dev cert with the emulated device
-        //private static string GUARDIAN_API_BASE_URL = "http://10.0.2.2:5000";
-
-        
-        private static string GUARDIAN_API_BASE_URL = "https://guard-app-msvc-westus-dev.azurewebsites.net";
+        // For end-to-end debugging in android using emulator use http://10.0.2.2:5000.
+        // For iOS and using physical devices, use the ip address and port 
+        // of the machine running the API, e.g. http://192.168.0.58:5000
+        private static string GUARDIAN_API_BASE_URL = "http://10.0.2.2:5000";
 #else
         private static string GUARDIAN_API_BASE_URL = "https://guard-app-msvc-westus-dev-qa.azurewebsites.net";
 #endif
-        //private static string GUARDIAN_API_BASE_URL = "https://guard-app-msvc-westus-dev-qa.azurewebsites.net";
-
+    
         public event EventHandler OnUnauthorized;
 
         public AppApiManager()
