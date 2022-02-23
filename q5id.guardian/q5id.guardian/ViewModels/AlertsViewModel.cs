@@ -475,7 +475,7 @@ namespace q5id.guardian.ViewModels
                     CreatedOn = DateTime.UtcNow.ToString(),
                     Latitude = userPosition.Latitude, // userPosition != null ? userPosition.Latitude + "" : "",
                     Longitude = userPosition.Longitude,//userPosition != null ? userPosition.Longitude + "" : "",
-                    Action = "is looking",
+                    Action = "are looking",
                 };
                 ApiResponse<AppServiceResponse<Feed>> response = await AppApiManager.Instances.CreateFeed(feedToPost);
                 IsLoading = false;

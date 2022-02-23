@@ -9,7 +9,7 @@
     xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
     x:DataType="vm:IntroViewModel"
     x:TypeArguments="vm:IntroViewModel"
-    BackgroundColor="#e4e4e6">
+    BackgroundColor="#e6e6e6">
     <ContentPage.Content>
         <Grid BackgroundColor="White" RowSpacing="0">
             <Grid.Padding>
@@ -31,13 +31,13 @@
                 <Ellipse
                     Grid.Row="1"
                     Margin="-20,-60,-20,0"
-                    Fill="#e4e4e6"
+                    Fill="#e6e6e6"
                     HeightRequest="40"
                     StrokeThickness="0" />
                 <StackLayout
                     Grid.Row="0"
                     Padding="0,20,0,0"
-                    Background="#e4e4e6"
+                    Background="#e6e6e6"
                     Orientation="Vertical">
                     <Image
                         Margin="0,40,0,0"
