@@ -7,6 +7,7 @@ using q5id.guardian.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -543,122 +544,128 @@ namespace q5id.guardian.ViewModels
         private async void CreateUpdateLove()
         {
             IsLoading = true;
-            Love lovedOnesToUpdate = null;
-            if (mSelectedLovedOnes != null)
+            try
             {
-                //Update Flow
-                lovedOnesToUpdate = mSelectedLovedOnes;
-            }
-
-            var lovedOnesToPost = new Love()
-            {
-                Id = lovedOnesToUpdate != null ? lovedOnesToUpdate.PrimaryId : null,
-                UserId = Utils.Utils.GetUserId(),
-                CreatedBy = lovedOnesToUpdate != null ? lovedOnesToUpdate.CreatedBy : User.Id,
-                FirstName = FirstName,
-                LastName = LastName,
-                DateofBirth = GetStrDateOfBirth(),
-                HairColorId = HairColor == null ? "" : HairColor.Id,
-                EyeColorId = EyeColor == null ? "" : EyeColor.Id,
-                HeightFeetId = HeightFeet == null ? "" : HeightFeet.Id,
-                HeightInchesId = HeightInches == null ? "" : HeightInches.Id,
-                Weight = Weight,
-                OtherInformation = Detail,
-                ModifiedOn = lovedOnesToUpdate != null ? DateTime.UtcNow.ToString() : "",
-                Image = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image : "",
-                Image2 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image2 : "",
-                Image3 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image3 : "",
-                Image4 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image4 : "",
-                Image5 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image5 : "",
-                CreatedOn = lovedOnesToUpdate != null ? lovedOnesToUpdate.CreatedOn : DateTime.UtcNow.ToString(),
-            };
-
-            if (lovedOnesToUpdate != null)
-            {
-                lovedOnesToPost.ProfileId = lovedOnesToUpdate.ProfileId;
-            }
-
-            if (PrimaryImage != null)
-            {
-                var responseUploadImageOne = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, PrimaryImage);
-                if (responseUploadImageOne.IsSuccess)
+                Love lovedOnesToUpdate = null;
+                if (mSelectedLovedOnes != null)
                 {
-                    lovedOnesToPost.Image = responseUploadImageOne.ResponseObject.Result;
+                    //Update Flow
+                    lovedOnesToUpdate = mSelectedLovedOnes;
                 }
-            }
-            if (SecondaryImages != null)
-            {
-                if (SecondaryImages[0] != null)
+
+                var lovedOnesToPost = new Love()
                 {
-                    var responseUploadImageTwo = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, SecondaryImages[0]);
-                    if (responseUploadImageTwo.IsSuccess)
+                    Id = lovedOnesToUpdate != null ? lovedOnesToUpdate.PrimaryId : null,
+                    UserId = Utils.Utils.GetUserId(),
+                    CreatedBy = lovedOnesToUpdate != null ? lovedOnesToUpdate.CreatedBy : User.Id,
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    DateofBirth = GetStrDateOfBirth(),
+                    HairColorId = HairColor == null ? "" : HairColor.Id,
+                    EyeColorId = EyeColor == null ? "" : EyeColor.Id,
+                    HeightFeetId = HeightFeet == null ? "" : HeightFeet.Id,
+                    HeightInchesId = HeightInches == null ? "" : HeightInches.Id,
+                    Weight = Weight,
+                    OtherInformation = Detail,
+                    ModifiedOn = lovedOnesToUpdate != null ? DateTime.UtcNow.ToString() : "",
+                    Image = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image : "",
+                    Image2 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image2 : "",
+                    Image3 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image3 : "",
+                    Image4 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image4 : "",
+                    Image5 = lovedOnesToUpdate != null ? lovedOnesToUpdate.Image5 : "",
+                    CreatedOn = lovedOnesToUpdate != null ? lovedOnesToUpdate.CreatedOn : DateTime.UtcNow.ToString(),
+                };
+
+                if (lovedOnesToUpdate != null)
+                {
+                    lovedOnesToPost.ProfileId = lovedOnesToUpdate.ProfileId;
+                }
+
+                if (PrimaryImage != null)
+                {
+                    var responseUploadImageOne = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, PrimaryImage);
+                    if (responseUploadImageOne.IsSuccess)
                     {
-                        lovedOnesToPost.Image2 = responseUploadImageTwo.ResponseObject.Result;
+                        lovedOnesToPost.Image = responseUploadImageOne.ResponseObject.Result;
                     }
                 }
-                if (SecondaryImages[1] != null)
+                if (SecondaryImages != null)
                 {
-                    var responseUploadImageThree = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, SecondaryImages[1]);
-                    if (responseUploadImageThree.IsSuccess)
+                    if (SecondaryImages[0] != null)
                     {
-                        lovedOnesToPost.Image3 = responseUploadImageThree.ResponseObject.Result;
+                        var responseUploadImageTwo = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, SecondaryImages[0]);
+                        if (responseUploadImageTwo.IsSuccess)
+                        {
+                            lovedOnesToPost.Image2 = responseUploadImageTwo.ResponseObject.Result;
+                        }
+                    }
+                    if (SecondaryImages[1] != null)
+                    {
+                        var responseUploadImageThree = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, SecondaryImages[1]);
+                        if (responseUploadImageThree.IsSuccess)
+                        {
+                            lovedOnesToPost.Image3 = responseUploadImageThree.ResponseObject.Result;
+                        }
+                    }
+                    if (SecondaryImages[2] != null)
+                    {
+                        var responseUploadImageFour = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, SecondaryImages[2]);
+                        if (responseUploadImageFour.IsSuccess)
+                        {
+                            lovedOnesToPost.Image4 = responseUploadImageFour.ResponseObject.Result;
+                        }
+                    }
+                    if (SecondaryImages[3] != null)
+                    {
+                        var responseUploadImageFive = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, SecondaryImages[3]);
+                        if (responseUploadImageFive.IsSuccess)
+                        {
+                            lovedOnesToPost.Image5 = responseUploadImageFive.ResponseObject.Result;
+                        }
                     }
                 }
-                if (SecondaryImages[2] != null)
+                ApiResponse<AppServiceResponse<Entity<Love>>> response;
+                if (lovedOnesToUpdate != null)
                 {
-                    var responseUploadImageFour = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, SecondaryImages[2]);
-                    if (responseUploadImageFour.IsSuccess)
-                    {
-                        lovedOnesToPost.Image4 = responseUploadImageFour.ResponseObject.Result;
-                    }
+                    //Update flow
+                    response = await AppApiManager.Instances.UpdateLovedOnes(lovedOnesToPost);
                 }
-                if (SecondaryImages[3] != null)
+                else
                 {
-                    var responseUploadImageFive = await AppApiManager.Instances.UploadImage(Utils.Constansts.LOVED_ONES_ENTITY_SETTING_KEY, SecondaryImages[3]);
-                    if (responseUploadImageFive.IsSuccess)
-                    {
-                        lovedOnesToPost.Image5 = responseUploadImageFive.ResponseObject.Result;
-                    }
+                    //Create flow
+                    response = await AppApiManager.Instances.CreateLovedOnes(lovedOnesToPost);
                 }
-            }
-            ApiResponse<AppServiceResponse<Entity<Love>>> response;
-            if (lovedOnesToUpdate != null)
-            {
-                //Update flow
-                response = await AppApiManager.Instances.UpdateLovedOnes(lovedOnesToPost);
-            }
-            else
-            {
-                //Create flow
-                response = await AppApiManager.Instances.CreateLovedOnes(lovedOnesToPost);
-            }
 
-            IsLoading = false;
-            if (response.IsSuccess && response.ResponseObject != null)
-            {
-                if (response.ResponseObject.IsError == false)
+                IsLoading = false;
+                if (response.IsSuccess && response.ResponseObject != null)
                 {
-                    IsUpdateSuccess = true;
-                    if (AlertsVmFrom != null)
-                    {   
-                        AlertsVmFrom.CreatingLove = lovedOnesToPost;
-                        IsLoading = false;
-                        await App.Current.MainPage.DisplayAlert("Info", "Information updated successfully.", "OK");                    
+                    if (response.ResponseObject.IsError == false)
+                    {
+                        IsUpdateSuccess = true;
+                        if (AlertsVmFrom != null)
+                        {
+                            AlertsVmFrom.CreatingLove = lovedOnesToPost;
+                            IsLoading = false;
+                            await App.Current.MainPage.DisplayAlert("Info", "Information updated successfully.", "OK");
+                        }
+                        else
+                        {
+                            SelectedLovedOnes = null;
+                            GetLoves();
+                        }
                     }
                     else
                     {
-                        SelectedLovedOnes = null;
-                        GetLoves();
+                        await App.Current.MainPage.DisplayAlert("Error", response.ResponseObject.Message, "OK");
                     }
                 }
                 else
                 {
-                    await App.Current.MainPage.DisplayAlert("Error", response.ResponseObject.Message, "OK");
+                    await App.Current.MainPage.DisplayAlert("Error", response.Message, "OK");
                 }
-            }
-            else
+            }catch(Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Error", response.Message, "OK");
+                Debug.WriteLine($"Error saving loved one: {ex.InnerException}");
             }
         }
 
