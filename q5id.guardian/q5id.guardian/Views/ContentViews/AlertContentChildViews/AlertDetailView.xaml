@@ -180,42 +180,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Label
-                                        Margin="0,5,0,0"
-                                        Grid.Column="0"
-                                        HorizontalOptions="Fill"
-                                        VerticalOptions="Start"
-                                        LineBreakMode="WordWrap"
-                                        Text="Add Alert Recipients"
-                                        Style="{StaticResource lbSubheadSm}">
-                                        
-                                    </Label>
-                                    <control:AppFrame
-                                        Margin="0,0,10,0"
-                                        Padding="0"
-                                        HasShadow="False"
-                                        Grid.Column="1"
-                                        WidthRequest="32"
-                                        HeightRequest="32"
-                                        CornerRadius="16"
-                                        NormalBackgroundColorStart="{StaticResource lightCharcoal10}"
-                                        NormalBackgroundColorEnd="{StaticResource lightCharcoal10}"
-                                        PressedBackgroundColor="{StaticResource lightCharcoal40}"
-                                        VerticalOptions="Center"
-                                        HorizontalOptions="Center">
-                                        <Image
-                                            VerticalOptions="Center"
-                                            HorizontalOptions="Center">
-                                            <Image.Source>
-                                                <FontImageSource
-                                                    FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
-                                                    Size="18"
-                                                    Color="{StaticResource lightCharcoal}"
-                                                    Glyph="{x:Static util:FontAwesomeIcons.Plus}" />
-                                            </Image.Source>
-                                        </Image>
-                                    </control:AppFrame>
+                                    </Grid.ColumnDefinitions>                                    
                                     
                                 </Grid>
                                 <Label
@@ -276,21 +241,6 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="32" />
                         </Grid.ColumnDefinitions>
-                        <Image
-                            Margin="10,0,0,0"
-                            Grid.Column="0"
-                            WidthRequest="20"
-                            HeightRequest="20"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Center">
-                            <Image.Source>
-                                <FontImageSource
-                                    FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
-                                    Size="12"
-                                    Color="{StaticResource normalCharcoal}"
-                                    Glyph="{x:Static util:FontAwesomeIcons.Camera}" />
-                            </Image.Source>
-                        </Image>
                         <control:AppEntry
                                 Grid.Column="1"
                                 Padding="10,0,10,0"
@@ -309,21 +259,6 @@
                                 PlaceholderColor="{StaticResource lightCharcoal}"
                                 Style="{StaticResource etBodyNormalLg}"
                                 TextColor="{StaticResource normalCharcoal}" />
-                        <Image
-                            Margin="0,0,10,0"
-                            Grid.Column="2"
-                            WidthRequest="20"
-                            HeightRequest="20"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Center">
-                            <Image.Source>
-                                <FontImageSource
-                                    FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
-                                    Size="12"
-                                    Color="{StaticResource normalCharcoal}"
-                                    Glyph="{x:Static util:FontAwesomeIcons.Microphone}" />
-                            </Image.Source>
-                        </Image>
                         <BoxView HeightRequest="2"
                                  Grid.ColumnSpan="3"
                                  BackgroundColor="{StaticResource paleGray}"

@@ -94,18 +94,6 @@
                                         Style="{StaticResource lbSubheadSm}"
                                         Text="Progress Report"
                                         TextColor="{StaticResource lightCharcoal}" />
-                                    <Label
-                                        Grid.Column="1"
-                                        Margin="0,4,0,0"
-                                        FontFamily="{x:Static utils:ThemeConstanst.FontPoppinsRegular}"
-                                        FontSize="11"
-                                        Style="{StaticResource lbSubheadLg}"
-                                        Text="VIEW ALL"
-                                        TextColor="{StaticResource normalCharcoal}" >
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="OnViewAllAlertTapped" />
-                                        </Label.GestureRecognizers>
-                                    </Label>
                                 </Grid>
                                 <Label
                                     Margin="0,4,0,0"
