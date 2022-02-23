@@ -53,10 +53,10 @@
     <CodesignKey>Apple Development: Tim Belvin (AYU724BF8A)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <MtouchLink>SdkOnly</MtouchLink>
-    <MtouchInterpreter>-all</MtouchInterpreter>
+    <MtouchLink>None</MtouchLink>
     <CodesignProvision>VS: com.q5id.guardian Development</CodesignProvision>
     <IOSDebugOverWiFi>true</IOSDebugOverWiFi>
+    <MtouchInterpreter>-all</MtouchInterpreter>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
