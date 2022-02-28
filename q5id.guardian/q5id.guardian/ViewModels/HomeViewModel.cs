@@ -75,6 +75,17 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        public Command ShowLocationCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await NavigationService.Navigate<LocationViewModel>();
+                });
+            }
+        }
+
         public Command LogOutCommand
         {
             get
