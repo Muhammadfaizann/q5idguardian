@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:q5id.guardian.Views"
+    xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
+    xmlns:utils="clr-namespace:q5id.guardian.Utils"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:DataType="vm:LocationViewModel"
+    x:TypeArguments="vm:LocationViewModel"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    x:Class="q5id.guardian.Views.LocationPage">
+        <views:BasePage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="control:AppEntry">
+            <Setter Property="TextColor" Value="{StaticResource redNue}" />
+        </Style>
+    </views:BasePage.Resources>
+    <views:BasePage.Content>
+        <Grid BackgroundColor="{StaticResource redNue}" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
+                    BackgroundColor="{StaticResource redNue}"
+                    VerticalOptions="Fill">
+                <Label
+                    x:Name="lbTitle"
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    HorizontalOptions="Center"
+                    Text="{Binding TitlePage}"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <Grid Margin="20,0,0,0" HorizontalOptions="Start">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Image HorizontalOptions="Center" IsEnabled="False">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="FontAwesome5Solid"
+                                Glyph="{x:Static utils:FontAwesomeIcons.ChevronCircleLeft}"
+                                Size="36"
+                                Color="White" />
+                        </Image.Source>
+                    </Image>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1" BackgroundColor="{StaticResource paleGray}">
+                <control:AppBoxView
+                Margin="-1,0,0,0"
+                BackgroundColor="#FD425E"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                BottomHeight="45"
+                HeightRequest="120" />
+                <ScrollView Padding="0, 0, 0, 0" Orientation="Vertical">
+                    <StackLayout Orientation="Vertical" Margin="0,30,0,0">
+                        <Frame Padding="5,0,5,0"
+                           HasShadow="False"
+                           Margin="25, 0, 25, 0"
+                           BorderColor="Transparent"
+                           CornerRadius="16"
+                           BackgroundColor="White"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Start">
+                            <StackLayout Orientation="Vertical" Spacing="0" Padding="15">                                
+                                <Label
+                                    Margin="0,0,0,5"
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Start"
+                                    Text="Geolocation Refresh Rate (Seconds)"
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    Style="{StaticResource lbBodyBoldMd}">
+                            
+                                </Label>
+                                <control:AppEntry
+                                        Padding="10"
+                                        BorderThickness="2"
+                                        FocusBorderColor="#696B7A"
+                                        FontAttributes="Italic"
+                                        FontFamily="PoppinsItalic"
+                                        HeightRequest="32"
+                                        NoramlBorderColor="#E8EAF2"
+                                        Text="{Binding TimeInterval}"
+                                        Keyboard="Numeric"
+                                        PlaceholderColor="{StaticResource lightCharcoal}"
+                                        Style="{StaticResource etBodyNormalLg}"
+                                        TextColor="{StaticResource normalCharcoal}">
+                                </control:AppEntry>                                                                                                                             
+                            </StackLayout>
+                        </Frame>
+                        <Frame Padding="5,0,5,0"
+                           HasShadow="False"
+                           Margin="25, 0, 25, 0"
+                           BorderColor="Transparent"
+                           CornerRadius="16"
+                           BackgroundColor="White"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Start">
+                            <StackLayout Orientation="Vertical" Spacing="0" Padding="15">                                
+                                <Label
+                                    Margin="0,0,0,5"
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Start"
+                                    Text="Alert Distance (Miles)"
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    Style="{StaticResource lbBodyBoldMd}">
+                            
+                                </Label>
+                                <control:AppEntry
+                                        Padding="10"
+                                        BorderThickness="2"
+                                        FocusBorderColor="#696B7A"
+                                        FontAttributes="Italic"
+                                        FontFamily="PoppinsItalic"
+                                        HeightRequest="32"
+                                        NoramlBorderColor="#E8EAF2"
+                                        Text="{Binding Distance}"
+                                        Keyboard="Numeric"
+                                        PlaceholderColor="{StaticResource lightCharcoal}"
+                                        Style="{StaticResource etBodyNormalLg}"
+                                        TextColor="{StaticResource normalCharcoal}">
+                                </control:AppEntry>                                                                                                                             
+                            </StackLayout>
+                        </Frame>
+                        <StackLayout Orientation="Horizontal"
+                                     Margin="0,30,0,30"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Start">
+                            <control:AppButton
+                                ButtonTitle="SAVE"
+                                CornerRadius="16"
+                                HeightRequest="32"
+                                HorizontalOptions="Center"
+                                Command="{Binding SaveCommand}"
+                                NormalBackgroundStartColor="{StaticResource dimCharcoal}"
+                                NormalBackgroundEndColor="{StaticResource normalCharcoal}"
+                                PressedBackgroundColor="{StaticResource dimCharcoal}"
+                                NormalLabelColor="White"
+                                PressedLabelColor="LightGray"
+                                ButtonTitleSize="12"
+                                WidthRequest="97" />
+                        </StackLayout>
+                    
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+            <Grid IsVisible="{Binding IsLoading}"
+                  Grid.Row="1"
+                  BackgroundColor="{StaticResource lightCharcoal10}">
+                <ActivityIndicator
+                    IsRunning="true"
+                    WidthRequest="100"
+                    HeightRequest="100"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Color="{StaticResource redNue}" />
+            </Grid>
+        </Grid>
+    </views:BasePage.Content>
+</views:BasePage>
