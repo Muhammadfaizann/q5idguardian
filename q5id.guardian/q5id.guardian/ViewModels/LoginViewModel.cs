@@ -34,6 +34,16 @@ namespace q5id.guardian.ViewModels
             }
         }
 
+        public Command BackCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await NavigationService.Close(this);
+                });
+            }
+        }
 
         private AuthResponse _authResp = null;
 

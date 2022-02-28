@@ -6,99 +6,132 @@
     xmlns:app="clr-namespace:q5id.guardian.Controls"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:control="clr-namespace:q5id.guardian.Controls"
     xmlns:utils="clr-namespace:q5id.guardian.Utils"
     xmlns:views="clr-namespace:q5id.guardian.Views"
     xmlns:vm="clr-namespace:q5id.guardian.ViewModels"
     x:DataType="vm:LoginViewModel"
     x:TypeArguments="vm:LoginViewModel"
     mc:Ignorable="d">
-    <ContentPage.Content>
-        <Grid BackgroundColor="White">
-            <ScrollView Orientation="Vertical">
-                <StackLayout Padding="10,250,10,0" Orientation="Vertical" VerticalOptions="Start">
-                    <app:AppEntry
-                        Padding="10"
-                        BorderThickness="2"
-                        FocusBorderColor="#696B7A"
-                        FontAttributes="Italic"
-                        FontFamily="PoppinsItalic"
-                        HeightRequest="32"
-                        NoramlBorderColor="#E8EAF2"
-                        Placeholder="Phone Number"
-                        Keyboard="Email"
-                        Text="{Binding UserName}"
-                        PlaceholderColor="{StaticResource lightCharcoal}"
-                        Style="{StaticResource etBodyNormalLg}"
-                        TextColor="{StaticResource normalCharcoal}" />
-                    <!--<app:AppEntry
-                        Padding="10"
-                        BorderThickness="2"
-                        FocusBorderColor="#696B7A"
-                        FontAttributes="Italic"
-                        FontFamily="PoppinsItalic"
-                        HeightRequest="32"
-                        IsPassword="True"
-                        NoramlBorderColor="#E8EAF2"
-                        Placeholder="Password"
-                        Text="{Binding Password}"
-                        PlaceholderColor="{StaticResource lightCharcoal}"
-                        Style="{StaticResource etBodyNormalLg}"
-                        TextColor="{StaticResource normalCharcoal}" />-->
-                    <!--<app:AppButton
-                        ButtonTitle="Forgot Password"
-                        Command="{Binding ForgotPasswordCommand}"
-                        CornerRadius="20"
-                        HeightRequest="20"
-                        HorizontalOptions="EndAndExpand"
-                        NormalLabelColor="{StaticResource lightCharcoal}"
-                        PressedLabelColor="LightGray"
-                        BorderColor="Transparent"
-                        NormalBackgroundStartColor="Transparent"
-                        NormalBackgroundEndColor="Transparent"
-                        PressedBackgroundColor="Transparent" />-->
-                    <app:AppButton
-                        Margin="0,10,0,0"
-                        ButtonTitle="Login"
-                        Command="{Binding LoginCommand}"
-                        CornerRadius="20"
-                        HeightRequest="40"
-                        HorizontalOptions="Center"
-                        NormalLabelColor="White"
-                        PressedLabelColor="LightGray"
-                        WidthRequest="200" />
-                    <!--<app:AppButton
-                        ButtonTitle="Sign Up"
-                        Command="{Binding SignUpCommand}"
-                        CornerRadius="20"
-                        HeightRequest="40"
-                        HorizontalOptions="Center"
-                        NormalLabelColor="White"
-                        PressedLabelColor="LightGray"
-                        WidthRequest="200" />-->
-                    <!--<app:AppButton
-                        ButtonTitle="Billing"
-                        Command="{Binding BillingCommand}"
-                        CornerRadius="20"
-                        HeightRequest="40"
-                        HorizontalOptions="Center"
-                        NormalLabelColor="White"
-                        PressedLabelColor="LightGray"
-                        WidthRequest="200" />-->
-                    <!--<app:ToggleView
-                        HorizontalOptions="Center"
-                        WidthRequest="50"
-                        HeightRequest="50"
-                        CornerRadius="25"
-                        NormalBackgroundColor="LightGray"
-                        ActiveBackgroundColor="DeepPink"
-                        NormalIconColor="DimGray"
-                        ActiveIconColor="White"
-                        ImageGlyph="{x:Static utils:FontAwesomeIcons.AddressBook}"
-                        ImageSize="25"/>-->
-                </StackLayout>
-            </ScrollView>
-            
-            <Grid IsVisible="{Binding IsLoading}" BackgroundColor="{StaticResource lightCharcoal10}">
+    <views:BasePage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="control:AppEntry">
+            <Setter Property="TextColor" Value="{StaticResource redNue}" />
+        </Style>
+    </views:BasePage.Resources>
+    <views:BasePage.Content>
+        <Grid BackgroundColor="{StaticResource redNue}" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
+                    BackgroundColor="{StaticResource redNue}"
+                    VerticalOptions="Fill">
+                <Label
+                    x:Name="lbTitle"
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    HorizontalOptions="Center"
+                    Text="Access Guardian"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <Grid Margin="20,0,0,0" HorizontalOptions="Start">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Image HorizontalOptions="Center" IsEnabled="False">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="FontAwesome5Solid"
+                                Glyph="{x:Static utils:FontAwesomeIcons.ChevronCircleLeft}"
+                                Size="36"
+                                Color="White" />
+                        </Image.Source>
+                    </Image>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1" BackgroundColor="{StaticResource paleGray}">
+                <control:AppBoxView
+                Margin="-1,0,0,0"
+                BackgroundColor="#FD425E"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                BottomHeight="45"
+                HeightRequest="120" />
+                <ScrollView Padding="0, 0, 0, 0" Orientation="Vertical">
+                    <StackLayout Orientation="Vertical" Margin="0,150,0,0">
+                        <Frame Padding="5,0,5,0"
+                           HasShadow="False"
+                           Margin="25, 0, 25, 0"
+                           BorderColor="Transparent"
+                           CornerRadius="16"
+                           BackgroundColor="White"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Start">
+                            <StackLayout Orientation="Vertical" Spacing="0" Padding="15">
+                                <Label
+                                    Margin="0,0,0,5"
+                                    HorizontalOptions="Fill"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Start"
+                                    Text="Phone Number"
+                                    TextColor="{StaticResource normalCharcoal}"
+                                    Style="{StaticResource lbBodyBoldMd}"/>
+                                <app:AppEntry
+                                    Padding="10"
+                                    BorderThickness="2"
+                                    FocusBorderColor="#696B7A"
+                                    FontAttributes="Italic"
+                                    FontFamily="PoppinsItalic"
+                                    HeightRequest="32"
+                                    NoramlBorderColor="#E8EAF2"
+                                    Keyboard="Email"
+                                    Text="{Binding UserName}"
+                                    PlaceholderColor="{StaticResource lightCharcoal}"
+                                    Style="{StaticResource etBodyNormalLg}"
+                                    TextColor="{StaticResource normalCharcoal}" />
+                            </StackLayout>
+                        </Frame>
+                        <StackLayout Orientation="Horizontal"
+                                     Margin="0,10,0,10"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Start">
+                            <control:AppButton
+                                ButtonTitle="Enter"
+                                CornerRadius="16"
+                                HeightRequest="32"
+                                HorizontalOptions="Center"
+                                Command="{Binding LoginCommand}"
+                                NormalBackgroundStartColor="{StaticResource dimCharcoal}"
+                                NormalBackgroundEndColor="{StaticResource normalCharcoal}"
+                                PressedBackgroundColor="{StaticResource dimCharcoal}"
+                                NormalLabelColor="White"
+                                PressedLabelColor="LightGray"
+                                ButtonTitleSize="12"
+                                WidthRequest="97" />
+                        </StackLayout>
+
+                                   <Label
+                                    Margin="30,0,30,0"
+                                    HorizontalOptions="Start"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Start"
+                                    Text="By entering your phone number, you will receive a text message to link you over to the Proven Identity app for verification."
+                                    TextColor="#696B7A"/>
+
+                                    <Label
+                                    Margin="30,20,30,0"
+                                    HorizontalOptions="Start"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Start"
+                                    Text="If this is your first time using the app, you will need to register with Proven Identity.   Otherwise, you will simply need to authenticate with your face and palm scan.   Once you've completed this step, please return to Guardian and we will grant you access."
+                                    TextColor="#696B7A"/>
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+            <Grid IsVisible="{Binding IsLoading}"
+                  Grid.Row="1"
+                  BackgroundColor="{StaticResource lightCharcoal10}">
                 <ActivityIndicator
                     IsRunning="true"
                     WidthRequest="100"
@@ -108,6 +141,5 @@
                     Color="{StaticResource redNue}" />
             </Grid>
         </Grid>
-
-    </ContentPage.Content>
+    </views:BasePage.Content>
 </views:BasePage>
