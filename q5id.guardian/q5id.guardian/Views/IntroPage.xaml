@@ -115,7 +115,7 @@
                         TextColor="White"
                         VerticalOptions="Center" >
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding JoinPidCommand}" />
+                            <TapGestureRecognizer Command="{Binding LoginCommand}" />
                         </Label.GestureRecognizers>
                     </Label>
                 </Frame>
