@@ -79,10 +79,9 @@ namespace q5id.guardian.Services.Bases
 #if DEBUG
         [Post("/Authentication/PollDev")]
         Task<JObject> PollDevStatus([Header("Authorization")] string token, [Body] Object body, CancellationToken cancellationToken);
-#else
+# endif
         [Post("/Authentication/Poll")]
         Task<JObject> PollStatus([Header("Authorization")] string token, [Body] Object body,  CancellationToken cancellationToken);
-#endif
 
         [Get("/User/Email")]
         Task<List<User>> GetUserByEmail([Refit.AliasAs("email")] string email, CancellationToken cancellationToken);

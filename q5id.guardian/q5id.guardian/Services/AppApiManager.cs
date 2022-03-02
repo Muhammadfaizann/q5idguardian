@@ -283,7 +283,7 @@ namespace q5id.guardian.Services
             };
 
             return debugResult;
-#else
+#endif
             var cts = new CancellationTokenSource();
             var param = new
             {
@@ -320,7 +320,6 @@ namespace q5id.guardian.Services
                 }
             }
             return result;
-#endif
         }
 
 #if DEBUG
@@ -375,7 +374,9 @@ namespace q5id.guardian.Services
             return result;
         }
 
-#else
+# endif
+
+
         public async Task<ApiResponse<User>> PollStatus(string username, AuthResponse authResp)
         {
             Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
@@ -427,7 +428,7 @@ namespace q5id.guardian.Services
             }
             return result;
         }
-#endif
+
         public async Task<ApiResponse<User>> ForgotPassword(string email)
         {
             var cts = new CancellationTokenSource();
