@@ -76,6 +76,10 @@ namespace q5id.guardian.Services.Bases
         [Post("/Authentication")]
         Task<JObject> Login([Body] Object body, CancellationToken cancellationToken);
 
+#if DEBUG
+        [Post("/Authentication/PollDev")]
+        Task<JObject> PollDevStatus([Header("Authorization")] string token, [Body] Object body, CancellationToken cancellationToken);
+# endif
         [Post("/Authentication/Poll")]
         Task<JObject> PollStatus([Header("Authorization")] string token, [Body] Object body,  CancellationToken cancellationToken);
 
