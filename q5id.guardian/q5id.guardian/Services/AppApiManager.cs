@@ -323,58 +323,7 @@ namespace q5id.guardian.Services
 #endif
         }
 
-        public async Task<ApiResponse<User>> PollStatus(string username, AuthResponse authResp)
-        {
-            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
-            Debug.WriteLine("    Polling PID Status   ");
-            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");
-            Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
-            var cts = new CancellationTokenSource();
-            var param = new
-            {
-                username = username,
-                statusUri = authResp.StatusUri
-            };
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(authResp.AccessToken);
-            var base64Text = Convert.ToBase64String(plainTextBytes);
-            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).PollStatus($"Bearer {base64Text}",param, cts.Token));
-            runningTasks.Add(task.Id, cts);
-            var response = await task;
-            var result = new ApiResponse<User>();
-            result.IsSuccess = response.IsSuccess;
-            result.Message = response.Message;
-            result.ResponseStatusCode = response.ResponseStatusCode;
-            if (response.ResponseObject != null)
-            {
-                var jObject = response.ResponseObject;
-                if (jObject["error"] != null)
-                {
-                    var error = jObject["error"].Value<String>();
-                    result.IsSuccess = false;
-                    result.Message = error;
-                }
-                else
-                {
-                    try
-                    {
-                        User user = jObject.ToObject<User>();
-                        result.ResponseObject = user;
-                        Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
-                        Debug.WriteLine($"    {user.Status}   ");
-                        Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");
-                        Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
-                    }
-                    catch (Exception ex)
-                    {
-                        result.ResponseObject = null;
-                        Debug.WriteLine("Can not parse user: " + ex.ToMessage());
-                        Debug.WriteLine("║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│");
-                    }
-                }
-            }
-            return result;
-        }
-
+#if DEBUG
         public async Task<ApiResponse<User>> PollDevStatus(string username, AuthResponse authResp)
         {
             Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
@@ -426,6 +375,59 @@ namespace q5id.guardian.Services
             return result;
         }
 
+#else
+        public async Task<ApiResponse<User>> PollStatus(string username, AuthResponse authResp)
+        {
+            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
+            Debug.WriteLine("    Polling PID Status   ");
+            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");
+            Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
+            var cts = new CancellationTokenSource();
+            var param = new
+            {
+                username = username,
+                statusUri = authResp.StatusUri
+            };
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(authResp.AccessToken);
+            var base64Text = Convert.ToBase64String(plainTextBytes);
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).PollStatus($"Bearer {base64Text}",param, cts.Token));
+            runningTasks.Add(task.Id, cts);
+            var response = await task;
+            var result = new ApiResponse<User>();
+            result.IsSuccess = response.IsSuccess;
+            result.Message = response.Message;
+            result.ResponseStatusCode = response.ResponseStatusCode;
+            if (response.ResponseObject != null)
+            {
+                var jObject = response.ResponseObject;
+                if (jObject["error"] != null)
+                {
+                    var error = jObject["error"].Value<String>();
+                    result.IsSuccess = false;
+                    result.Message = error;
+                }
+                else
+                {
+                    try
+                    {
+                        User user = jObject.ToObject<User>();
+                        result.ResponseObject = user;
+                        Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
+                        Debug.WriteLine($"    {user.Status}   ");
+                        Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");
+                        Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
+                    }
+                    catch (Exception ex)
+                    {
+                        result.ResponseObject = null;
+                        Debug.WriteLine("Can not parse user: " + ex.ToMessage());
+                        Debug.WriteLine("║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│");
+                    }
+                }
+            }
+            return result;
+        }
+#endif
         public async Task<ApiResponse<User>> ForgotPassword(string email)
         {
             var cts = new CancellationTokenSource();
