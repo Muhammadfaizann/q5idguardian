@@ -268,23 +268,22 @@ namespace q5id.guardian.Services
         }
 
         public async Task<ApiResponse<AuthResponse>> Login(string username)
-        {            
+        {
 #if DEBUG
-            //NEEDED FOR LOCAL DEBUGGING, INORDER TO BY BASSPASS THE ACTUAL LOGIN.
-            //DON'T FORGET TO COMMENT THIS WHEN PUSHING CODE.
-            //var debugResult = new ApiResponse<AuthResponse>()
-            //{
-            //    ResponseObject = new AuthResponse()
-            //    {
-            //        AccessToken = "accessToken",
-            //        StatusUri = "statusUri"
-            //    },
-            //    IsSuccess = true,
-            //    ResponseStatusCode = 200
-            //};
+            //NO NEED TO COMMENT JUST SELECT THE MODE EITHER DEBUG OR RELEASE
+            var debugResult = new ApiResponse<AuthResponse>()
+            {
+                ResponseObject = new AuthResponse()
+                {
+                    AccessToken = "accessToken",
+                    StatusUri = "statusUri"
+                },
+                IsSuccess = true,
+                ResponseStatusCode = 200
+            };
 
-            //return debugResult;
-#endif
+            return debugResult;
+#else
             var cts = new CancellationTokenSource();
             var param = new
             {
@@ -321,6 +320,7 @@ namespace q5id.guardian.Services
                 }
             }
             return result;
+#endif
         }
 
         public async Task<ApiResponse<User>> PollStatus(string username, AuthResponse authResp)
