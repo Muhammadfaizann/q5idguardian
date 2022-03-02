@@ -34,7 +34,7 @@ namespace q5id.guardian.Services
 #else
         private static string GUARDIAN_API_BASE_URL = "https://guard-app-msvc-westus-dev-qa.azurewebsites.net";
 #endif
-    
+
         public event EventHandler OnUnauthorized;
 
         public AppApiManager()
@@ -268,7 +268,23 @@ namespace q5id.guardian.Services
         }
 
         public async Task<ApiResponse<AuthResponse>> Login(string username)
-        {
+        {            
+#if DEBUG
+            //NEEDED FOR LOCAL DEBUGGING, INORDER TO BY BASSPASS THE ACTUAL LOGIN.
+            //DON'T FORGET TO COMMENT THIS WHEN PUSHING CODE.
+            //var debugResult = new ApiResponse<AuthResponse>()
+            //{
+            //    ResponseObject = new AuthResponse()
+            //    {
+            //        AccessToken = "accessToken",
+            //        StatusUri = "statusUri"
+            //    },
+            //    IsSuccess = true,
+            //    ResponseStatusCode = 200
+            //};
+
+            //return debugResult;
+#endif
             var cts = new CancellationTokenSource();
             var param = new
             {
@@ -322,6 +338,57 @@ namespace q5id.guardian.Services
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(authResp.AccessToken);
             var base64Text = Convert.ToBase64String(plainTextBytes);
             var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).PollStatus($"Bearer {base64Text}",param, cts.Token));
+            runningTasks.Add(task.Id, cts);
+            var response = await task;
+            var result = new ApiResponse<User>();
+            result.IsSuccess = response.IsSuccess;
+            result.Message = response.Message;
+            result.ResponseStatusCode = response.ResponseStatusCode;
+            if (response.ResponseObject != null)
+            {
+                var jObject = response.ResponseObject;
+                if (jObject["error"] != null)
+                {
+                    var error = jObject["error"].Value<String>();
+                    result.IsSuccess = false;
+                    result.Message = error;
+                }
+                else
+                {
+                    try
+                    {
+                        User user = jObject.ToObject<User>();
+                        result.ResponseObject = user;
+                        Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
+                        Debug.WriteLine($"    {user.Status}   ");
+                        Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");
+                        Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
+                    }
+                    catch (Exception ex)
+                    {
+                        result.ResponseObject = null;
+                        Debug.WriteLine("Can not parse user: " + ex.ToMessage());
+                        Debug.WriteLine("║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│║│");
+                    }
+                }
+            }
+            return result;
+        }
+
+        public async Task<ApiResponse<User>> PollDevStatus(string username, AuthResponse authResp)
+        {
+            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥.");
+            Debug.WriteLine("    Polling Dev PID Status   ");
+            Debug.WriteLine("≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥≈≤≥||");
+            Debug.WriteLine(".≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈|");
+            var cts = new CancellationTokenSource();
+            var param = new
+            {
+                username = username,
+                statusUri = authResp.StatusUri
+            };
+            var bearerToken = "ZXlKaGJHY2lPaUpTVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SjFkV2xrSWpvaU5tWTRORGRqTjJJdFkySTNZUzAwWm1NeUxUaGtOREl0TXpkaE5HVmhObU14WlRVeUlpd2laMmwyWlc1ZmJtRnRaU0k2SWxkSlRFeEpRVTBpTENKbVlXMXBiSGxmYm1GdFpTSTZJa0pKUTB0T1JVeE1JaXdpWlcxaGFXd2lPaUowWldSaVFITnJlWEJ2YVc1MFkyeHZkV1F1WTI5dElpd2ljR2h2Ym1VaU9pSXhOVEF6TnpJd01EVTRNQ0lzSW5OamIzQmxJam9pWVhWMGFHVnVkR2xqWVhScGIyNGlMQ0psZUhBaU9qRTJORFUyTkRNMU9UUjkuRDY4Mk1iQ3VZTDk3Wmp3R3hlcFBobTlZQ3lOdnpxRHVmR3E3UUhJaE85N19WOFBsbWhabzl3ZUJkLURzU0sybU1fb0hXaTlGcVNieXpJX2lKenAxNVRmbm5qY2oxUzNoLW1HUDZQNnlJSnJWeW9CcHF5TmNETXBnVk51TEZ4Y0JuSzM5OW1KZU1ETmxtRHFjQW9qMUdhTWpBdHFSQjlwVnpCMXl6a3h1eXd5NXgzdlZNbExVSjR1MXlQOG1LRjZyWDlvcDVuaWpCN19XQ2Rnbi1pdzBTNFJtMGFuVXgySkZZRHUzQjdFSXpzbFhiTkhoS1Vub3Fod0FiaFpmeVpwMWhVS2l5bGJWSFhBT0swbnBJS3FrTVc1VWN3NnhGV0hYQjRzVWRseUxLaFczYzVoSGVCMVZlY1RoSTRpVk8xUlpIOF9FdzJiaXpPWFU3RFpKNHpHay1B";
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).PollDevStatus($"Bearer {bearerToken}", param, cts.Token));
             runningTasks.Add(task.Id, cts);
             var response = await task;
             var result = new ApiResponse<User>();

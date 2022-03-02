@@ -93,8 +93,12 @@ namespace q5id.guardian.ViewModels
                     {
                         Device.BeginInvokeOnMainThread(async () =>
                         {
-
+#if DEBUG
+							//DON'T FORGET TO COMMENT THIS WHEN PUSHING CODE.
+                            //var resp = await AppApiManager.Instances.PollDevStatus(mUserName, _authResp);
+#else
                             var resp = await AppApiManager.Instances.PollStatus(mUserName, _authResp);
+#endif
 
                             if (resp.IsSuccess && resp.ResponseObject != null && resp.ResponseObject.Status != "Processing")
                             {
