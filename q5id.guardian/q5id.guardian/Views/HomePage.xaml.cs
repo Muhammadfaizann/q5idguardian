@@ -97,6 +97,7 @@ namespace q5id.guardian.Views
         public void ShowAlertView()
         {
             LovedOnesView.ClearViewStack();
+            AlertsView.ClearViewStack();
             AlertsView.SetupView();
             ShowView(AlertsView, "AlertsVm");
             SelectTab(ALERT_INDEX);
