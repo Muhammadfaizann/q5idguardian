@@ -69,6 +69,10 @@ namespace q5id.guardian.Services
 
         public async Task<IEnumerable<InAppBillingPurchase>> GetProductPurchases()
         {
+
+#if DEBUG
+            var startTime = DateTime.Now.Millisecond;
+#endif
             deviceService.DeviceLog("GetProductPurchases IsSupported: ", CrossInAppBilling.IsSupported);
             if (!CrossInAppBilling.IsSupported)
                 return null;
@@ -103,6 +107,11 @@ namespace q5id.guardian.Services
             {
                 await CrossInAppBilling.Current.DisconnectAsync();
             }
+
+#if DEBUG
+            var endTime = DateTime.Now.Millisecond;
+            Debug.WriteLine($"Fetching subscriptions took {endTime - startTime} milliseconds");
+#endif
             return result;
         }
 
