@@ -132,7 +132,7 @@ namespace q5id.guardian.ViewModels
             // optionally hard code a number here. REMOVE or comment out before committing!
 #if DEBUG
             // 7167081550 5039159930  4086475274
-            mUserName = "5027200580";
+            // mUserName = "5027200580";
             
 #endif
 
