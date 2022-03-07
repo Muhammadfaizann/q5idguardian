@@ -228,6 +228,354 @@
 		                                    </ffimageloading:CachedImage>
                                         </control:AppRatioGrid>
                                     </Grid>
+                                    <Label
+                                        Margin="0,20,0,0"
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Text="Missing Person Circumstance:"
+                                        Style="{StaticResource lbBodyBoldMd}">  
+                                    </Label>
+                                    <Label
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Style="{StaticResource lbBodyNormalMd}"
+                                        TextColor="{StaticResource lightCharcoal}"
+                                        Text="The Colorado Springs Police Department is searching for Ezaria Glover, a twenty one month old female, last seen in the five thousand block of Whimsical Drive  around three thirty this afternoon.  Ezaria is described as an african american female, two feet tall, twenty one pounds, with brown eyes and brown hair. Ezaria was last seen wearing a pink top, flower print shorts, a pink hairband, and crocs with mickey mouse pins.  Investigators believe Earther Glover took the child.  Earther Glover is described as an african american male, five feet ten inches tall and one hundred eighty pounds, bald with brown eyes.  Earther was last seen wearing jeans, a dark shirt, glasses and a Denver Broncos baseball cap.  Earther is armed and dangerous.  They may be traveling in a black sedan that was last seen in Colorado Springs this afternoon.  If you have any information regarding this abduction, immediately call 911."
+                                        >  
+                                    </Label>
+                                    <Label
+                                        Margin="0,20,0,0"
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Text="Last seen Date and Time:"
+                                        Style="{StaticResource lbBodyBoldMd}">  
+                                    </Label>
+                                    <Label
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Style="{StaticResource lbBodyNormalMd}"
+                                        TextColor="{StaticResource lightCharcoal}"
+                                        Text="2022-03-08 00:00:00">  
+                                    </Label>
+                                    <Label
+                                        Margin="0,20,0,0"
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Text="Last seen address:"
+                                        Style="{StaticResource lbBodyBoldMd}">  
+                                    </Label>
+                                    <Label
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Style="{StaticResource lbBodyNormalMd}"
+                                        TextColor="{StaticResource lightCharcoal}"
+                                        Text="5000 Whimsical Drive Colorado Springs">  
+                                    </Label>
+                                    <Label
+                                        Margin="0,20,0,0"
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Text="Contact Organization Name:"
+                                        Style="{StaticResource lbBodyBoldMd}">  
+                                    </Label>
+                                    <Label
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Style="{StaticResource lbBodyNormalMd}"
+                                        TextColor="{StaticResource lightCharcoal}"
+                                        Text="The Colorado Springs Police Department">  
+                                    </Label>
+                                    <Label
+                                        Margin="0,20,0,0"
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Text="Contact Phone Number:"
+                                        Style="{StaticResource lbBodyBoldMd}">  
+                                    </Label>
+                                    <Label
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Style="{StaticResource lbBodyNormalMd}"
+                                        TextColor="{StaticResource lightCharcoal}"
+                                        Text="719-444-7000">  
+                                    </Label>
+                                    <Label
+                                        Margin="0,20,0,0"
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Text="Suspect:"
+                                        Style="{StaticResource lbBodyBoldMd}">  
+                                    </Label>
+                                    <Grid Margin="0,20,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Frame
+                                        Grid.Column="0"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Center"
+                                        IsClippedToBounds="true"
+                                        Padding="0"
+                                        HasShadow="False"
+                                        WidthRequest="80"
+                                        HeightRequest="80"
+                                        CornerRadius="40"
+                                        BorderColor="Transparent"
+                                        >
+                                        <ffimageloading:CachedImage
+                                            HorizontalOptions="Fill"
+                                            VerticalOptions="Fill"
+                                            Aspect="AspectFill"
+			                                DownsampleToViewSize="true"
+			                                Source="{Binding AlertDetail.Love.Image}">
+		                                </ffimageloading:CachedImage>
+                                    </Frame>
+                                    <StackLayout Orientation="Vertical"
+                                                    Spacing="0"
+                                                    Margin="10,0,0,0"
+                                                    VerticalOptions="Center"
+                                                    Grid.Column="1">
+                                        <Label
+                                            HorizontalOptions="Fill"
+                                            LineBreakMode="WordWrap"
+                                            Style="{StaticResource lbSubheadSm}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span FontSize="16" Text="Earther Glover" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                    <Span FontSize="16" Text=" age " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                                    <Span FontSize="16" Text="50" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>    
+                                        </Label>
+                                        <Grid VerticalOptions="Start"
+                                              RowSpacing="0"
+                                              ColumnSpacing="5"
+                                              HorizontalOptions="Fill">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                HorizontalOptions="Fill"
+                                                LineBreakMode="WordWrap"
+                                                FontSize="10"
+                                                Style="{StaticResource lbSubheadSm}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Eyes: "/>
+                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.EyeColorName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>    
+                                            </Label>
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                HorizontalOptions="Fill"
+                                                LineBreakMode="WordWrap"
+                                                FontSize="10"
+                                                Style="{StaticResource lbSubheadSm}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Height: "/>
+                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.HeightFeetName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="’ " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.HeightInchesName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="”" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>    
+                                            </Label>
+                                            <Label
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                HorizontalOptions="Fill"
+                                                LineBreakMode="WordWrap"
+                                                FontSize="10"
+                                                Text="{Binding Model.Love.FullName}"
+                                                Style="{StaticResource lbSubheadSm}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Hair: "/>
+                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.HairColorName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>    
+                                            </Label>
+                                            <Label
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                HorizontalOptions="Fill"
+                                                LineBreakMode="WordWrap"
+                                                FontSize="10"
+                                                Text="{Binding Model.Love.FullName}"
+                                                Style="{StaticResource lbSubheadSm}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Weight: "/>
+                                                        <Span FontSize="12" Text="{Binding AlertDetail.Love.Weight}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text=" lbs" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>    
+                                            </Label>
+                                        </Grid>
+                                    </StackLayout>
+                                </Grid>
+                                    <Label
+                                        Margin="0,20,0,0"
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Text="Suspect Description:"
+                                        Style="{StaticResource lbBodyBoldMd}">  
+                                    </Label>
+                                    <Label
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Style="{StaticResource lbBodyNormalMd}"
+                                        TextColor="{StaticResource lightCharcoal}"
+                                        Text="Earther was last seen wearing jeans, a dark shirt, glasses and a Denver Broncos baseball cap.">  
+                                    </Label>
+                                    <Label
+                                        Margin="0,20,0,0"
+                                        HorizontalOptions="Fill"
+                                        LineBreakMode="WordWrap"
+                                        Text="Suspect Vehicle:"
+                                        Style="{StaticResource lbBodyBoldMd}">  
+                                    </Label>
+                                    <StackLayout Orientation="Vertical">
+                                        <StackLayout Orientation="Horizontal" >
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="Maker Code:"
+                                                    Style="{StaticResource lbBodyBoldMd}">
+                                                 </Label>
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Style="{StaticResource lbBodyNormalMd}"
+                                                    TextColor="{StaticResource lightCharcoal}"
+                                                    Text="0000">  
+                                                </Label>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="Model Code:"
+                                                    Style="{StaticResource lbBodyBoldMd}">
+                                                </Label>
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Style="{StaticResource lbBodyNormalMd}"
+                                                    TextColor="{StaticResource lightCharcoal}"
+                                                    Text="0000">  
+                                                </Label>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal" >
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="Model Year:"
+                                                    Style="{StaticResource lbBodyBoldMd}">
+                                                 </Label>
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Style="{StaticResource lbBodyNormalMd}"
+                                                    TextColor="{StaticResource lightCharcoal}"
+                                                    Text="2022">  
+                                                </Label>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="Style Code:"
+                                                    Style="{StaticResource lbBodyBoldMd}">
+                                                </Label>
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Style="{StaticResource lbBodyNormalMd}"
+                                                    TextColor="{StaticResource lightCharcoal}"
+                                                    Text="Sedan">  
+                                                </Label>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal" >
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="Primary Color:"
+                                                    Style="{StaticResource lbBodyBoldMd}">
+                                                 </Label>
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Style="{StaticResource lbBodyNormalMd}"
+                                                    TextColor="{StaticResource lightCharcoal}"
+                                                    Text="Black">  
+                                                </Label>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="Secondary Color:"
+                                                    Style="{StaticResource lbBodyBoldMd}">
+                                                </Label>
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Style="{StaticResource lbBodyNormalMd}"
+                                                    TextColor="{StaticResource lightCharcoal}"
+                                                    Text="Black">  
+                                                </Label>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal" >
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="Interior Color:"
+                                                    Style="{StaticResource lbBodyBoldMd}">
+                                                 </Label>
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Style="{StaticResource lbBodyNormalMd}"
+                                                    TextColor="{StaticResource lightCharcoal}"
+                                                    Text="White">  
+                                                </Label>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="License Plate:"
+                                                    Style="{StaticResource lbBodyBoldMd}">
+                                                </Label>
+                                                <Label
+                                                    HorizontalOptions="Fill"
+                                                    LineBreakMode="WordWrap"
+                                                    Style="{StaticResource lbBodyNormalMd}"
+                                                    TextColor="{StaticResource lightCharcoal}"
+                                                    Text="Black">  
+                                                </Label>
+                                            </StackLayout>
+                                        </StackLayout>                                               
+                                    </StackLayout>
                                     <BoxView HeightRequest="15" />
                                 </StackLayout>
                             </StackLayout>

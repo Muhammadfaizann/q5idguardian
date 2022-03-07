@@ -635,7 +635,7 @@ namespace q5id.guardian.ViewModels
             }).ToList();
             var liveHeaderItem = new GroupHeaderItemViewModel()
             {
-                Title = "Live",
+                Title = "Live Guardian Alerts",
                 Description = "There aren’t any active alerts near you.",
                 IsEmptyList = true
             };
@@ -644,6 +644,12 @@ namespace q5id.guardian.ViewModels
             {
                 return item.Model.IsClosed == true;
             }).ToList();
+            var amberAlertSection = new GroupHeaderItemViewModel()
+            {
+                Title = "AMBER Alerts",
+                Description = "There aren't any active AMBER alerts in your area.",
+                IsEmptyList = true
+            };
             var historyHeaderItem = new GroupHeaderItemViewModel()
             {
                 Title = "History",
@@ -656,6 +662,7 @@ namespace q5id.guardian.ViewModels
             {
                 alerts.Add(item);
             }
+            alerts.Add(amberAlertSection);
             alerts.Add(historyHeaderItem);
             foreach (AlertItemViewModel item in listHistoryItem)
             {
