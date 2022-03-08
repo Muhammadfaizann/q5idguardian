@@ -23,6 +23,16 @@ namespace q5id.guardian.ViewModels.ItemViewModels
             }
         }
 
+        private Boolean mIsAmberAlert = false;
+        public Boolean IsAmberAlert
+        {
+            get => mIsAmberAlert;
+            set
+            {
+                mIsAmberAlert = value;
+            }
+        }
+
         public ICommand ToggleExpandedCommand
         {
             get

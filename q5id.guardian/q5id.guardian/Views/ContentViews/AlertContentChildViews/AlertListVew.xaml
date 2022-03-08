@@ -32,9 +32,28 @@
                     </alertItemView:AlertExpandedItemView>
                 </control:AppViewCell>
             </DataTemplate>
+            <DataTemplate x:Key="itemAmberTemplate">
+                <control:AppViewCell>
+                    <alertItemView:AmberAlertDefaultView >
+                        <!--<alertItemView:AlertDefaultItemView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAlertItemClicked" Command="{Binding ItemClickCommand}" CommandParameter="{Binding Model}" />
+                        </alertItemView:AlertDefaultItemView.GestureRecognizers>-->
+                    </alertItemView:AmberAlertDefaultView>
+                </control:AppViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="itemAmberExpandedTemplate">
+                <control:AppViewCell>
+                    <alertItemView:AlertExpandedItemView OnOpenAlertEvent="OnAlertItemClicked" >
+                        <!--<alertItemView:AlertExpandedItemView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAlertItemClicked" Command="{Binding ItemClickCommand}" CommandParameter="{Binding Model}" />
+                        </alertItemView:AlertExpandedItemView.GestureRecognizers>-->
+                    </alertItemView:AlertExpandedItemView>
+                </control:AppViewCell>
+            </DataTemplate>
             <template:AlertTemplateSelector x:Key="alertTemplateSelector"
                                             ItemExpandedTemplate="{StaticResource itemExpandedTemplate}"
                                             HeaderGroupTemplate="{StaticResource headerGroupTemplate}"
+                                            ItemAmberAlertTemplate="{StaticResource itemAmberTemplate}"
                                             ItemTemplate="{StaticResource itemTemplate}"/>
         </ResourceDictionary>
     </ContentView.Resources>

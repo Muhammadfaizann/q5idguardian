@@ -20,6 +20,9 @@ namespace q5id.guardian.ViewModels
     public class AlertsViewModel : BaseSubViewModel
     {
         private Boolean mIsUpdateSuccess = false;
+
+        public AmberAlertDirective AmberAlert { get; set; }
+
         public Boolean IsUpdateSuccess
         {
             get => mIsUpdateSuccess;
@@ -598,6 +601,18 @@ namespace q5id.guardian.ViewModels
             Feeds = result;
         }
 
+#if DEBUG
+        private void MockAdditionalInformation()
+        {
+            AmberAlert = new AmberAlertDirective();
+
+            AmberAlert.AmberAlert = new AmberAlert();
+            AmberAlert.AmberAlert.FullMessage = new FullMessage();
+            AmberAlert.AmberAlert.FullMessage.IncidentInformation = new IncidentInformation();
+            AmberAlert.AmberAlert.FullMessage.IncidentInformation.MissingPersonCircumstanceText = "The Colorado Springs Police Department is searching for Ezaria Glover, a twenty one month old female, last seen in the five thousand block of Whimsical Drive  around three thirty this afternoon.  Ezaria is described as an african american female, two feet tall, twenty one pounds, with brown eyes and brown hair. Ezaria was last seen wearing a pink top, flower print shorts, a pink hairband, and crocs with mickey mouse pins.  Investigators believe Earther Glover took the child.  Earther Glover is described as an african american male, five feet ten inches tall and one hundred eighty pounds, bald with brown eyes.  Earther was last seen wearing jeans, a dark shirt, glasses and a Denver Broncos baseball cap.  Earther is armed and dangerous.  They may be traveling in a black sedan that was last seen in Colorado Springs this afternoon.  If you have any information regarding this abduction, immediately call 911.";
+        }
+#endif
+
         public async void GetAlerts()
         {
             var alerts = new ObservableCollection<object>();
@@ -640,16 +655,25 @@ namespace q5id.guardian.ViewModels
                 IsEmptyList = true
             };
             liveHeaderItem.IsEmptyList = listLiveItem.Count == 0;
-            List<AlertItemViewModel> listHistoryItem = listAlertItem.Where((AlertItemViewModel item) =>
+
+            var record = await GetAmberAlerts();
+
+            List<AlertItemViewModel> listAmberAlert = listAlertItem.Where((AlertItemViewModel item) =>
             {
-                return item.Model.IsClosed == true;
-            }).ToList();
+                return item.Model.IsClosed != true;
+            }).ToList();            
             var amberAlertSection = new GroupHeaderItemViewModel()
             {
                 Title = "AMBER Alerts",
                 Description = "There aren't any active AMBER alerts in your area.",
                 IsEmptyList = true
             };
+            amberAlertSection.IsEmptyList = listAmberAlert.Count == 0;
+
+            List<AlertItemViewModel> listHistoryItem = listAlertItem.Where((AlertItemViewModel item) =>
+            {
+                return item.Model.IsClosed == true;
+            }).ToList();
             var historyHeaderItem = new GroupHeaderItemViewModel()
             {
                 Title = "History",
@@ -663,6 +687,15 @@ namespace q5id.guardian.ViewModels
                 alerts.Add(item);
             }
             alerts.Add(amberAlertSection);
+            foreach (var item in record)
+            {                
+                alerts.Add(new AlertItemViewModel(item)
+                {
+                    IsAmberAlert = true,
+                    OnUpdateItemAction = OnUpdateItemList,
+                    OnUpdateExpanded = OnItemExpandedUpdate,
+                });
+            }
             alerts.Add(historyHeaderItem);
             foreach (AlertItemViewModel item in listHistoryItem)
             {
@@ -679,6 +712,20 @@ namespace q5id.guardian.ViewModels
             {
                 var response = await AppApiManager.Instances.GetNearbyListAlert(currentUserPosition.Latitude, currentUserPosition.Longitude, Utils.Constansts.KM_DEFAULT_MAP_ZOOM_DISTANCT);
                 if(response.IsSuccess && response.ResponseObject != null)
+                {
+                    return response.ResponseObject;
+                }
+            }
+            return new List<Alert>();
+        }
+
+        private async Task<List<Alert>> GetAmberAlerts()
+        {
+            var currentUserPosition = await Utils.Utils.GetLocalLocation();
+            if (currentUserPosition != null)
+            {
+                var response = await AppApiManager.Instances.GetNearbyListAlert(currentUserPosition.Latitude, currentUserPosition.Longitude, Utils.Constansts.KM_DEFAULT_MAP_ZOOM_DISTANCT);
+                if (response.IsSuccess && response.ResponseObject != null)
                 {
                     return response.ResponseObject;
                 }
