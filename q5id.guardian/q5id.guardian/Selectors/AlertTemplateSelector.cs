@@ -10,8 +10,9 @@ namespace q5id.guardian.Selectors
         public DataTemplate ItemTemplate { get; set; }
         public DataTemplate ItemExpandedTemplate { get; set; }
         public DataTemplate ItemAmberAlertTemplate { get; set; }
+        public DataTemplate ItemAmberAlertExpandedTemplate { get; set; }
 
-        protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
+    protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
             if (item is GroupHeaderItemViewModel)
             {
@@ -19,7 +20,11 @@ namespace q5id.guardian.Selectors
             }
             if(item is AlertItemViewModel alertItemViewModel)
             {
-                if (alertItemViewModel.IsExpanded)
+                if (alertItemViewModel.IsAmberAlert && alertItemViewModel.IsExpanded)
+                {
+                    return ItemAmberAlertExpandedTemplate;
+                }
+                else if (alertItemViewModel.IsExpanded)
                 {
                     return ItemExpandedTemplate;
                 }

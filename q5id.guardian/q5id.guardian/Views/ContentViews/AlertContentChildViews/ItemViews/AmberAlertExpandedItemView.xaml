@@ -2,21 +2,24 @@
 <ContentView
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:util="clr-namespace:q5id.guardian.Utils"
     xmlns:control="clr-namespace:q5id.guardian.Controls"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    x:Class="q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews.AmberAlertDefaultView">
-    <ContentView.Content>
-        <Grid VerticalOptions="Start" HorizontalOptions="Fill">
-            <Frame HeightRequest="96"
+    xmlns:util="clr-namespace:q5id.guardian.Utils"
+    x:Class="q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews.AmberAlertExpandedItemView">
+        <Grid>
+            <Frame
                 Margin="30, 0, 30, 20"
                 CornerRadius="16"
                 BackgroundColor="White"
                 BorderColor="Transparent"
-                Padding="10,0,10,0"
+                Padding="0"
+                HorizontalOptions="Fill"
                 VerticalOptions="Start"
                 IsClippedToBounds="True"
                 HasShadow="False">
+                <StackLayout Orientation="Vertical"
+                             VerticalOptions="Start"
+                             Padding="20" Spacing="0">
                         <Grid VerticalOptions="Start" HorizontalOptions="Fill">
                             <StackLayout Orientation="Vertical" Spacing="0" Padding="15">
                                 <Grid>
@@ -31,9 +34,9 @@
                                         IsClippedToBounds="true"
                                         Padding="0"
                                         HasShadow="False"
-                                        WidthRequest="64"
-                                        HeightRequest="64"
-                                        CornerRadius="32"
+                                        WidthRequest="80"
+                                        HeightRequest="80"
+                                        CornerRadius="40"
                                         BorderColor="Transparent"
                                         >
                                         <ffimageloading:CachedImage
@@ -141,7 +144,7 @@
                                 <StackLayout Margin="0,20,0,0"
                                              Spacing="0"
                                              Orientation="Vertical"
-                                             IsVisible="False"
+                                             IsVisible="true"
                                              x:Name="StackDetail">
                                     <Label
                                         HorizontalOptions="Fill"
@@ -585,18 +588,18 @@
                                    HorizontalOptions="Center"
                                    VerticalOptions="End">
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding ToggleExpandedCommand}" Tapped="OnExpandedClicked" />
+                                    <TapGestureRecognizer Tapped="OnExpandedInfoToggle" />
                                 </Image.GestureRecognizers>
                                 <Image.Source>
                                     <FontImageSource Size="20"
                                                      x:Name="ImageSourceInfoExpand"
                                                      FontFamily="{x:Static util:ThemeConstanst.FontAwesomeSolid}"
-                                                     Glyph="{x:Static util:FontAwesomeIcons.ChevronDown}"
+                                                     Glyph="{x:Static util:FontAwesomeIcons.ChevronUp}"
                                                      Color="#4D838699" />
                                 </Image.Source>
                             </Image>
                         </Grid>
-                     </Frame>
+                </StackLayout>
+            </Frame>
         </Grid>
-    </ContentView.Content>
 </ContentView>

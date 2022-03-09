@@ -43,17 +43,18 @@
             </DataTemplate>
             <DataTemplate x:Key="itemAmberExpandedTemplate">
                 <control:AppViewCell>
-                    <alertItemView:AlertExpandedItemView OnOpenAlertEvent="OnAlertItemClicked" >
+                    <alertItemView:AmberAlertExpandedItemView>
                         <!--<alertItemView:AlertExpandedItemView.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnAlertItemClicked" Command="{Binding ItemClickCommand}" CommandParameter="{Binding Model}" />
                         </alertItemView:AlertExpandedItemView.GestureRecognizers>-->
-                    </alertItemView:AlertExpandedItemView>
+                    </alertItemView:AmberAlertExpandedItemView>
                 </control:AppViewCell>
             </DataTemplate>
             <template:AlertTemplateSelector x:Key="alertTemplateSelector"
                                             ItemExpandedTemplate="{StaticResource itemExpandedTemplate}"
                                             HeaderGroupTemplate="{StaticResource headerGroupTemplate}"
                                             ItemAmberAlertTemplate="{StaticResource itemAmberTemplate}"
+                                            ItemAmberAlertExpandedTemplate="{StaticResource itemAmberExpandedTemplate}"
                                             ItemTemplate="{StaticResource itemTemplate}"/>
         </ResourceDictionary>
     </ContentView.Resources>
