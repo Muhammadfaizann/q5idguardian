@@ -240,7 +240,7 @@
                                         LineBreakMode="WordWrap"
                                         Style="{StaticResource lbBodyNormalMd}"
                                         TextColor="{StaticResource lightCharcoal}"
-                                        Text="{Binding AmberAlert.AmberAlert.FullMessage.IncidentInformation.MissingPersonCircumstanceText}"
+                                        Text="{Binding AmberAlertInfo.Circumstance}"
                                         >  
                                     </Label>
                                     <Label

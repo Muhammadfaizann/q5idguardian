@@ -21,7 +21,7 @@ namespace q5id.guardian.ViewModels
     {
         private Boolean mIsUpdateSuccess = false;
 
-        public AmberAlertDirective AmberAlert { get; set; }
+        public AmberAlert AmberAlertInfo { get; set; }
 
         public Boolean IsUpdateSuccess
         {
@@ -604,17 +604,31 @@ namespace q5id.guardian.ViewModels
 #if DEBUG
         private void MockAdditionalInformation()
         {
-            AmberAlert = new AmberAlertDirective();
-
-            AmberAlert.AmberAlert = new AmberAlert();
-            AmberAlert.AmberAlert.FullMessage = new FullMessage();
-            AmberAlert.AmberAlert.FullMessage.IncidentInformation = new IncidentInformation();
-            AmberAlert.AmberAlert.FullMessage.IncidentInformation.MissingPersonCircumstanceText = "The Colorado Springs Police Department is searching for Ezaria Glover, a twenty one month old female, last seen in the five thousand block of Whimsical Drive  around three thirty this afternoon.  Ezaria is described as an african american female, two feet tall, twenty one pounds, with brown eyes and brown hair. Ezaria was last seen wearing a pink top, flower print shorts, a pink hairband, and crocs with mickey mouse pins.  Investigators believe Earther Glover took the child.  Earther Glover is described as an african american male, five feet ten inches tall and one hundred eighty pounds, bald with brown eyes.  Earther was last seen wearing jeans, a dark shirt, glasses and a Denver Broncos baseball cap.  Earther is armed and dangerous.  They may be traveling in a black sedan that was last seen in Colorado Springs this afternoon.  If you have any information regarding this abduction, immediately call 911.";
+            AmberAlertInfo = new AmberAlert();
+            AmberAlertInfo.AmberAlertId = "1";
+            List<AmberAlertPerson> amberAlertPeople = new List<AmberAlertPerson>();
+            amberAlertPeople.Add(new AmberAlertPerson() { GivenName = "Companion 1", Age = "30", Description = "Description" });
+            amberAlertPeople.Add(new AmberAlertPerson() { GivenName = "Companion 2", Age = "31", Description = "Description" });
+            AmberAlertInfo.Companions = amberAlertPeople.ToArray();
+            AmberAlertInfo.LastSeenAddress = "Around Address";
+            AmberAlertInfo.LastSeenCity = "Around City";
+            AmberAlertInfo.LastSeenDate = new DateTime();
+            AmberAlertInfo.LastSeenState = "Around State";
+            List<AmberAlertPerson> missingPersons = new List<AmberAlertPerson>();
+            amberAlertPeople.Add(new AmberAlertPerson() { GivenName = "Missing 1", Age = "30", Description = "Description" });
+            amberAlertPeople.Add(new AmberAlertPerson() { GivenName = "Missing 2", Age = "31", Description = "Description" });
+            AmberAlertInfo.MissingPersons = missingPersons.ToArray();
+            List<AmberAlertPerson> suspects = new List<AmberAlertPerson>();
+            amberAlertPeople.Add(new AmberAlertPerson() { GivenName = "Suspect 1", Age = "30", Description = "Description" });
+            amberAlertPeople.Add(new AmberAlertPerson() { GivenName = "Suspect 2", Age = "31", Description = "Description" });
+            AmberAlertInfo.Suspects = suspects.ToArray();
+            AmberAlertInfo.Circumstance = "The Colorado Springs Police Department is searching for Ezaria Glover, a twenty one month old female, last seen in the five thousand block of Whimsical Drive  around three thirty this afternoon.  Ezaria is described as an african american female, two feet tall, twenty one pounds, with brown eyes and brown hair. Ezaria was last seen wearing a pink top, flower print shorts, a pink hairband, and crocs with mickey mouse pins.  Investigators believe Earther Glover took the child.  Earther Glover is described as an african american male, five feet ten inches tall and one hundred eighty pounds, bald with brown eyes.  Earther was last seen wearing jeans, a dark shirt, glasses and a Denver Broncos baseball cap.  Earther is armed and dangerous.  They may be traveling in a black sedan that was last seen in Colorado Springs this afternoon.  If you have any information regarding this abduction, immediately call 911.";
         }
 #endif
 
         public async void GetAlerts()
         {
+            MockAdditionalInformation();
             var alerts = new ObservableCollection<object>();
             
             List<AlertItemViewModel> listAlertItem = new List<AlertItemViewModel>();
