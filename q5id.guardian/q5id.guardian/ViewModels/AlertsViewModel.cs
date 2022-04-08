@@ -602,9 +602,8 @@ namespace q5id.guardian.ViewModels
         }
 
 #if DEBUG
-        private void MockAdditionalInformation()
+        private void MockAdditionalInformation(ref AmberAlert AmberAlertInfo)
         {
-            AmberAlertInfo = new AmberAlert();
             AmberAlertInfo.AmberAlertId = "1";
             List<AmberAlertPerson> amberAlertPeople = new List<AmberAlertPerson>();
             amberAlertPeople.Add(new AmberAlertPerson() { GivenName = "Companion 1", Age = "30", Description = "Description" });
@@ -628,7 +627,6 @@ namespace q5id.guardian.ViewModels
 
         public async void GetAlerts()
         {
-            MockAdditionalInformation();
             var alerts = new ObservableCollection<object>();
             
             List<AlertItemViewModel> listAlertItem = new List<AlertItemViewModel>();
@@ -683,6 +681,11 @@ namespace q5id.guardian.ViewModels
                 IsEmptyList = true
             };
             amberAlertSection.IsEmptyList = listAmberAlert.Count == 0;
+
+
+            //Mock for AmberAlert
+            var amberAlert = new AmberAlert();
+            MockAdditionalInformation(ref amberAlert);
 
             List<AlertItemViewModel> listHistoryItem = listAlertItem.Where((AlertItemViewModel item) =>
             {

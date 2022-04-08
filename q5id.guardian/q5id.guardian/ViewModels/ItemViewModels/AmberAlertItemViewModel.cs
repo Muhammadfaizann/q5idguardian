@@ -61,7 +61,7 @@ namespace q5id.guardian.ViewModels.ItemViewModels
 
         public Action OnUpdateItemAction { get; set; }
 
-        public AmberAlertItemViewModel(Alert alert) : base(alert)
+        public AmberAlertItemViewModel(AmberAlert amberAlert) : base(amberAlert)
         {
 
         }
