@@ -603,23 +603,29 @@ namespace q5id.guardian.ViewModels
 
 #if DEBUG
         private void MockAdditionalInformation(ref AmberAlert AmberAlertInfo)
-        {
+        {            
             AmberAlertInfo.AmberAlertId = "1";
+            PersonPicture person = new PersonPicture();
+            PersonExternalPicture personExternalPicture = new PersonExternalPicture();
+            personExternalPicture.Url = "https://guardstdataprodwestus.blob.core.windows.net/datavault/Q5id20_GuardianSBX/688edf5c-643f-46fe-a4f4-4b396801d7d1/b40914ff-f399-458d-add3-d316092b080f/img_aca0233f-c9c2-4e13-9820-68d5168c74d1.jpeg";
+            person.ExternalPicture = personExternalPicture;
+            List<PersonPicture> listOfPersonPicture = new List<PersonPicture>();
+            listOfPersonPicture.Add(person);
             List<AmberAlertPerson> amberAlertPeople = new List<AmberAlertPerson>();
-            amberAlertPeople.Add(new AmberAlertPerson() { GivenName = "Companion 1", Age = "30", Description = "Description" });
-            amberAlertPeople.Add(new AmberAlertPerson() { GivenName = "Companion 2", Age = "31", Description = "Description" });
+            amberAlertPeople.Add(new AmberAlertPerson() { GivenName = "Companion 1", Age = "30", Description = "Description", Picture = listOfPersonPicture.ToArray() });
+            amberAlertPeople.Add(new AmberAlertPerson() { GivenName = "Companion 2", Age = "31", Description = "Description", Picture = listOfPersonPicture.ToArray() });
             AmberAlertInfo.Companions = amberAlertPeople.ToArray();
             AmberAlertInfo.LastSeenAddress = "Around Address";
             AmberAlertInfo.LastSeenCity = "Around City";
             AmberAlertInfo.LastSeenDate = new DateTime();
             AmberAlertInfo.LastSeenState = "Around State";
             List<AmberAlertPerson> missingPersons = new List<AmberAlertPerson>();
-            amberAlertPeople.Add(new AmberAlertPerson() { GivenName = "Missing 1", Age = "30", Description = "Description" });
-            amberAlertPeople.Add(new AmberAlertPerson() { GivenName = "Missing 2", Age = "31", Description = "Description" });
+            missingPersons.Add(new AmberAlertPerson() { GivenName = "Missing 1", Age = "30", Description = "Description", Picture = listOfPersonPicture.ToArray() });
+            missingPersons.Add(new AmberAlertPerson() { GivenName = "Missing 2", Age = "31", Description = "Description", Picture = listOfPersonPicture.ToArray() });
             AmberAlertInfo.MissingPersons = missingPersons.ToArray();
             List<AmberAlertPerson> suspects = new List<AmberAlertPerson>();
-            amberAlertPeople.Add(new AmberAlertPerson() { GivenName = "Suspect 1", Age = "30", Description = "Description" });
-            amberAlertPeople.Add(new AmberAlertPerson() { GivenName = "Suspect 2", Age = "31", Description = "Description" });
+            suspects.Add(new AmberAlertPerson() { GivenName = "Suspect 1", Age = "30", Description = "Description", Picture = listOfPersonPicture.ToArray() });
+            suspects.Add(new AmberAlertPerson() { GivenName = "Suspect 2", Age = "31", Description = "Description", Picture = listOfPersonPicture.ToArray() });
             AmberAlertInfo.Suspects = suspects.ToArray();
             AmberAlertInfo.Circumstance = "The Colorado Springs Police Department is searching for Ezaria Glover, a twenty one month old female, last seen in the five thousand block of Whimsical Drive  around three thirty this afternoon.  Ezaria is described as an african american female, two feet tall, twenty one pounds, with brown eyes and brown hair. Ezaria was last seen wearing a pink top, flower print shorts, a pink hairband, and crocs with mickey mouse pins.  Investigators believe Earther Glover took the child.  Earther Glover is described as an african american male, five feet ten inches tall and one hundred eighty pounds, bald with brown eyes.  Earther was last seen wearing jeans, a dark shirt, glasses and a Denver Broncos baseball cap.  Earther is armed and dangerous.  They may be traveling in a black sedan that was last seen in Colorado Springs this afternoon.  If you have any information regarding this abduction, immediately call 911.";
         }
@@ -682,11 +688,6 @@ namespace q5id.guardian.ViewModels
             };
             amberAlertSection.IsEmptyList = listAmberAlert.Count == 0;
 
-
-            //Mock for AmberAlert
-            var amberAlert = new AmberAlert();
-            MockAdditionalInformation(ref amberAlert);
-
             List<AlertItemViewModel> listHistoryItem = listAlertItem.Where((AlertItemViewModel item) =>
             {
                 return item.Model.IsClosed == true;
@@ -704,15 +705,28 @@ namespace q5id.guardian.ViewModels
                 alerts.Add(item);
             }
             alerts.Add(amberAlertSection);
-            foreach (var item in record)
-            {                
-                alerts.Add(new AlertItemViewModel(item)
-                {
-                    IsAmberAlert = true,
-                    OnUpdateItemAction = OnUpdateItemList,
-                    OnUpdateExpanded = OnItemExpandedUpdate,
-                });
-            }
+
+            //Mock for AmberAlert
+            var amberAlert1 = new AmberAlert();
+            MockAdditionalInformation(ref amberAlert1);
+
+            alerts.Add(new AmberAlertItemViewModel(amberAlert1)
+            {
+                IsAmberAlert = true,
+                OnUpdateItemAction = OnUpdateItemList,
+                OnUpdateExpanded = OnAmberAlertItemExpandedUpdate
+            });
+
+            //foreach (var item in record)
+            //{                
+            //    alerts.Add(new AlertItemViewModel(item)
+            //    {
+            //        IsAmberAlert = true,
+            //        OnUpdateItemAction = OnUpdateItemList,
+            //        OnUpdateExpanded = OnItemExpandedUpdate,
+            //    });
+            //}
+
             alerts.Add(historyHeaderItem);
             foreach (AlertItemViewModel item in listHistoryItem)
             {
@@ -774,6 +788,15 @@ namespace q5id.guardian.ViewModels
         {
             var indexOf = Alerts.IndexOf(item);
             if(indexOf > -1 && indexOf < Alerts.Count)
+            {
+                Alerts[indexOf] = item;
+            }
+        }
+
+        private void OnAmberAlertItemExpandedUpdate(AmberAlertItemViewModel item)
+        {
+            var indexOf = Alerts.IndexOf(item);
+            if (indexOf > -1 && indexOf < Alerts.Count)
             {
                 Alerts[indexOf] = item;
             }

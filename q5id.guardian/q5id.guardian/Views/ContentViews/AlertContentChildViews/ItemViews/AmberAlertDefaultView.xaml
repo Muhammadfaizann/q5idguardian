@@ -7,7 +7,10 @@
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     x:Class="q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews.AmberAlertDefaultView">
     <ContentView.Content>
-        <Grid VerticalOptions="Start" HorizontalOptions="Fill">
+        <ListView ItemsSource="{Binding AmberAlert.MissingPersons}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                     <Grid VerticalOptions="Start" HorizontalOptions="Fill">
             <Frame HeightRequest="96"
                 Margin="30, 0, 30, 20"
                 CornerRadius="16"
@@ -41,7 +44,7 @@
                                             VerticalOptions="Fill"
                                             Aspect="AspectFill"
 			                                DownsampleToViewSize="true"
-			                                Source="{Binding Model.Love.Image}">
+			                                Source="">
 		                                </ffimageloading:CachedImage>
                                     </Frame>
                                     <StackLayout Orientation="Vertical"
@@ -55,7 +58,7 @@
                                             Style="{StaticResource lbSubheadSm}">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span FontSize="16" Text="{Binding Model.Love.FullName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                    <Span FontSize="16" Text="{Binding GivenName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                     <Span FontSize="16" Text=" age " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
                                                     <Span FontSize="16" Text="{Binding Model.Love.Age}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
                                                 </FormattedString>
@@ -598,5 +601,8 @@
                         </Grid>
                      </Frame>
         </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>           
+        </ListView>       
     </ContentView.Content>
 </ContentView>

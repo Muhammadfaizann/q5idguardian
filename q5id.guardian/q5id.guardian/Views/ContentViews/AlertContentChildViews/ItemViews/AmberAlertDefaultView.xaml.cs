@@ -21,8 +21,8 @@ namespace q5id.guardian.Views.ContentViews.AlertContentChildViews.ItemViews
 
         void OnExpandedInfoToggle(System.Object sender, System.EventArgs e)
         {
-            StackDetail.IsVisible = !StackDetail.IsVisible;
-            ImageSourceInfoExpand.Glyph = StackDetail.IsVisible ? Utils.FontAwesomeIcons.ChevronUp : Utils.FontAwesomeIcons.ChevronDown;
+            //StackDetail.IsVisible = !StackDetail.IsVisible;
+            //ImageSourceInfoExpand.Glyph = StackDetail.IsVisible ? Utils.FontAwesomeIcons.ChevronUp : Utils.FontAwesomeIcons.ChevronDown;
         }
     }
 }
