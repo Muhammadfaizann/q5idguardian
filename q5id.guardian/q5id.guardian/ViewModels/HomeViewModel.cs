@@ -33,7 +33,7 @@ namespace q5id.guardian.ViewModels
                await GetSubscriptionStatus();
             });
         }
-
+       
         private void SubVmOnUpdateModel(object sender, EventArgs e)
         {
             MainThread.BeginInvokeOnMainThread(async () =>

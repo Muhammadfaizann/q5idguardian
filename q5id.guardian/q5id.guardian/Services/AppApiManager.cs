@@ -74,7 +74,13 @@ namespace q5id.guardian.Services
                 }
             }
         }
-
+        public async Task GetAmberAlert(string amberId)
+        {
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).GetAmberAlert(amberId, cts.Token));
+            runningTasks.Add(task.Id, cts);
+            var respo= await task;
+        }
         public async Task<ApiResponse<List<Choice>>> GetChoices()
         {
             var cts = new CancellationTokenSource();
@@ -336,7 +342,7 @@ namespace q5id.guardian.Services
                 username = username,
                 statusUri = authResp.StatusUri
             };
-            var bearerToken = "ZXlKaGJHY2lPaUpTVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SjFkV2xrSWpvaU5tWTRORGRqTjJJdFkySTNZUzAwWm1NeUxUaGtOREl0TXpkaE5HVmhObU14WlRVeUlpd2laMmwyWlc1ZmJtRnRaU0k2SWxkSlRFeEpRVTBpTENKbVlXMXBiSGxmYm1GdFpTSTZJa0pKUTB0T1JVeE1JaXdpWlcxaGFXd2lPaUowWldSaVFITnJlWEJ2YVc1MFkyeHZkV1F1WTI5dElpd2ljR2h2Ym1VaU9pSXhOVEF6TnpJd01EVTRNQ0lzSW5OamIzQmxJam9pWVhWMGFHVnVkR2xqWVhScGIyNGlMQ0psZUhBaU9qRTJORFUyTkRNMU9UUjkuRDY4Mk1iQ3VZTDk3Wmp3R3hlcFBobTlZQ3lOdnpxRHVmR3E3UUhJaE85N19WOFBsbWhabzl3ZUJkLURzU0sybU1fb0hXaTlGcVNieXpJX2lKenAxNVRmbm5qY2oxUzNoLW1HUDZQNnlJSnJWeW9CcHF5TmNETXBnVk51TEZ4Y0JuSzM5OW1KZU1ETmxtRHFjQW9qMUdhTWpBdHFSQjlwVnpCMXl6a3h1eXd5NXgzdlZNbExVSjR1MXlQOG1LRjZyWDlvcDVuaWpCN19XQ2Rnbi1pdzBTNFJtMGFuVXgySkZZRHUzQjdFSXpzbFhiTkhoS1Vub3Fod0FiaFpmeVpwMWhVS2l5bGJWSFhBT0swbnBJS3FrTVc1VWN3NnhGV0hYQjRzVWRseUxLaFczYzVoSGVCMVZlY1RoSTRpVk8xUlpIOF9FdzJiaXpPWFU3RFpKNHpHay1B";
+            var bearerToken = "ZXlKaGJHY2lPaUpTVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SjFkV2xrSWpvaU5tWTRORGRqTjJJdFkySTNZUzAwWm1NeUxUaGtOREl0TXpkaE5HVmhObU14WlRVeUlpd2laMmwyWlc1ZmJtRnRaU0k2SWxkSlRFeEpRVTBpTENKbVlXMXBiSGxmYm1GdFpTSTZJa0pKUTB0T1JVeE1JaXdpWlcxaGFXd2lPaUowWldSaVFITnJlWEJ2YVc1MFkyeHZkV1F1WTI5dElpd2ljR2h2Ym1VaU9pSXhOVEF6TnpJd01EVTRNQ0lzSW5OamIzQmxJam9pWVhWMGFHVnVkR2xqWVhScGIyNGlMQ0psZUhBaU9qRTJORGMxTXpnd09EVjkuYkRiTmt3NUVEaThSOTRPUVlLSVZoblZGSGdPMXdYX1JCd2V1ZU5uaFYxWGRFTzhaWTR6Z2hGU2EzT0FncHBzbmVfWU41ODZNendiMXBETEJyYjZzYS1SRHlBVjFIM1NjaFNCMGQ3QnhYQ3N6WXlxZ2dXUmhRa2dRcVFxbVFNVWRrTW5ZMjN6X0ZOQlZiVkNqU011TUlxSHRSeDJIMkhKUjFTYlk1RWVNR0pFZDVoODN5Y1g5T2JEWmdwNEstMWRZenNETjlPVmVpMVA0Y2huZVB6MFRVckpjbXliRFl3Qm9EVkRQRWhHQTNYM1dIQi1tSUJVQzd3UUNNT0VTU1hkb0dKLXN6SDhBVnUtTEpUejBiSkIwcFQ1NEFWT2xQS2NHZm4xN1lURXZRZkp0dm12a3FZNzhVQndnVXotR2lMRTlrRmROOVY3NFc3a0llbHRzaHpJTnF3";
             var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).PollDevStatus($"Bearer {bearerToken}", param, cts.Token));
             runningTasks.Add(task.Id, cts);
             var response = await task;

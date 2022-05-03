@@ -97,5 +97,9 @@ namespace q5id.guardian.Services.Bases
 
         [Get("/GooglePlaces/details")]
         Task<HttpResponseMessage> GetPlaceDetails([Refit.AliasAs("placeid")] string placeId, CancellationToken cancellationToken);
+        
+        [Get("/AmberAlert")]
+        Task<AmberAlert> GetAmberAlert([Refit.AliasAs("amberAlertId")] string amberAlertId, CancellationToken cancellationToken);
+       
     }
 }

@@ -273,11 +273,14 @@ namespace q5id.guardian.ViewModels
 
         public override async Task Initialize()
         {
-
+            GetAmberAlert();
             GetMyLoves();
             await Task.CompletedTask;
         }
-
+        public async void GetAmberAlert()
+        {
+             await AppApiManager.Instances.GetAmberAlert("30804");
+        }
         public async void GetMyLoves()
         {
             if (User == null)
@@ -814,5 +817,7 @@ namespace q5id.guardian.ViewModels
             AlertNavigationService = navigationService;
             LogProvider = logProvider;
         }
+
+        
     }
 }
