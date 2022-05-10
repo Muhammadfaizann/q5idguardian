@@ -273,13 +273,14 @@ namespace q5id.guardian.ViewModels
 
         public override async Task Initialize()
         {
-            GetAmberAlert();
+            
             GetMyLoves();
             await Task.CompletedTask;
         }
         public async void GetAmberAlert()
         {
-             await AppApiManager.Instances.GetAmberAlert("30804");
+             var response = await AppApiManager.Instances.GetAmberAlert("30804");
+             var response1 = await AppApiManager.Instances.SearchAmberAlerts("80007,80010");
         }
         public async void GetMyLoves()
         {
@@ -607,7 +608,7 @@ namespace q5id.guardian.ViewModels
 #if DEBUG
         private void MockAdditionalInformation(ref AmberAlert AmberAlertInfo)
         {            
-            AmberAlertInfo.AmberAlertId = "1";
+            AmberAlertInfo.AmberAlertId = 1;
             PersonPicture person = new PersonPicture();
             PersonExternalPicture personExternalPicture = new PersonExternalPicture();
             personExternalPicture.Url = "https://guardstdataprodwestus.blob.core.windows.net/datavault/Q5id20_GuardianSBX/688edf5c-643f-46fe-a4f4-4b396801d7d1/b40914ff-f399-458d-add3-d316092b080f/img_aca0233f-c9c2-4e13-9820-68d5168c74d1.jpeg";
@@ -636,13 +637,13 @@ namespace q5id.guardian.ViewModels
 
         public async void GetAlerts()
         {
-            var alerts = new ObservableCollection<object>();
-            
-            List<AlertItemViewModel> listAlertItem = new List<AlertItemViewModel>();
             IsLoading = true;
+            var alerts = new ObservableCollection<object>();
+            List<AlertItemViewModel> listAlertItem = new List<AlertItemViewModel>();
             var userPosition = await Utils.Utils.GetLocalLocation();
             var userLocation = userPosition != null ? new Location(userPosition.Latitude, userPosition.Longitude) : null;
-            var alertsResponse = await Task.WhenAll<List<Alert>>(GetNearbyAlerts(), GetHistoryFeedAlerts());
+            
+            var alertsResponse = await Task.WhenAll(GetNearbyAlerts(), GetHistoryFeedAlerts());
             List<Alert> listAllAlert = new List<Alert>();
             for(int i = 0; i < alertsResponse.Length; i++)
             {
@@ -710,25 +711,24 @@ namespace q5id.guardian.ViewModels
             alerts.Add(amberAlertSection);
 
             //Mock for AmberAlert
-            var amberAlert1 = new AmberAlert();
-            MockAdditionalInformation(ref amberAlert1);
+           // var amberAlert1 = new AmberAlert();
+           // MockAdditionalInformation(ref amberAlert1);
 
-            alerts.Add(new AmberAlertItemViewModel(amberAlert1)
-            {
-                IsAmberAlert = true,
-                OnUpdateItemAction = OnUpdateItemList,
-                OnUpdateExpanded = OnAmberAlertItemExpandedUpdate
-            });
+            //alerts.Add(new AmberAlertItemViewModel(amberAlert1)
+            //{
+            //    IsExpanded = true,
+            //    OnUpdateItemAction = OnUpdateItemList,
+            //    OnUpdateExpanded = OnAmberAlertItemExpandedUpdate
+            //}); 
 
-            //foreach (var item in record)
-            //{                
-            //    alerts.Add(new AlertItemViewModel(item)
-            //    {
-            //        IsAmberAlert = true,
-            //        OnUpdateItemAction = OnUpdateItemList,
-            //        OnUpdateExpanded = OnItemExpandedUpdate,
-            //    });
-            //}
+             foreach (var item in record)
+             {
+                alerts.Add(new AmberAlertItemViewModel(item)
+                {
+                    OnUpdateItemAction = OnUpdateItemList,
+                    OnUpdateExpanded = OnAmberAlertItemExpandedUpdate
+                });
+            }
 
             alerts.Add(historyHeaderItem);
             foreach (AlertItemViewModel item in listHistoryItem)
@@ -753,29 +753,30 @@ namespace q5id.guardian.ViewModels
             return new List<Alert>();
         }
 
-        private async Task<List<Alert>> GetAmberAlerts()
+        private async Task<List<AmberAlert>> GetAmberAlerts()
         {
             var currentUserPosition = await Utils.Utils.GetLocalLocation();
             if (currentUserPosition != null)
             {
-                var response = await AppApiManager.Instances.GetNearbyListAlert(currentUserPosition.Latitude, currentUserPosition.Longitude, Utils.Constansts.KM_DEFAULT_MAP_ZOOM_DISTANCT);
+
+                var response = await AppApiManager.Instances.SearchAmberAlerts("80007,80010");
                 if (response.IsSuccess && response.ResponseObject != null)
                 {
-                    return response.ResponseObject;
+                    return response.ResponseObject.Result;
                 }
             }
-            return new List<Alert>();
+            return new List<AmberAlert>();
         }
 
-        private async Task<List<Alert>> GetMyAlerts()
-        {
-            var response = await AppApiManager.Instances.GetListAlert();
-            if (response.IsSuccess && response.ResponseObject != null)
-            {
-                return response.ResponseObject;
-            }
-            return new List<Alert>();
-        }
+        //private async Task<List<Alert>> GetMyAlerts()
+        //{
+        //    var response = await AppApiManager.Instances.GetListAlert();
+        //    if (response.IsSuccess && response.ResponseObject != null)
+        //    {
+        //        return response.ResponseObject;
+        //    }
+        //    return new List<Alert>();
+        //}
 
         private async Task<List<Alert>> GetHistoryFeedAlerts()
         {

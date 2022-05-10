@@ -74,12 +74,19 @@ namespace q5id.guardian.Services
                 }
             }
         }
-        public async Task GetAmberAlert(string amberId)
+        public async Task<ApiResponse<AppServiceResponse<List<AmberAlert>>>> GetAmberAlert(string amberId)
         {
             var cts = new CancellationTokenSource();
             var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).GetAmberAlert(amberId, cts.Token));
             runningTasks.Add(task.Id, cts);
-            var respo= await task;
+            return await task;
+        }
+        public async Task<ApiResponse<AppServiceResponse<List<AmberAlert>>>> SearchAmberAlerts(string zipCodes)
+        {
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync(q5idApi.GetApi(Priority.UserInitiated).SearchAmberAlerts(zipCodes, cts.Token));
+            runningTasks.Add(task.Id, cts);
+            return await task;
         }
         public async Task<ApiResponse<List<Choice>>> GetChoices()
         {

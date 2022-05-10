@@ -44,7 +44,7 @@
                                             VerticalOptions="Fill"
                                             Aspect="AspectFill"
 			                                DownsampleToViewSize="true"
-			                                Source="{Binding Model.Love.Image}">
+			                                 Source="{Binding Model.MissingPersons[0].Picture[0].ExternalPicture.Url}">
 		                                </ffimageloading:CachedImage>
                                     </Frame>
                                     <StackLayout Orientation="Vertical"
@@ -58,10 +58,10 @@
                                             Style="{StaticResource lbSubheadSm}">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span FontSize="16" Text="{Binding Model.Love.FullName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                    <Span FontSize="16" Text=" age " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
-                                                    <Span FontSize="16" Text="{Binding Model.Love.Age}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
-                                                </FormattedString>
+                                            <Span Text="{Binding Model.MissingPersons[0].GivenName}"/>
+                                            <Span Text=" age " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                            <Span Text="{Binding Model.MissingPersons[0].Age}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}"/>
+                                        </FormattedString>
                                             </Label.FormattedText>    
                                         </Label>
                                         <Grid VerticalOptions="Start"
@@ -86,7 +86,7 @@
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Eyes: "/>
-                                                        <Span FontSize="12" Text="{Binding Model.Love.EyeColorName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="{Binding Model.MissingPersons[0].EyeColor}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>    
                                             </Label>
@@ -100,11 +100,8 @@
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Height: "/>
-                                                        <Span FontSize="12" Text="{Binding Model.Love.HeightFeetName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                        <Span FontSize="12" Text="’ " FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                        <Span FontSize="12" Text="{Binding Model.Love.HeightInchesName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                        <Span FontSize="12" Text="”" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
-                                                    </FormattedString>
+                                                <Span FontSize="12"  Text="{Binding Model.MissingPersons[0].Height}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                            </FormattedString>
                                                 </Label.FormattedText>    
                                             </Label>
                                             <Label
@@ -118,7 +115,7 @@
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Hair: "/>
-                                                        <Span FontSize="12" Text="{Binding Model.Love.HairColorName}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="{Binding Model.MissingPersons[0].HairColor}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>    
                                             </Label>
@@ -133,7 +130,7 @@
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span FontSize="12" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsRegular}" Text="Weight: "/>
-                                                        <Span FontSize="12" Text="{Binding Model.Love.Weight}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
+                                                        <Span FontSize="12" Text="{Binding Model.MissingPersons[0].Weight}" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                         <Span FontSize="12" Text=" lbs" FontFamily="{x:Static util:ThemeConstanst.FontPoppinsBold}"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>    
@@ -155,7 +152,7 @@
                                     <Label
                                         HorizontalOptions="Fill"
                                         LineBreakMode="WordWrap"
-                                        Text="{Binding Model.Love.Detail}"
+                                        Text="{Binding Model.MissingPersons[0].Description}"
                                         Style="{StaticResource lbBodyNormalMd}">  
                                     </Label>
                                     <Grid Margin="0,15,0,0">
@@ -180,7 +177,7 @@
                                                 VerticalOptions="Fill"
                                                 Aspect="AspectFill"
 			                                    DownsampleToViewSize="true"
-			                                    Source="{Binding Model.Love.Image2}">
+			                                    Source="{Binding Model.MissingPersons[0].Picture[0].ExternalPicture.Url}">
 		                                    </ffimageloading:CachedImage>
                                         </control:AppRatioGrid>
                                         <control:AppRatioGrid
@@ -597,7 +594,8 @@
                                                      Glyph="{x:Static util:FontAwesomeIcons.ChevronUp}"
                                                      Color="#4D838699" />
                                 </Image.Source>
-                            </Image>
+                        
+                    </Image>
                         </Grid>
                 </StackLayout>
             </Frame>

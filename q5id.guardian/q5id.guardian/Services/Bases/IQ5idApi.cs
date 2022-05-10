@@ -99,7 +99,9 @@ namespace q5id.guardian.Services.Bases
         Task<HttpResponseMessage> GetPlaceDetails([Refit.AliasAs("placeid")] string placeId, CancellationToken cancellationToken);
         
         [Get("/AmberAlert")]
-        Task<AmberAlert> GetAmberAlert([Refit.AliasAs("amberAlertId")] string amberAlertId, CancellationToken cancellationToken);
-       
+        Task<AppServiceResponse<List<AmberAlert>>> GetAmberAlert([Refit.AliasAs("amberAlertId")] string amberAlertId, CancellationToken cancellationToken);
+        [Get("/AmberAlert/Search")]
+        Task<AppServiceResponse<List<AmberAlert>>> SearchAmberAlerts([Refit.AliasAs("zipCodes")] string zipCodes, CancellationToken cancellationToken);
+
     }
 }

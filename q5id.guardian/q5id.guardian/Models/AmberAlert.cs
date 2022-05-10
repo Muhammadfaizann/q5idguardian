@@ -3,9 +3,19 @@ using System.Collections.Generic;
 
 namespace q5id.guardian.Models
 {
+    //public class AmberAlert
+    //{
+    //    public string Id { get; set; }
+    //    public int AmberAlertId { get; set; }
+    //    public DateTime MessageTimestamp { get; set; }
+    //    public string ZipCode { get; set; }
+    //    public AmberAlertTypeFullMessage FullMessage { get; set; }
+    //}
     public class AmberAlert
     {
-        public string AmberAlertId { get; set; }
+        public int AmberAlertId { get; set; }
+        // CosmosDB Prop
+        public string id { get; set; }
         public string Circumstance { get; set; }
         public DateTime LastSeenDate { get; set; }
         public string LastSeenAddress { get; set; }
@@ -14,7 +24,13 @@ namespace q5id.guardian.Models
         public AmberAlertPerson[] MissingPersons { get; set; }
         public AmberAlertPerson[] Companions { get; set; }
         public AmberAlertPerson[] Suspects { get; set; }
-
+        public SuspectVehicle[] Vehicles { get; set; }
+        public string State { get; set; }
+        public string County { get; set; }
+        //This is for when the object gets saved to Cosmos, and when returned on query, it has 1+ zipcodes
+        public string[] ZipCodes { get; set; }
+        //this is for when we search by zip in Cosmos, it only returns one.
+        public string ZipCode { get; set; }
     }
     public class AmberAlertPerson
     {
@@ -41,6 +57,19 @@ namespace q5id.guardian.Models
         public PersonEmbeddedPicture EmbeddedPicture { get; set; }
         public PersonExternalPicture ExternalPicture { get; set; }
     }
+    public class SuspectVehicle
+    {
+        public string Make { get; set; }
+        public string Model { get; set; }
+        public string Year { get; set; }
+        public string Style { get; set; }
+        public string PrimaryColor { get; set; }
+        public string SecondaryColor { get; set; }
+        public string InteriorColor { get; set; }
+        public string LicensePlateText { get; set; }
+        public string LicensePlateState { get; set; }
+        public string Description { get; set; }
+    }
     public class PersonEmbeddedPicture
     {
         public int Height { get; set; }
@@ -53,5 +82,4 @@ namespace q5id.guardian.Models
         public int Width { get; set; }
         public string Url { get; set; }
     }
-
 }

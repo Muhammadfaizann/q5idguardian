@@ -18,17 +18,24 @@ namespace q5id.guardian.Selectors
             {
                 return HeaderGroupTemplate;
             }
-            if(item is AlertItemViewModel alertItemViewModel)
+            else if(item is AlertItemViewModel alertItemViewModel)
             {
-                if (alertItemViewModel.IsAmberAlert && alertItemViewModel.IsExpanded)
-                {
-                    return ItemAmberAlertExpandedTemplate;
-                }
-                else if (alertItemViewModel.IsExpanded)
+                if (alertItemViewModel.IsExpanded)
                 {
                     return ItemExpandedTemplate;
                 }
-                else if (alertItemViewModel.IsAmberAlert)
+                else 
+                {
+                    return ItemTemplate;
+                }
+            }
+            else if (item is AmberAlertItemViewModel amberAlertItemViewModel)
+            {
+                if(amberAlertItemViewModel.IsExpanded)
+                {
+                    return ItemAmberAlertExpandedTemplate;
+                }
+                else
                 {
                     return ItemAmberAlertTemplate;
                 }
